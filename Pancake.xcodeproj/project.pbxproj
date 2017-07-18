@@ -6,9 +6,19 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		EE94519A1F1EA4C70098E1DA /* _Others.c in Sources */ = {isa = PBXBuildFile; fileRef = EECC76C31F1CF11D004F1A9E /* _Others.c */; };
+		EED717CA1F1ACB36002BDE82 /* Factory.c in Sources */ = {isa = PBXBuildFile; fileRef = EED717C81F1ACB36002BDE82 /* Factory.c */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
-		EE61584C1F191A6900D275CC /* Pancake.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Pancake.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE61584C1F191A6900D275CC /* Pancake.driver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Pancake.driver; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE61584F1F191A6900D275CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EECC76C31F1CF11D004F1A9E /* _Others.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = _Others.c; sourceTree = "<group>"; };
+		EECC76C41F1CF11D004F1A9E /* _Others.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Others.h; sourceTree = "<group>"; };
+		EECC76C61F1CF140004F1A9E /* Pancake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pancake.h; sourceTree = "<group>"; };
+		EED717C81F1ACB36002BDE82 /* Factory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Factory.c; sourceTree = "<group>"; };
+		EED717C91F1ACB36002BDE82 /* Factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Factory.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,7 +43,7 @@
 		EE61584D1F191A6900D275CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EE61584C1F191A6900D275CC /* Pancake.bundle */,
+				EE61584C1F191A6900D275CC /* Pancake.driver */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -41,6 +51,11 @@
 		EE61584E1F191A6900D275CC /* Pancake */ = {
 			isa = PBXGroup;
 			children = (
+				EECC76C61F1CF140004F1A9E /* Pancake.h */,
+				EED717C91F1ACB36002BDE82 /* Factory.h */,
+				EED717C81F1ACB36002BDE82 /* Factory.c */,
+				EECC76C41F1CF11D004F1A9E /* _Others.h */,
+				EECC76C31F1CF11D004F1A9E /* _Others.c */,
 				EE61584F1F191A6900D275CC /* Info.plist */,
 			);
 			path = Pancake;
@@ -53,6 +68,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE6158521F191A6900D275CC /* Build configuration list for PBXNativeTarget "Pancake" */;
 			buildPhases = (
+				EE6158551F191C8E00D275CC /* Validate Driver UUID */,
 				EE6158481F191A6900D275CC /* Sources */,
 				EE6158491F191A6900D275CC /* Frameworks */,
 				EE61584A1F191A6900D275CC /* Resources */,
@@ -63,7 +79,7 @@
 			);
 			name = Pancake;
 			productName = Pancake;
-			productReference = EE61584C1F191A6900D275CC /* Pancake.bundle */;
+			productReference = EE61584C1F191A6900D275CC /* Pancake.driver */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -78,7 +94,7 @@
 					EE61584B1F191A6900D275CC = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = JGMFM42JM6;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -109,11 +125,30 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		EE6158551F191C8E00D275CC /* Validate Driver UUID */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Validate Driver UUID";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"${PANCAKE_DRIVER_UUID}\" = 'none' ]; then\n    echo 'Build Settings:0: error: \"PANCAKE_DRIVER_UUID\" is not set. Generate your own Driver UUID with `uuidgen`.'\n    exit 1\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		EE6158481F191A6900D275CC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE94519A1F1EA4C70098E1DA /* _Others.c in Sources */,
+				EED717CA1F1ACB36002BDE82 /* Factory.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,7 +161,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -142,9 +177,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -157,6 +191,8 @@
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;
+				GCC_WARN_SHADOW = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
@@ -174,7 +210,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -190,7 +226,6 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -199,6 +234,8 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;
+				GCC_WARN_SHADOW = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
@@ -212,28 +249,42 @@
 		EE6158531F191A6900D275CC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				DEPLOYMENT_LOCATION = YES;
 				DEVELOPMENT_TEAM = JGMFM42JM6;
+				DSTROOT = "";
+				INFOPLIST_EXPAND_BUILD_SETTINGS = YES;
 				INFOPLIST_FILE = Pancake/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				PRODUCT_BUNDLE_IDENTIFIER = zerob.mxa.Pancake;
+				INSTALL_GROUP = wheel;
+				INSTALL_OWNER = root;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Audio/Plug-Ins/HAL";
+				PANCAKE_DRIVER_UUID = 123;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.0bmxa.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = bundle;
+				SKIP_INSTALL = NO;
+				STRIP_INSTALLED_PRODUCT = NO;
+				WRAPPER_EXTENSION = driver;
 			};
 			name = Debug;
 		};
 		EE6158541F191A6900D275CC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				DEPLOYMENT_LOCATION = YES;
 				DEVELOPMENT_TEAM = JGMFM42JM6;
+				DSTROOT = "";
+				INFOPLIST_EXPAND_BUILD_SETTINGS = YES;
 				INFOPLIST_FILE = Pancake/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				PRODUCT_BUNDLE_IDENTIFIER = zerob.mxa.Pancake;
+				INSTALL_GROUP = wheel;
+				INSTALL_OWNER = root;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Audio/Plug-Ins/HAL";
+				PANCAKE_DRIVER_UUID = 123;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.0bmxa.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = bundle;
+				SKIP_INSTALL = NO;
+				STRIP_INSTALLED_PRODUCT = NO;
+				WRAPPER_EXTENSION = driver;
 			};
 			name = Release;
 		};
@@ -256,6 +307,7 @@
 				EE6158541F191A6900D275CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
