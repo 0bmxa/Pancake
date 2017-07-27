@@ -22,17 +22,17 @@
 	<string>Copyright © 2017 Maximilian Heim. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
 	<string></string>
+	<key>CFPlugInDynamicRegistration</key>
+	<string>NO</string>
+	<key>CFPlugInFactories</key>
+	<dict>
+		<key>1234</key>
+		<string>Pancake_Create</string>
+	</dict>
 	<key>CFPlugInTypes</key>
 	<dict>
 		<key>443ABAB8-E7B3-491A-B985-BEB9187030DB</key>
-		<array>
-			<string>610B2993-F0ED-4C03-81F6-C962039FE6A4</string>
-		</array>
-	</dict>
-	<key>CFPlugInFactories</key>
-	<dict>
-		<key>610B2993-F0ED-4C03-81F6-C962039FE6A4</key>
-		<string>Pancake_Create</string>
+		<string>1234</string>
 	</dict>
 </dict>
 </plist>

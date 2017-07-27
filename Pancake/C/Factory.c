@@ -52,6 +52,9 @@ void* Pancake_Create(CFAllocatorRef inAllocator, CFUUIDRef inRequestedTypeUUID)
 }
 
 
+void CFPlugInDynamicRegister(CFPlugInRef bundle) {
+    abort();
+}
 
 
 
