@@ -8,7 +8,5 @@
 
 #include <CoreAudio/AudioServerPlugIn.h>
 
-//void* Pancake_Create(CFAllocatorRef, CFUUIDRef);
-
-void CFPlugInDynamicRegister(CFPlugInRef);
+void* Pancake_Create(CFAllocatorRef, CFUUIDRef);
 

@@ -7,14 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EE03B3751F21754B00BBD432 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9451D41F210AF90098E1DA /* Factory.swift */; };
 		EE03B3761F2175A700BBD432 /* libswiftCore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9451B91F2102860098E1DA /* libswiftCore.tbd */; };
 		EE9451D51F210B170098E1DA /* Factory.c in Sources */ = {isa = PBXBuildFile; fileRef = EE9451C91F210AF90098E1DA /* Factory.c */; };
-		EE9451D61F210B170098E1DA /* _Others.c in Sources */ = {isa = PBXBuildFile; fileRef = EE9451C71F210AF90098E1DA /* _Others.c */; };
-		EEA7AE771F21767000C6BE58 /* EntryPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9451CF1F210AF90098E1DA /* EntryPoint.m */; };
-		EEABB1481F28CD8D008D01F3 /* FactoryBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEABB1471F28CD8D008D01F3 /* FactoryBridge.swift */; };
-		EEABB14B1F28D82E008D01F3 /* _Others.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9451CD1F210AF90098E1DA /* _Others.swift */; };
-		EEABB14E1F2A2316008D01F3 /* AudioServerPlugInDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9451D31F210AF90098E1DA /* AudioServerPlugInDriver.swift */; };
+		EE9451D61F210B170098E1DA /* DriverInterface.c in Sources */ = {isa = PBXBuildFile; fileRef = EE9451C71F210AF90098E1DA /* DriverInterface.c */; };
+		EEABB1681F2B92A0008D01F3 /* AudioServerPlugInDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEABB1671F2B92A0008D01F3 /* AudioServerPlugInDriver.swift */; };
+		EEABB1771F2D36E8008D01F3 /* Factory.c in Sources */ = {isa = PBXBuildFile; fileRef = EEABB1541F2A4575008D01F3 /* Factory.c */; };
+		EEABB1781F2D371E008D01F3 /* SwiftBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = EEABB1521F2A4575008D01F3 /* SwiftBridge.m */; };
+		EEABB1791F2D3721008D01F3 /* ObjCBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEABB1591F2A45A7008D01F3 /* ObjCBridge.swift */; };
+		EEABB17B1F2D3769008D01F3 /* DriverInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEABB17A1F2D3769008D01F3 /* DriverInterface.swift */; };
+		EEABB17C1F2D3802008D01F3 /* more.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEABB15F1F2A6D36008D01F3 /* more.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,21 +23,28 @@
 		EE61584F1F191A6900D275CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE9451A51F20DF550098E1DA /* Pancake.driver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Pancake.driver; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE9451B91F2102860098E1DA /* libswiftCore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftCore.tbd; path = System/Library/PrivateFrameworks/Swift/libswiftCore.tbd; sourceTree = SDKROOT; };
-		EE9451C71F210AF90098E1DA /* _Others.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = _Others.c; sourceTree = "<group>"; };
-		EE9451C81F210AF90098E1DA /* _Others.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _Others.h; sourceTree = "<group>"; };
+		EE9451C71F210AF90098E1DA /* DriverInterface.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = DriverInterface.c; sourceTree = "<group>"; };
+		EE9451C81F210AF90098E1DA /* DriverInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DriverInterface.h; sourceTree = "<group>"; };
 		EE9451C91F210AF90098E1DA /* Factory.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Factory.c; sourceTree = "<group>"; };
 		EE9451CA1F210AF90098E1DA /* Factory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Factory.h; sourceTree = "<group>"; };
 		EE9451CB1F210AF90098E1DA /* Pancake.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pancake.h; sourceTree = "<group>"; };
-		EE9451CD1F210AF90098E1DA /* _Others.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Others.swift; sourceTree = "<group>"; };
-		EE9451CE1F210AF90098E1DA /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
-		EE9451CF1F210AF90098E1DA /* EntryPoint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EntryPoint.m; sourceTree = "<group>"; };
-		EE9451D01F210AF90098E1DA /* EntryPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EntryPoint.h; sourceTree = "<group>"; };
-		EE9451D21F210AF90098E1DA /* AudioServerPlugIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioServerPlugIn.swift; sourceTree = "<group>"; };
-		EE9451D31F210AF90098E1DA /* AudioServerPlugInDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioServerPlugInDriver.swift; sourceTree = "<group>"; };
-		EE9451D41F210AF90098E1DA /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		EEABB1431F277E05008D01F3 /* DynamicRegistration.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = DynamicRegistration.c; path = Pancake/DynamicRegistration.c; sourceTree = SOURCE_ROOT; };
 		EEABB1441F277E05008D01F3 /* DynamicRegistration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DynamicRegistration.h; path = Pancake/DynamicRegistration.h; sourceTree = SOURCE_ROOT; };
-		EEABB1471F28CD8D008D01F3 /* FactoryBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryBridge.swift; sourceTree = "<group>"; };
+		EEABB1521F2A4575008D01F3 /* SwiftBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwiftBridge.m; sourceTree = "<group>"; };
+		EEABB1531F2A4575008D01F3 /* SwiftBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftBridge.h; sourceTree = "<group>"; };
+		EEABB1541F2A4575008D01F3 /* Factory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Factory.c; sourceTree = "<group>"; };
+		EEABB1551F2A4575008D01F3 /* Factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Factory.h; sourceTree = "<group>"; };
+		EEABB1591F2A45A7008D01F3 /* ObjCBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCBridge.swift; sourceTree = "<group>"; };
+		EEABB15F1F2A6D36008D01F3 /* more.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = more.swift; sourceTree = "<group>"; };
+		EEABB1671F2B92A0008D01F3 /* AudioServerPlugInDriver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioServerPlugInDriver.swift; sourceTree = "<group>"; };
+		EEABB16F1F2D36D5008D01F3 /* AudioServerPlugInDriverRef.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = AudioServerPlugInDriverRef.c; sourceTree = "<group>"; };
+		EEABB1701F2D36D5008D01F3 /* AudioServerPlugInDriverRef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioServerPlugInDriverRef.h; sourceTree = "<group>"; };
+		EEABB1711F2D36D5008D01F3 /* DriverInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverInterface.swift; sourceTree = "<group>"; };
+		EEABB1731F2D36D5008D01F3 /* AudioServerPlugIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioServerPlugIn.swift; sourceTree = "<group>"; };
+		EEABB1741F2D36D5008D01F3 /* AudioServerPlugInDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioServerPlugInDriver.swift; sourceTree = "<group>"; };
+		EEABB1751F2D36D5008D01F3 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
+		EEABB1761F2D36D5008D01F3 /* Pancake Swift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pancake Swift-Bridging-Header.h"; sourceTree = "<group>"; };
+		EEABB17A1F2D3769008D01F3 /* DriverInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverInterface.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +90,8 @@
 				EEABB1441F277E05008D01F3 /* DynamicRegistration.h */,
 				EEABB1431F277E05008D01F3 /* DynamicRegistration.c */,
 				EE9451C61F210AF90098E1DA /* C */,
-				EE9451CC1F210AF90098E1DA /* Swift */,
+				EEABB1511F2A4575008D01F3 /* Swift_Bridged */,
+				EEABB16E1F2D36D5008D01F3 /* Swift_Direct */,
 				EE61584F1F191A6900D275CC /* Info.plist */,
 			);
 			path = Pancake;
@@ -102,31 +111,62 @@
 				EE9451CB1F210AF90098E1DA /* Pancake.h */,
 				EE9451CA1F210AF90098E1DA /* Factory.h */,
 				EE9451C91F210AF90098E1DA /* Factory.c */,
-				EE9451C81F210AF90098E1DA /* _Others.h */,
-				EE9451C71F210AF90098E1DA /* _Others.c */,
+				EE9451C81F210AF90098E1DA /* DriverInterface.h */,
+				EE9451C71F210AF90098E1DA /* DriverInterface.c */,
 			);
 			path = C;
 			sourceTree = "<group>";
 		};
-		EE9451CC1F210AF90098E1DA /* Swift */ = {
+		EEABB1511F2A4575008D01F3 /* Swift_Bridged */ = {
 			isa = PBXGroup;
 			children = (
-				EE9451D01F210AF90098E1DA /* EntryPoint.h */,
-				EE9451CF1F210AF90098E1DA /* EntryPoint.m */,
-				EEABB1471F28CD8D008D01F3 /* FactoryBridge.swift */,
-				EE9451D41F210AF90098E1DA /* Factory.swift */,
-				EE9451CD1F210AF90098E1DA /* _Others.swift */,
-				EE9451D11F210AF90098E1DA /* Extensions */,
-				EE9451CE1F210AF90098E1DA /* BridgingHeader.h */,
+				EEABB1551F2A4575008D01F3 /* Factory.h */,
+				EEABB1541F2A4575008D01F3 /* Factory.c */,
+				EEABB15E1F2A6C5E008D01F3 /* DriverInterfaceBridge */,
+				EEABB17A1F2D3769008D01F3 /* DriverInterface.swift */,
+				EEABB15F1F2A6D36008D01F3 /* more.swift */,
+				EEABB1641F2B90F5008D01F3 /* Extensions */,
 			);
+			name = Swift_Bridged;
 			path = Swift;
 			sourceTree = "<group>";
 		};
-		EE9451D11F210AF90098E1DA /* Extensions */ = {
+		EEABB15E1F2A6C5E008D01F3 /* DriverInterfaceBridge */ = {
 			isa = PBXGroup;
 			children = (
-				EE9451D21F210AF90098E1DA /* AudioServerPlugIn.swift */,
-				EE9451D31F210AF90098E1DA /* AudioServerPlugInDriver.swift */,
+				EEABB1531F2A4575008D01F3 /* SwiftBridge.h */,
+				EEABB1521F2A4575008D01F3 /* SwiftBridge.m */,
+				EEABB1591F2A45A7008D01F3 /* ObjCBridge.swift */,
+			);
+			name = DriverInterfaceBridge;
+			sourceTree = "<group>";
+		};
+		EEABB1641F2B90F5008D01F3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				EEABB1671F2B92A0008D01F3 /* AudioServerPlugInDriver.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		EEABB16E1F2D36D5008D01F3 /* Swift_Direct */ = {
+			isa = PBXGroup;
+			children = (
+				EEABB16F1F2D36D5008D01F3 /* AudioServerPlugInDriverRef.c */,
+				EEABB1701F2D36D5008D01F3 /* AudioServerPlugInDriverRef.h */,
+				EEABB1711F2D36D5008D01F3 /* DriverInterface.swift */,
+				EEABB1721F2D36D5008D01F3 /* Extensions */,
+				EEABB1751F2D36D5008D01F3 /* Factory.swift */,
+				EEABB1761F2D36D5008D01F3 /* Pancake Swift-Bridging-Header.h */,
+			);
+			path = Swift_Direct;
+			sourceTree = "<group>";
+		};
+		EEABB1721F2D36D5008D01F3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				EEABB1731F2D36D5008D01F3 /* AudioServerPlugIn.swift */,
+				EEABB1741F2D36D5008D01F3 /* AudioServerPlugInDriver.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -156,10 +196,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE9451A21F20DF550098E1DA /* Build configuration list for PBXNativeTarget "Pancake Swift" */;
 			buildPhases = (
-				EE94519C1F20DF550098E1DA /* Validate Driver UUID */,
 				EE94519D1F20DF550098E1DA /* Sources */,
 				EE9451A01F20DF550098E1DA /* Frameworks */,
 				EE9451A11F20DF550098E1DA /* Resources */,
+				EEABB1631F2B8E24008D01F3 /* Check registered factory method signature */,
 			);
 			buildRules = (
 			);
@@ -241,19 +281,19 @@
 			shellPath = /bin/sh;
 			shellScript = "if [ \"${PANCAKE_DRIVER_UUID}\" = 'none' ]; then\n    echo 'Build Settings:0: error: \"PANCAKE_DRIVER_UUID\" is not set. Generate your own Driver UUID with `uuidgen`.'\n    exit 1\nfi";
 		};
-		EE94519C1F20DF550098E1DA /* Validate Driver UUID */ = {
+		EEABB1631F2B8E24008D01F3 /* Check registered factory method signature */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Validate Driver UUID";
+			name = "Check registered factory method signature";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"${PANCAKE_DRIVER_UUID}\" = 'none' ]; then\n    echo 'Build Settings:0: error: \"PANCAKE_DRIVER_UUID\" is not set. Generate your own Driver UUID with `uuidgen`.'\n    exit 1\nfi";
+			shellScript = "exit\n\nmangledFunctionName=$(nm -gU \"${INSTALL_PATH}/${FULL_PRODUCT_NAME}/Contents/MacOS/Pancake\" | awk '/Pancake_Create/ {print $3}' | sed -e 's/^_//g')\ninfoPlistEntry=$(/usr/libexec/PlistBuddy -c \"print :CFPlugInFactories foobar\" \"${INSTALL_PATH}/${INFOPLIST_PATH}\" | awk '/=/ {print $3}')\n\nif [[ \"$mangledFunctionName\" != \"$infoPlistEntry\" ]]; then\n    MESSAGE=\"Factory function in Info.plist is '${infoPlistEntry}', but method signature in binary product is '${mangledFunctionName}'. Factory funtion may never be called.\"\n    osascript -e \"display dialog \\\"${MESSAGE}\\\" buttons [\\\"OK\\\"] with icon stop\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -262,7 +302,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE9451D61F210B170098E1DA /* _Others.c in Sources */,
+				EE9451D61F210B170098E1DA /* DriverInterface.c in Sources */,
 				EE9451D51F210B170098E1DA /* Factory.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -271,11 +311,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE03B3751F21754B00BBD432 /* Factory.swift in Sources */,
-				EEA7AE771F21767000C6BE58 /* EntryPoint.m in Sources */,
-				EEABB1481F28CD8D008D01F3 /* FactoryBridge.swift in Sources */,
-				EEABB14E1F2A2316008D01F3 /* AudioServerPlugInDriver.swift in Sources */,
-				EEABB14B1F28D82E008D01F3 /* _Others.swift in Sources */,
+				EEABB17C1F2D3802008D01F3 /* more.swift in Sources */,
+				EEABB1771F2D36E8008D01F3 /* Factory.c in Sources */,
+				EEABB1781F2D371E008D01F3 /* SwiftBridge.m in Sources */,
+				EEABB1791F2D3721008D01F3 /* ObjCBridge.swift in Sources */,
+				EEABB17B1F2D3769008D01F3 /* DriverInterface.swift in Sources */,
+				EEABB1681F2B92A0008D01F3 /* AudioServerPlugInDriver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

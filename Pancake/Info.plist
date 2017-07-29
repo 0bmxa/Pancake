@@ -18,14 +18,12 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2017 Maximilian Heim. All rights reserved.</string>
-	<key>NSPrincipalClass</key>
-	<string></string>
 	<key>CFPlugInDynamicRegistration</key>
 	<string>NO</string>
 	<key>CFPlugInFactories</key>
 	<dict>
+		<key>123</key>
+		<string>_TF7Pancake14Pancake_CreateFT9allocatorGSQCSo11CFAllocator_17requestedTypeUUIDGSQCSo6CFUUID__GSqSv_</string>
 		<key>1234</key>
 		<string>Pancake_Create</string>
 	</dict>
@@ -34,5 +32,9 @@
 		<key>443ABAB8-E7B3-491A-B985-BEB9187030DB</key>
 		<string>1234</string>
 	</dict>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2017 Maximilian Heim. All rights reserved.</string>
+	<key>NSPrincipalClass</key>
+	<string></string>
 </dict>
 </plist>

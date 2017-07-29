@@ -1,12 +1,12 @@
 //
-//  _Others.c
+//  DriverInterface.c
 //  Pancake
 //
 //  Created by mxa on 17.07.2017.
 //  Copyright © 2017 mxa. All rights reserved.
 //
 
-#include "_Others.h"
+#include "DriverInterface.h"
 
 #pragma mark Inheritance
 HRESULT     Pancake_QueryInterface(void* __nullable inDriver, REFIID inUUID, LPVOID __nullable * __nullable outInterface) {
