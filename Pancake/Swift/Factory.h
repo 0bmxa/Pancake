@@ -8,6 +8,7 @@
 
 #include <CoreAudio/AudioServerPlugIn.h>
 
+static AudioServerPlugInDriverInterface audioServerPlugInDriverInterface;
 static AudioServerPlugInDriverRef audioServerPlugInDriverRef;
 
 void* Pancake_Create(CFAllocatorRef, CFUUIDRef);

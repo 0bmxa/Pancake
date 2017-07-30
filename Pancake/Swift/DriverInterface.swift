@@ -11,7 +11,13 @@ import CoreAudio.AudioServerPlugIn
 
 // MARK: - Inheritance
 class Pancake {
+    
+    static var driverInterface: UnsafeMutablePointer<AudioServerPlugInDriverInterface>? = nil
+    
     func queryInterface(inDriver: UnsafeMutableRawPointer?, inUUID: REFIID, outInterface: UnsafeMutablePointer<LPVOID?>?) -> HRESULT {
+        guard let inDriver = inDriver else { return -1 }
+        let driver = AudioServerPlugInDriverRef(inDriver)
+        return PancakeInheritance().queryInterface(driver: driver, UUID: inUUID, interface: &outInterface)
         return 0
     }
     static func addRef(inDriver: UnsafeMutableRawPointer?) -> ULONG {

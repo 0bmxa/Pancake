@@ -6,21 +6,24 @@
 //  Copyright © 2017 mxa. All rights reserved.
 //
 
-import Foundation
+import CoreAudio.AudioServerPlugIn
 
-//struct PancakeInheritance {
-//    func queryInterface(driver: UnsafeMutableRawPointer?, UUID: REFIID, interface: UnsafeMutablePointer<LPVOID?>?) -> HRESULT {
-//        
-////        if driver !=
-//        
-//        return 0
-//    }
-//    
-//    func addRef(driver: UnsafeMutableRawPointer?) -> ULONG {
-//        return 0
-//    }
-//    
-//    func release(driver: UnsafeMutableRawPointer?) -> ULONG {
-//        return 0
-//    }
-//}
+struct PancakeInheritance {
+    func queryInterface(driver: AudioServerPlugInDriverRef!, UUID: REFIID, interface: inout UnsafeMutablePointer<UnsafeMutableRawPointer?>!) -> HRESULT {
+
+//        guard let driver = driver else {
+//            fatalError()
+//        }
+        
+        return 0
+    }
+    
+    func addRef(driver: UnsafeMutableRawPointer?) -> ULONG {
+        return 0
+    }
+    
+    func release(driver: UnsafeMutableRawPointer?) -> ULONG {
+        return 0
+    }
+}
+

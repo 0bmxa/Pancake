@@ -36,9 +36,10 @@ import CoreAudio.AudioServerPlugIn
     
     private static let pancake = Pancake()
     
-    public static var driver: AudioServerPlugInDriverRef? {
-        didSet {
-//            pancake.setDriver(driver)
+//    public static var driver: AudioServerPlugInDriverRef? {
+    public static var driver: UnsafeMutablePointer<AudioServerPlugInDriverInterface>? {
+        didSet(newVal) {
+            Pancake.driverInterface = PancakeBridge.driver
         }
     }
 }

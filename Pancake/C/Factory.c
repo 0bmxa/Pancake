@@ -9,7 +9,7 @@
 #include "Factory.h"
 #include "DriverInterface.h"
 
-AudioServerPlugInDriverInterface audioServerPlugInDriverInterface = {
+static AudioServerPlugInDriverInterface audioServerPlugInDriverInterface = {
     NULL,
     Pancake_QueryInterface,
     Pancake_AddRef,
@@ -35,8 +35,8 @@ AudioServerPlugInDriverInterface audioServerPlugInDriverInterface = {
     Pancake_EndIOOperation
 };
 
-AudioServerPlugInDriverInterface *audioServerPlugInDriverInterfacePtr = &audioServerPlugInDriverInterface;
-AudioServerPlugInDriverRef audioServerPlugInDriverRef = &audioServerPlugInDriverInterfacePtr;
+static AudioServerPlugInDriverInterface *audioServerPlugInDriverInterfacePtr = &audioServerPlugInDriverInterface;
+static AudioServerPlugInDriverRef audioServerPlugInDriverRef = &audioServerPlugInDriverInterfacePtr;
 
 void* Pancake_Create(CFAllocatorRef inAllocator, CFUUIDRef inRequestedTypeUUID)
 {
