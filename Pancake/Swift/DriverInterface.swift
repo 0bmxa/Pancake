@@ -8,6 +8,14 @@
 
 import CoreAudio.AudioServerPlugIn
 
+// AudioServerPlugInDriverRef
+//extension UnsafeMutablePointer where Pointee == UnsafeMutablePointer<AudioServerPlugInDriverInterface>? {
+//    init(_ rawPointer: UnsafeMutableRawPointer) {
+//        let opaquePointer = OpaquePointer(rawPointer)
+//        self.init(opaquePointer)
+//    }
+//}
+
 
 // MARK: - Inheritance
 class Pancake {
@@ -15,9 +23,12 @@ class Pancake {
     static var driverInterface: UnsafeMutablePointer<AudioServerPlugInDriverInterface>? = nil
     
     func queryInterface(inDriver: UnsafeMutableRawPointer?, inUUID: REFIID, outInterface: UnsafeMutablePointer<LPVOID?>?) -> HRESULT {
-        guard let inDriver = inDriver else { return -1 }
-        let driver = AudioServerPlugInDriverRef(inDriver)
-        return PancakeInheritance().queryInterface(driver: driver, UUID: inUUID, interface: &outInterface)
+        
+//        let driver = AudioServerPlugInDriverRef(inDriver!)
+//        let driver = AudioServerPlugInDriver(from: inDriver)
+//        let interface = Interface(from: outInterface)!
+//        return PancakeInheritance().queryInterface(driver: driver, UUID: inUUID, interface: interface)
+        
         return 0
     }
     static func addRef(inDriver: UnsafeMutableRawPointer?) -> ULONG {

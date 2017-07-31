@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EE03B3761F2175A700BBD432 /* libswiftCore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9451B91F2102860098E1DA /* libswiftCore.tbd */; };
-		EE9451D51F210B170098E1DA /* Factory.c in Sources */ = {isa = PBXBuildFile; fileRef = EE9451C91F210AF90098E1DA /* Factory.c */; };
-		EE9451D61F210B170098E1DA /* DriverInterface.c in Sources */ = {isa = PBXBuildFile; fileRef = EE9451C71F210AF90098E1DA /* DriverInterface.c */; };
-		EEABB1681F2B92A0008D01F3 /* AudioServerPlugInDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEABB1671F2B92A0008D01F3 /* AudioServerPlugInDriver.swift */; };
+		EE69C38C1F2FC27900381315 /* libswiftCoreFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EE69C38B1F2FC27800381315 /* libswiftCoreFoundation.dylib */; };
+		EE69C3911F2FD7D500381315 /* libswiftCore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EE69C38F1F2FD7D500381315 /* libswiftCore.dylib */; };
+		EE69C3921F2FD7D500381315 /* libswiftDarwin.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EE69C3901F2FD7D500381315 /* libswiftDarwin.dylib */; };
+		EE69C3971F2FD89E00381315 /* libswiftCore.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = EE69C38F1F2FD7D500381315 /* libswiftCore.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		EE69C3981F2FD89E00381315 /* libswiftDarwin.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = EE69C3901F2FD7D500381315 /* libswiftDarwin.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		EE69C3991F2FD89E00381315 /* libswiftCoreFoundation.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = EE69C38B1F2FC27800381315 /* libswiftCoreFoundation.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		EEABB1771F2D36E8008D01F3 /* Factory.c in Sources */ = {isa = PBXBuildFile; fileRef = EEABB1541F2A4575008D01F3 /* Factory.c */; };
 		EEABB1781F2D371E008D01F3 /* SwiftBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = EEABB1521F2A4575008D01F3 /* SwiftBridge.m */; };
 		EEABB1791F2D3721008D01F3 /* ObjCBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEABB1591F2A45A7008D01F3 /* ObjCBridge.swift */; };
@@ -18,11 +20,28 @@
 		EEABB17C1F2D3802008D01F3 /* more.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEABB15F1F2A6D36008D01F3 /* more.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		EE69C3961F2FD88E00381315 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EE69C3971F2FD89E00381315 /* libswiftCore.dylib in CopyFiles */,
+				EE69C3981F2FD89E00381315 /* libswiftDarwin.dylib in CopyFiles */,
+				EE69C3991F2FD89E00381315 /* libswiftCoreFoundation.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		EE61584C1F191A6900D275CC /* Pancake.driver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Pancake.driver; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE61584F1F191A6900D275CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE69C38B1F2FC27800381315 /* libswiftCoreFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftCoreFoundation.dylib; path = "../../../../../../../../Applications/Xcode-beta.app/Contents/Frameworks/libswiftCoreFoundation.dylib"; sourceTree = "<group>"; };
+		EE69C38F1F2FD7D500381315 /* libswiftCore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftCore.dylib; path = "../../../../../../../../Applications/Xcode-beta.app/Contents/Frameworks/libswiftCore.dylib"; sourceTree = "<group>"; };
+		EE69C3901F2FD7D500381315 /* libswiftDarwin.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftDarwin.dylib; path = "../../../../../../../../Applications/Xcode-beta.app/Contents/Frameworks/libswiftDarwin.dylib"; sourceTree = "<group>"; };
 		EE9451A51F20DF550098E1DA /* Pancake.driver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Pancake.driver; sourceTree = BUILT_PRODUCTS_DIR; };
-		EE9451B91F2102860098E1DA /* libswiftCore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftCore.tbd; path = System/Library/PrivateFrameworks/Swift/libswiftCore.tbd; sourceTree = SDKROOT; };
 		EE9451C71F210AF90098E1DA /* DriverInterface.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = DriverInterface.c; sourceTree = "<group>"; };
 		EE9451C81F210AF90098E1DA /* DriverInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DriverInterface.h; sourceTree = "<group>"; };
 		EE9451C91F210AF90098E1DA /* Factory.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Factory.c; sourceTree = "<group>"; };
@@ -59,7 +78,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE03B3761F2175A700BBD432 /* libswiftCore.tbd in Frameworks */,
+				EE69C3911F2FD7D500381315 /* libswiftCore.dylib in Frameworks */,
+				EE69C3921F2FD7D500381315 /* libswiftDarwin.dylib in Frameworks */,
+				EE69C38C1F2FC27900381315 /* libswiftCoreFoundation.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +121,9 @@
 		EE9451B81F2102860098E1DA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EE9451B91F2102860098E1DA /* libswiftCore.tbd */,
+				EE69C38F1F2FD7D500381315 /* libswiftCore.dylib */,
+				EE69C3901F2FD7D500381315 /* libswiftDarwin.dylib */,
+				EE69C38B1F2FC27800381315 /* libswiftCoreFoundation.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -197,6 +220,7 @@
 			buildConfigurationList = EE9451A21F20DF550098E1DA /* Build configuration list for PBXNativeTarget "Pancake Swift" */;
 			buildPhases = (
 				EE94519D1F20DF550098E1DA /* Sources */,
+				EE69C3961F2FD88E00381315 /* CopyFiles */,
 				EE9451A01F20DF550098E1DA /* Frameworks */,
 				EE9451A11F20DF550098E1DA /* Resources */,
 				EEABB1631F2B8E24008D01F3 /* Check registered factory method signature */,
@@ -302,8 +326,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE9451D61F210B170098E1DA /* DriverInterface.c in Sources */,
-				EE9451D51F210B170098E1DA /* Factory.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,7 +338,6 @@
 				EEABB1781F2D371E008D01F3 /* SwiftBridge.m in Sources */,
 				EEABB1791F2D3721008D01F3 /* ObjCBridge.swift in Sources */,
 				EEABB17B1F2D3769008D01F3 /* DriverInterface.swift in Sources */,
-				EEABB1681F2B92A0008D01F3 /* AudioServerPlugInDriver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,6 +480,7 @@
 		EE9451A31F20DF550098E1DA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
@@ -491,6 +513,7 @@
 		EE9451A41F20DF550098E1DA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
