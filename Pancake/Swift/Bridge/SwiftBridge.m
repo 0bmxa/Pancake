@@ -1,12 +1,12 @@
 //
-//  DriverInterface.c
+//  SwiftBridge.m
 //  Pancake
 //
 //  Created by mxa on 17.07.2017.
 //  Copyright © 2017 mxa. All rights reserved.
 //
 
-#include "DriverInterface.h"
+#include "SwiftBridge.h"
 #include "Factory.h"
 #include "Pancake-Swift.h"
 

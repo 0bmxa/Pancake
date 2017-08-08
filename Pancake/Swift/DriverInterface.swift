@@ -23,13 +23,9 @@ class Pancake {
     static var driverInterface: UnsafeMutablePointer<AudioServerPlugInDriverInterface>? = nil
     
     func queryInterface(inDriver: UnsafeMutableRawPointer?, inUUID: REFIID, outInterface: UnsafeMutablePointer<LPVOID?>?) -> HRESULT {
-        
-//        let driver = AudioServerPlugInDriverRef(inDriver!)
-//        let driver = AudioServerPlugInDriver(from: inDriver)
-//        let interface = Interface(from: outInterface)!
-//        return PancakeInheritance().queryInterface(driver: driver, UUID: inUUID, interface: interface)
-        
-        return 0
+        let driver = AudioServerPlugInDriver(from: inDriver)
+        let interface = Interface(from: outInterface)!
+        return PancakeInheritance().queryInterface(driver: driver, UUID: inUUID, interface: interface)
     }
     static func addRef(inDriver: UnsafeMutableRawPointer?) -> ULONG {
         return 0

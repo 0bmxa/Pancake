@@ -7,7 +7,7 @@
 //
 
 #include "Factory.h"
-#include "DriverInterface.h"
+#include "SwiftBridge.h"
 
 static AudioServerPlugInDriverInterface audioServerPlugInDriverInterface = {
     NULL,
