@@ -8,25 +8,34 @@
 
 import CoreAudio.AudioServerPlugIn
 
-// AudioServerPlugInDriverRef
-//extension UnsafeMutablePointer where Pointee == UnsafeMutablePointer<AudioServerPlugInDriverInterface>? {
-//    init(_ rawPointer: UnsafeMutableRawPointer) {
-//        let opaquePointer = OpaquePointer(rawPointer)
-//        self.init(opaquePointer)
-//    }
-//}
-
-
-// MARK: - Inheritance
 class Pancake {
-    
-    static var driverInterface: UnsafeMutablePointer<AudioServerPlugInDriverInterface>? = nil
-    
-    func queryInterface(inDriver: UnsafeMutableRawPointer?, inUUID: REFIID, outInterface: UnsafeMutablePointer<LPVOID?>?) -> HRESULT {
-        let driver = AudioServerPlugInDriver(from: inDriver)
-        let interface = Interface(from: outInterface)!
-        return PancakeInheritance().queryInterface(driver: driver, UUID: inUUID, interface: interface)
+    private static var driverReference: AudioServerPlugInDriverRef? = nil
+    static func setDriverInterface(interfacePointer: AudioServerPlugInDriverRef) {
+        Pancake.driverReference = interfacePointer        
     }
+    
+    
+    // MARK: - Instance setup
+    private let inheritanceManager: PancakeInheritance
+    init() {
+        // TODO: make driverReference an argument to this initializer
+        guard let driverReference = AudioServerPlugInDriver(from: Pancake.driverReference) else {
+            fatalError()
+        }
+        self.inheritanceManager = PancakeInheritance(driverReference: driverReference)
+    }
+    
+    
+    // MARK: - Inheritance
+
+    func queryInterface(inDriver: UnsafeMutableRawPointer?, inUUID: REFIID, outInterface: UnsafeMutablePointer<LPVOID?>?) -> HRESULT {
+        
+        let driver = AudioServerPlugInDriver(from: inDriver)
+        let UUID = CFUUIDCreateFromUUIDBytes(nil, inUUID)
+        let interface = Interface(from: outInterface)
+        return self.inheritanceManager.queryInterface(driver: driver, UUID: UUID, writeTo: interface)
+    }
+    
     static func addRef(inDriver: UnsafeMutableRawPointer?) -> ULONG {
         return 0
     }

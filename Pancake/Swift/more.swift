@@ -8,21 +8,65 @@
 
 import CoreAudio.AudioServerPlugIn
 
-struct Result<T> {
-    let errorCode: HRESULT
-    let result: T
+//struct Result<E, R> {
+//    let errorCode: E
+//    let result: R
+//}
+
+struct AtomicCounter {
+    private var value: UInt = 0
+    private let serialQueue = DispatchQueue(label: "")
+    
+    mutating func increment() {
+        self.value += 1
+    }
+
+    mutating func decrement() {
+        self.value -= 1
+    }
 }
 
-struct PancakeInheritance {
-    func queryInterface(driver: AudioServerPlugInDriver?, UUID: REFIID, interface: Interface) -> HRESULT {
 
-//        let result: Interface? = Interface(from: driver?.rawPointee)
-//        return Result(errorCode: 0, result: result)
+class PancakeInheritance {
+    
+    private let driverReference: AudioServerPlugInDriver
+    private var pluginReferencesCounter: AtomicCounter
+    
+    init(driverReference: AudioServerPlugInDriver) {
+        self.driverReference = driverReference
+        self.pluginReferencesCounter = AtomicCounter()
+    }
 
-        guard let driver = driver else { fatalError() }
-        interface.setPointee(from: driver)
+    /// Finds the interface to talk to the plug-in.
+    /// A AudioServerPlugIn wrapper method.
+    ///
+    /// - Parameters:
+    ///   - driver: The CFPlugIn type to query.
+    ///   - UUID: The UUID of the interface to find.
+    /// - Returns: The returned interface or nil if none was found, and an error code indicating success of failure..
+    func queryInterface(driver: AudioServerPlugInDriver?, UUID: CFUUID?, writeTo outInterface: Interface?) -> HRESULT {
         
-        return 0
+        guard let driver = driver else {
+            return kAudioHardwareBadObjectError
+        }
+        
+        guard driver == self.driverReference else {
+            print(driver, self.driverReference)
+            return kAudioHardwareBadObjectError
+        }
+        
+        guard let interface = outInterface, let UUID = UUID else {
+            return kAudioHardwareIllegalOperationError
+        }
+        
+        guard UUID == kUUID.IUnknown || UUID == kUUID.audioServerPlugInDriverInterface else {
+            return HRESULT.noInterface
+        }
+        
+        self.pluginReferencesCounter.increment()
+        interface.setPointee(from: driver)
+    
+        return HRESULT.ok
     }
     
     func addRef(driver: AudioServerPlugInDriverRef?) -> ULONG {
@@ -51,8 +95,13 @@ struct PancakeInheritance {
 //}
 
 
+func == (lhs: AudioServerPlugInDriver, rhs: AudioServerPlugInDriver) -> Bool {
+    return lhs.driver == rhs.driver
+}
+
+
 class AudioServerPlugInDriver {
-    private var driver: AudioServerPlugInDriverRef
+    fileprivate var driver: AudioServerPlugInDriverRef
     
 //     MARK: - Init
 

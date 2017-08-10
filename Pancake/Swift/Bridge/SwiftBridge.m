@@ -14,9 +14,8 @@
 void setup() {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-//        AudioServerPlugInDriverRef driver = audioServerPlugInDriverRef;
-        AudioServerPlugInDriverInterface *interface = &audioServerPlugInDriverInterface;
-        [PancakeBridge setDriver:interface];
+        AudioServerPlugInDriverInterface *interfacePointer = &audioServerPlugInDriverInterface;
+        [PancakeBridge setDriver:interfacePointer];
     });
 }
 
