@@ -23,7 +23,14 @@ struct kUUID {
 
 // MARK: - From AudioServerPlugIn.h
 
-extension kUUID {
+extension kUUID {    
+    /// The UUID of the plug-in type (443ABAB8-E7B3-491A-B985-BEB9187030DB).
+    static let audioServerPlugInTypeUUID = CFUUIDGetConstantUUIDWithBytes(
+        nil,
+        0x44, 0x3A, 0xBA, 0xB8, 0xE7, 0xB3, 0x49, 0x1A,
+        0xB9, 0x85, 0xBE, 0xB9, 0x18, 0x70, 0x30, 0xDB
+    )
+
     /// The UUID of the driver interface (EEA5773D-CC43-49F1-8E00-8F96E7D23B17).
     static let audioServerPlugInDriverInterface = CFUUIDGetConstantUUIDWithBytes(
         nil,

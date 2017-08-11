@@ -22,10 +22,8 @@
 	<string>NO</string>
 	<key>CFPlugInFactories</key>
 	<dict>
-		<key>123</key>
-		<string>_TF7Pancake14Pancake_CreateFT9allocatorGSQCSo11CFAllocator_17requestedTypeUUIDGSQCSo6CFUUID__GSqSv_</string>
 		<key>1234</key>
-		<string>Pancake_Create</string>
+		<string>_T07Pancake0A7_CreateSvSgSQySo11CFAllocatorCG9allocator_SQySo6CFUUIDCG17requestedTypeUUIDtF</string>
 	</dict>
 	<key>CFPlugInTypes</key>
 	<dict>

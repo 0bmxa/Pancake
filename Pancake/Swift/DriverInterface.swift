@@ -19,7 +19,7 @@ class Pancake {
     private let inheritanceManager: PancakeInheritance
     init() {
         // TODO: make driverReference an argument to this initializer
-        guard let driverReference = AudioServerPlugInDriver(from: Pancake.driverReference) else {
+        guard let driverReference = AudioServerPlugInDriver(from: pancakeDriverReference) else {
             fatalError()
         }
         self.inheritanceManager = PancakeInheritance(driverReference: driverReference)
@@ -32,7 +32,7 @@ class Pancake {
         
         let driver = AudioServerPlugInDriver(from: inDriver)
         let UUID = CFUUIDCreateFromUUIDBytes(nil, inUUID)
-        let interface = Interface(from: outInterface)
+        let interface = PluginInterface(from: outInterface)
         return self.inheritanceManager.queryInterface(driver: driver, UUID: UUID, writeTo: interface)
     }
     
