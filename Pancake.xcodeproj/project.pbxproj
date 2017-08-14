@@ -14,6 +14,7 @@
 		EE762ABB1F3CF4B700E13A13 /* Factory_DriverInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE762ABA1F3CF4B700E13A13 /* Factory_DriverInterface.swift */; };
 		EE8BB2951F3DD68700B3B748 /* AudioServerPlugInDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC7F3361F3DD2870055E91E /* AudioServerPlugInDriver.swift */; };
 		EE8BB2961F3DD69100B3B748 /* PluginInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC7F3371F3DD2870055E91E /* PluginInterface.swift */; };
+		EE8BB2CD1F41FEEF00B3B748 /* FactoryBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8BB2CC1F41FEE900B3B748 /* FactoryBridge.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		EE762AA01F3CA85E00E13A13 /* Defines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Defines.swift; path = Pancake/Swift/Defines.swift; sourceTree = SOURCE_ROOT; };
 		EE762AB61F3CEFCF00E13A13 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		EE762ABA1F3CF4B700E13A13 /* Factory_DriverInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory_DriverInterface.swift; sourceTree = "<group>"; };
+		EE8BB2CB1F41FEE900B3B748 /* FactoryBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FactoryBridge.h; sourceTree = "<group>"; };
+		EE8BB2CC1F41FEE900B3B748 /* FactoryBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FactoryBridge.m; sourceTree = "<group>"; };
 		EEC7F3361F3DD2870055E91E /* AudioServerPlugInDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioServerPlugInDriver.swift; sourceTree = "<group>"; };
 		EEC7F3371F3DD2870055E91E /* PluginInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginInterface.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -72,6 +75,7 @@
 		EE69C3B61F30B71800381315 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				EE8BB2CA1F41FEE900B3B748 /* Bridge */,
 				EE762AB61F3CEFCF00E13A13 /* Factory.swift */,
 				EE762ABA1F3CF4B700E13A13 /* Factory_DriverInterface.swift */,
 				EE69C3B71F30B71800381315 /* Pancake.swift */,
@@ -87,6 +91,15 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EE8BB2CA1F41FEE900B3B748 /* Bridge */ = {
+			isa = PBXGroup;
+			children = (
+				EE8BB2CB1F41FEE900B3B748 /* FactoryBridge.h */,
+				EE8BB2CC1F41FEE900B3B748 /* FactoryBridge.m */,
+			);
+			path = Bridge;
 			sourceTree = "<group>";
 		};
 		EEC7F3351F3DD2870055E91E /* Wrappers */ = {
@@ -175,7 +188,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#exit\n\nmangledFunctionName=$(nm -gU \"${INSTALL_PATH}/${FULL_PRODUCT_NAME}/Contents/MacOS/Pancake\" | awk '/Pancake.*Create/ {print $3}' | sed -e 's/^_//g')\ninfoPlistEntry=$(/usr/libexec/PlistBuddy -c \"print :CFPlugInFactories\" \"${INSTALL_PATH}/${INFOPLIST_PATH}\" | awk '/=/ {print $3}')\n\nif [[ \"$mangledFunctionName\" != \"$infoPlistEntry\" ]]; then\n    MESSAGE=\"Registered factory function (in Info.plist) and method signature (in binary product) differ. Factory funtion may never be called.\\n\\nFactory function:\\n${infoPlistEntry}\\n\\nMethod signature:\\n${mangledFunctionName}\"\n    osascript -e \"display dialog \\\"${MESSAGE}\\\" buttons [\\\"OK\\\"] with icon stop\"\nfi";
+			shellScript = "exit\n\nmangledFunctionName=$(nm -gU \"${INSTALL_PATH}/${FULL_PRODUCT_NAME}/Contents/MacOS/Pancake\" | awk '/Pancake.*Create/ {print $3}' | sed -e 's/^_//g')\ninfoPlistEntry=$(/usr/libexec/PlistBuddy -c \"print :CFPlugInFactories\" \"${INSTALL_PATH}/${INFOPLIST_PATH}\" | awk '/=/ {print $3}')\n\nif [[ \"$mangledFunctionName\" != \"$infoPlistEntry\" ]]; then\n    MESSAGE=\"Registered factory function (in Info.plist) and method signature (in binary product) differ. Factory funtion may never be called.\\n\\nFactory function:\\n${infoPlistEntry}\\n\\nMethod signature:\\n${mangledFunctionName}\"\n    osascript -e \"display dialog \\\"${MESSAGE}\\\" buttons [\\\"OK\\\"] with icon stop\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -191,6 +204,7 @@
 				EE69C3CB1F30BC0E00381315 /* Pancake.swift in Sources */,
 				EE8BB2951F3DD68700B3B748 /* AudioServerPlugInDriver.swift in Sources */,
 				EE762AB71F3CEFCF00E13A13 /* Factory.swift in Sources */,
+				EE8BB2CD1F41FEEF00B3B748 /* FactoryBridge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,6 +334,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Pancake/Swift/Pancake-BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				WRAPPER_EXTENSION = driver;
@@ -348,6 +363,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Pancake/Swift/Pancake-BridgingHeader.h";
 				SWIFT_VERSION = 3.0;
 				WRAPPER_EXTENSION = driver;
 			};

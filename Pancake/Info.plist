@@ -23,7 +23,7 @@
 	<key>CFPlugInFactories</key>
 	<dict>
 		<key>1234</key>
-		<string>_T07Pancake0A7_CreateSvSgSQySo11CFAllocatorCG9allocator_SQySo6CFUUIDCG17requestedTypeUUIDtF</string>
+		<string>Pancake_Create</string>
 	</dict>
 	<key>CFPlugInTypes</key>
 	<dict>
