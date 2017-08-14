@@ -1,5 +1,5 @@
 //
-//  DriverInterface.swift
+//  Pancake.swift
 //  Pancake
 //
 //  Created by mxa on 20.07.2017.
@@ -9,14 +9,8 @@
 import CoreAudio.AudioServerPlugIn
 
 class Pancake {
-    private static var driverReference: AudioServerPlugInDriverRef? = nil
-    static func setDriverInterface(interfacePointer: AudioServerPlugInDriverRef) {
-        Pancake.driverReference = interfacePointer        
-    }
-    
-    
-    // MARK: - Instance setup
     private let inheritanceManager: PancakeInheritance
+    
     init() {
         // TODO: make driverReference an argument to this initializer
         guard let driverReference = AudioServerPlugInDriver(from: pancakeDriverReference) else {

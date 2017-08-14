@@ -8,11 +8,11 @@
 
 import CoreAudio.AudioServerPlugIn
 
-let pancakeiii = Pancake()
+let pancake = Pancake()
 
 // MARK: - Inheritance
 func Pancake_queryInterface(inDriver: UnsafeMutableRawPointer?, inUUID: REFIID, outInterface: UnsafeMutablePointer<LPVOID?>?) -> HRESULT {
-    return pancakeiii.queryInterface(inDriver: inDriver, inUUID: inUUID, outInterface: outInterface)
+    return pancake.queryInterface(inDriver: inDriver, inUUID: inUUID, outInterface: outInterface)
 }
 func Pancake_addRef(inDriver: UnsafeMutableRawPointer?) -> ULONG {
     return Pancake.addRef(inDriver: inDriver)
