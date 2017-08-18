@@ -13,33 +13,11 @@ import CoreAudio.AudioServerPlugIn
 //    let result: R
 //}
 
-struct AtomicCounter {
-    private var value: UInt = 0
-    private let serialQueue = DispatchQueue(label: "")
+
+// MARK: - Inheritance
+
+extension Pancake {
     
-    mutating func increment() {
-        self.serialQueue.sync {
-            self.value += 1
-        }
-    }
-
-    mutating func decrement() {
-        self.serialQueue.sync {
-            self.value -= 1
-        }
-    }
-}
-
-
-class PancakeInheritance {
-    
-    private let driverReference: AudioServerPlugInDriver
-    private var pluginReferencesCounter = AtomicCounter()
-    
-    init(driverReference: AudioServerPlugInDriver) {
-        self.driverReference = driverReference
-    }
-
     /// Finds the interface to talk to the plug-in.
     /// A AudioServerPlugIn wrapper method.
     ///
@@ -48,13 +26,7 @@ class PancakeInheritance {
     ///   - UUID: The UUID of the interface to find.
     /// - Returns: The returned interface or nil if none was found, and an error code indicating success of failure..
     func queryInterface(driver: AudioServerPlugInDriver?, UUID: CFUUID?, writeTo outInterface: PluginInterface?) -> HRESULT {
-        
-        guard let driver = driver else {
-            assertionFailure()
-            return kAudioHardwareBadObjectError
-        }
-        
-        guard driver == self.driverReference else {
+        guard let driver = driver, driver == self.driver else {
             assertionFailure()
             return kAudioHardwareBadObjectError
         }
@@ -69,18 +41,43 @@ class PancakeInheritance {
             return HRESULT.noInterface
         }
         
-        self.pluginReferencesCounter.increment()
+        guard !self.pluginReferenceCounter.maxxedOut else {
+            assertionFailure()
+            return HRESULT.noInterface
+        }
+        
+        self.pluginReferenceCounter.increment()
         interface.setInterfacePointer(from: driver)
-    
+
         return HRESULT.ok
     }
     
-    func addRef(driver: AudioServerPlugInDriverRef?) -> ULONG {
-        return 0
+    
+    /// Increments the reference count and returns it.
+    ///
+    /// - Parameter driver: The driver the call is for.
+    /// - Returns: The reference count after the increment.
+    func addRef(driver: AudioServerPlugInDriver?) -> UInt32 {
+        guard driver == self.driver else {
+            return 0
+        }
+        
+        self.pluginReferenceCounter.increment()
+        return self.pluginReferenceCounter.value
     }
     
-    func release(driver: AudioServerPlugInDriverRef?) -> ULONG {
-        return 0
+    
+    /// Decrements the reference count and returns it.
+    ///
+    /// - Parameter driver: The driver the call is for.
+    /// - Returns: The reference count after the decrement.
+    func release(driver: AudioServerPlugInDriver?) -> UInt32 {
+        guard driver == self.driver else {
+            return 0
+        }
+
+        self.pluginReferenceCounter.decrement()
+        let foo = self.pluginReferenceCounter.value
+        return foo
     }
 }
-

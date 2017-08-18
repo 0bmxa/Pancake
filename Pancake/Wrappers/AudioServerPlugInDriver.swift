@@ -43,6 +43,6 @@ extension AudioServerPlugInDriver {
 }
 
 
-func == (lhs: AudioServerPlugInDriver, rhs: AudioServerPlugInDriver) -> Bool {
-    return lhs.driverRef == rhs.driverRef
+func == (lhs: AudioServerPlugInDriver?, rhs: AudioServerPlugInDriver?) -> Bool {
+    return lhs?.driverRef != nil && (lhs?.driverRef == rhs?.driverRef)
 }

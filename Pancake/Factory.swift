@@ -10,16 +10,18 @@ import Foundation
 import CoreAudio.AudioServerPlugIn
 
 
-// MARK: - Framework
-
+/// The global driver interface
 var pancakeDriverInterface: AudioServerPlugInDriverInterface? = nil
 var pancakeDriverInterfacePointer: UnsafeMutablePointer<AudioServerPlugInDriverInterface>? = nil
 var pancakeDriverReference: AudioServerPlugInDriverRef? = nil
 
+/// The global Pancake instance.
+var pancake: Pancake? = nil
+
+
+/// Wrapper around the create() func, to allow exposing to (Obj)C.
 @objc class PancakeFactory: NSObject {
     @objc static func create(allocator: CFAllocator!, requestedTypeUUID: CFUUID!) -> UnsafeMutableRawPointer? {
-        
-        print("\n\n\nHELLO FROM PANCAKE \\o/\n\n\n")
         
         guard CFEqual(requestedTypeUUID, kUUID.audioServerPlugInTypeUUID) else {
             assertionFailure()
@@ -53,6 +55,8 @@ var pancakeDriverReference: AudioServerPlugInDriverRef? = nil
         )
         pancakeDriverInterfacePointer = withUnsafeMutablePointer(to: &pancakeDriverInterface!) { return $0 }
         pancakeDriverReference = withUnsafeMutablePointer(to: &pancakeDriverInterfacePointer) { return $0 }
+        
+        pancake = Pancake(driverReference: pancakeDriverReference)
         
         return UnsafeMutableRawPointer(pancakeDriverReference)
     }
