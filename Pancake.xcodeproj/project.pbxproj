@@ -154,7 +154,7 @@
 				TargetAttributes = {
 					EE69C3A21F30B69F00381315 = {
 						CreatedOnToolsVersion = 9.0;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -332,7 +332,7 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Pancake/Supporting Files/Pancake-BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = driver;
 			};
 			name = Debug;
@@ -360,7 +360,7 @@
 				SKIP_INSTALL = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Pancake/Supporting Files/Pancake-BridgingHeader.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = driver;
 			};
 			name = Release;
