@@ -8,12 +8,6 @@
 
 import CoreAudio.AudioServerPlugIn
 
-//struct Result<E, R> {
-//    let errorCode: E
-//    let result: R
-//}
-
-
 // MARK: - Inheritance
 
 extension Pancake {
@@ -26,14 +20,10 @@ extension Pancake {
     ///   - UUID: The UUID of the interface to find.
     /// - Returns: The returned interface or nil if none was found, and an error code indicating success of failure..
     func queryInterface(driver: AudioServerPlugInDriver?, UUID: CFUUID?, writeTo outInterface: PluginInterface?) -> HRESULT {
-        guard let driver = driver, driver == self.driver else {
-            assertionFailure()
-            return kAudioHardwareBadObjectError
-        }
-        
+        guard let driver = driver else { return PancakeAudioHardwareError.badObject }
         guard let interface = outInterface, let UUID = UUID else {
             assertionFailure()
-            return kAudioHardwareIllegalOperationError
+            return PancakeAudioHardwareError.illegalOperation
         }
         
         guard UUID == kUUID.IUnknown || UUID == kUUID.audioServerPlugInDriverInterface else {
@@ -58,10 +48,7 @@ extension Pancake {
     /// - Parameter driver: The driver the call is for.
     /// - Returns: The reference count after the increment.
     func addRef(driver: AudioServerPlugInDriver?) -> UInt32 {
-        guard driver == self.driver else {
-            return 0
-        }
-        
+        guard valid(driver) else { return 0 }
         self.pluginReferenceCounter.increment()
         return self.pluginReferenceCounter.value
     }
@@ -72,12 +59,8 @@ extension Pancake {
     /// - Parameter driver: The driver the call is for.
     /// - Returns: The reference count after the decrement.
     func release(driver: AudioServerPlugInDriver?) -> UInt32 {
-        guard driver == self.driver else {
-            return 0
-        }
-
+        guard valid(driver) else { return 0 }
         self.pluginReferenceCounter.decrement()
-        let foo = self.pluginReferenceCounter.value
-        return foo
+        return self.pluginReferenceCounter.value
     }
 }

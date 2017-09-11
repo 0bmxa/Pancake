@@ -21,13 +21,8 @@ class PluginInterface {
         self.pointer = pointer
     }
     
-    //    init?(for driver: AudioServerPlugInDriver?) {
-    //        guard let driver = driver else { return nil }
-    //        self.pointer = driver.
-    //    }
-    
     func setInterfacePointer(from driver: AudioServerPlugInDriver) {
-        self.pointer.pointee = UnsafeMutableRawPointer(driver.interfacePointer)
+        self.pointer.pointee = UnsafeMutableRawPointer(driver.reference)
     }
 }
 

@@ -9,9 +9,10 @@
 import CoreAudio.AudioServerPlugIn
 
 class AudioServerPlugInDriver {
+    private typealias AudioServerPlugInDriverRefPointeeType = UnsafeMutablePointer<AudioServerPlugInDriverInterface>?
     fileprivate var driverRef: AudioServerPlugInDriverRef
     
-    //     MARK: - Init
+    // MARK: - Init
     init?(from driverRef: AudioServerPlugInDriverRef?) {
         guard let driverRef = driverRef else { return nil }
         self.driverRef = driverRef
@@ -19,26 +20,18 @@ class AudioServerPlugInDriver {
     
     init?(from rawPointer: UnsafeMutableRawPointer?) {
         guard let rawPointer = rawPointer else { return nil }
-        let opaquePointer = OpaquePointer(rawPointer)
-        let driverPointer = AudioServerPlugInDriverRef(opaquePointer)
+//        let opaquePointer = OpaquePointer(rawPointer)
+//        let driverPointer = AudioServerPlugInDriverRef(opaquePointer)
+        let driverPointer = rawPointer.assumingMemoryBound(to: AudioServerPlugInDriverRefPointeeType.self)
         self.driverRef = driverPointer
     }
 }
 
 
-    //     MARK: - Accessors
+// MARK: - Accessors
 extension AudioServerPlugInDriver {
-    var interfacePointer: UnsafeMutablePointer<AudioServerPlugInDriverInterface>? {
-        return self.driverRef.pointee
-    }
-    
-    //    var rawPointee: UnsafeMutableRawPointer? {
-    //        return UnsafeMutableRawPointer(self.driver.pointee)
-    //    }
-    
-    var interface: AudioServerPlugInDriverInterface? {
-        guard let pointee = self.driverRef.pointee else { return nil }
-        return pointee.pointee
+    var reference: AudioServerPlugInDriverRef {
+        return self.driverRef
     }
 }
 

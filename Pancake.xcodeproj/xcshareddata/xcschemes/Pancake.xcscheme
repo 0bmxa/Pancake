@@ -44,6 +44,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <PreActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "#osascript -e &apos;do shell script &quot;/usr/local/mxabin/restart-coreaudiod&quot; with administrator privileges&apos;">
+            </ActionContent>
+         </ExecutionAction>
+      </PreActions>
       <PathRunnable
          runnableDebuggingMode = "0"
          FilePath = "/usr/sbin/coreaudiod">

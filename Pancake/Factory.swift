@@ -16,7 +16,7 @@ var pancakeDriverInterfacePointer: UnsafeMutablePointer<AudioServerPlugInDriverI
 var pancakeDriverReference: AudioServerPlugInDriverRef? = nil
 
 /// The global Pancake instance.
-var pancake: Pancake? = nil
+//var Pancake.shared: Pancake! = nil
 
 
 /// Wrapper around the create() func, to allow exposing to (Obj)C.
@@ -56,7 +56,7 @@ var pancake: Pancake? = nil
         pancakeDriverInterfacePointer = withUnsafeMutablePointer(to: &pancakeDriverInterface!) { return $0 }
         pancakeDriverReference = withUnsafeMutablePointer(to: &pancakeDriverInterfacePointer) { return $0 }
         
-        pancake = Pancake(driverReference: pancakeDriverReference)
+        Pancake.setupSharedInstance(driverReference: pancakeDriverReference)
         
         return UnsafeMutableRawPointer(pancakeDriverReference)
     }
