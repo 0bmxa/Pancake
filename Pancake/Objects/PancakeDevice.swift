@@ -15,17 +15,8 @@ class PancakeDevice: PancakeObjectType {
         self.pancake = pancake
     }
     
-    func hasProperty(selector: PancakeAudioObjectPropertySelector) -> Bool {
-        switch selector {
-            
-        default:
-            fatalError()
-            return false
-        }
-    }
-    
     func getProperty(description: PancakeObjectPropertyDescription, sizeHint: UInt32?) throws -> PancakeObjectProperty {
-        print("### PancakePlugin getProperty:", description.selector)
+        print("###", type(of: self), #function, description.selector)
         
         switch description.selector {
         case .objectBaseClass:
@@ -41,7 +32,7 @@ class PancakeDevice: PancakeObjectType {
             
         default:
             print(description)
-            fatalError()
+            assertionFailure()
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
     }

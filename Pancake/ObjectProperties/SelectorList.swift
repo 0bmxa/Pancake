@@ -6,17 +6,13 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import CoreAudio.AudioHardware
-import CoreAudio.AudioHardwareBase
-import CoreAudio.AudioServerPlugIn
+import CoreAudio
 
 enum PancakeAudioObjectID {
     static let unknown = kAudioObjectUnknown
     static let plugin  = kAudioObjectPlugInObject
 }
 
-
-// MARK: - Properties from AudioHardwareBase.h
 
 enum PancakeAudioObject {
     static let classID         = kAudioObjectClassID
@@ -45,13 +41,8 @@ enum PancakeAudioObject {
         static let wildcard               = kAudioObjectPropertySelectorWildcard
 
         // AudioServerPlugin.h
-        static let customPropertyInfoList = kAudioObjectPropertyCustomPropertyInfoList
+        static let customPropertyInfoList = kAudioObjectPropertyCustomPropertyInfoList        
     }
-}
-
-enum PancakeAudioObjectUnknown {
-    // AudioHardwareBase.h
-    static let objectUnknown = kAudioObjectUnknown
 }
 
 
@@ -65,8 +56,8 @@ enum PancakeAudioHardware {
         static let defaultSystemOutputDevice           = kAudioHardwarePropertyDefaultSystemOutputDevice
         static let translateUIDToDevice                = kAudioHardwarePropertyTranslateUIDToDevice
         static let mixStereoToMono                     = kAudioHardwarePropertyMixStereoToMono
-        static let plugInList                          = kAudioHardwarePropertyPlugInList
-        static let translateBundleIDToPlugIn           = kAudioHardwarePropertyTranslateBundleIDToPlugIn
+        static let pluginList                          = kAudioHardwarePropertyPlugInList
+        static let translateBundleIDToPlugin           = kAudioHardwarePropertyTranslateBundleIDToPlugIn
         static let transportManagerList                = kAudioHardwarePropertyTransportManagerList
         static let translateBundleIDToTransportManager = kAudioHardwarePropertyTranslateBundleIDToTransportManager
         static let boxList                             = kAudioHardwarePropertyBoxList
@@ -151,7 +142,7 @@ enum PancakeAudioBox {
     
     enum Selector {
         // AudioHardwareBase.h
-        static let boxUID            = kAudioBoxPropertyBoxUID
+        static let UID               = kAudioBoxPropertyBoxUID
         static let transportType     = kAudioBoxPropertyTransportType
         static let hasAudio          = kAudioBoxPropertyHasAudio
         static let hasVideo          = kAudioBoxPropertyHasVideo
@@ -171,9 +162,9 @@ enum PancakeAudioDevice {
     
     enum Selector {
         // AudioHardware.h
-        static let plugIn                       = kAudioDevicePropertyPlugIn
-        static let deviceHasChanged             = kAudioDevicePropertyDeviceHasChanged
-        static let deviceIsRunningSomewhere     = kAudioDevicePropertyDeviceIsRunningSomewhere
+        static let plugin                       = kAudioDevicePropertyPlugIn
+        static let hasChanged                   = kAudioDevicePropertyDeviceHasChanged
+        static let isRunningSomewhere           = kAudioDevicePropertyDeviceIsRunningSomewhere
         static let processorOverload            = kAudioDeviceProcessorOverload // 🙄
         static let IOStoppedAbnormally          = kAudioDevicePropertyIOStoppedAbnormally
         static let hogMode                      = kAudioDevicePropertyHogMode
@@ -236,15 +227,15 @@ enum PancakeAudioDevice {
         
         // AudioHardwareBase.h
         static let configurationApplication       = kAudioDevicePropertyConfigurationApplication
-        static let deviceUID                      = kAudioDevicePropertyDeviceUID
+        static let UID                            = kAudioDevicePropertyDeviceUID
         static let modelUID                       = kAudioDevicePropertyModelUID
         static let transportType                  = kAudioDevicePropertyTransportType
         static let relatedDevices                 = kAudioDevicePropertyRelatedDevices
         static let clockDomain                    = kAudioDevicePropertyClockDomain
-        static let deviceIsAlive                  = kAudioDevicePropertyDeviceIsAlive
-        static let deviceIsRunning                = kAudioDevicePropertyDeviceIsRunning
-        static let deviceCanBeDefaultDevice       = kAudioDevicePropertyDeviceCanBeDefaultDevice
-        static let deviceCanBeDefaultSystemDevice = kAudioDevicePropertyDeviceCanBeDefaultSystemDevice
+        static let isAlive                        = kAudioDevicePropertyDeviceIsAlive
+        static let isRunning                      = kAudioDevicePropertyDeviceIsRunning
+        static let canBeDefaultDevice             = kAudioDevicePropertyDeviceCanBeDefaultDevice
+        static let canBeDefaultSystemDevice       = kAudioDevicePropertyDeviceCanBeDefaultSystemDevice
         static let latency                        = kAudioDevicePropertyLatency
         static let streams                        = kAudioDevicePropertyStreams
         static let controlList                    = kAudioObjectPropertyControlList // 🙄
@@ -271,11 +262,11 @@ enum PancakeAudioClockDevice {
     
     enum Selector {
         // AudioHardwareBase.h
-        static let deviceUID                   = kAudioClockDevicePropertyDeviceUID
+        static let UID                         = kAudioClockDevicePropertyDeviceUID
         static let transportType               = kAudioClockDevicePropertyTransportType
         static let clockDomain                 = kAudioClockDevicePropertyClockDomain
-        static let deviceIsAlive               = kAudioClockDevicePropertyDeviceIsAlive
-        static let deviceIsRunning             = kAudioClockDevicePropertyDeviceIsRunning
+        static let isAlive                     = kAudioClockDevicePropertyDeviceIsAlive
+        static let isRunning                   = kAudioClockDevicePropertyDeviceIsRunning
         static let latency                     = kAudioClockDevicePropertyLatency
         static let controlList                 = kAudioClockDevicePropertyControlList
         static let nominalSampleRate           = kAudioClockDevicePropertyNominalSampleRate
@@ -439,7 +430,7 @@ extension PancakeAudioLevelControl.Selector {
 extension PancakeAudioHardware.Selector {
     static let runLoop           = kAudioHardwarePropertyRunLoop
     static let deviceForUID      = kAudioHardwarePropertyDeviceForUID
-    static let plugInForBundleID = kAudioHardwarePropertyPlugInForBundleID
+    static let pluginForBundleID = kAudioHardwarePropertyPlugInForBundleID
     
     static let bootChimeVolumeScalar                           = kAudioHardwarePropertyBootChimeVolumeScalar
     static let bootChimeVolumeDecibels                         = kAudioHardwarePropertyBootChimeVolumeDecibels
@@ -501,88 +492,5 @@ enum PancakeAudioClockSourceControl {
     enum Selector {
         static let itemKind = PancakeAudioSelectorControl.Selector.itemKind
     }
-}
-
-
-// MARK: - Scopes
-
-enum PancakeAudioObjectPropertyScope {
-    // AudioHardwareBase.h
-    case global
-    case input
-    case output
-    case playThrough
-    case wildcard
-}
-
-extension PancakeAudioObjectPropertyScope: RawRepresentable {
-    public init?(rawValue: AudioObjectPropertyScope) {
-        switch rawValue {
-        case kAudioObjectPropertyScopeGlobal:      self = .global
-        case kAudioObjectPropertyScopeInput:       self = .input
-        case kAudioObjectPropertyScopeOutput:      self = .output
-        case kAudioObjectPropertyScopePlayThrough: self = .playThrough
-        case kAudioObjectPropertyScopeWildcard:    self = .wildcard
-        default: return nil
-        }
-    }
-    public var rawValue: AudioObjectPropertyScope {
-        switch self {
-        case .global:      return kAudioObjectPropertyScopeGlobal
-        case .input:       return kAudioObjectPropertyScopeInput
-        case .output:      return kAudioObjectPropertyScopeOutput
-        case .playThrough: return kAudioObjectPropertyScopePlayThrough
-        case .wildcard:    return kAudioObjectPropertyScopeWildcard
-        }
-    }
-}
-
-
-// MARK: - Elements
-
-enum PancakeAudioObjectPropertyElement {
-    // AudioHardwareBase.h
-    case master
-    case wildcard
-    case other(AudioObjectPropertyElement)
-}
-
-extension PancakeAudioObjectPropertyElement: RawRepresentable {
-    public init(rawValue: AudioObjectPropertyElement) {
-        switch rawValue {
-        case kAudioObjectPropertyElementMaster:   self = .master
-        case kAudioObjectPropertyElementWildcard: self = .wildcard
-        default:                                  self = .other(rawValue)
-        }
-    }
-    public var rawValue: AudioObjectPropertyElement {
-        switch self {
-        case .master:           return kAudioObjectPropertyElementMaster
-        case .wildcard:         return kAudioObjectPropertyElementWildcard
-        case .other(let value): return value
-        }
-    }
-}
-
-
-// MARK: - Errors
-
-enum PancakeAudioHardwareError {
-    static let noError              = kAudioHardwareNoError
-    static let notRunning           = kAudioHardwareNotRunningError
-    static let unspecified          = kAudioHardwareUnspecifiedError
-    static let unknownProperty      = kAudioHardwareUnknownPropertyError
-    static let badPropertySize      = kAudioHardwareBadPropertySizeError
-    static let illegalOperation     = kAudioHardwareIllegalOperationError
-    static let badObject            = kAudioHardwareBadObjectError
-    static let badDevice            = kAudioHardwareBadDeviceError
-    static let badStream            = kAudioHardwareBadStreamError
-    static let unsupportedOperation = kAudioHardwareUnsupportedOperationError
-}
-
-
-enum PancakeAudioDeviceError {
-    static let unsupportedFormat = kAudioDeviceUnsupportedFormatError
-    static let permissions       = kAudioDevicePermissionsError
 }
 

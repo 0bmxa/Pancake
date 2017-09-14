@@ -17,7 +17,7 @@ class PancakeBaseObject: PancakeObjectType {
     
     
     func getProperty(description: PancakeObjectPropertyDescription, sizeHint: UInt32?) throws -> PancakeObjectProperty {
-        print("### PancakeBaseObject getProperty:", description.selector)
+        print("###", #function, description.selector)
         
         switch description.selector {
         case .objectOwnedObjects:
@@ -66,7 +66,7 @@ class PancakeBaseObject: PancakeObjectType {
             
         default:
             print(description.selector)
-            fatalError()
+            assertionFailure()
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
     }
