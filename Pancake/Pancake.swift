@@ -14,14 +14,14 @@ internal class Pancake {
     internal var pluginReferenceCounter = AtomicCounter<UInt32>()
     internal var configuration: Configuration
 
-    internal let plugin: Plugin
+    internal var plugin: Plugin
     internal let device: Device
     
     init(driverReference: AudioServerPlugInDriverRef?, configuration: Configuration = Configuration.default) {
         self.driver = AudioServerPlugInDriver(from: driverReference)!
         self.configuration = configuration
         
-        self.plugin = Plugin(devices: [PancakeObjectID.device])
+        self.plugin = Plugin()
         self.device = Device()
     }
 
@@ -66,7 +66,7 @@ struct Configuration {
 
 
 struct Plugin {
-    internal var devices = [PancakeObjectID]()
+    internal var devices: [PancakeObjectID] = []
 }
 
 struct Device {

@@ -70,24 +70,25 @@ func Pancake_abortDeviceConfigurationChange(inDriver: AudioServerPlugInDriverRef
 
 func Pancake_hasProperty(inDriver: AudioServerPlugInDriverRef, inObjectID: AudioObjectID, inClientProcessID: pid_t, inAddress: UnsafePointer<AudioObjectPropertyAddress>) -> DarwinBoolean {
     let driver = AudioServerPlugInDriver(from: inDriver)
-    let propertyAddress = PropertyAddress(from: inAddress)
-    let hasProperty = Pancake.shared.hasProperty(driver: driver, objectID: inObjectID, propertyAddress: propertyAddress)
+    let propertyDescription = PancakeObjectPropertyDescription(with: inAddress.pointee)
+    let hasProperty = Pancake.shared.hasProperty(driver: driver, objectID: inObjectID, description: propertyDescription)
     return DarwinBoolean(hasProperty)
 }
-
 func Pancake_isPropertySettable(inDriver: AudioServerPlugInDriverRef, inObjectID: AudioObjectID, inClientProcessID: pid_t, inAddress: UnsafePointer<AudioObjectPropertyAddress>, outIsSettable: UnsafeMutablePointer<DarwinBoolean>) -> OSStatus {
     return Pancake.shared.isPropertySettable(inDriver: inDriver, inObjectID: inObjectID, inClientProcessID: inClientProcessID, inAddress: inAddress, outIsSettable: outIsSettable)
 }
 func Pancake_getPropertyDataSize(inDriver: AudioServerPlugInDriverRef, inObjectID: AudioObjectID, inClientProcessID: pid_t, inAddress: UnsafePointer<AudioObjectPropertyAddress>, inQualifierDataSize: UInt32, inQualifierData: UnsafeRawPointer?, outDataSize: UnsafeMutablePointer<UInt32>) -> OSStatus {
     let driver = AudioServerPlugInDriver(from: inDriver)
-    return Pancake.shared.getPropertyData(driver: driver, objectID: inObjectID, propertyAddress: inAddress, dataSize: nil, outData: nil, outDataSize: outDataSize)
+    let propertyDescription = PancakeObjectPropertyDescription(with: inAddress.pointee)
+    return Pancake.shared.getPropertyData(driver: driver, objectID: inObjectID, description: propertyDescription, dataSize: nil, outData: nil, outDataSize: outDataSize)
 }
 func Pancake_getPropertyData(inDriver: AudioServerPlugInDriverRef, inObjectID: AudioObjectID, inClientProcessID: pid_t, inAddress: UnsafePointer<AudioObjectPropertyAddress>, inQualifierDataSize: UInt32, inQualifierData: UnsafeRawPointer?, inDataSize: UInt32, outDataSize: UnsafeMutablePointer<UInt32>, outData: UnsafeMutableRawPointer) -> OSStatus {
     let driver = AudioServerPlugInDriver(from: inDriver)
-    return Pancake.shared.getPropertyData(driver: driver, objectID: inObjectID, propertyAddress: inAddress, dataSize: inDataSize, outData: outData, outDataSize: outDataSize)
+    let propertyDescription = PancakeObjectPropertyDescription(with: inAddress.pointee)
+    return Pancake.shared.getPropertyData(driver: driver, objectID: inObjectID, description: propertyDescription, dataSize: inDataSize, outData: outData, outDataSize: outDataSize)
 }
 func Pancake_setPropertyData(inDriver: AudioServerPlugInDriverRef, inObjectID: AudioObjectID, inClientProcessID: pid_t, inAddress: UnsafePointer<AudioObjectPropertyAddress>, inQualifierDataSize: UInt32, inQualifierData: UnsafeRawPointer?, inDataSize: UInt32, inData: UnsafeRawPointer) -> OSStatus {
-    return Pancake.shared.setPropertyData(inDriver: inDriver, inObjectID: inObjectID, inClientProcessID: inClientProcessID, inAddress: inAddress, inQualifierDataSize: inQualifierDataSize, inQualifierData: inQualifierData, inDataSize: inDataSize, inData: inData)
+     return Pancake.shared.setPropertyData(inDriver: inDriver, inObjectID: inObjectID, inClientProcessID: inClientProcessID, inAddress: inAddress, inQualifierDataSize: inQualifierDataSize, inQualifierData: inQualifierData, inDataSize: inDataSize, inData: inData)
 }
 
 

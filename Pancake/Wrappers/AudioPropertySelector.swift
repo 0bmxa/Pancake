@@ -9,6 +9,30 @@
 import CoreAudio.AudioHardwareBase
 import CoreAudio.AudioServerPlugIn
 
+// FIXME: update this list with all properties from AudioHardwareBase.swift
+
+typealias PancakeObjectPropertyDescription = PancakeAudioObjectPropertyAddress
+struct PancakeAudioObjectPropertyAddress {
+    let selector: PancakeAudioObjectPropertySelector
+    let scope:    PancakeAudioObjectPropertyScope
+    let element:  PancakeAudioObjectPropertyElement
+    
+    init?(with address: AudioObjectPropertyAddress) {
+        guard
+            let selector = PancakeAudioObjectPropertySelector(from: address.mSelector),
+            let scope    = PancakeAudioObjectPropertyScope(rawValue: address.mScope)
+        else {
+            assertionFailure()
+            return nil
+        }
+        let element  = PancakeAudioObjectPropertyElement(rawValue: address.mElement)
+        
+        self.selector = selector
+        self.scope    = scope
+        self.element  = element
+    }
+}
+
 
 enum PancakeAudioObjectPropertySelector {
     // PancakeAudioObject
@@ -406,3 +430,4 @@ extension PancakeAudioObjectPropertySelector {
         }
     }
 }
+

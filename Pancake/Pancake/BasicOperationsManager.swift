@@ -15,7 +15,7 @@ extension Pancake {
     /// This method is called to initialize the instance of the plug-in.
     /// As part of initialization, the plug-in svarld publish all the objects it knows about at the time.
     ///
-    /// - Parameters:
+    /// - Pvarmeters:
     ///   - driver: The plug-in to initialize.
     ///   - host: A host interface that the plug-in should use for communication with the Host. The Host guarantees that the storage will remain valid for the lifetime of the plug-in.
     /// - Returns: The status of the operation.
@@ -28,6 +28,7 @@ extension Pancake {
 //        self.configuration.box.acquired = host?.copyFromStorage(key: "box aquired").data as? Bool   ?? false
 //        self.configuration.box.name     = host?.copyFromStorage(key: "box name").data as? String ?? "Pancake Box"
 
+        self.plugin.devices.append(PancakeObjectID.device)
         
         // Host ticks per frame
         self.configuration.sampleRate = 44100

@@ -47,22 +47,7 @@ enum PancakeAudioObject {
         // AudioServerPlugin.h
         static let customPropertyInfoList = kAudioObjectPropertyCustomPropertyInfoList
     }
-    
-    enum Scope {
-        // AudioHardwareBase.h
-        static let global      = kAudioObjectPropertyScopeGlobal
-        static let input       = kAudioObjectPropertyScopeInput
-        static let output      = kAudioObjectPropertyScopeOutput
-        static let playThrough = kAudioObjectPropertyScopePlayThrough
-        static let wildcard    = kAudioObjectPropertyScopeWildcard
-    }
-    
-    enum Element {
-        static let master   = kAudioObjectPropertyElementMaster
-        static let wildcard = kAudioObjectPropertyElementWildcard
-    }
 }
-
 
 enum PancakeAudioObjectUnknown {
     // AudioHardwareBase.h
@@ -519,6 +504,67 @@ enum PancakeAudioClockSourceControl {
 }
 
 
+// MARK: - Scopes
+
+enum PancakeAudioObjectPropertyScope {
+    // AudioHardwareBase.h
+    case global
+    case input
+    case output
+    case playThrough
+    case wildcard
+}
+
+extension PancakeAudioObjectPropertyScope: RawRepresentable {
+    public init?(rawValue: AudioObjectPropertyScope) {
+        switch rawValue {
+        case kAudioObjectPropertyScopeGlobal:      self = .global
+        case kAudioObjectPropertyScopeInput:       self = .input
+        case kAudioObjectPropertyScopeOutput:      self = .output
+        case kAudioObjectPropertyScopePlayThrough: self = .playThrough
+        case kAudioObjectPropertyScopeWildcard:    self = .wildcard
+        default: return nil
+        }
+    }
+    public var rawValue: AudioObjectPropertyScope {
+        switch self {
+        case .global:      return kAudioObjectPropertyScopeGlobal
+        case .input:       return kAudioObjectPropertyScopeInput
+        case .output:      return kAudioObjectPropertyScopeOutput
+        case .playThrough: return kAudioObjectPropertyScopePlayThrough
+        case .wildcard:    return kAudioObjectPropertyScopeWildcard
+        }
+    }
+}
+
+
+// MARK: - Elements
+
+enum PancakeAudioObjectPropertyElement {
+    // AudioHardwareBase.h
+    case master
+    case wildcard
+    case other(AudioObjectPropertyElement)
+}
+
+extension PancakeAudioObjectPropertyElement: RawRepresentable {
+    public init(rawValue: AudioObjectPropertyElement) {
+        switch rawValue {
+        case kAudioObjectPropertyElementMaster:   self = .master
+        case kAudioObjectPropertyElementWildcard: self = .wildcard
+        default:                                  self = .other(rawValue)
+        }
+    }
+    public var rawValue: AudioObjectPropertyElement {
+        switch self {
+        case .master:           return kAudioObjectPropertyElementMaster
+        case .wildcard:         return kAudioObjectPropertyElementWildcard
+        case .other(let value): return value
+        }
+    }
+}
+
+
 // MARK: - Errors
 
 enum PancakeAudioHardwareError {
@@ -539,3 +585,4 @@ enum PancakeAudioDeviceError {
     static let unsupportedFormat = kAudioDeviceUnsupportedFormatError
     static let permissions       = kAudioDevicePermissionsError
 }
+

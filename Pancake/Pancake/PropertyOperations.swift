@@ -8,51 +8,51 @@
 
 import CoreAudio.AudioServerPlugIn
 
-class PropertyAddress {
-    let pointer: UnsafePointer<AudioObjectPropertyAddress>
-    
-    init?(from pointer: UnsafePointer<AudioObjectPropertyAddress>?) {
-        guard let pointer = pointer else { return nil }
-        self.pointer = pointer
-    }
-    
-    var element: AudioObjectPropertyElement {
-        return self.pointer.pointee.mElement
-    }
-    
-    var scope: AudioObjectPropertyScope {
-        return self.pointer.pointee.mScope
-    }
-    
-    var selector: PancakeAudioObjectPropertySelector? {
-        return PancakeAudioObjectPropertySelector(from: self.pointer.pointee.mSelector)
-    }
-}
+//class PropertyAddress {
+//    let pointer: UnsafePointer<AudioObjectPropertyAddress>
+//
+//    init?(from pointer: UnsafePointer<AudioObjectPropertyAddress>?) {
+//        guard let pointer = pointer else { return nil }
+//        self.pointer = pointer
+//    }
+//
+//    var element: AudioObjectPropertyElement {
+//        return self.pointer.pointee.mElement
+//    }
+//
+//    var scope: AudioObjectPropertyScope {
+//        return self.pointer.pointee.mScope
+//    }
+//
+//    var selector: PancakeAudioObjectPropertySelector? {
+//        return PancakeAudioObjectPropertySelector(from: self.pointer.pointee.mSelector)
+//    }
+//}
 
 // MARK: - Property Operations
 extension Pancake {
-    func hasProperty(driver: AudioServerPlugInDriver?, objectID: AudioObjectID, propertyAddress: PropertyAddress?) -> Bool {
+    func hasProperty(driver: AudioServerPlugInDriver?, objectID: AudioObjectID, description: PancakeObjectPropertyDescription?) -> Bool {
         guard valid(driver) else { return false }
         guard
-            let selector = propertyAddress?.selector,
-            let pancakeObject = try? MakePancakeObject(for: objectID)
+            let pancakeObject = try? MakePancakeObject(for: objectID),
+            let description = description
         else {
             assertionFailure()
             return false
         }
         
-        return pancakeObject.hasProperty(selector: selector)
+        return pancakeObject.hasProperty(description: description)
     }
     
     func isPropertySettable(inDriver: AudioServerPlugInDriverRef, inObjectID: AudioObjectID, inClientProcessID: pid_t, inAddress: UnsafePointer<AudioObjectPropertyAddress>, outIsSettable: UnsafeMutablePointer<DarwinBoolean>) -> OSStatus {
         fatalError(); //return 0
     }
     
-    func getPropertyData(driver: AudioServerPlugInDriver?, objectID: AudioObjectID, propertyAddress: UnsafePointer<AudioObjectPropertyAddress>?, dataSize: UInt32?, outData: UnsafeMutableRawPointer?, outDataSize: UnsafeMutablePointer<UInt32>?) -> OSStatus {
+    func getPropertyData(driver: AudioServerPlugInDriver?, objectID: AudioObjectID, description: PancakeObjectPropertyDescription?, dataSize: UInt32?, outData: UnsafeMutableRawPointer?, outDataSize: UnsafeMutablePointer<UInt32>?) -> OSStatus {
         guard valid(driver) else { return PancakeAudioHardwareError.badObject }
         
         guard
-            let propertyAddress = propertyAddress?.pointee,
+            let description = description,
             let outDataSize = outDataSize
         else {
             assertionFailure()
@@ -64,7 +64,7 @@ extension Pancake {
         let property: PancakeObjectProperty
         do {
             let pancakeObject = try MakePancakeObject(for: objectID)
-            property = try pancakeObject.getProperty(address: propertyAddress, sizeHint: dataSize)
+            property = try pancakeObject.getProperty(description: description, sizeHint: dataSize)
         } catch {
             return (error as! PancakeObjectPropertyQueryError).status
         }
