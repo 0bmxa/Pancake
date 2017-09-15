@@ -28,13 +28,15 @@ extension Pancake {
 //        self.configuration.box.acquired = host?.copyFromStorage(key: "box aquired").data as? Bool   ?? false
 //        self.configuration.box.name     = host?.copyFromStorage(key: "box name").data as? String ?? "Pancake Box"
 
-        self.plugin.devices.append(PancakeObjectID.device)
+        // Add some initial audio objects
+        self.audioObjects.createObject(type: PancakeDevice.self)
+        self.audioObjects.createObject(type: PancakeBox.self)
         
         // Host ticks per frame
         self.configuration.sampleRate = 44100
         self.updateTicksPerFrame()
         
-        return 0
+        return PancakeAudioHardwareError.noError
     }
     
     private func updateTicksPerFrame() {
@@ -46,9 +48,9 @@ extension Pancake {
 
 
 
-// MARK: - Transport Manager (?) section (NOT IMPLEMENTED)
+// MARK: - Transport Manager methods (NOT IMPLEMENTED)
 extension Pancake {
-    
+    /// (Not supported.)
     /// Tells the plug-in to create a new device based on the given description.
     ///
     /// - Returns: The status of the operation.
@@ -56,6 +58,7 @@ extension Pancake {
         return PancakeAudioHardwareError.unsupportedOperation
     }
     
+    /// (Not supported.)
     /// Called to tell the plug-in about to destroy the given device.
     ///
     /// - Returns: The status of the operation.
@@ -63,6 +66,7 @@ extension Pancake {
         return PancakeAudioHardwareError.unsupportedOperation
     }
     
+    /// (Not supported.)
     /// Called to tell the plug-in about a new client of the Host for a particular device.
     ///
     /// - Returns: The status of the operation.
@@ -70,6 +74,7 @@ extension Pancake {
         return PancakeAudioHardwareError.noError
     }
     
+    /// (Not supported.)
     /// Called to tell the plug-in about a client that is no longer using the device.
     ///
     /// - Returns: The status of the operation.

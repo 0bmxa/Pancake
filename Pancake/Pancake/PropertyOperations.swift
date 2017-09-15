@@ -34,7 +34,7 @@ extension Pancake {
     func hasProperty(driver: AudioServerPlugInDriver?, objectID: AudioObjectID, description: PancakeObjectPropertyDescription?) -> Bool {
         guard valid(driver) else { return false }
         guard
-            let pancakeObject = try? MakePancakeObject(for: objectID),
+            let pancakeObject = self.audioObjects[objectID],
             let description = description
         else {
             assertionFailure()
@@ -53,7 +53,8 @@ extension Pancake {
         
         guard
             let description = description,
-            let outDataSize = outDataSize
+            let outDataSize = outDataSize,
+            let pancakeObject = self.audioObjects[objectID]
         else {
             assertionFailure()
             return PancakeAudioHardwareError.badObject
@@ -63,7 +64,6 @@ extension Pancake {
         // Get property
         let property: PancakeObjectProperty
         do {
-            let pancakeObject = try MakePancakeObject(for: objectID)
             property = try pancakeObject.getProperty(description: description, sizeHint: dataSize)
         } catch {
             return (error as! PancakeObjectPropertyQueryError).status

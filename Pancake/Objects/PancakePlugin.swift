@@ -9,12 +9,14 @@
 import CoreAudio.AudioServerPlugIn
 
 class PancakePlugin: PancakeObjectType {
+    internal let objectID: AudioObjectID
     private let pancake: Pancake
     
-    required init(pancake: Pancake = Pancake.shared) {
+    required init(objectID: AudioObjectID, pancake: Pancake) {
+        self.objectID = objectID
         self.pancake = pancake
     }
-    
+
     func getProperty(description: PancakeObjectPropertyDescription, sizeHint: UInt32?) throws -> PancakeObjectProperty {
         print("###", type(of: self), #function, description.selector)
         
@@ -27,43 +29,26 @@ class PancakePlugin: PancakeObjectType {
             try assure(AudioClassID.self, fitsIn: sizeHint)
             return .audioClassID(PancakeAudioPlugin.classID)
             
-        case .pluginBoxList:
-            let expectedNumberOfElements = try numberOfElements(of: AudioObjectID.self, thatFitIn: sizeHint)
-            guard expectedNumberOfElements > 0 else {
-                return .pancakeObjectIDList([])
-            }
-            
-            // We only have one box, so always return this one
-            let boxID = PancakeObjectID.box
-            return .pancakeObjectIDList([boxID])
-            
-            
-        case .pluginTranslateUIDToBox:
-            fatalError()
-            
-        case .pluginDeviceList:
-            let expectedNumberOfElements = try numberOfElements(of: AudioObjectID.self, thatFitIn: sizeHint)
-            guard expectedNumberOfElements > 0 else {
-                return .pancakeObjectIDList([])
-            }
-            
-            // Get devices
-            let availableDevices = pancake.plugin.devices
-            let numberOfElementsToReturn = min(expectedNumberOfElements, availableDevices.count)
-            let devices = Array(availableDevices[ 0..<numberOfElementsToReturn ])
-            return .pancakeObjectIDList(devices)
-            
-        case .pluginTranslateUIDToDevice:
-            fatalError()
-            
-        case .objectCustomPropertyInfoList:
-            throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
-            
+        case .pluginBoxList,
+             .hardwareBoxList: // not sure the hardware box list should include _all_ boxes or just ours...
+            try assure(AudioObjectID.self, fitsIn: sizeHint)
+            let boxes = self.pancake.audioObjects.allObjectIDs(type: PancakeBox.self)
+            let elements = boxes.limitedTo(avaliableMemory: sizeHint)
+            return .pancakeObjectIDList(elements)
+
+        case .pluginDeviceList,
+             .hardwareDevices: // not sure the hardware device list should include _all_ devices or just ours...
+            try assure(AudioObjectID.self, fitsIn: sizeHint)
+            let devices = self.pancake.audioObjects.allObjectIDs(type: PancakeDevice.self)
+            let elements = devices.limitedTo(avaliableMemory: sizeHint)
+            return .pancakeObjectIDList(elements)
+
         default:
-            print(description.selector)
-            assertionFailure()
+            print(description.selector, "not implemented")
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
     }
 }
+
+
 

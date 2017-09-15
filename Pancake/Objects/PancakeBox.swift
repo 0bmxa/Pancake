@@ -8,12 +8,12 @@
 
 import CoreAudio.AudioServerPlugIn
 
-class PancakeDevice: PancakeObjectType {
+class PancakeBox: PancakeObjectType {
     internal let objectID: AudioObjectID
     private let pancake: Pancake
     
     private let UID: CFString
-    
+
     required init(objectID: AudioObjectID, pancake: Pancake) {
         self.objectID = objectID
         self.pancake = pancake
@@ -26,21 +26,24 @@ class PancakeDevice: PancakeObjectType {
         print("###", type(of: self), #function, description.selector)
         
         switch description.selector {
-        case .objectBaseClass:
-            try assure(AudioClassID.self, fitsIn: sizeHint)
-            return .audioClassID(PancakeAudioObject.classID)
-            
-        case .objectClass:
-            try assure(AudioClassID.self, fitsIn: sizeHint)
-            return .audioClassID(PancakeAudioDevice.classID)
-            
-        case .deviceUID:
+//        case .objectBaseClass:
+//            try assure(AudioClassID.self, fitsIn: sizeHint)
+//            return .audioClassID(PancakeAudioPlugin.classID)
+//
+//        case .objectClass:
+//            try assure(AudioClassID.self, fitsIn: sizeHint)
+//            return .audioClassID(PancakeAudioBox.classID)
+
+        case .boxUID:
             try assure(CFString.self, fitsIn: sizeHint)
             return .string(self.UID)
             
-        case .deviceStreams:
-            fatalError()
-            
+        case .objectCustomPropertyInfoList:
+            try assure(AudioServerPlugInCustomPropertyInfo.self, fitsIn: sizeHint)
+            let customProperties = self.pancake.customProperties
+            let elements = customProperties.limitedTo(avaliableMemory: sizeHint)
+            return .customPropertyInfoList(elements)
+
         default:
             print(description)
             assertionFailure()

@@ -9,9 +9,11 @@
 import CoreAudio.AudioServerPlugIn
 
 class PancakeBaseObject: PancakeObjectType {
+    internal let objectID: AudioObjectID
     private let pancake: Pancake
     
-    required init(pancake: Pancake = Pancake.shared) {
+    required init(objectID: AudioObjectID, pancake: Pancake) {
+        self.objectID = objectID
         self.pancake = pancake
     }
     
@@ -23,39 +25,9 @@ class PancakeBaseObject: PancakeObjectType {
         case .objectOwnedObjects:
             fatalError()
             
-        case .pluginBoxList:
-            let expectedNumberOfElements = try numberOfElements(of: AudioObjectID.self, thatFitIn: sizeHint)
-            guard expectedNumberOfElements > 0 else {
-                return .pancakeObjectIDList([])
-            }
-            
-            // We only have one box, so always return this one
-            let boxID = PancakeObjectID.box
-            return .pancakeObjectIDList([boxID])
-            
-            
-        case .pluginTranslateUIDToBox:
-            fatalError()
-            
-        case .pluginDeviceList:
-            let expectedNumberOfElements = try numberOfElements(of: AudioObjectID.self, thatFitIn: sizeHint)
-            guard expectedNumberOfElements > 0 else {
-                return .pancakeObjectIDList([])
-            }
-            
-            // Get devices
-            let availableDevices = pancake.plugin.devices
-            let numberOfElementsToReturn = min(expectedNumberOfElements, availableDevices.count)
-            let devices = Array(availableDevices[ 0..<numberOfElementsToReturn ])
-            return .pancakeObjectIDList(devices)
-            
-        case .pluginTranslateUIDToDevice:
-            fatalError()
-            
         case .objectName, .objectModelName, .objectElementName:
             fatalError()
             
-        // TODO: make this `default`
         case .deviceUID:
             try assure(CFString.self, fitsIn: sizeHint)
             return .string("Pancake Device" as CFString)
