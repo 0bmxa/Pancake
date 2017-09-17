@@ -12,37 +12,40 @@ import CoreAudio
 /// created by Pancake. It's also responsible for instantiating new objects, as
 /// it's the only one that knows which IDs are available.
 class PancakeAudioObjectList {
-    private var pancake: Pancake?
-    
     private var lastID: AudioObjectID = 0
     private var storage: [AudioObjectID: PancakeObjectType] = [:]
 
     /// Initializes the instance.
-    /// Like a regular init(), but called later.
+    /// This makes sure the initial IDs and objects are set correctly. (e.g.
     ///
     /// - Parameter pancake: The pancake object to be used by all audio objects.
     func initialize(pancake: Pancake) {
-        self.pancake = pancake
+        // IDs 0 and 1 are predefined (also see PancakeAudioObjectID):
+        // - 0 is the 'unknown' ID, but will never be accessed,
+        //     so we don't even add an object for it.
+        // - 1 is the 'plugin' ID and has to be availiable from the beginning of
+        //     the plugins lifetime.
+        let pluginObject = PancakePlugin(pancake: pancake)
+        pluginObject.objectID = PancakeAudioObjectID.plugin
         self.storage = [
-            PancakeAudioObjectID.unknown: PancakeBaseObject(objectID: PancakeAudioObjectID.unknown, pancake: pancake),
-            PancakeAudioObjectID.plugin: PancakePlugin(objectID: PancakeAudioObjectID.plugin, pancake: pancake)
+            PancakeAudioObjectID.plugin: pluginObject
         ]
         self.lastID = PancakeAudioObjectID.plugin
     }
     
-    /// Creates a new instance of a PancakeObjectType and adds it to the list.
+    /// Adds an object to the list and assigns it an ID.
+    /// Note: The object is not allowed to have an ID already.
     ///
-    /// - Parameter type: The type of the object to be instantiated.
-    /// - Returns: The ID of the newly created object.
+    /// - Parameter object: The object to be added to the list.
+    /// - Returns: The ID the object got assigned.
     @discardableResult
-    func createObject(type: PancakeObjectType.Type) -> AudioObjectID {
-        guard let pancake = self.pancake, self.storage.count > 1 else {
-            fatalError("This list was never initialized. Please call `yourAudioObjectList.initialize(pancake:)` first before adding objects to it.")
-        }
+    func add(object: PancakeObjectType) -> AudioObjectID {
+        guard self.storage.count > 0 else { fatalError("This list was never initialized.") }
+        guard object.objectID == nil else { fatalError("The object you're trying to add has an ID already.") }
         guard self.lastID < AudioObjectID.max else { fatalError("We're out of IDs.") }
         self.lastID += 1
-        let instance = type.init(objectID: self.lastID, pancake: pancake)
-        self.storage[self.lastID] = instance
+        self.storage[self.lastID] = object
+        object.objectID = self.lastID
         return self.lastID
     }
     
@@ -50,7 +53,7 @@ class PancakeAudioObjectList {
     ///
     /// - Parameter expectedType: The type to be found.
     /// - Returns: The list of IDs.
-    func allObjectIDs<T: PancakeObjectType>(type expectedType: T.Type) -> [AudioObjectID] {
+    func IDsForObjects<T: PancakeObjectType>(of expectedType: T.Type) -> [AudioObjectID] {
         let matchingEntries = self.storage.filter { (ID: AudioObjectID, object: PancakeObjectType) -> Bool in
             return type(of: object) == expectedType
         }
@@ -58,12 +61,15 @@ class PancakeAudioObjectList {
         return matchingIDs
     }
     
-    /// A subscript accessor to get objects from the list with subscript
+    /// An accessor to easily get objects from the list via subscript
     /// notation, e.g. `audioObjectList[12]`.
     ///
     /// - Parameter index: The object which has the ID or nil.
     subscript(index: AudioObjectID) -> PancakeObjectType? {
-        guard let element = self.storage[index] else { return nil }
+        guard let element = self.storage[index] else {
+            assertionFailure()
+            return nil
+        }
         return element
     }
 }

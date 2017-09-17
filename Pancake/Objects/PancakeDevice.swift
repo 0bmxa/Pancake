@@ -9,13 +9,21 @@
 import CoreAudio.AudioServerPlugIn
 
 class PancakeDevice: PancakeObjectType {
-    internal let objectID: AudioObjectID
+    internal var objectID: AudioObjectID? = nil
     private let pancake: Pancake
     
     private let UID: CFString
+    internal var streams: [PancakeStream] = [] {
+        didSet {
+            var totalChannelCount = 0
+            self.streams.forEach { stream in
+                stream.channelOffsetOnOwningDevice = totalChannelCount
+                totalChannelCount += stream.channels.count
+            }
+        }
+    }
     
-    required init(objectID: AudioObjectID, pancake: Pancake) {
-        self.objectID = objectID
+    required init(pancake: Pancake) {
         self.pancake = pancake
         
         // FIXME: This should be consistent across boots, not regenerated every time
@@ -39,7 +47,14 @@ class PancakeDevice: PancakeObjectType {
             return .string(self.UID)
             
         case .deviceStreams:
-            fatalError()
+            try assure(AudioObjectID.self, fitsIn: sizeHint)
+            let streamIDs = self.streams.flatMap { $0.objectID }
+            let elements = streamIDs.limitedTo(avaliableMemory: sizeHint)
+            return .pancakeObjectIDList(elements)
+            
+        case .deviceControlList:
+            throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
+
             
         default:
             print(description)

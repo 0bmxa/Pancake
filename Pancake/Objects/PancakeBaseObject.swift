@@ -9,11 +9,10 @@
 import CoreAudio.AudioServerPlugIn
 
 class PancakeBaseObject: PancakeObjectType {
-    internal let objectID: AudioObjectID
+    internal var objectID: AudioObjectID? = nil
     private let pancake: Pancake
     
-    required init(objectID: AudioObjectID, pancake: Pancake) {
-        self.objectID = objectID
+    required init(pancake: Pancake) {
         self.pancake = pancake
     }
     
@@ -22,22 +21,22 @@ class PancakeBaseObject: PancakeObjectType {
         print("###", #function, description.selector)
         
         switch description.selector {
-        case .objectOwnedObjects:
-            fatalError()
-            
-        case .objectName, .objectModelName, .objectElementName:
-            fatalError()
-            
-        case .deviceUID:
-            try assure(CFString.self, fitsIn: sizeHint)
-            return .string("Pancake Device" as CFString)
-            
-        case .boxUID:
-            try assure(CFString.self, fitsIn: sizeHint)
-            return .string("Pancake Box" as CFString)
+//        case .objectOwnedObjects:
+//            fatalError()
+//
+//        case .objectName, .objectModelName, .objectElementName:
+//            fatalError()
+//
+//        case .deviceUID:
+//            try assure(CFString.self, fitsIn: sizeHint)
+//            return .string("Pancake Device" as CFString)
+//
+//        case .boxUID:
+//            try assure(CFString.self, fitsIn: sizeHint)
+//            return .string("Pancake Box" as CFString)
             
         default:
-            print(description.selector)
+            print(description)
             assertionFailure()
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }

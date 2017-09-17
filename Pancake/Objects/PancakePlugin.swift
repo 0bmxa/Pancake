@@ -9,11 +9,10 @@
 import CoreAudio.AudioServerPlugIn
 
 class PancakePlugin: PancakeObjectType {
-    internal let objectID: AudioObjectID
+    internal var objectID: AudioObjectID? = nil
     private let pancake: Pancake
     
-    required init(objectID: AudioObjectID, pancake: Pancake) {
-        self.objectID = objectID
+    required init(pancake: Pancake) {
         self.pancake = pancake
     }
 
@@ -32,19 +31,19 @@ class PancakePlugin: PancakeObjectType {
         case .pluginBoxList,
              .hardwareBoxList: // not sure the hardware box list should include _all_ boxes or just ours...
             try assure(AudioObjectID.self, fitsIn: sizeHint)
-            let boxes = self.pancake.audioObjects.allObjectIDs(type: PancakeBox.self)
+            let boxes = self.pancake.audioObjects.IDsForObjects(of: PancakeBox.self)
             let elements = boxes.limitedTo(avaliableMemory: sizeHint)
             return .pancakeObjectIDList(elements)
 
         case .pluginDeviceList,
              .hardwareDevices: // not sure the hardware device list should include _all_ devices or just ours...
             try assure(AudioObjectID.self, fitsIn: sizeHint)
-            let devices = self.pancake.audioObjects.allObjectIDs(type: PancakeDevice.self)
+            let devices = self.pancake.audioObjects.IDsForObjects(of: PancakeDevice.self)
             let elements = devices.limitedTo(avaliableMemory: sizeHint)
             return .pancakeObjectIDList(elements)
 
         default:
-            print(description.selector, "not implemented")
+            print(description)
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
     }

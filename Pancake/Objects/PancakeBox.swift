@@ -9,13 +9,12 @@
 import CoreAudio.AudioServerPlugIn
 
 class PancakeBox: PancakeObjectType {
-    internal let objectID: AudioObjectID
+    internal var objectID: AudioObjectID? = nil
     private let pancake: Pancake
-    
+
     private let UID: CFString
 
-    required init(objectID: AudioObjectID, pancake: Pancake) {
-        self.objectID = objectID
+    required init(pancake: Pancake) {
         self.pancake = pancake
         
         // FIXME: This should be consistent across boots, not regenerated every time

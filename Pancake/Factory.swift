@@ -15,9 +15,6 @@ var pancakeDriverInterface: AudioServerPlugInDriverInterface? = nil
 var pancakeDriverInterfacePointer: UnsafeMutablePointer<AudioServerPlugInDriverInterface>? = nil
 var pancakeDriverReference: AudioServerPlugInDriverRef? = nil
 
-/// The global Pancake instance.
-//var Pancake.shared: Pancake! = nil
-
 
 /// Wrapper around the create() func, to allow exposing to (Obj)C.
 @objc class PancakeFactory: NSObject {
@@ -28,6 +25,7 @@ var pancakeDriverReference: AudioServerPlugInDriverRef? = nil
             return nil
         }
         
+        // The driver interface, exposing all driver functions to the plugin host.
         pancakeDriverInterface = AudioServerPlugInDriverInterface(
             _reserved: nil,
             QueryInterface: Pancake_queryInterface,
@@ -56,7 +54,20 @@ var pancakeDriverReference: AudioServerPlugInDriverRef? = nil
         pancakeDriverInterfacePointer = withUnsafeMutablePointer(to: &pancakeDriverInterface!) { return $0 }
         pancakeDriverReference = withUnsafeMutablePointer(to: &pancakeDriverInterfacePointer) { return $0 }
         
-        Pancake.setupSharedInstance(driverReference: pancakeDriverReference)
+        // Pancake configuration
+        let config = PancakeConfiguration(
+            manufacturer: "Pancake Manufacturer",
+            productName: "Pancake Framework",
+            supportedFormats: [
+                AudioStreamBasicDescription(sampleRate: 44100, channelCount: 2, format: .float32, interleaved: true),
+                AudioStreamBasicDescription(sampleRate: 48000, channelCount: 2, format: .float32, interleaved: true),
+                AudioStreamBasicDescription(sampleRate: 96000, channelCount: 2, format: .float32, interleaved: true),
+                ],
+            activeSampleRate: 44100.0
+        )
+
+        // Configure the shared Pancake plugin instance
+        Pancake.setupSharedInstance(driverReference: pancakeDriverReference, configuration: config)
         
         return UnsafeMutableRawPointer(pancakeDriverReference)
     }

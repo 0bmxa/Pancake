@@ -11,7 +11,6 @@ import CoreAudio.AudioServerPlugIn
 
 
 extension Pancake {
-    
     /// This method is called to initialize the instance of the plug-in.
     /// As part of initialization, the plug-in svarld publish all the objects it knows about at the time.
     ///
@@ -22,27 +21,13 @@ extension Pancake {
     func initialize(driver: AudioServerPlugInDriver?, host: AudioServerPlugInHost?) -> OSStatus {
         guard valid(driver) else { return PancakeAudioHardwareError.badObject }
         
+        // Store the host reference
         self.host = host
         
-        // get box params
-//        self.configuration.box.acquired = host?.copyFromStorage(key: "box aquired").data as? Bool   ?? false
-//        self.configuration.box.name     = host?.copyFromStorage(key: "box name").data as? String ?? "Pancake Box"
-
-        // Add some initial audio objects
-        self.audioObjects.createObject(type: PancakeDevice.self)
-        self.audioObjects.createObject(type: PancakeBox.self)
-        
-        // Host ticks per frame
-        self.configuration.sampleRate = 44100
-        self.updateTicksPerFrame()
+        // Do basic setup
+        self.setup()
         
         return PancakeAudioHardwareError.noError
-    }
-    
-    private func updateTicksPerFrame() {
-        let timebase = MachTimebaseInfo()
-        let ticksPerSecond = timebase.ticksPerSecond
-        self.configuration.ticksPerFrame = ticksPerSecond / Double(self.configuration.sampleRate)
     }
 }
 
@@ -116,8 +101,7 @@ extension Pancake {
         guard newSampleRate == 44100 || newSampleRate == 48000 else {
             return PancakeAudioHardwareError.badObject
         }
-        self.configuration.sampleRate = newSampleRate
-        self.updateTicksPerFrame()
+        self.configuration.activeSampleRate = newSampleRate
         // ---
 
         fatalError(); //return 0

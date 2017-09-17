@@ -12,19 +12,53 @@ internal class Pancake {
     internal let driver: AudioServerPlugInDriver
     internal var host: AudioServerPlugInHost? = nil
     internal var pluginReferenceCounter = AtomicCounter<UInt32>()
-    internal var configuration: Configuration
+    internal var configuration: PancakeConfiguration
 
     /// The list of all audio objects
     internal let audioObjects = PancakeAudioObjectList()
     internal let customProperties = [AudioServerPlugInCustomPropertyInfo]()
 
-    init(driverReference: AudioServerPlugInDriverRef?, configuration: Configuration = Configuration.default) {
+    init(driverReference: AudioServerPlugInDriverRef?, configuration: PancakeConfiguration) {
         self.driver = AudioServerPlugInDriver(from: driverReference)!
         self.configuration = configuration
-        
+
         // Setup the audio objects list
         self.audioObjects.initialize(pancake: self)
     }
+    
+    internal func setup() {
+//        // Get some params from a storage
+//        self.configuration.box.acquired = host?.copyFromStorage(key: "box aquired").data as? Bool   ?? false
+//        self.configuration.box.name     = host?.copyFromStorage(key: "box name").data as? String ?? "Pancake Box"
+
+        let setupLoadedFromDisk = false
+        if !setupLoadedFromDisk {
+            self.createBasicSetup()
+        }
+    }
+    
+    /// Creates a basic audio setup, consisting of
+    /// - 1 box
+    /// - 1 device
+    //    - 1 input stream
+    //    - 1 output stream
+    private func createBasicSetup() {
+        // Add some initial audio objects
+        self.audioObjects.add(object: PancakeBox(pancake: self))
+        
+        // Create a device with 2 streams
+        let device = PancakeDevice(pancake: self)
+        let inputStream  = PancakeStream(pancake: self)  // TODO: assign inputness
+        let outputStream = PancakeStream(pancake: self)  // TODO: assign outputness
+        self.audioObjects.add(object: device)
+        self.audioObjects.add(object: inputStream)
+        self.audioObjects.add(object: outputStream)
+        device.streams = [inputStream, outputStream]
+
+        // Host ticks per frame
+        self.configuration.activeSampleRate = 44100
+    }
+    
 
     
     // Shared instance
@@ -35,31 +69,33 @@ internal class Pancake {
         }
         return shared
     }
-    static func setupSharedInstance(driverReference: AudioServerPlugInDriverRef?) {
-        Pancake._shared = Pancake(driverReference: driverReference)
+    static func setupSharedInstance(driverReference: AudioServerPlugInDriverRef?, configuration: PancakeConfiguration) {
+        guard _shared == nil else { fatalError("The shared instance has already been set up.") }
+        Pancake._shared = Pancake(driverReference: driverReference, configuration: configuration)
     }
 }
 
 
-struct Configuration {
+struct PancakeConfiguration {
+    /// The plugin vendor.
     var manufacturer: String
+    
+    /// The plugin name.
     var productName: String
-    var sampleRate: Float
-    var ticksPerFrame: Double
     
-    static let `default` = Configuration(
-        manufacturer: "Pancake Manufacturer",
-        productName: "Pancake Framework",
-        sampleRate: 44100.0,
-        ticksPerFrame: 0
-    )
+    /// The audio formats the plugin supports.
+    var supportedFormats: [AudioStreamBasicDescription]
     
-//    struct Box {
-//        var name: String
-//        var acquired: Bool
-//        
-//        static let `default` = Box(name: "Pancake Box", acquired: false)
-//    }
+    
+    var activeSampleRate: Float
+    
+    var ticksPerFrame: Double {
+        let ticksPerSecond = MachTimebaseInfo().ticksPerSecond
+        return ticksPerSecond / Double(self.activeSampleRate)
+    }
+    
+    var descriptions: [AudioStreamRangedDescription] {
+        return self.supportedFormats.map { AudioStreamRangedDescription(asbd: $0) }
+    }
 }
-
 

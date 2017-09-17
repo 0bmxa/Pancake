@@ -8,10 +8,10 @@
 
 import CoreAudio.AudioServerPlugIn
 
-protocol PancakeObjectType {
-    var objectID: AudioObjectID { get }
+protocol PancakeObjectType: class {
+    var objectID: AudioObjectID? { get set }
     
-    init(objectID: AudioObjectID, pancake: Pancake)
+    init(pancake: Pancake)
     func hasProperty(description: PancakeObjectPropertyDescription) -> Bool
     func getProperty(description: PancakeObjectPropertyDescription, sizeHint: UInt32?) throws -> PancakeObjectProperty
 }
