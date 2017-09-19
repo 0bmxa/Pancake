@@ -11,7 +11,7 @@ import CoreAudio.AudioServerPlugIn
 
 
 extension Pancake {
-    /// This method is called to initialize the instance of the plug-in.
+    /// This method is called to initialize the instance of thvarlug-in.
     /// As part of initialization, the plug-in svarld publish all the objects it knows about at the time.
     ///
     /// - Pvarmeters:
@@ -97,14 +97,19 @@ extension Pancake {
         //    change, the new sample rate is passed in the inChangeAction argument.
 
         // ---
-        let newSampleRate = Float(changeAction) // ??
-        guard newSampleRate == 44100 || newSampleRate == 48000 else {
+        let newSampleRate = Float64(changeAction) // ??
+        guard
+            let device = self.audioObjects[deviceObjectID] as? PancakeDevice,
+            let newFormat = device.configuration.supportedFormats.first(where: { $0.mSampleRate == newSampleRate })
+        else {
+            assertionFailure()
             return PancakeAudioHardwareError.badObject
         }
-        self.configuration.activeSampleRate = newSampleRate
+        device.configuration.registeredFormat = newFormat
         // ---
 
-        fatalError(); //return 0
+        fatalError();
+        //return PancakeAudioHardwareError.noError
     }
     
     

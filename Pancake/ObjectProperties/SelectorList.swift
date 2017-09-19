@@ -132,7 +132,13 @@ enum PancakeAudioTransportManager {
         // AudioHardwareBase.h
         static let endPointList           = kAudioTransportManagerPropertyEndPointList
         static let translateUIDToEndPoint = kAudioTransportManagerPropertyTranslateUIDToEndPoint
-        static let transportType          = kAudioTransportManagerPropertyTransportType
+        
+        /*
+         The following are disable on purpose, because they use the same
+         values as the coresponding PancakeAudioDevice properties
+         and therefore cause a Swift pattern matching collision 🙄
+         static let transportType          = kAudioTransportManagerPropertyTransportType
+         */
     }
 }
 
@@ -143,7 +149,6 @@ enum PancakeAudioBox {
     enum Selector {
         // AudioHardwareBase.h
         static let UID               = kAudioBoxPropertyBoxUID
-        static let transportType     = kAudioBoxPropertyTransportType
         static let hasAudio          = kAudioBoxPropertyHasAudio
         static let hasVideo          = kAudioBoxPropertyHasVideo
         static let hasMIDI           = kAudioBoxPropertyHasMIDI
@@ -152,6 +157,13 @@ enum PancakeAudioBox {
         static let acquisitionFailed = kAudioBoxPropertyAcquisitionFailed
         static let deviceList        = kAudioBoxPropertyDeviceList
         static let clockDeviceList   = kAudioBoxPropertyClockDeviceList
+        
+        /*
+         The following are disable on purpose, because they use the same
+         values as the coresponding PancakeAudioDevice properties
+         and therefore cause a Swift pattern matching collision 🙄
+         static let transportType     = kAudioBoxPropertyTransportType
+         */
     }
 }
 
@@ -263,14 +275,20 @@ enum PancakeAudioClockDevice {
     enum Selector {
         // AudioHardwareBase.h
         static let UID                         = kAudioClockDevicePropertyDeviceUID
-        static let transportType               = kAudioClockDevicePropertyTransportType
-        static let clockDomain                 = kAudioClockDevicePropertyClockDomain
-        static let isAlive                     = kAudioClockDevicePropertyDeviceIsAlive
-        static let isRunning                   = kAudioClockDevicePropertyDeviceIsRunning
-        static let latency                     = kAudioClockDevicePropertyLatency
-        static let controlList                 = kAudioClockDevicePropertyControlList
-        static let nominalSampleRate           = kAudioClockDevicePropertyNominalSampleRate
-        static let availableNominalSampleRates = kAudioClockDevicePropertyAvailableNominalSampleRates
+        
+        /*
+         The following are disable on purpose, because they use the same
+         values as the coresponding PancakeAudioDevice properties
+         and therefore cause a Swift pattern matching collision 🙄
+         static let transportType               = kAudioClockDevicePropertyTransportType
+         static let clockDomain                 = kAudioClockDevicePropertyClockDomain
+         static let isAlive                     = kAudioClockDevicePropertyDeviceIsAlive
+         static let isRunning                   = kAudioClockDevicePropertyDeviceIsRunning
+         static let latency                     = kAudioClockDevicePropertyLatency
+         static let controlList                 = kAudioClockDevicePropertyControlList
+         static let nominalSampleRate           = kAudioClockDevicePropertyNominalSampleRate
+         static let availableNominalSampleRates = kAudioClockDevicePropertyAvailableNominalSampleRates
+         */
     }
 }
 

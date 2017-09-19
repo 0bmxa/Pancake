@@ -21,3 +21,8 @@ extension String {
     }
 }
 
+func printcake(_ items: Any...) {
+    #if DEBUG
+        print("[PANCAKE]", items)
+    #endif
+}

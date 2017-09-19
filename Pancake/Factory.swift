@@ -20,52 +20,53 @@ var pancakeDriverReference: AudioServerPlugInDriverRef? = nil
 @objc class PancakeFactory: NSObject {
     @objc static func create(allocator: CFAllocator!, requestedTypeUUID: CFUUID!) -> UnsafeMutableRawPointer? {
         
-        guard CFEqual(requestedTypeUUID, kUUID.audioServerPlugInTypeUUID) else {
+        guard UUID(rawValue: requestedTypeUUID) == kUUID.audioServerPlugInTypeUUID else {
             assertionFailure()
             return nil
         }
         
         // The driver interface, exposing all driver functions to the plugin host.
         pancakeDriverInterface = AudioServerPlugInDriverInterface(
-            _reserved: nil,
-            QueryInterface: Pancake_queryInterface,
-            AddRef: Pancake_addRef,
-            Release: Pancake_release,
-            Initialize: Pancake_initialize,
-            CreateDevice: Pancake_createDevice,
-            DestroyDevice: Pancake_destroyDevice,
-            AddDeviceClient: Pancake_addDeviceClient,
-            RemoveDeviceClient: Pancake_removeDeviceClient,
+            _reserved:                        nil,
+            QueryInterface:                   Pancake_queryInterface,
+            AddRef:                           Pancake_addRef,
+            Release:                          Pancake_release,
+            Initialize:                       Pancake_initialize,
+            CreateDevice:                     Pancake_createDevice,
+            DestroyDevice:                    Pancake_destroyDevice,
+            AddDeviceClient:                  Pancake_addDeviceClient,
+            RemoveDeviceClient:               Pancake_removeDeviceClient,
             PerformDeviceConfigurationChange: Pancake_performDeviceConfigurationChange,
-            AbortDeviceConfigurationChange: Pancake_abortDeviceConfigurationChange,
-            HasProperty: Pancake_hasProperty,
-            IsPropertySettable: Pancake_isPropertySettable,
-            GetPropertyDataSize: Pancake_getPropertyDataSize,
-            GetPropertyData: Pancake_getPropertyData,
-            SetPropertyData: Pancake_setPropertyData,
-            StartIO: Pancake_startIO,
-            StopIO: Pancake_stopIO,
-            GetZeroTimeStamp: Pancake_getZeroTimeStamp,
-            WillDoIOOperation: Pancake_willDoIOOperation,
-            BeginIOOperation: Pancake_beginIOOperation,
-            DoIOOperation: Pancake_doIOOperation,
-            EndIOOperation: Pancake_endIOOperation
+            AbortDeviceConfigurationChange:   Pancake_abortDeviceConfigurationChange,
+            HasProperty:                      Pancake_hasProperty,
+            IsPropertySettable:               Pancake_isPropertySettable,
+            GetPropertyDataSize:              Pancake_getPropertyDataSize,
+            GetPropertyData:                  Pancake_getPropertyData,
+            SetPropertyData:                  Pancake_setPropertyData,
+            StartIO:                          Pancake_startIO,
+            StopIO:                           Pancake_stopIO,
+            GetZeroTimeStamp:                 Pancake_getZeroTimeStamp,
+            WillDoIOOperation:                Pancake_willDoIOOperation,
+            BeginIOOperation:                 Pancake_beginIOOperation,
+            DoIOOperation:                    Pancake_doIOOperation,
+            EndIOOperation:                   Pancake_endIOOperation
         )
-        pancakeDriverInterfacePointer = withUnsafeMutablePointer(to: &pancakeDriverInterface!) { return $0 }
-        pancakeDriverReference = withUnsafeMutablePointer(to: &pancakeDriverInterfacePointer) { return $0 }
+        pancakeDriverInterfacePointer = withUnsafeMutablePointer(to: &pancakeDriverInterface!)       { return $0 }
+        pancakeDriverReference        = withUnsafeMutablePointer(to: &pancakeDriverInterfacePointer) { return $0 }
         
         // Pancake configuration
-        let config = PancakeConfiguration(
+        let device = DeviceConfiguration(
             manufacturer: "Pancake Manufacturer",
-            productName: "Pancake Framework",
+            name: "Pancake Framework",
+            uid: "MyDeviceUID_1",
             supportedFormats: [
                 AudioStreamBasicDescription(sampleRate: 44100, channelCount: 2, format: .float32, interleaved: true),
                 AudioStreamBasicDescription(sampleRate: 48000, channelCount: 2, format: .float32, interleaved: true),
                 AudioStreamBasicDescription(sampleRate: 96000, channelCount: 2, format: .float32, interleaved: true),
-                ],
-            activeSampleRate: 44100.0
+            ]
         )
-
+        let config = Configuration(devices: [device])
+        
         // Configure the shared Pancake plugin instance
         Pancake.setupSharedInstance(driverReference: pancakeDriverReference, configuration: config)
         

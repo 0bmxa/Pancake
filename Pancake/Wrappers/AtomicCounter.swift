@@ -14,7 +14,7 @@ struct AtomicCounter<T: FixedWidthInteger> {
 
     init(initialValue: T = 0) {
         self._value = initialValue
-        let queueID = CFUUIDCreateString(nil, CFUUIDCreate(nil)) as String
+        let queueID = UUID().string
         self.serialQueue = DispatchQueue(label: "Pancake.AtomicCounter." + queueID)
     }
 

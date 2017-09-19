@@ -49,6 +49,16 @@ class PancakeAudioObjectList {
         return self.lastID
     }
     
+    /// Convenience method for adding multiple objects to the list
+    /// (and assigning them IDs) all at once.
+    ///
+    /// - Parameter objects: The objects to be added to the list.
+    func add(_ objects: PancakeObjectType ...) {
+        objects.forEach {
+            self.add(object: $0)
+        }
+    }
+    
     /// Finds all object of a given type in the list and returns their IDs.
     ///
     /// - Parameter expectedType: The type to be found.

@@ -18,11 +18,11 @@ class PancakeBox: PancakeObjectType {
         self.pancake = pancake
         
         // FIXME: This should be consistent across boots, not regenerated every time
-        self.UID = CFUUIDCreateString(nil, CFUUIDCreate(nil))!
+        self.UID = UUID().string as CFString
     }
 
     func getProperty(description: PancakeObjectPropertyDescription, sizeHint: UInt32?) throws -> PancakeObjectProperty {
-        print("###", type(of: self), #function, description.selector)
+        printcake(type(of: self), #function, description.selector)
         
         switch description.selector {
 //        case .objectBaseClass:
@@ -44,8 +44,7 @@ class PancakeBox: PancakeObjectType {
             return .customPropertyInfoList(elements)
 
         default:
-            print(description)
-            assertionFailure()
+            printcake("Not implemented:", description.selector)
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
     }

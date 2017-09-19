@@ -13,9 +13,9 @@ import CoreAudio.AudioServerPlugIn
 
 func Pancake_queryInterface(inDriver: UnsafeMutableRawPointer?, inUUID: REFIID, outInterface: UnsafeMutablePointer<LPVOID?>?) -> HRESULT {
     let driver = AudioServerPlugInDriver(from: inDriver)
-    let UUID = CFUUIDCreateFromUUIDBytes(nil, inUUID)
+    let uuid = UUID(from: inUUID)
     let interface = PluginInterface(from: outInterface)
-    return Pancake.shared.queryInterface(driver: driver, UUID: UUID, writeTo: interface)
+    return Pancake.shared.queryInterface(driver: driver, UUID: uuid, writeTo: interface)
 }
 
 func Pancake_addRef(inDriver: UnsafeMutableRawPointer?) -> ULONG {

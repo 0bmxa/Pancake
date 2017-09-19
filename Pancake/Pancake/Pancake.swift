@@ -12,17 +12,17 @@ internal class Pancake {
     internal let driver: AudioServerPlugInDriver
     internal var host: AudioServerPlugInHost? = nil
     internal var pluginReferenceCounter = AtomicCounter<UInt32>()
-    internal var configuration: PancakeConfiguration
+    internal var configuration: PancakeInternalConfiguration
 
     /// The list of all audio objects
     internal let audioObjects = PancakeAudioObjectList()
     internal let customProperties = [AudioServerPlugInCustomPropertyInfo]()
 
-    init(driverReference: AudioServerPlugInDriverRef?, configuration: PancakeConfiguration) {
+    init(driverReference: AudioServerPlugInDriverRef?, configuration: Configuration) {
         self.driver = AudioServerPlugInDriver(from: driverReference)!
-        self.configuration = configuration
+        self.configuration = PancakeInternalConfiguration(devices: configuration.devices)
 
-        // Setup the audio objects list
+        // Initialize the audio objects list
         self.audioObjects.initialize(pancake: self)
     }
     
@@ -47,16 +47,14 @@ internal class Pancake {
         self.audioObjects.add(object: PancakeBox(pancake: self))
         
         // Create a device with 2 streams
-        let device = PancakeDevice(pancake: self)
-        let inputStream  = PancakeStream(pancake: self)  // TODO: assign inputness
-        let outputStream = PancakeStream(pancake: self)  // TODO: assign outputness
-        self.audioObjects.add(object: device)
-        self.audioObjects.add(object: inputStream)
-        self.audioObjects.add(object: outputStream)
-        device.streams = [inputStream, outputStream]
-
-        // Host ticks per frame
-        self.configuration.activeSampleRate = 44100
+        let inputStream  = PancakeStream(pancake: self, direction: .input,  channelCount: 2)
+        let outputStream = PancakeStream(pancake: self, direction: .output, channelCount: 2)
+        
+        // FIXME: Only the first device is created atm.
+        let deviceConfig = self.configuration.devices[0]
+        let device = PancakeDevice(pancake: self, streams: [inputStream, outputStream], configuration: deviceConfig)
+        
+        self.audioObjects.add(device, inputStream, outputStream)
     }
     
 
@@ -69,33 +67,8 @@ internal class Pancake {
         }
         return shared
     }
-    static func setupSharedInstance(driverReference: AudioServerPlugInDriverRef?, configuration: PancakeConfiguration) {
+    static func setupSharedInstance(driverReference: AudioServerPlugInDriverRef?, configuration: Configuration) {
         guard _shared == nil else { fatalError("The shared instance has already been set up.") }
         Pancake._shared = Pancake(driverReference: driverReference, configuration: configuration)
     }
 }
-
-
-struct PancakeConfiguration {
-    /// The plugin vendor.
-    var manufacturer: String
-    
-    /// The plugin name.
-    var productName: String
-    
-    /// The audio formats the plugin supports.
-    var supportedFormats: [AudioStreamBasicDescription]
-    
-    
-    var activeSampleRate: Float
-    
-    var ticksPerFrame: Double {
-        let ticksPerSecond = MachTimebaseInfo().ticksPerSecond
-        return ticksPerSecond / Double(self.activeSampleRate)
-    }
-    
-    var descriptions: [AudioStreamRangedDescription] {
-        return self.supportedFormats.map { AudioStreamRangedDescription(asbd: $0) }
-    }
-}
-

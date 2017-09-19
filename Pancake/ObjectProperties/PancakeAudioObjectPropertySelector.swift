@@ -84,11 +84,17 @@ enum PancakeAudioObjectPropertySelector {
     case transportManagerDestroyEndPointDevice
     case transportManagerEndPointList
     case transportManagerTranslateUIDToEndPoint
-    case transportManagerTransportType
+    /*
+     See SelectorList.swift for explanation
+     case transportManagerTransportType
+     */
     
     // Box
     case boxUID
+    /*
+    See SelectorList.swift for explanation
     case boxTransportType
+    */
     case boxHasAudio
     case boxHasVideo
     case boxHasMIDI
@@ -186,15 +192,18 @@ enum PancakeAudioObjectPropertySelector {
     
     // ClockDevice
     case clockDeviceUID
-    case clockDeviceTransportType
-    case clockDeviceClockDomain
-    case clockDeviceIsAlive
-    case clockDeviceIsRunning
-    case clockDeviceLatency
-    case clockDeviceControlList
-    case clockDeviceNominalSampleRate
-    case clockDeviceAvailableNominalSampleRates
-    
+    /*
+     See SelectorList.swift for explanation
+     case clockDeviceTransportType
+     case clockDeviceClockDomain
+     case clockDeviceIsAlive
+     case clockDeviceIsRunning
+     case clockDeviceLatency
+     case clockDeviceControlList
+     case clockDeviceNominalSampleRate
+     case clockDeviceAvailableNominalSampleRates
+     */
+
     // EndPointDevice
     case endPointDeviceComposition
     case endPointDeviceEndPointList
@@ -321,11 +330,17 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
         case PancakeAudioTransportManager.Selector.destroyEndPointDevice:          self = .transportManagerDestroyEndPointDevice
         case PancakeAudioTransportManager.Selector.endPointList:                   self = .transportManagerEndPointList
         case PancakeAudioTransportManager.Selector.translateUIDToEndPoint:         self = .transportManagerTranslateUIDToEndPoint
-        case PancakeAudioTransportManager.Selector.transportType:                  self = .transportManagerTransportType
+        /*
+         See SelectorList.swift for explanation
+         case PancakeAudioTransportManager.Selector.transportType:                  self = .transportManagerTransportType
+         */
             
         // Box
         case PancakeAudioBox.Selector.UID:                                         self = .boxUID
-        case PancakeAudioBox.Selector.transportType:                               self = .boxTransportType
+        /*
+         See SelectorList.swift for explanation
+         case PancakeAudioBox.Selector.transportType:                               self = .boxTransportType
+         */
         case PancakeAudioBox.Selector.hasAudio:                                    self = .boxHasAudio
         case PancakeAudioBox.Selector.hasVideo:                                    self = .boxHasVideo
         case PancakeAudioBox.Selector.hasMIDI:                                     self = .boxHasMIDI
@@ -423,14 +438,17 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
             
         // ClockDevice
         case PancakeAudioClockDevice.Selector.UID:                                 self = .clockDeviceUID
-        case PancakeAudioClockDevice.Selector.transportType:                       self = .clockDeviceTransportType
-        case PancakeAudioClockDevice.Selector.clockDomain:                         self = .clockDeviceClockDomain
-        case PancakeAudioClockDevice.Selector.isAlive:                             self = .clockDeviceIsAlive
-        case PancakeAudioClockDevice.Selector.isRunning:                           self = .clockDeviceIsRunning
-        case PancakeAudioClockDevice.Selector.latency:                             self = .clockDeviceLatency
-        case PancakeAudioClockDevice.Selector.controlList:                         self = .clockDeviceControlList
-        case PancakeAudioClockDevice.Selector.nominalSampleRate:                   self = .clockDeviceNominalSampleRate
-        case PancakeAudioClockDevice.Selector.availableNominalSampleRates:         self = .clockDeviceAvailableNominalSampleRates
+        /*
+         See SelectorList.swift for explanation
+         case PancakeAudioClockDevice.Selector.transportType:                       self = .clockDeviceTransportType
+         case PancakeAudioClockDevice.Selector.clockDomain:                         self = .clockDeviceClockDomain
+         case PancakeAudioClockDevice.Selector.isAlive:                             self = .clockDeviceIsAlive
+         case PancakeAudioClockDevice.Selector.isRunning:                           self = .clockDeviceIsRunning
+         case PancakeAudioClockDevice.Selector.latency:                             self = .clockDeviceLatency
+         case PancakeAudioClockDevice.Selector.controlList:                         self = .clockDeviceControlList
+         case PancakeAudioClockDevice.Selector.nominalSampleRate:                   self = .clockDeviceNominalSampleRate
+         case PancakeAudioClockDevice.Selector.availableNominalSampleRates:         self = .clockDeviceAvailableNominalSampleRates
+        */
             
         // EndPointDevice
         case PancakeAudioEndPointDevice.Selector.composition:                      self = .endPointDeviceComposition
@@ -563,11 +581,17 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
         case .transportManagerDestroyEndPointDevice:          return PancakeAudioTransportManager.Selector.destroyEndPointDevice
         case .transportManagerEndPointList:                   return PancakeAudioTransportManager.Selector.endPointList
         case .transportManagerTranslateUIDToEndPoint:         return PancakeAudioTransportManager.Selector.translateUIDToEndPoint
-        case .transportManagerTransportType:                  return PancakeAudioTransportManager.Selector.transportType
+        /*
+         See SelectorList.swift for explanation
+         case .transportManagerTransportType:                  return PancakeAudioTransportManager.Selector.transportType
+         */
             
         // Box
         case .boxUID:                                         return PancakeAudioBox.Selector.UID
-        case .boxTransportType:                               return PancakeAudioBox.Selector.transportType
+        /*
+         See SelectorList.swift for explanation
+         case .boxTransportType:                               return PancakeAudioBox.Selector.transportType
+         */
         case .boxHasAudio:                                    return PancakeAudioBox.Selector.hasAudio
         case .boxHasVideo:                                    return PancakeAudioBox.Selector.hasVideo
         case .boxHasMIDI:                                     return PancakeAudioBox.Selector.hasMIDI
@@ -665,14 +689,17 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
             
         // ClockDevice
         case .clockDeviceUID:                                 return PancakeAudioClockDevice.Selector.UID
-        case .clockDeviceTransportType:                       return PancakeAudioClockDevice.Selector.transportType
-        case .clockDeviceClockDomain:                         return PancakeAudioClockDevice.Selector.clockDomain
-        case .clockDeviceIsAlive:                             return PancakeAudioClockDevice.Selector.isAlive
-        case .clockDeviceIsRunning:                           return PancakeAudioClockDevice.Selector.isRunning
-        case .clockDeviceLatency:                             return PancakeAudioClockDevice.Selector.latency
-        case .clockDeviceControlList:                         return PancakeAudioClockDevice.Selector.controlList
-        case .clockDeviceNominalSampleRate:                   return PancakeAudioClockDevice.Selector.nominalSampleRate
-        case .clockDeviceAvailableNominalSampleRates:         return PancakeAudioClockDevice.Selector.availableNominalSampleRates
+        /*
+         See SelectorList.swift for explanation
+         case .clockDeviceTransportType:                       return PancakeAudioClockDevice.Selector.transportType
+         case .clockDeviceClockDomain:                         return PancakeAudioClockDevice.Selector.clockDomain
+         case .clockDeviceIsAlive:                             return PancakeAudioClockDevice.Selector.isAlive
+         case .clockDeviceIsRunning:                           return PancakeAudioClockDevice.Selector.isRunning
+         case .clockDeviceLatency:                             return PancakeAudioClockDevice.Selector.latency
+         case .clockDeviceControlList:                         return PancakeAudioClockDevice.Selector.controlList
+         case .clockDeviceNominalSampleRate:                   return PancakeAudioClockDevice.Selector.nominalSampleRate
+         case .clockDeviceAvailableNominalSampleRates:         return PancakeAudioClockDevice.Selector.availableNominalSampleRates
+         */
             
         // EndPointDevice
         case .endPointDeviceComposition:                      return PancakeAudioEndPointDevice.Selector.composition
