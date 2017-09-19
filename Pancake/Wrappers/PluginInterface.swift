@@ -8,8 +8,6 @@
 
 import CoreAudio.AudioServerPlugIn
 
-// TODO: Fix this description.
-/// A wrapper arount the weird interface you get in queryInterface()
 class PluginInterface {
     private var pointer: UnsafeMutablePointer<UnsafeMutableRawPointer?>
     

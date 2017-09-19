@@ -16,10 +16,6 @@ class PancakeDevice: PancakeObjectType {
     private var controls: [PancakeControl]
     private let streams: [PancakeStream]
     
-    required convenience init(pancake: Pancake) {
-        fatalError()
-    }
-
     init(pancake: Pancake, streams: [PancakeStream], configuration: DeviceConfiguration) {
         self.pancake       = pancake
         self.streams       = streams
@@ -63,6 +59,10 @@ class PancakeDevice: PancakeObjectType {
             try assure(AudioClassID.self, fitsIn: sizeHint)
             return .audioClassID(PancakeAudioDevice.classID)
             
+        case .objectName:
+            try assure(CFString.self, fitsIn: sizeHint)
+            return .string(self.configuration.name as CFString)
+
         case .deviceUID:
             try assure(CFString.self, fitsIn: sizeHint)
             return .string(self.configuration.uid as CFString)
@@ -126,7 +126,6 @@ class PancakeDevice: PancakeObjectType {
 
 // =============================================================================
 //  AudioHub
-        case .objectName: fatalError()
         case .objectManufacturer: fatalError()
         case .objectOwnedObjects: fatalError()
         case .deviceModelUID: fatalError()

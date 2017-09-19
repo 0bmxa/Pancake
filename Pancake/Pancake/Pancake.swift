@@ -16,9 +16,11 @@ internal class Pancake {
 
     /// The list of all audio objects
     internal let audioObjects = PancakeAudioObjectList()
+    
+    /// A (possible) list of custom properties the HAL doesn't provide
     internal let customProperties = [AudioServerPlugInCustomPropertyInfo]()
 
-    init(driverReference: AudioServerPlugInDriverRef?, configuration: Configuration) {
+    public init(driverReference: AudioServerPlugInDriverRef?, configuration: Configuration) {
         self.driver = AudioServerPlugInDriver(from: driverReference)!
         self.configuration = PancakeInternalConfiguration(devices: configuration.devices)
 
@@ -31,6 +33,8 @@ internal class Pancake {
 //        self.configuration.box.acquired = host?.copyFromStorage(key: "box aquired").data as? Bool   ?? false
 //        self.configuration.box.name     = host?.copyFromStorage(key: "box name").data as? String ?? "Pancake Box"
 
+        // TODO: Load from user config or storage
+        
         let setupLoadedFromDisk = false
         if !setupLoadedFromDisk {
             self.createBasicSetup()

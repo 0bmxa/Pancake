@@ -22,7 +22,10 @@ extension String {
 }
 
 func printcake(_ items: Any...) {
-    #if DEBUG
-        print("[PANCAKE]", items)
+    #if !DEBUG
+        return
     #endif
+    
+    let message = items.reduce("[PANCAKE]") { $0 + " " + String(describing: $1) }
+    print(message)
 }

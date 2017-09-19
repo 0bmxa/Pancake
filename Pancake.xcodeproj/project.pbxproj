@@ -29,7 +29,6 @@
 		EE8BB2E21F42009100B3B748 /* FactoryBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8BB2D71F42007400B3B748 /* FactoryBridge.m */; };
 		EE8BB2E31F42009500B3B748 /* AudioServerPlugInDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8BB2D91F42007400B3B748 /* AudioServerPlugInDriver.swift */; };
 		EE8BB2E41F42009500B3B748 /* PluginInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8BB2DA1F42007400B3B748 /* PluginInterface.swift */; };
-		EE98511A1F6AD1210021FC73 /* PancakeBaseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9851191F6AD1210021FC73 /* PancakeBaseObject.swift */; };
 		EE98511C1F6AD13B0021FC73 /* PancakePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98511B1F6AD13B0021FC73 /* PancakePlugin.swift */; };
 		EE98511E1F6AD1590021FC73 /* PancakeDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98511D1F6AD1590021FC73 /* PancakeDevice.swift */; };
 		EED5AEAC1F5494AB002E2FF9 /* AudioServerPlugInHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED5AEAB1F5494AB002E2FF9 /* AudioServerPlugInHost.swift */; };
@@ -74,7 +73,6 @@
 		EE8BB2DA1F42007400B3B748 /* PluginInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginInterface.swift; sourceTree = "<group>"; };
 		EE8BB2DB1F42007400B3B748 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		EE8BB2DC1F42007400B3B748 /* DriverInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverInterface.swift; sourceTree = "<group>"; };
-		EE9851191F6AD1210021FC73 /* PancakeBaseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PancakeBaseObject.swift; sourceTree = "<group>"; };
 		EE98511B1F6AD13B0021FC73 /* PancakePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PancakePlugin.swift; sourceTree = "<group>"; };
 		EE98511D1F6AD1590021FC73 /* PancakeDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PancakeDevice.swift; sourceTree = "<group>"; };
 		EED5AEAB1F5494AB002E2FF9 /* AudioServerPlugInHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioServerPlugInHost.swift; sourceTree = "<group>"; };
@@ -212,7 +210,6 @@
 			isa = PBXGroup;
 			children = (
 				EEF351701F55BC8F00A6D80A /* PancakeObjectType.swift */,
-				EE9851191F6AD1210021FC73 /* PancakeBaseObject.swift */,
 				EE98511B1F6AD13B0021FC73 /* PancakePlugin.swift */,
 				EEF140D01F6C1B7F00228A2F /* PancakeBox.swift */,
 				EE98511D1F6AD1590021FC73 /* PancakeDevice.swift */,
@@ -319,7 +316,6 @@
 				EE98511C1F6AD13B0021FC73 /* PancakePlugin.swift in Sources */,
 				EE8BB2E21F42009100B3B748 /* FactoryBridge.m in Sources */,
 				EE4254771F6F1C7700DBF70E /* AudioStreamBasicDescription.swift in Sources */,
-				EE98511A1F6AD1210021FC73 /* PancakeBaseObject.swift in Sources */,
 				EEF3519B1F58376300A6D80A /* PancakeAudioObjectPropertySelector.swift in Sources */,
 				EEF140CF1F6B183300228A2F /* PancakeObjectProperty.swift in Sources */,
 				EE11C0181F6ADDFB0035900D /* PancakeAudioObjectPropertyScope.swift in Sources */,

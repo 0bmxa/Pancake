@@ -15,9 +15,6 @@ class PancakeControl: PancakeObjectType {
     private let scope: PancakeAudioObjectPropertyScope
     private let element: PancakeAudioObjectPropertyElement
     
-    required init(pancake: Pancake) {
-        fatalError()
-    }
 
     init(type: ControlType, scope: PancakeAudioObjectPropertyScope, element: PancakeAudioObjectPropertyElement) {
         self.controlType = type

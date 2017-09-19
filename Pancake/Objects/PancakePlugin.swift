@@ -12,7 +12,7 @@ class PancakePlugin: PancakeObjectType {
     internal var objectID: AudioObjectID? = nil
     private let pancake: Pancake
     
-    required init(pancake: Pancake) {
+    init(pancake: Pancake) {
         self.pancake = pancake
     }
 

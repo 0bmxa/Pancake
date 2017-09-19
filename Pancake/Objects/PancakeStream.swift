@@ -21,10 +21,6 @@ class PancakeStream: PancakeObjectType {
 //    internal let channels: [AudioObjectID]
 
 
-    required convenience init(pancake: Pancake) {
-        self.init(pancake: pancake, direction: .output, channelCount: 2)
-    }
-    
     init(pancake: Pancake, direction: Direction, channelCount: Int) {
         self.pancake = pancake
         self.direction = direction
