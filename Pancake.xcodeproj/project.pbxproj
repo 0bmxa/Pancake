@@ -21,6 +21,7 @@
 		EE52FB5A1F44EA5500C118BC /* AtomicCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE52FB591F44EA5500C118BC /* AtomicCounter.swift */; };
 		EE52FB5E1F44F23600C118BC /* BasicOperationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE52FB5D1F44F23600C118BC /* BasicOperationsManager.swift */; };
 		EE5B41961F5F13FD009A08E8 /* IOOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5B41951F5F13FD009A08E8 /* IOOperations.swift */; };
+		EE70EB371F72B408006ABC60 /* AudioChannelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE70EB361F72B408006ABC60 /* AudioChannelLayout.swift */; };
 		EE8BB2DD1F42008D00B3B748 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8BB2D01F42007400B3B748 /* Constants.swift */; };
 		EE8BB2DE1F42008D00B3B748 /* DriverInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8BB2DC1F42007400B3B748 /* DriverInterface.swift */; };
 		EE8BB2DF1F42008D00B3B748 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8BB2DB1F42007400B3B748 /* Factory.swift */; };
@@ -62,6 +63,7 @@
 		EE52FB5D1F44F23600C118BC /* BasicOperationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicOperationsManager.swift; sourceTree = "<group>"; };
 		EE5B41951F5F13FD009A08E8 /* IOOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOOperations.swift; sourceTree = "<group>"; };
 		EE69C3A31F30B69F00381315 /* Pancake.driver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Pancake.driver; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE70EB361F72B408006ABC60 /* AudioChannelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioChannelLayout.swift; sourceTree = "<group>"; };
 		EE8BB2CF1F42007400B3B748 /* InheritanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InheritanceManager.swift; sourceTree = "<group>"; };
 		EE8BB2D01F42007400B3B748 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		EE8BB2D21F42007400B3B748 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				EE4EDD7D1F5B51AC00273BFC /* MachTimebaseInfo.swift */,
 				EEF2EE681F717B8C00AF4ADA /* UUID.swift */,
 				EE4EDD961F5DBD5000273BFC /* CoreFoundation.swift */,
+				EE70EB361F72B408006ABC60 /* AudioChannelLayout.swift */,
 			);
 			path = Wrappers;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 				EE8BB2E11F42008D00B3B748 /* Pancake.swift in Sources */,
 				EE8BB2E01F42008D00B3B748 /* InheritanceManager.swift in Sources */,
 				EEF351711F55BC8F00A6D80A /* PancakeObjectType.swift in Sources */,
+				EE70EB371F72B408006ABC60 /* AudioChannelLayout.swift in Sources */,
 				EEF2EE6D1F71A7B200AF4ADA /* UInt32.swift in Sources */,
 				EEF140CA1F6B0ACF00228A2F /* Array.swift in Sources */,
 				EE8BB2DE1F42008D00B3B748 /* DriverInterface.swift in Sources */,

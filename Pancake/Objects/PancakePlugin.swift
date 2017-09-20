@@ -41,9 +41,29 @@ class PancakePlugin: PancakeObjectType {
             let devices = self.pancake.audioObjects.IDsForObjects(of: PancakeDevice.self)
             let elements = devices.limitedTo(avaliableMemory: sizeHint)
             return .pancakeObjectIDList(elements)
+            
+        case .pluginResourceBundle:
+            try assure(CFString.self, fitsIn: sizeHint)
+            let pathRelativeToPlugin = "" as CFString
+            return .string(pathRelativeToPlugin)
+
+        case .objectCustomPropertyInfoList,
+             .hardwareClockDeviceList:
+            throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
+            
 
         default:
             printcake("Not implemented:", description.selector)
+            throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
+        }
+    }
+    
+    func setProperty(description: PancakeObjectPropertyDescription, data: UnsafeRawPointer) throws {
+        switch description.selector {
+            //case .<#pattern#>:
+            
+            
+        default:
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
     }

@@ -19,7 +19,7 @@ struct PancakeObjectPropertyDescription {
             let selector = PancakeAudioObjectPropertySelector(rawValue: address.mSelector),
             let scope    = PancakeAudioObjectPropertyScope(rawValue: address.mScope)
             else {
-                assertionFailure()
+                //assertionFailure()
                 return nil
         }
         let element  = PancakeAudioObjectPropertyElement(rawValue: address.mElement)

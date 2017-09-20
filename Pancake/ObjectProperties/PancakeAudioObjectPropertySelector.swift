@@ -66,6 +66,7 @@ enum PancakeAudioObjectPropertySelector {
     case pluginTranslateUIDToBox
     case pluginClockDeviceList
     case pluginTranslateUIDToClockDevice
+    case pluginResourceBundle
     
     // AggregateDevice
     case aggregateDeviceFullSubDeviceList
@@ -312,6 +313,7 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
         case PancakeAudioPlugin.Selector.translateUIDToBox:                        self = .pluginTranslateUIDToBox
         case PancakeAudioPlugin.Selector.clockDeviceList:                          self = .pluginClockDeviceList
         case PancakeAudioPlugin.Selector.translateUIDToClockDevice:                self = .pluginTranslateUIDToClockDevice
+        case PancakeAudioPlugin.Selector.resourceBundle:                           self = .pluginResourceBundle
             
         // AggregateDevice
         case PancakeAudioAggregateDevice.Selector.fullSubDeviceList:               self = .aggregateDeviceFullSubDeviceList
@@ -494,6 +496,9 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
         case PancakeAudioStereoPanControl.Selector.value:                          self = .stereoPanControlValue
         case PancakeAudioStereoPanControl.Selector.panningChannels:                self = .stereoPanControlPanningChannels
 
+        // Unclear
+        case 1667658618: fallthrough // 'cfsz'
+            return nil
 
         // Unknown property
         default:
@@ -563,6 +568,7 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
         case .pluginTranslateUIDToBox:                        return PancakeAudioPlugin.Selector.translateUIDToBox
         case .pluginClockDeviceList:                          return PancakeAudioPlugin.Selector.clockDeviceList
         case .pluginTranslateUIDToClockDevice:                return PancakeAudioPlugin.Selector.translateUIDToClockDevice
+        case .pluginResourceBundle:                           return PancakeAudioPlugin.Selector.resourceBundle
             
         // AggregateDevice
         case .aggregateDeviceFullSubDeviceList:               return PancakeAudioAggregateDevice.Selector.fullSubDeviceList

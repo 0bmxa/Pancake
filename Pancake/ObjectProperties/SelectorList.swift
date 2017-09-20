@@ -95,6 +95,9 @@ enum PancakeAudioPlugin {
         static let translateUIDToBox         = kAudioPlugInPropertyTranslateUIDToBox
         static let clockDeviceList           = kAudioPlugInPropertyClockDeviceList
         static let translateUIDToClockDevice = kAudioPlugInPropertyTranslateUIDToClockDevice
+        
+        // AudioServerPlugin.h
+        static let resourceBundle            = kAudioPlugInPropertyResourceBundle
     }
 }
 

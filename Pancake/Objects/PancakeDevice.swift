@@ -51,83 +51,44 @@ class PancakeDevice: PancakeObjectType {
         printcake(type(of: self), #function, description.selector)
         
         switch description.selector {
-        case .objectBaseClass:
-            try assure(AudioClassID.self, fitsIn: sizeHint)
-            return .audioClassID(PancakeAudioObject.classID)
-            
-        case .objectClass:
-            try assure(AudioClassID.self, fitsIn: sizeHint)
-            return .audioClassID(PancakeAudioDevice.classID)
-            
-        case .objectName:
-            try assure(CFString.self, fitsIn: sizeHint)
-            return .string(self.configuration.name as CFString)
 
-        case .deviceUID:
-            try assure(CFString.self, fitsIn: sizeHint)
-            return .string(self.configuration.uid as CFString)
-            
-        case .deviceStreams:
-            try assure(AudioObjectID.self, fitsIn: sizeHint)
-            let streamIDs = self.streams.flatMap { $0.objectID }
-            let elements = streamIDs.limitedTo(avaliableMemory: sizeHint)
-            return .pancakeObjectIDList(elements)
-            
-        case .deviceControlList:
-            try assure(AudioObjectID.self, fitsIn: sizeHint)
-            let controlIDs = self.controls.flatMap { $0.objectID }
-            let elements = controlIDs.limitedTo(avaliableMemory: sizeHint)
-            return .pancakeObjectIDList(elements)
-            
-        case .deviceNominalSampleRate:
-            try assure(Float64.self, fitsIn: sizeHint)
-            let sampleRate = self.configuration.registeredFormat.mSampleRate
-            return .float(sampleRate)
-            
-        case .deviceAvailableNominalSampleRates:
-            try assure(AudioValueRange.self, fitsIn: sizeHint)
-            let sampleRateRanges = self.configuration.supportedFormats.map { AudioStreamRangedDescription(asbd: $0).mSampleRateRange }
-            return .valueRangeList(sampleRateRanges)
-            
-        case .deviceZeroTimeStampPeriod:
-            try assure(UInt32.self, fitsIn: sizeHint)
-            let ringBufferSize = self.configuration.ringBuffer.size
-            return .integer(ringBufferSize)
-            
-        case .deviceSafetyOffset:
-            try assure(UInt32.self, fitsIn: sizeHint)
-            let offset = self.configuration.safetyOffsets.value(for: description.scope)
-            return .integer(offset)
-            
-        case .deviceLatency:
-            try assure(UInt32.self, fitsIn: sizeHint)
-            let latency = self.configuration.deviceLatency.value(for: description.scope)
-            return .integer(latency)
-            
-        case .deviceTransportType:
-            try assure(UInt32.self, fitsIn: sizeHint)
-            return .integer(kAudioDeviceTransportTypeVirtual)
-            
-        case .deviceIsHidden:
-            try assure(UInt32.self, fitsIn: sizeHint)
-            let value = UInt32(self.configuration.hidden)
-            return .integer(value)
-            
-        case .deviceCanBeDefaultDevice:
-            try assure(UInt32.self, fitsIn: sizeHint)
-            let value = UInt32(self.configuration.canBeDefaultDevice)
-            return .integer(value)
+        // Object foo
+        case .objectBaseClass,
+            .objectClass,
+            .objectName,
+            .objectModelName,
+            .objectElementCategoryName,
+            .objectCustomPropertyInfoList,
+            .objectListenerAdded,
+            .objectListenerRemoved:
+            return try self.getObjectProperty(description: description, sizeHint: sizeHint)
 
-        case .deviceCanBeDefaultSystemDevice:
-            try assure(UInt32.self, fitsIn: sizeHint)
-            let value = UInt32(self.configuration.canHandleSystemAudio)
-            return .integer(value)
+        case .deviceUID,
+             .deviceStreams,
+             .deviceControlList,
+             .deviceNominalSampleRate,
+             .deviceAvailableNominalSampleRates,
+             .deviceSafetyOffset,
+             .deviceLatency,
+             .deviceTransportType,
+             .deviceIsHidden,
+             .deviceCanBeDefaultDevice,
+             .deviceCanBeDefaultSystemDevice,
+             .deviceConfigurationApplication,
+             .devicePreferredChannelLayout:
+            return try self.getDeviceProperty(description: description, sizeHint: sizeHint)
+            
+        case .deviceZeroTimeStampPeriod,
+             .deviceClockAlgorithm,
+             .deviceClockIsStable:
+            return try self.getDeviceClockProperty(description: description, sizeHint: sizeHint)
 
 
 // =============================================================================
 //  AudioHub
         case .objectManufacturer: fatalError()
         case .objectOwnedObjects: fatalError()
+            
         case .deviceModelUID: fatalError()
         case .deviceRelatedDevices: fatalError()
         case .deviceClockDomain: fatalError()
@@ -135,9 +96,17 @@ class PancakeDevice: PancakeObjectType {
         case .deviceIsRunning: fatalError()
         case .deviceIcon: fatalError()
         case .devicePreferredChannelsForStereo: fatalError()
-        case .devicePreferredChannelLayout: fatalError()
 // =============================================================================
-// Available
+// Other Available
+        case .objectCreator: fatalError()
+        case .objectOwner: fatalError()
+        case .objectElementName: fatalError()
+        case .objectElementNumberName: fatalError()
+        case .objectIdentify: fatalError()
+        case .objectSerialNumber: fatalError()
+        case .objectFirmwareVersion: fatalError()
+        case .objectWildcard: fatalError()
+            
         case .devicePlugin: fatalError()
         case .deviceHasChanged: fatalError()
         case .deviceIsRunningSomewhere: fatalError()
@@ -199,10 +168,6 @@ class PancakeDevice: PancakeObjectType {
         case .deviceSubVolumeScalarToDecibels: fatalError()
         case .deviceSubVolumeDecibelsToScalar: fatalError()
         case .deviceSubMute: fatalError()
-        case .deviceConfigurationApplication: fatalError()
-            
-        case .deviceClockAlgorithm: fallthrough
-        case .deviceClockIsStable: fallthrough
 // =============================================================================
 
         default:
@@ -211,5 +176,145 @@ class PancakeDevice: PancakeObjectType {
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
     }
-}
+    
+    
+    private func getObjectProperty(description: PancakeObjectPropertyDescription, sizeHint: UInt32?) throws -> PancakeObjectProperty {
+        switch description.selector {
+        case .objectBaseClass:
+            try assure(AudioClassID.self, fitsIn: sizeHint)
+            return .audioClassID(PancakeAudioObject.classID)
+            
+        case .objectClass:
+            try assure(AudioClassID.self, fitsIn: sizeHint)
+            return .audioClassID(PancakeAudioDevice.classID)
+            
+        case .objectName:
+            try assure(CFString.self, fitsIn: sizeHint)
+            return .string(self.configuration.name as CFString)
+            
+        case .objectListenerAdded,
+             .objectListenerRemoved:
+            // Not for applications intended
+            throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
+    
+        case .objectModelName,
+             .objectElementCategoryName,
+             .objectCustomPropertyInfoList:
+            throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
+            
+        default:
+            throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
+        }
+    }
+    
+    private func getDeviceProperty(description: PancakeObjectPropertyDescription, sizeHint: UInt32?) throws -> PancakeObjectProperty {
+        switch description.selector {
+        case .deviceUID:
+            try assure(CFString.self, fitsIn: sizeHint)
+            return .string(self.configuration.uid as CFString)
+            
+        case .deviceStreams:
+            try assure(AudioObjectID.self, fitsIn: sizeHint)
+            let streamIDs = self.streams.flatMap { $0.objectID }
+            let elements = streamIDs.limitedTo(avaliableMemory: sizeHint)
+            return .pancakeObjectIDList(elements)
+            
+        case .deviceControlList:
+            try assure(AudioObjectID.self, fitsIn: sizeHint)
+            let controlIDs = self.controls.flatMap { $0.objectID }
+            let elements = controlIDs.limitedTo(avaliableMemory: sizeHint)
+            return .pancakeObjectIDList(elements)
+            
+        case .deviceNominalSampleRate:
+            try assure(Float64.self, fitsIn: sizeHint)
+            let sampleRate = self.configuration.registeredFormat.mSampleRate
+            return .float64(sampleRate)
+            
+        case .deviceAvailableNominalSampleRates:
+            try assure(AudioValueRange.self, fitsIn: sizeHint)
+            let sampleRateRanges = self.configuration.supportedFormats.map { AudioStreamRangedDescription(asbd: $0).mSampleRateRange }
+            return .valueRangeList(sampleRateRanges)
+            
+        case .deviceSafetyOffset:
+            try assure(UInt32.self, fitsIn: sizeHint)
+            let offset = self.configuration.safetyOffsets.value(for: description.scope)
+            return .integer(offset)
+            
+        case .deviceLatency:
+            try assure(UInt32.self, fitsIn: sizeHint)
+            let latency = self.configuration.deviceLatency.value(for: description.scope)
+            return .integer(latency)
+            
+        case .deviceTransportType:
+            try assure(UInt32.self, fitsIn: sizeHint)
+            return .integer(kAudioDeviceTransportTypeVirtual)
+            
+        case .deviceIsHidden:
+            try assure(UInt32.self, fitsIn: sizeHint)
+            let value = UInt32(self.configuration.hidden)
+            return .integer(value)
+            
+        case .deviceCanBeDefaultDevice:
+            try assure(UInt32.self, fitsIn: sizeHint)
+            let value = UInt32(self.configuration.canBeDefaultDevice)
+            return .integer(value)
+            
+        case .deviceCanBeDefaultSystemDevice:
+            try assure(UInt32.self, fitsIn: sizeHint)
+            let value = UInt32(self.configuration.canHandleSystemAudio)
+            return .integer(value)
+            
+        case .devicePreferredChannelLayout:
+            try assure(AudioChannelLayout.self, fitsIn: sizeHint)
+            let channelCount = self.configuration.registeredFormat.mChannelsPerFrame
+            let channelLayout = AudioChannelLayout.linear(channelCount: channelCount)
+            return .channelLayout(channelLayout)
+            
+        case .deviceConfigurationApplication: // Not yet implemented
+            throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
 
+        default:
+            throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
+        }
+    }
+    
+    func printSizes<T>(_ value: T) {
+        print("---\n", type(of: value))
+        print("Type size/stride/alignment:", MemoryLayout<T>.size, MemoryLayout<T>.stride, MemoryLayout<T>.alignment, separator: "\t")
+        print("Value size/stride/alignment:", MemoryLayout.size(ofValue: value), MemoryLayout.stride(ofValue: value), MemoryLayout.alignment(ofValue: value), separator: "\t")
+    }
+
+    
+    // MARK: - Device clock properties
+    private func getDeviceClockProperty(description: PancakeObjectPropertyDescription, sizeHint: UInt32?) throws -> PancakeObjectProperty {
+        switch description.selector {
+        case .deviceZeroTimeStampPeriod:
+            try assure(UInt32.self, fitsIn: sizeHint)
+            let ringBufferSize = self.configuration.ringBuffer.size
+            return .integer(ringBufferSize)
+            
+        case .deviceClockAlgorithm:
+            try assure(AudioDeviceClockAlgorithmSelector.RawValue.self, fitsIn: sizeHint)
+            let value = AudioDeviceClockAlgorithmSelector.algorithmSimpleIIR.rawValue
+            return .integer(value)
+            
+        case .deviceClockIsStable:
+            try assure(UInt32.self, fitsIn: sizeHint)
+            let value = UInt32(true)
+            return .integer(value)
+            
+        default:
+            throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
+        }
+    }
+    
+    func setProperty(description: PancakeObjectPropertyDescription, data: UnsafeRawPointer) throws {
+        switch description.selector {
+//        case .<#pattern#>:
+            
+            
+        default:
+            throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
+        }
+    }
+}

@@ -37,7 +37,7 @@ extension Pancake {
             let pancakeObject = self.audioObjects[objectID],
             let description = description
         else {
-            assertionFailure()
+            //assertionFailure()
             return false
         }
         
@@ -76,8 +76,25 @@ extension Pancake {
     
 
     
-    func setPropertyData(inDriver: AudioServerPlugInDriverRef, inObjectID: AudioObjectID, inClientProcessID: pid_t, inAddress: UnsafePointer<AudioObjectPropertyAddress>, inQualifierDataSize: UInt32, inQualifierData: UnsafeRawPointer?, inDataSize: UInt32, inData: UnsafeRawPointer) -> OSStatus {
-        fatalError(); //return 0
+    func setPropertyData(driver: AudioServerPlugInDriver?, objectID: AudioObjectID, description: PancakeObjectPropertyDescription?, dataSize: UInt32, data: UnsafeRawPointer) -> OSStatus {
+        guard valid(driver) else { return PancakeAudioHardwareError.badObject }
+        
+        guard
+            let description = description,
+            let pancakeObject = self.audioObjects[objectID]
+            else {
+                assertionFailure()
+                return PancakeAudioHardwareError.badObject
+        }
+
+        // Set property
+        do {
+            try pancakeObject.setProperty(description: description, data: data)
+        } catch {
+            return (error as! PancakeObjectPropertyQueryError).status
+        }
+        
+        return PancakeAudioHardwareError.noError
     }
 }
 

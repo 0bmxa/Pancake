@@ -48,4 +48,14 @@ class PancakeBox: PancakeObjectType {
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
     }
+    
+    func setProperty(description: PancakeObjectPropertyDescription, data: UnsafeRawPointer) throws {
+        switch description.selector {
+            //case .<#pattern#>:
+            
+            
+        default:
+            throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
+        }
+    }
 }

@@ -8,7 +8,7 @@
 
 import CoreAudio
 
-// Wrapper around AudioObjectPropertyScope
+/// A wrapper around AudioObjectPropertyScope
 enum PancakeAudioObjectPropertyScope {
     // AudioHardwareBase.h
     case global
@@ -17,6 +17,9 @@ enum PancakeAudioObjectPropertyScope {
     case playThrough
     case wildcard
 }
+
+
+// MARK: - RawRepresentable
 
 extension PancakeAudioObjectPropertyScope: RawRepresentable {
     public init?(rawValue: AudioObjectPropertyScope) {

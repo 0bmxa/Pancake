@@ -13,6 +13,7 @@ protocol PancakeObjectType: class {
     
     func hasProperty(description: PancakeObjectPropertyDescription) -> Bool
     func getProperty(description: PancakeObjectPropertyDescription, sizeHint: UInt32?) throws -> PancakeObjectProperty
+    func setProperty(description: PancakeObjectPropertyDescription, data: UnsafeRawPointer) throws
 }
 
 extension PancakeObjectType {

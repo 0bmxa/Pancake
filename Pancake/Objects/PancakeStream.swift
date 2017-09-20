@@ -59,11 +59,25 @@ class PancakeStream: PancakeObjectType {
             // TODO: Notify the host in case the format has changed!
             assertionFailure()
             return .streamDescription(newFormat)
+            
+        case .objectCustomPropertyInfoList:
+            throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
 
 
         default:
             printcake("Not implemented:", description.selector)
 //            assertionFailure()
+            throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
+        }
+    }
+    
+    func setProperty(description: PancakeObjectPropertyDescription, data: UnsafeRawPointer) throws {
+        switch description.selector {
+            //case .<#pattern#>:
+            
+        case .streamIsActive: break //TODO:
+            
+        default:
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
     }
