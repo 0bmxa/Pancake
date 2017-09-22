@@ -62,7 +62,7 @@ var pancakeDriverReference: AudioServerPlugInDriverRef?
             supportedFormats: [
                 AudioStreamBasicDescription(sampleRate: 44100, channelCount: 2, format: .float32, interleaved: true),
                 AudioStreamBasicDescription(sampleRate: 48000, channelCount: 2, format: .float32, interleaved: true),
-                AudioStreamBasicDescription(sampleRate: 96000, channelCount: 2, format: .float32, interleaved: true),
+                AudioStreamBasicDescription(sampleRate: 96000, channelCount: 2, format: .float32, interleaved: true)
             ]
         )
         let config = Configuration(devices: [device])
