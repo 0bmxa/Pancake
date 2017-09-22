@@ -33,8 +33,15 @@ struct AtomicCounter<T: FixedWidthInteger> {
     }
 
     var value: T {
-        return self.serialQueue.sync {
-            return self._value
+        get {
+            return self.serialQueue.sync {
+                return self._value
+            }
+        }
+        set {
+            self.serialQueue.sync {
+                self._value = newValue
+            }
         }
     }
 
@@ -42,4 +49,3 @@ struct AtomicCounter<T: FixedWidthInteger> {
         return self.value == T.max
     }
 }
-

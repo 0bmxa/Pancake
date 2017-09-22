@@ -14,7 +14,13 @@ class PancakeDevice: PancakeObjectType {
     private let pancake: Pancake
     internal let configuration: DeviceConfiguration
     private var controls: [PancakeControl]
-    private let streams: [PancakeStream]
+    internal let streams: [PancakeStream] // internal because device IO extenseion
+    
+    // IO / timing stuff
+    internal var IOCount = AtomicCounter<UInt64>() // internal because device IO extenseion
+    internal var cycleCount = AtomicCounter<UInt64>() // internal because device IO extenseion
+    internal var referenceHostTime = AtomicCounter<UInt64>() // internal because device IO extenseion
+
     
     init(pancake: Pancake, streams: [PancakeStream], configuration: DeviceConfiguration) {
         self.pancake       = pancake
@@ -55,6 +61,7 @@ class PancakeDevice: PancakeObjectType {
         // Object foo
         case .objectBaseClass,
             .objectClass,
+            .objectManufacturer,
             .objectName,
             .objectModelName,
             .objectElementCategoryName,
@@ -86,10 +93,8 @@ class PancakeDevice: PancakeObjectType {
 
 // =============================================================================
 //  AudioHub
-        case .objectManufacturer: fatalError()
         case .objectOwnedObjects: fatalError()
-            
-        case .deviceModelUID: fatalError()
+        
         case .deviceRelatedDevices: fatalError()
         case .deviceClockDomain: fatalError()
         case .deviceIsAlive: fatalError()
@@ -188,13 +193,17 @@ class PancakeDevice: PancakeObjectType {
             try assure(AudioClassID.self, fitsIn: sizeHint)
             return .audioClassID(PancakeAudioDevice.classID)
             
+        case .objectManufacturer:
+            try assure(CFString.self, fitsIn: sizeHint)
+            return .string(self.configuration.manufacturer as CFString)
+
         case .objectName:
             try assure(CFString.self, fitsIn: sizeHint)
             return .string(self.configuration.name as CFString)
             
+        // Not for applications intended
         case .objectListenerAdded,
              .objectListenerRemoved:
-            // Not for applications intended
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
     
         case .objectModelName,
@@ -211,8 +220,12 @@ class PancakeDevice: PancakeObjectType {
         switch description.selector {
         case .deviceUID:
             try assure(CFString.self, fitsIn: sizeHint)
-            return .string(self.configuration.uid as CFString)
+            return .string(self.configuration.UID as CFString)
             
+        case .deviceModelUID:
+            try assure(CFString.self, fitsIn: sizeHint)
+            return .string(self.configuration.modelUID as CFString)
+
         case .deviceStreams:
             try assure(AudioObjectID.self, fitsIn: sizeHint)
             let streamIDs = self.streams.flatMap { $0.objectID }
@@ -318,3 +331,5 @@ class PancakeDevice: PancakeObjectType {
         }
     }
 }
+
+

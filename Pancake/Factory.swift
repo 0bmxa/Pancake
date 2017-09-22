@@ -58,7 +58,7 @@ var pancakeDriverReference: AudioServerPlugInDriverRef? = nil
         let device = DeviceConfiguration(
             manufacturer: "Pancake Manufacturer",
             name: "Pancake Framework",
-            uid: "MyDeviceUID_1",
+            UID: "PancakeDevice",
             supportedFormats: [
                 AudioStreamBasicDescription(sampleRate: 44100, channelCount: 2, format: .float32, interleaved: true),
                 AudioStreamBasicDescription(sampleRate: 48000, channelCount: 2, format: .float32, interleaved: true),

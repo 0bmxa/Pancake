@@ -498,6 +498,7 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
 
         // Unclear
         case 1667658618: fallthrough // 'cfsz'
+        case 1685287012:             // 'dspd'
             return nil
 
         // Unknown property

@@ -10,7 +10,7 @@ import CoreAudio.AudioServerPlugIn
 
 class PancakeStream: PancakeObjectType {
     internal var objectID: AudioObjectID? = nil
-    internal var owningDevice: PancakeDevice? = nil
+    internal weak var owningDevice: PancakeDevice? = nil
 
     private let pancake: Pancake
     private let direction: Direction
@@ -60,6 +60,7 @@ class PancakeStream: PancakeObjectType {
             assertionFailure()
             return .streamDescription(newFormat)
             
+        case .deviceLatency: fallthrough            
         case .objectCustomPropertyInfoList:
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
 

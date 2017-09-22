@@ -41,8 +41,12 @@ public class DeviceConfiguration {
 
     /// A unique string to identify the device in a pool of audio objects.
     /// This has to be consistent across boots.
-    public let uid: String
+    public let UID: String
     
+    /// A unique string to identify the device in a pool of audio objects.
+    /// This has to be consistent across boots.
+    public let modelUID: String
+
     /// The audio formats the plugin supports.
     public let supportedFormats: [AudioStreamBasicDescription]
     
@@ -75,10 +79,15 @@ public class DeviceConfiguration {
     internal let deviceLatency: InOutValue<UInt32>
     
     
-    /// The host ticks per frame, based on the currently active format
+    /// The number of host ticks per frame, based on the currently active format
     internal var ticksPerFrame: Float64 {
         let ticksPerSecond = MachTimebaseInfo().ticksPerSecond
         return ticksPerSecond / self.registeredFormat.mSampleRate
+    }
+    
+    /// The number of host ticks per ring buffer (i.e. all frames in the buffer)
+    internal var ticksPerRingBuffer: Float64 {
+        return self.ticksPerFrame * Float64(self.ringBuffer.size)
     }
 
 
@@ -92,11 +101,12 @@ public class DeviceConfiguration {
     ///   - hidden: Whether the device should be hidden from the user. (Default: no)
     ///   - canBeDefaultDevice: Whether the device can be set as the user's default audio device. (Default: yes)
     ///   - canHandleSystemAudio: Whether the device can handle system audio like alerts. (Default: no)
-    public init(manufacturer: String, name: String, uid: String, supportedFormats: [AudioStreamBasicDescription], hidden: Bool = false, canBeDefaultDevice: Bool = true, canHandleSystemAudio: Bool = false) {
+    public init(manufacturer: String, name: String, UID: String, supportedFormats: [AudioStreamBasicDescription], hidden: Bool = false, canBeDefaultDevice: Bool = true, canHandleSystemAudio: Bool = false) {
         // Public
         self.manufacturer         = manufacturer
         self.name                 = name
-        self.uid                  = uid
+        self.UID                  = UID
+        self.modelUID             = UID + "_Model" // TODO:
         self.supportedFormats     = supportedFormats
         self.hidden               = hidden
         self.canBeDefaultDevice   = canBeDefaultDevice

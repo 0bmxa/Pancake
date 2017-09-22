@@ -130,37 +130,45 @@ func Pancake_setPropertyData(inDriver: AudioServerPlugInDriverRef, inObjectID: A
 // Tells the device to start IO.
 func Pancake_startIO(inDriver: AudioServerPlugInDriverRef, inDeviceObjectID: AudioObjectID, inClientID: UInt32) -> OSStatus {
     let driver = AudioServerPlugInDriver(from: inDriver)
-    return Pancake.shared.startIO(driver: driver, objectID: inDeviceObjectID)
+    return Pancake.shared.startIO(driver: driver, objectID: inDeviceObjectID, clientID: inClientID)
 }
 
 
 // Tells the device to stop IO.
 func Pancake_stopIO(inDriver: AudioServerPlugInDriverRef, inDeviceObjectID: AudioObjectID, inClientID: UInt32) -> OSStatus {
     let driver = AudioServerPlugInDriver(from: inDriver)
-    return Pancake.shared.stopIO(driver: driver, objectID: inDeviceObjectID)
+    return Pancake.shared.stopIO(driver: driver, objectID: inDeviceObjectID, clientID: inClientID)
 }
 
 // Retrieves the most recent zero time stamp for the device.
 func Pancake_getZeroTimeStamp(inDriver: AudioServerPlugInDriverRef, inDeviceObjectID: AudioObjectID, inClientID: UInt32, outSampleTime: UnsafeMutablePointer<Float64>, outHostTime: UnsafeMutablePointer<UInt64>, outSeed: UnsafeMutablePointer<UInt64>) -> OSStatus {
-    return Pancake.shared.getZeroTimeStamp(inDriver: inDriver, inDeviceObjectID: inDeviceObjectID, inClientID: inClientID, outSampleTime: outSampleTime, outHostTime: outHostTime, outSeed: outSeed)
+    let driver = AudioServerPlugInDriver(from: inDriver)
+    return Pancake.shared.getZeroTimeStamp(driver: driver, objectID: inDeviceObjectID, clientID: inClientID, outSampleTime: outSampleTime, outHostTime: outHostTime, outSeed: outSeed)
 }
+
 
 // Asks the plug-in whether or not the device will perform the given phase of the IO cycle for a particular device.
 func Pancake_willDoIOOperation(inDriver: AudioServerPlugInDriverRef, inDeviceObjectID: AudioObjectID, inClientID: UInt32, inOperationID: UInt32, outWillDo: UnsafeMutablePointer<DarwinBoolean>, outWillDoInPlace: UnsafeMutablePointer<DarwinBoolean>) -> OSStatus {
-    return Pancake.shared.willDoIOOperation(inDriver: inDriver, inDeviceObjectID: inDeviceObjectID, inClientID: inClientID, inOperationID: inOperationID, outWillDo: outWillDo, outWillDoInPlace: outWillDoInPlace)
+    let driver = AudioServerPlugInDriver(from: inDriver)
+    let operation = AudioServerPlugInIOOperation(rawValue: inOperationID)
+    return Pancake.shared.willDoIOOperation(driver: driver, objectID: inDeviceObjectID, clientID: inClientID, operation: operation, outWillDo: outWillDo, outWillDoInPlace: outWillDoInPlace)
 }
 
 // Tells the plug-in that the Host is about to begin a phase of the IO cycle for a particular device.
 func Pancake_beginIOOperation(inDriver: AudioServerPlugInDriverRef, inDeviceObjectID: AudioObjectID, inClientID: UInt32, inOperationID: UInt32, inIOBufferFrameSize: UInt32, inIOCycleInfo: UnsafePointer<AudioServerPlugInIOCycleInfo>) -> OSStatus {
-    return Pancake.shared.beginIOOperation(inDriver: inDriver, inDeviceObjectID: inDeviceObjectID, inClientID: inClientID, inOperationID: inOperationID, inIOBufferFrameSize: inIOBufferFrameSize, inIOCycleInfo: inIOCycleInfo)
+    let driver = AudioServerPlugInDriver(from: inDriver)
+    return Pancake.shared.beginIOOperation(driver: driver, objectID: inDeviceObjectID, clientID: inClientID, inOperationID: inOperationID, inIOBufferFrameSize: inIOBufferFrameSize, inIOCycleInfo: inIOCycleInfo)
 }
 
 // Tells the device to perform an IO operation for a particular stream.
 func Pancake_doIOOperation(inDriver: AudioServerPlugInDriverRef, inDeviceObjectID: AudioObjectID, inStreamObjectID: AudioObjectID, inClientID: UInt32, inOperationID: UInt32, inIOBufferFrameSize: UInt32, inIOCycleInfo: UnsafePointer<AudioServerPlugInIOCycleInfo>, ioMainBuffer: UnsafeMutableRawPointer?, ioSecondaryBuffer: UnsafeMutableRawPointer?) -> OSStatus {
-    return Pancake.shared.doIOOperation(inDriver: inDriver, inDeviceObjectID: inDeviceObjectID, inStreamObjectID: inStreamObjectID, inClientID: inClientID, inOperationID: inOperationID, inIOBufferFrameSize: inIOBufferFrameSize, inIOCycleInfo: inIOCycleInfo, ioMainBuffer: ioMainBuffer, ioSecondaryBuffer: ioSecondaryBuffer)
+    let driver = AudioServerPlugInDriver(from: inDriver)
+    let operation = AudioServerPlugInIOOperation(rawValue: inOperationID)
+    return Pancake.shared.doIOOperation(driver: driver, deviceObjectID: inDeviceObjectID, clientID: inClientID, streamObjectID: inStreamObjectID, operation: operation, IOBufferFrameSize: inIOBufferFrameSize, IOCycleInfo: inIOCycleInfo, mainBuffer: ioMainBuffer, secondaryBuffer: ioSecondaryBuffer)
 }
 
 // Tells the plug-in that the Host is about to end a phase of the IO cycle for a particular device.
 func Pancake_endIOOperation(inDriver: AudioServerPlugInDriverRef, inDeviceObjectID: AudioObjectID, inClientID: UInt32, inOperationID: UInt32, inIOBufferFrameSize: UInt32, inIOCycleInfo: UnsafePointer<AudioServerPlugInIOCycleInfo>) -> OSStatus {
-    return Pancake.shared.endIOOperation(inDriver: inDriver, inDeviceObjectID: inDeviceObjectID, inClientID: inClientID, inOperationID: inOperationID, inIOBufferFrameSize: inIOBufferFrameSize, inIOCycleInfo: inIOCycleInfo)
+    let driver = AudioServerPlugInDriver(from: inDriver)
+    return Pancake.shared.endIOOperation(driver: driver, objectID: inDeviceObjectID, clientID: inClientID, inOperationID: inOperationID, inIOBufferFrameSize: inIOBufferFrameSize, inIOCycleInfo: inIOCycleInfo)
 }
