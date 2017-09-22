@@ -8,6 +8,7 @@
 
 import CoreAudio.AudioServerPlugIn
 
+// swiftlint:disable function_parameter_count force_cast
 
 // MARK: - IO Operations
 extension Pancake {

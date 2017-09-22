@@ -40,7 +40,7 @@ class PancakeAudioObjectList {
     /// - Returns: The ID the object got assigned.
     @discardableResult
     func add(object: PancakeObjectType) -> AudioObjectID {
-        guard self.storage.count > 0 else { fatalError("This list was never initialized.") }
+        guard !self.storage.isEmpty else { fatalError("This list was never initialized.") }
         guard object.objectID == nil else { fatalError("The object you're trying to add has an ID already.") }
         guard self.lastID < AudioObjectID.max else { fatalError("We're out of IDs.") }
         self.lastID += 1
@@ -64,10 +64,8 @@ class PancakeAudioObjectList {
     /// - Parameter expectedType: The type to be found.
     /// - Returns: The list of IDs.
     func IDsForObjects<T: PancakeObjectType>(of expectedType: T.Type) -> [AudioObjectID] {
-        let matchingEntries = self.storage.filter { (ID: AudioObjectID, object: PancakeObjectType) -> Bool in
-            return type(of: object) == expectedType
-        }
-        let matchingIDs = matchingEntries.map { (ID: AudioObjectID, object: PancakeObjectType) in return ID }
+        let matchingEntries = self.storage.filter { type(of: $0.value) == expectedType }
+        let matchingIDs = matchingEntries.map { $0.key }
         return matchingIDs
     }
     
@@ -83,4 +81,3 @@ class PancakeAudioObjectList {
         return element
     }
 }
-

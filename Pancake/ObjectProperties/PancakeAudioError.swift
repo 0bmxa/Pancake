@@ -28,4 +28,3 @@ enum PancakeAudioDeviceError {
     static let unsupportedFormat = kAudioDeviceUnsupportedFormatError
     static let permissions       = kAudioDevicePermissionsError
 }
-

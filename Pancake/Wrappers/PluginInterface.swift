@@ -23,4 +23,3 @@ class PluginInterface {
         self.pointer.pointee = UnsafeMutableRawPointer(driver.reference)
     }
 }
-

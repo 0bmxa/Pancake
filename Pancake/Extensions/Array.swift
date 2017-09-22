@@ -25,7 +25,7 @@ extension Array {
         guard let expectedNumberOfElements = number(of: Element.self, thatFitIn: avaliableMemory) else {
             return self
         }
-        
+
         // Get elements
         let numberOfElements = Swift.min(expectedNumberOfElements, self.count)
         let elements = self[ 0..<numberOfElements ]

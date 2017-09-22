@@ -108,7 +108,7 @@ extension Pancake {
         device.configuration.registeredFormat = newFormat
         // ---
 
-        fatalError();
+        fatalError()
         //return PancakeAudioHardwareError.noError
     }
     

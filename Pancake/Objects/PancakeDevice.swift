@@ -9,7 +9,7 @@
 import CoreAudio.AudioServerPlugIn
 
 class PancakeDevice: PancakeObjectType {
-    internal var objectID: AudioObjectID? = nil
+    internal var objectID: AudioObjectID?
 
     private let pancake: Pancake
     internal let configuration: DeviceConfiguration
@@ -53,6 +53,8 @@ class PancakeDevice: PancakeObjectType {
 
     
 
+    // TODO: remove this line when the unused stuff below was removed:
+    // swiftlint:disable function_body_length cyclomatic_complexity
     func getProperty(description: PancakeObjectPropertyDescription, sizeHint: UInt32?) throws -> PancakeObjectProperty {
         printcake(type(of: self), #function, description.selector)
         
@@ -331,5 +333,3 @@ class PancakeDevice: PancakeObjectType {
         }
     }
 }
-
-

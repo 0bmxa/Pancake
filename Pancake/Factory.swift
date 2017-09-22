@@ -11,20 +11,20 @@ import CoreAudio.AudioServerPlugIn
 
 
 /// The global driver interface
-var pancakeDriverInterface: AudioServerPlugInDriverInterface? = nil
-var pancakeDriverInterfacePointer: UnsafeMutablePointer<AudioServerPlugInDriverInterface>? = nil
-var pancakeDriverReference: AudioServerPlugInDriverRef? = nil
+var pancakeDriverInterface: AudioServerPlugInDriverInterface?
+var pancakeDriverInterfacePointer: UnsafeMutablePointer<AudioServerPlugInDriverInterface>?
+var pancakeDriverReference: AudioServerPlugInDriverRef?
 
 
 /// Wrapper around the create() func, to allow exposing to (Obj)C.
 @objc class PancakeFactory: NSObject {
     @objc static func create(allocator: CFAllocator!, requestedTypeUUID: CFUUID!) -> UnsafeMutableRawPointer? {
-        
+
         guard UUID(rawValue: requestedTypeUUID) == kUUID.audioServerPlugInTypeUUID else {
             assertionFailure()
             return nil
         }
-        
+
         // The driver interface, exposing all driver functions to the plugin host.
         pancakeDriverInterface = AudioServerPlugInDriverInterface(
             _reserved:                        nil,

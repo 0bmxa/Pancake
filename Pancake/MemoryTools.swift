@@ -27,7 +27,7 @@ func sizeof<T: Collection>(_ type: T.Type) -> UInt32 {
 }
 
 
-func assure<T>(_ type: T.Type, fitsIn maxOutputSize: UInt32?, error: Error? = nil) throws -> Void {
+func assure<T>(_ type: T.Type, fitsIn maxOutputSize: UInt32?, error: Error? = nil) throws {
     // Throw if output size is set and too small
     if let maxOutputSize = maxOutputSize, maxOutputSize < sizeof(type) {
         let error = error ?? PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.badPropertySize)

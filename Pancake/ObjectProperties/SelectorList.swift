@@ -8,6 +8,8 @@
 
 import CoreAudio
 
+// swiftlint:disable identifier_name file_length
+
 enum PancakeAudioObjectID {
     static let unknown = kAudioObjectUnknown
     static let plugin  = kAudioObjectPlugInObject
@@ -514,4 +516,3 @@ enum PancakeAudioClockSourceControl {
         static let itemKind = PancakeAudioSelectorControl.Selector.itemKind
     }
 }
-

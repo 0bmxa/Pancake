@@ -8,6 +8,7 @@
 
 import CoreAudio
 
+// swiftlint:disable identifier_name file_length
 
 enum PancakeAudioObjectPropertySelector {
     // Object
@@ -255,6 +256,10 @@ enum PancakeAudioObjectPropertySelector {
 // MARK: - RawRepresentable
 
 extension PancakeAudioObjectPropertySelector: RawRepresentable {
+    
+    // swiftlint:disable function_body_length cyclomatic_complexity
+    // FIXME: This is super inefficient.
+    // TODO: Refactor this. This is too large and super inefficient.
     public init?(rawValue: AudioObjectPropertySelector) {
         switch rawValue {
         // Object
@@ -754,4 +759,3 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
         }
     }
 }
-

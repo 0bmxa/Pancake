@@ -10,7 +10,7 @@ import CoreAudio.AudioServerPlugIn
 
 internal class Pancake {
     internal let driver: AudioServerPlugInDriver
-    internal var host: AudioServerPlugInHost? = nil
+    internal var host: AudioServerPlugInHost?
     internal var pluginReferenceCounter = AtomicCounter<UInt32>()
     internal var configuration: PancakeInternalConfiguration
 

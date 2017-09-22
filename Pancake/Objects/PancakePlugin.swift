@@ -9,7 +9,7 @@
 import CoreAudio.AudioServerPlugIn
 
 class PancakePlugin: PancakeObjectType {
-    internal var objectID: AudioObjectID? = nil
+    internal var objectID: AudioObjectID?
     private let pancake: Pancake
     
     init(pancake: Pancake) {
@@ -68,6 +68,3 @@ class PancakePlugin: PancakeObjectType {
         }
     }
 }
-
-
-

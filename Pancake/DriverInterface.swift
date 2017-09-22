@@ -19,6 +19,8 @@ import CoreAudio.AudioServerPlugIn
  *                                                                             *
  * ========================================================================== */
  
+// swiftlint:disable identifier_name function_parameter_count
+
 
 // MARK: - Inheritance
 

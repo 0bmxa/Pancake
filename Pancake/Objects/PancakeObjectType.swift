@@ -29,34 +29,8 @@ extension PancakeObjectType {
 }
 
 
-
-
-// =============================================================================
-// =============================================================================
-// =============================================================================
-
-
-
 protocol PancakeError: Error {}
 
 struct PancakeObjectPropertyQueryError: PancakeError {
     let status: OSStatus
 }
-
-
-
-//enum PancakeObjectID: AudioObjectID {
-//    case unknown                = 0 // = PancakeAudioObjectID.unknown
-//    case plugin                 = 1 // = PancakeAudioObjectID.plugin
-//    case box                    = 2
-//    case device                 = 3
-//    case streamInput            = 4
-//    case volumeInputMaster      = 5
-//    case muteInputMaster        = 6
-//    case dataSourceInputMaster  = 7
-//    case streamOutput           = 8
-//    case volumeOutputMaster     = 9
-//    case muteOutputMaster       = 10
-//    case dataSourceOutputMaster = 11
-//}
-

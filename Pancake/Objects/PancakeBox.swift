@@ -9,7 +9,7 @@
 import CoreAudio.AudioServerPlugIn
 
 class PancakeBox: PancakeObjectType {
-    internal var objectID: AudioObjectID? = nil
+    internal var objectID: AudioObjectID?
     private let pancake: Pancake
 
     private let UID: CFString

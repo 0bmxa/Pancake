@@ -8,26 +8,7 @@
 
 import CoreAudio.AudioServerPlugIn
 
-//class PropertyAddress {
-//    let pointer: UnsafePointer<AudioObjectPropertyAddress>
-//
-//    init?(from pointer: UnsafePointer<AudioObjectPropertyAddress>?) {
-//        guard let pointer = pointer else { return nil }
-//        self.pointer = pointer
-//    }
-//
-//    var element: AudioObjectPropertyElement {
-//        return self.pointer.pointee.mElement
-//    }
-//
-//    var scope: AudioObjectPropertyScope {
-//        return self.pointer.pointee.mScope
-//    }
-//
-//    var selector: PancakeAudioObjectPropertySelector? {
-//        return PancakeAudioObjectPropertySelector(from: self.pointer.pointee.mSelector)
-//    }
-//}
+// swiftlint:disable force_cast
 
 // MARK: - Property Operations
 extension Pancake {

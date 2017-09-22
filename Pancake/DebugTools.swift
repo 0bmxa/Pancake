@@ -16,7 +16,7 @@ extension String {
             return $0.withMemoryRebound(to: UInt8.self, capacity: 4) {
                 return $0
             }
-        }        
+        }
         self = String(cString: cString)
     }
 }

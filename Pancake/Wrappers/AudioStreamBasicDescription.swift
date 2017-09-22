@@ -68,7 +68,7 @@ extension AudioStreamBasicDescription {
         self.mReserved         = 0
     }
     
-    static func ==(lhs: AudioStreamBasicDescription, rhs: AudioStreamBasicDescription) -> Bool {
+    static func == (lhs: AudioStreamBasicDescription, rhs: AudioStreamBasicDescription) -> Bool {
         return (
             lhs.mSampleRate       == rhs.mSampleRate       ||
             lhs.mFormatID         == rhs.mFormatID         ||
@@ -82,7 +82,7 @@ extension AudioStreamBasicDescription {
         )
     }
     
-    static func !=(lhs: AudioStreamBasicDescription, rhs: AudioStreamBasicDescription) -> Bool {
+    static func != (lhs: AudioStreamBasicDescription, rhs: AudioStreamBasicDescription) -> Bool {
         return !(lhs == rhs)
     }
 }

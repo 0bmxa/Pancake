@@ -9,7 +9,7 @@
 import CoreAudio.AudioServerPlugIn
 
 class PancakeControl: PancakeObjectType {
-    internal var objectID: AudioObjectID? = nil
+    internal var objectID: AudioObjectID?
     
     private let controlType: ControlType
     private let scope: PancakeAudioObjectPropertyScope
@@ -124,4 +124,3 @@ extension PancakeControl {
         }
     }
 }
-

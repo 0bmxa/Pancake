@@ -67,7 +67,7 @@ public class DeviceConfiguration {
     internal var registeredFormat: AudioStreamBasicDescription
     
     // The next format to register with the host
-    internal var formatToActivate: AudioStreamBasicDescription? = nil
+    internal var formatToActivate: AudioStreamBasicDescription?
     
     /// The IO ring buffer
     internal let ringBuffer: RingBuffer

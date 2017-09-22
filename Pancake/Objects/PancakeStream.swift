@@ -9,8 +9,8 @@
 import CoreAudio.AudioServerPlugIn
 
 class PancakeStream: PancakeObjectType {
-    internal var objectID: AudioObjectID? = nil
-    internal weak var owningDevice: PancakeDevice? = nil
+    internal var objectID: AudioObjectID?
+    internal weak var owningDevice: PancakeDevice?
 
     private let pancake: Pancake
     private let direction: Direction
