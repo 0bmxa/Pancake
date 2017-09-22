@@ -241,6 +241,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE69C3A91F30B69F00381315 /* Build configuration list for PBXNativeTarget "Pancake" */;
 			buildPhases = (
+				EE950DCD1F74AF6600D2F740 /* swiftlint */,
 				EE69C39F1F30B69F00381315 /* Sources */,
 				EE69C3A01F30B69F00381315 /* Frameworks */,
 				EE69C3A11F30B69F00381315 /* Resources */,
@@ -296,6 +297,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EE950DCD1F74AF6600D2F740 /* swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = swiftlint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = swiftlint;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		EE69C39F1F30B69F00381315 /* Sources */ = {
