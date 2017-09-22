@@ -1,0 +1,25 @@
+disabled_rules:
+    - opening_brace
+    - comma
+    - colon
+    - vertical_whitespace
+
+    - trailing_whitespace
+    - line_length
+    - todo
+    - force_unwrapping
+    - trailing_comma
+
+opt_in_rules:
+    - closure_spacing
+    - empty_count
+    - explicit_init
+    - force_unwrapping
+    - missing_docs
+    - overridden_super_call
+    - private_outlet
+    - redundant_nil_coalesing
+    # - conditional_returns_on_newline
+    # - switch_case_on_newline
+
+excluded:
