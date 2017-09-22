@@ -23,16 +23,16 @@ extension AudioChannelLayout {
         self.mChannelLayoutTag          = kAudioChannelLayoutTag_UseChannelDescriptions
         self.mChannelBitmap             = AudioChannelBitmap(rawValue: 0)
         self.mNumberChannelDescriptions = UInt32(channelDescriptions.count)
-        
+
         self.mChannelDescriptions = AudioChannelDescription() // Just there to initialize all stored properties...
         self.mChannelDescriptionsArray = channelDescriptions  // <- ...but gets overwritten by this one anyways
     }
-    
+
 
     // This is a workaround to make mChannelDescriptions usable in Swift, as
     // it actually is a variable length array, but got bridged as a single
     // element only.
-    
+
     var mChannelDescriptionsArray: [AudioChannelDescription] {
         mutating get {
             // Note: this is not really mutating, but needs to be declared as
@@ -40,7 +40,7 @@ extension AudioChannelLayout {
 
             // Get pointer to mChannelDescriptions
             var pointer = withUnsafePointer(to: &self.mChannelDescriptions) { $0 }
-            
+
             // Iterate over mNumberChannelDescriptions number elements in memory
             // and treat them as AudioChannelDescription
             let indices = (0 ..< self.mNumberChannelDescriptions)
@@ -50,15 +50,15 @@ extension AudioChannelLayout {
                 return element
             }
         }
-        
+
         set(array) {
             guard array.count <= self.mNumberChannelDescriptions else {
                 fatalError("Not enough memory available.")
             }
-            
+
             // Get a pointer to mChannelDescriptions
             var channelDescriptionsPointer = withUnsafeMutablePointer(to: &self.mChannelDescriptions) { $0 }
-            
+
             // Walk over array and write all elements one by one to the memory
             // (Hopefully someone allocated that memory correctly...)
             for element in array {
@@ -83,7 +83,7 @@ extension AudioChannelLayout {
         self.mNumberChannelDescriptions = 0
         self.mChannelDescriptions       = AudioChannelDescription()
     }
-    
+
     /// Creates a new channel layout from a bitmap.
     ///
     /// - Parameter channelBitmap: A channel bitmap.
@@ -94,14 +94,14 @@ extension AudioChannelLayout {
         self.mChannelDescriptions       = AudioChannelDescription()
     }
 
-    
+
     /// Size of the struct for the specified channel count.
     static func size(channelCount: Int) -> UInt32 {
         let basicSize = MemoryLayout<AudioChannelLayout>.stride // contains one channel already
         let additionalChannels = MemoryLayout<AudioChannelDescription>.stride * (channelCount - 1) // the other channels
         return UInt32(basicSize + additionalChannels)
     }
-    
+
     /// A linear channel layout with the specified number of channels.
     ///
     /// - Parameter channelCount: The number of channels the layout shoudld describe.

@@ -13,7 +13,7 @@ enum ByteOrder {
     case bigEndian
     case littleEndian
     case unknown
-    
+
     static var current: ByteOrder {
         switch CFByteOrderGetCurrent() {
         case Int(CFByteOrderBigEndian.rawValue):    return .bigEndian

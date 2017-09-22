@@ -16,14 +16,14 @@ class PancakeBox: PancakeObjectType {
 
     required init(pancake: Pancake) {
         self.pancake = pancake
-        
+
         // FIXME: This should be consistent across boots, not regenerated every time
         self.UID = UUID().string as CFString
     }
 
     func getProperty(description: PancakeObjectPropertyDescription, sizeHint: UInt32?) throws -> PancakeObjectProperty {
         printcake(type(of: self), #function, description.selector)
-        
+
         switch description.selector {
 //        case .objectBaseClass:
 //            try assure(AudioClassID.self, fitsIn: sizeHint)
@@ -36,7 +36,7 @@ class PancakeBox: PancakeObjectType {
         case .boxUID:
             try assure(CFString.self, fitsIn: sizeHint)
             return .string(self.UID)
-            
+
         case .objectCustomPropertyInfoList:
             try assure(AudioServerPlugInCustomPropertyInfo.self, fitsIn: sizeHint)
             let customProperties = self.pancake.customProperties
@@ -48,12 +48,12 @@ class PancakeBox: PancakeObjectType {
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
     }
-    
+
     func setProperty(description: PancakeObjectPropertyDescription, data: UnsafeRawPointer) throws {
         switch description.selector {
             //case .<#pattern#>:
-            
-            
+
+
         default:
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }

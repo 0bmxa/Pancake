@@ -18,7 +18,7 @@ import CoreAudio.AudioServerPlugIn
  *   Pancake methods.                                                          *
  *                                                                             *
  * ========================================================================== */
- 
+
 // swiftlint:disable identifier_name function_parameter_count
 
 

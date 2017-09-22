@@ -20,13 +20,13 @@ extension Pancake {
     /// - Returns: The status of the operation.
     func initialize(driver: AudioServerPlugInDriver?, host: AudioServerPlugInHost?) -> OSStatus {
         guard valid(driver) else { return PancakeAudioHardwareError.badObject }
-        
+
         // Store the host reference
         self.host = host
-        
+
         // Do basic setup
         self.setup()
-        
+
         return PancakeAudioHardwareError.noError
     }
 }
@@ -42,7 +42,7 @@ extension Pancake {
     func createDevice() -> OSStatus {
         return PancakeAudioHardwareError.unsupportedOperation
     }
-    
+
     /// (Not supported.)
     /// Called to tell the plug-in about to destroy the given device.
     ///
@@ -50,7 +50,7 @@ extension Pancake {
     func destroyDevice() -> OSStatus {
         return PancakeAudioHardwareError.unsupportedOperation
     }
-    
+
     /// (Not supported.)
     /// Called to tell the plug-in about a new client of the Host for a particular device.
     ///
@@ -58,7 +58,7 @@ extension Pancake {
     func addDeviceClient() -> OSStatus {
         return PancakeAudioHardwareError.noError
     }
-    
+
     /// (Not supported.)
     /// Called to tell the plug-in about a client that is no longer using the device.
     ///
@@ -81,7 +81,7 @@ extension Pancake {
     /// - Returns: The status of the operation.
     func performDeviceConfigurationChange(driver: AudioServerPlugInDriver?, deviceObjectID: AudioObjectID, changeAction: UInt64) -> OSStatus {
         guard valid(driver) else { return PancakeAudioHardwareError.badObject }
-        
+
         //    This method is called to tell the device that it can perform the configuation change that it
         //    had requested via a call to the host method, RequestDeviceConfigurationChange(). The
         //    arguments, inChangeAction and inChangeInfo are the same as what was passed to
@@ -111,9 +111,9 @@ extension Pancake {
         fatalError()
         //return PancakeAudioHardwareError.noError
     }
-    
-    
-    
+
+
+
     /// This is called by the Host to tell the plug-in not to perform a configuration change that had been requested via a call to the Host method, RequestDeviceConfigurationChange().
     ///
     /// - Parameters:

@@ -52,8 +52,8 @@ enum PancakeObjectProperty {
         case .valueRangeList(let data):         self.write(array: data, address: address, size: size)
         }
     }
-    
-    
+
+
     // TODO: Test it this works for structs
     private func write<T>(element: T, address: UnsafeMutableRawPointer?, size: UnsafeMutablePointer<UInt32>) {
         // Write data size
@@ -61,14 +61,14 @@ enum PancakeObjectProperty {
 
         // Write data
         address?.assumingMemoryBound(to: T.self).pointee = element
-        
+
         //printcake("Wrote", self, (address == nil ? "(size only)" : ""))
     }
-    
+
     private func write<T: Collection>(array: T, address: UnsafeMutableRawPointer?, size: UnsafeMutablePointer<UInt32>) {
         // Write data size
         size.pointee = UInt32(array.count) * sizeof(T.Element.self)
-        
+
         // Write data
         guard let address = address else {
             //printcake("Wrote", array.count, "Elements of", self, "(size only)")
@@ -79,7 +79,7 @@ enum PancakeObjectProperty {
             currentAddress.pointee = element
             currentAddress = currentAddress.advanced(by: 1)
         }
-        
+
         //printcake("Wrote", array.count, "Elements of", self)
     }
 }

@@ -17,20 +17,20 @@ class RingBuffer {
     init(size: UInt32) {
         self.size = size
         self.buffer = calloc(1, Int(size))
-        
+
         let queueID = UUID().string
         self.serialQueue = DispatchQueue(label: "Pancake.RingBuffer." + queueID)
     }
-    
+
     func read(numberOfFrames frameCount: Int, fromOffset frameOffset: Int, from srcBuffer: UnsafeMutableRawPointer) {
-        
+
         guard let format = self.activeFormat else { assertionFailure(); return }
-        
+
         // Translate frames to bytes
         let bytesPerFrame = Int(format.mBytesPerFrame)
         let startByte = frameOffset * bytesPerFrame
         let bytesToCopy = frameCount * bytesPerFrame
-        
+
         guard bytesToCopy <= self.size else { assertionFailure(); return }
 
         self.serialQueue.sync {
@@ -40,7 +40,7 @@ class RingBuffer {
                 memcpy(self.buffer + startByte, srcBuffer, bytesToCopy)
                 return
             }
-            
+
             // Otherwise, copy first half from [offset – ringbuffer end],
             // then second half [ringbuffer start – requested lenght]
             let sizeOfFirstHalf  = Int(self.size) - startByte
@@ -51,15 +51,15 @@ class RingBuffer {
 
     }
 
-    
+
     func write(numberOfFrames frameCount: Int, fromOffset frameOffset: Int, to destBuffer: UnsafeMutableRawPointer) {
         guard let format = self.activeFormat else { assertionFailure(); return }
-        
+
         // Translate frames to bytes
         let bytesPerFrame = Int(format.mBytesPerFrame)
         let startByte = frameOffset * bytesPerFrame
         let bytesToCopy = frameCount * bytesPerFrame
-        
+
         guard bytesToCopy <= self.size else { assertionFailure(); return }
 
         self.serialQueue.sync {
@@ -69,7 +69,7 @@ class RingBuffer {
                 memcpy(destBuffer, self.buffer + startByte, bytesToCopy)
                 return
             }
-            
+
             // Otherwise, copy first half from [offset – ringbuffer end],
             // then second half [ringbuffer start – requested lenght]
             let sizeOfFirstHalf  = Int(self.size) - startByte
@@ -79,7 +79,7 @@ class RingBuffer {
         }
     }
 
-    
+
     /// Sets the format used in the ringbuffer. Caution: this clears the buffer.
     ///
     /// - Parameter format: The new audio format to be used.

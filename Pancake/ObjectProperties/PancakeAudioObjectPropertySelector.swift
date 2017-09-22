@@ -30,7 +30,7 @@ enum PancakeAudioObjectPropertySelector {
     case objectFirmwareVersion
     case objectWildcard
     case objectCustomPropertyInfoList
-    
+
     // Hardware
     case hardwareDevices
     case hardwareDefaultInputDevice
@@ -56,7 +56,7 @@ enum PancakeAudioObjectPropertySelector {
     case hardwareUserSessionIsActiveOrHeadless
     case hardwareServiceRestarted
     case hardwarePowerHint
-    
+
     // Plugin
     case pluginCreateAggregateDevice
     case pluginDestroyAggregateDevice
@@ -68,19 +68,19 @@ enum PancakeAudioObjectPropertySelector {
     case pluginClockDeviceList
     case pluginTranslateUIDToClockDevice
     case pluginResourceBundle
-    
+
     // AggregateDevice
     case aggregateDeviceFullSubDeviceList
     case aggregateDeviceActiveSubDeviceList
     case aggregateDeviceComposition
     case aggregateDeviceMasterSubDevice
     case aggregateDeviceClockDevice
-    
+
     // SubDevice
     case subDeviceExtraLatency
     case subDeviceDriftCompensation
     case subDeviceDriftCompensationQuality
-    
+
     // TransportManager
     case transportManagerCreateEndPointDevice
     case transportManagerDestroyEndPointDevice
@@ -90,7 +90,7 @@ enum PancakeAudioObjectPropertySelector {
      See SelectorList.swift for explanation
      case transportManagerTransportType
      */
-    
+
     // Box
     case boxUID
     /*
@@ -105,7 +105,7 @@ enum PancakeAudioObjectPropertySelector {
     case boxAcquisitionFailed
     case boxDeviceList
     case boxClockDeviceList
-    
+
     // Device
     case devicePlugin
     case deviceHasChanged
@@ -191,7 +191,7 @@ enum PancakeAudioObjectPropertySelector {
     case deviceZeroTimeStampPeriod
     case deviceClockAlgorithm
     case deviceClockIsStable
-    
+
     // ClockDevice
     case clockDeviceUID
     /*
@@ -210,7 +210,7 @@ enum PancakeAudioObjectPropertySelector {
     case endPointDeviceComposition
     case endPointDeviceEndPointList
     case endPointDeviceIsPrivate
-    
+
     // Stream
     case streamIsActive
     case streamDirection
@@ -221,31 +221,31 @@ enum PancakeAudioObjectPropertySelector {
     case streamAvailableVirtualFormats
     case streamPhysicalFormat
     case streamAvailablePhysicalFormats
-    
+
     // Control
     case controlScope
     case controlElement
-    
+
     // SliderControl
     case sliderControlValue
     case sliderControlRange
-    
+
     // LevelControl
     case levelControlScalarValue
     case levelControlDecibelValue
     case levelControlDecibelRange
     case levelControlConvertScalarToDecibels
     case levelControlConvertDecibelsToScalar
-    
+
     // BooleanControl
     case booleanControlValue
-    
+
     // SelectorControl
     case selectorControlCurrentItem
     case selectorControlAvailableItems
     case selectorControlItemName
     case selectorControlItemKind
-    
+
     // StereoPanControl
     case stereoPanControlValue
     case stereoPanControlPanningChannels
@@ -256,7 +256,7 @@ enum PancakeAudioObjectPropertySelector {
 // MARK: - RawRepresentable
 
 extension PancakeAudioObjectPropertySelector: RawRepresentable {
-    
+
     // swiftlint:disable function_body_length cyclomatic_complexity
     // FIXME: This is super inefficient.
     // TODO: Refactor this. This is too large and super inefficient.
@@ -281,7 +281,7 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
         case PancakeAudioObject.Selector.firmwareVersion:                          self = .objectFirmwareVersion
         case PancakeAudioObject.Selector.wildcard:                                 self = .objectWildcard
         case PancakeAudioObject.Selector.customPropertyInfoList:                   self = .objectCustomPropertyInfoList
-            
+
         // Hardware
         case PancakeAudioHardware.Selector.devices:                                self = .hardwareDevices
         case PancakeAudioHardware.Selector.defaultInputDevice:                     self = .hardwareDefaultInputDevice
@@ -307,7 +307,7 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
         case PancakeAudioHardware.Selector.userSessionIsActiveOrHeadless:          self = .hardwareUserSessionIsActiveOrHeadless
         case PancakeAudioHardware.Selector.serviceRestarted:                       self = .hardwareServiceRestarted
         case PancakeAudioHardware.Selector.powerHint:                              self = .hardwarePowerHint
-            
+
         // Plugin
         case PancakeAudioPlugin.Selector.createAggregateDevice:                    self = .pluginCreateAggregateDevice
         case PancakeAudioPlugin.Selector.destroyAggregateDevice:                   self = .pluginDestroyAggregateDevice
@@ -319,19 +319,19 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
         case PancakeAudioPlugin.Selector.clockDeviceList:                          self = .pluginClockDeviceList
         case PancakeAudioPlugin.Selector.translateUIDToClockDevice:                self = .pluginTranslateUIDToClockDevice
         case PancakeAudioPlugin.Selector.resourceBundle:                           self = .pluginResourceBundle
-            
+
         // AggregateDevice
         case PancakeAudioAggregateDevice.Selector.fullSubDeviceList:               self = .aggregateDeviceFullSubDeviceList
         case PancakeAudioAggregateDevice.Selector.activeSubDeviceList:             self = .aggregateDeviceActiveSubDeviceList
         case PancakeAudioAggregateDevice.Selector.composition:                     self = .aggregateDeviceComposition
         case PancakeAudioAggregateDevice.Selector.masterSubDevice:                 self = .aggregateDeviceMasterSubDevice
         case PancakeAudioAggregateDevice.Selector.clockDevice:                     self = .aggregateDeviceClockDevice
-            
+
         // SubDevice
         case PancakeAudioSubDevice.Selector.extraLatency:                          self = .subDeviceExtraLatency
         case PancakeAudioSubDevice.Selector.driftCompensation:                     self = .subDeviceDriftCompensation
         case PancakeAudioSubDevice.Selector.driftCompensationQuality:              self = .subDeviceDriftCompensationQuality
-            
+
         // TransportManager
         case PancakeAudioTransportManager.Selector.createEndPointDevice:           self = .transportManagerCreateEndPointDevice
         case PancakeAudioTransportManager.Selector.destroyEndPointDevice:          self = .transportManagerDestroyEndPointDevice
@@ -341,7 +341,7 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
          See SelectorList.swift for explanation
          case PancakeAudioTransportManager.Selector.transportType:                  self = .transportManagerTransportType
          */
-            
+
         // Box
         case PancakeAudioBox.Selector.UID:                                         self = .boxUID
         /*
@@ -356,7 +356,7 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
         case PancakeAudioBox.Selector.acquisitionFailed:                           self = .boxAcquisitionFailed
         case PancakeAudioBox.Selector.deviceList:                                  self = .boxDeviceList
         case PancakeAudioBox.Selector.clockDeviceList:                             self = .boxClockDeviceList
-            
+
         // Device
         case PancakeAudioDevice.Selector.plugin:                                   self = .devicePlugin
         case PancakeAudioDevice.Selector.hasChanged:                               self = .deviceHasChanged
@@ -442,7 +442,7 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
         case PancakeAudioDevice.Selector.zeroTimeStampPeriod:                      self = .deviceZeroTimeStampPeriod
         case PancakeAudioDevice.Selector.clockAlgorithm:                           self = .deviceClockAlgorithm
         case PancakeAudioDevice.Selector.clockIsStable:                            self = .deviceClockIsStable
-            
+
         // ClockDevice
         case PancakeAudioClockDevice.Selector.UID:                                 self = .clockDeviceUID
         /*
@@ -456,12 +456,12 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
          case PancakeAudioClockDevice.Selector.nominalSampleRate:                   self = .clockDeviceNominalSampleRate
          case PancakeAudioClockDevice.Selector.availableNominalSampleRates:         self = .clockDeviceAvailableNominalSampleRates
         */
-            
+
         // EndPointDevice
         case PancakeAudioEndPointDevice.Selector.composition:                      self = .endPointDeviceComposition
         case PancakeAudioEndPointDevice.Selector.endPointList:                     self = .endPointDeviceEndPointList
         case PancakeAudioEndPointDevice.Selector.isPrivate:                        self = .endPointDeviceIsPrivate
-            
+
         // Stream
         case PancakeAudioStream.Selector.isActive:                                 self = .streamIsActive
         case PancakeAudioStream.Selector.direction:                                self = .streamDirection
@@ -472,31 +472,31 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
         case PancakeAudioStream.Selector.availableVirtualFormats:                  self = .streamAvailableVirtualFormats
         case PancakeAudioStream.Selector.physicalFormat:                           self = .streamPhysicalFormat
         case PancakeAudioStream.Selector.availablePhysicalFormats:                 self = .streamAvailablePhysicalFormats
-            
+
         // Control
         case PancakeAudioControl.Selector.scope:                                   self = .controlScope
         case PancakeAudioControl.Selector.element:                                 self = .controlElement
-            
+
         // SliderControl
         case PancakeAudioSliderControl.Selector.value:                             self = .sliderControlValue
         case PancakeAudioSliderControl.Selector.range:                             self = .sliderControlRange
-            
+
         // LevelControl
         case PancakeAudioLevelControl.Selector.scalarValue:                        self = .levelControlScalarValue
         case PancakeAudioLevelControl.Selector.decibelValue:                       self = .levelControlDecibelValue
         case PancakeAudioLevelControl.Selector.decibelRange:                       self = .levelControlDecibelRange
         case PancakeAudioLevelControl.Selector.convertScalarToDecibels:            self = .levelControlConvertScalarToDecibels
         case PancakeAudioLevelControl.Selector.convertDecibelsToScalar:            self = .levelControlConvertDecibelsToScalar
-            
+
         // BooleanControl
         case PancakeAudioBooleanControl.Selector.value:                            self = .booleanControlValue
-            
+
         // SelectorControl
         case PancakeAudioSelectorControl.Selector.currentItem:                     self = .selectorControlCurrentItem
         case PancakeAudioSelectorControl.Selector.availableItems:                  self = .selectorControlAvailableItems
         case PancakeAudioSelectorControl.Selector.itemName:                        self = .selectorControlItemName
         case PancakeAudioSelectorControl.Selector.itemKind:                        self = .selectorControlItemKind
-            
+
         // StereoPanControl
         case PancakeAudioStereoPanControl.Selector.value:                          self = .stereoPanControlValue
         case PancakeAudioStereoPanControl.Selector.panningChannels:                self = .stereoPanControlPanningChannels
@@ -514,8 +514,8 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
         }
     }
 
-    
-    
+
+
     public var rawValue: AudioObjectPropertySelector {
         switch self {
         // Object
@@ -537,7 +537,7 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
         case .objectFirmwareVersion:                          return PancakeAudioObject.Selector.firmwareVersion
         case .objectWildcard:                                 return PancakeAudioObject.Selector.wildcard
         case .objectCustomPropertyInfoList:                   return PancakeAudioObject.Selector.customPropertyInfoList
-            
+
         // Hardware
         case .hardwareDevices:                                return PancakeAudioHardware.Selector.devices
         case .hardwareDefaultInputDevice:                     return PancakeAudioHardware.Selector.defaultInputDevice
@@ -563,7 +563,7 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
         case .hardwareUserSessionIsActiveOrHeadless:          return PancakeAudioHardware.Selector.userSessionIsActiveOrHeadless
         case .hardwareServiceRestarted:                       return PancakeAudioHardware.Selector.serviceRestarted
         case .hardwarePowerHint:                              return PancakeAudioHardware.Selector.powerHint
-            
+
         // Plugin
         case .pluginCreateAggregateDevice:                    return PancakeAudioPlugin.Selector.createAggregateDevice
         case .pluginDestroyAggregateDevice:                   return PancakeAudioPlugin.Selector.destroyAggregateDevice
@@ -575,19 +575,19 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
         case .pluginClockDeviceList:                          return PancakeAudioPlugin.Selector.clockDeviceList
         case .pluginTranslateUIDToClockDevice:                return PancakeAudioPlugin.Selector.translateUIDToClockDevice
         case .pluginResourceBundle:                           return PancakeAudioPlugin.Selector.resourceBundle
-            
+
         // AggregateDevice
         case .aggregateDeviceFullSubDeviceList:               return PancakeAudioAggregateDevice.Selector.fullSubDeviceList
         case .aggregateDeviceActiveSubDeviceList:             return PancakeAudioAggregateDevice.Selector.activeSubDeviceList
         case .aggregateDeviceComposition:                     return PancakeAudioAggregateDevice.Selector.composition
         case .aggregateDeviceMasterSubDevice:                 return PancakeAudioAggregateDevice.Selector.masterSubDevice
         case .aggregateDeviceClockDevice:                     return PancakeAudioAggregateDevice.Selector.clockDevice
-            
+
         // SubDevice
         case .subDeviceExtraLatency:                          return PancakeAudioSubDevice.Selector.extraLatency
         case .subDeviceDriftCompensation:                     return PancakeAudioSubDevice.Selector.driftCompensation
         case .subDeviceDriftCompensationQuality:              return PancakeAudioSubDevice.Selector.driftCompensationQuality
-            
+
         // TransportManager
         case .transportManagerCreateEndPointDevice:           return PancakeAudioTransportManager.Selector.createEndPointDevice
         case .transportManagerDestroyEndPointDevice:          return PancakeAudioTransportManager.Selector.destroyEndPointDevice
@@ -597,7 +597,7 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
          See SelectorList.swift for explanation
          case .transportManagerTransportType:                  return PancakeAudioTransportManager.Selector.transportType
          */
-            
+
         // Box
         case .boxUID:                                         return PancakeAudioBox.Selector.UID
         /*
@@ -612,7 +612,7 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
         case .boxAcquisitionFailed:                           return PancakeAudioBox.Selector.acquisitionFailed
         case .boxDeviceList:                                  return PancakeAudioBox.Selector.deviceList
         case .boxClockDeviceList:                             return PancakeAudioBox.Selector.clockDeviceList
-            
+
         // Device
         case .devicePlugin:                                   return PancakeAudioDevice.Selector.plugin
         case .deviceHasChanged:                               return PancakeAudioDevice.Selector.hasChanged
@@ -698,7 +698,7 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
         case .deviceZeroTimeStampPeriod:                      return PancakeAudioDevice.Selector.zeroTimeStampPeriod
         case .deviceClockAlgorithm:                           return PancakeAudioDevice.Selector.clockAlgorithm
         case .deviceClockIsStable:                            return PancakeAudioDevice.Selector.clockIsStable
-            
+
         // ClockDevice
         case .clockDeviceUID:                                 return PancakeAudioClockDevice.Selector.UID
         /*
@@ -712,12 +712,12 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
          case .clockDeviceNominalSampleRate:                   return PancakeAudioClockDevice.Selector.nominalSampleRate
          case .clockDeviceAvailableNominalSampleRates:         return PancakeAudioClockDevice.Selector.availableNominalSampleRates
          */
-            
+
         // EndPointDevice
         case .endPointDeviceComposition:                      return PancakeAudioEndPointDevice.Selector.composition
         case .endPointDeviceEndPointList:                     return PancakeAudioEndPointDevice.Selector.endPointList
         case .endPointDeviceIsPrivate:                        return PancakeAudioEndPointDevice.Selector.isPrivate
-            
+
         // Stream
         case .streamIsActive:                                 return PancakeAudioStream.Selector.isActive
         case .streamDirection:                                return PancakeAudioStream.Selector.direction
@@ -728,31 +728,31 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
         case .streamAvailableVirtualFormats:                  return PancakeAudioStream.Selector.availableVirtualFormats
         case .streamPhysicalFormat:                           return PancakeAudioStream.Selector.physicalFormat
         case .streamAvailablePhysicalFormats:                 return PancakeAudioStream.Selector.availablePhysicalFormats
-            
+
         // Control
         case .controlScope:                                   return PancakeAudioControl.Selector.scope
         case .controlElement:                                 return PancakeAudioControl.Selector.element
-            
+
         // SliderControl
         case .sliderControlValue:                             return PancakeAudioSliderControl.Selector.value
         case .sliderControlRange:                             return PancakeAudioSliderControl.Selector.range
-            
+
         // LevelControl
         case .levelControlScalarValue:                        return PancakeAudioLevelControl.Selector.scalarValue
         case .levelControlDecibelValue:                       return PancakeAudioLevelControl.Selector.decibelValue
         case .levelControlDecibelRange:                       return PancakeAudioLevelControl.Selector.decibelRange
         case .levelControlConvertScalarToDecibels:            return PancakeAudioLevelControl.Selector.convertScalarToDecibels
         case .levelControlConvertDecibelsToScalar:            return PancakeAudioLevelControl.Selector.convertDecibelsToScalar
-            
+
         // BooleanControl
         case .booleanControlValue:                            return PancakeAudioBooleanControl.Selector.value
-            
+
         // SelectorControl
         case .selectorControlCurrentItem:                     return PancakeAudioSelectorControl.Selector.currentItem
         case .selectorControlAvailableItems:                  return PancakeAudioSelectorControl.Selector.availableItems
         case .selectorControlItemName:                        return PancakeAudioSelectorControl.Selector.itemName
         case .selectorControlItemKind:                        return PancakeAudioSelectorControl.Selector.itemKind
-            
+
         // StereoPanControl
         case .stereoPanControlValue:                          return PancakeAudioStereoPanControl.Selector.value
         case .stereoPanControlPanningChannels:                return PancakeAudioStereoPanControl.Selector.panningChannels

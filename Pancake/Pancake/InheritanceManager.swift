@@ -11,7 +11,7 @@ import CoreAudio.AudioServerPlugIn
 // MARK: - Inheritance
 
 extension Pancake {
-    
+
     /// Finds the interface to talk to the plug-in.
     /// A AudioServerPlugIn wrapper method.
     ///
@@ -25,24 +25,24 @@ extension Pancake {
             assertionFailure()
             return PancakeAudioHardwareError.illegalOperation
         }
-        
+
         guard UUID == kUUID.IUnknown || UUID == kUUID.audioServerPlugInDriverInterface else {
             assertionFailure()
             return HRESULT.noInterface
         }
-        
+
         guard !self.pluginReferenceCounter.maxxedOut else {
             assertionFailure()
             return HRESULT.noInterface
         }
-        
+
         self.pluginReferenceCounter.increment()
         interface.setInterfacePointer(from: driver)
 
         return HRESULT.ok
     }
-    
-    
+
+
     /// Increments the reference count and returns it.
     ///
     /// - Parameter driver: The driver the call is for.
@@ -52,8 +52,8 @@ extension Pancake {
         self.pluginReferenceCounter.increment()
         return self.pluginReferenceCounter.value
     }
-    
-    
+
+
     /// Decrements the reference count and returns it.
     ///
     /// - Parameter driver: The driver the call is for.

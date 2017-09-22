@@ -11,13 +11,13 @@ import CoreAudio.AudioServerPlugIn
 class AudioServerPlugInDriver {
     private typealias AudioServerPlugInDriverRefPointeeType = UnsafeMutablePointer<AudioServerPlugInDriverInterface>?
     fileprivate var driverRef: AudioServerPlugInDriverRef
-    
+
     // MARK: - Init
     init?(from driverRef: AudioServerPlugInDriverRef?) {
         guard let driverRef = driverRef else { return nil }
         self.driverRef = driverRef
     }
-    
+
     init?(from rawPointer: UnsafeMutableRawPointer?) {
         guard let rawPointer = rawPointer else { return nil }
 //        let opaquePointer = OpaquePointer(rawPointer)

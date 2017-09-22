@@ -15,7 +15,7 @@ class PancakeStream: PancakeObjectType {
     private let pancake: Pancake
     private let direction: Direction
     internal let channelCount: Int
-    
+
     /// The absolute starting channel across all streams of the owning device.
     internal var channelOffsetOnOwningDevice: Int? = 0
 //    internal let channels: [AudioObjectID]
@@ -29,13 +29,13 @@ class PancakeStream: PancakeObjectType {
 
     func getProperty(description: PancakeObjectPropertyDescription, sizeHint: UInt32?) throws -> PancakeObjectProperty {
         printcake(type(of: self), #function, description.selector)
-        
+
         switch description.selector {
         case .streamStartingChannel:
             try assure(UInt32.self, fitsIn: sizeHint)
             let startingChannel = UInt32(self.channelOffsetOnOwningDevice ?? 0)
             return .integer(startingChannel)
-            
+
         case .streamAvailablePhysicalFormats:
             try assure(AudioStreamRangedDescription.self, fitsIn: sizeHint)
             guard let config = self.owningDevice?.configuration else {
@@ -44,7 +44,7 @@ class PancakeStream: PancakeObjectType {
             let streamDescriptions = config.supportedFormats.map { AudioStreamRangedDescription(asbd: $0) }
             let elements = streamDescriptions.limitedTo(avaliableMemory: sizeHint)
             return .streamDescriptionList(elements)
-            
+
         case .streamPhysicalFormat:
             try assure(AudioStreamBasicDescription.self, fitsIn: sizeHint)
             guard let config = self.owningDevice?.configuration else {
@@ -59,8 +59,8 @@ class PancakeStream: PancakeObjectType {
             // TODO: Notify the host in case the format has changed!
             assertionFailure()
             return .streamDescription(newFormat)
-            
-        case .deviceLatency: fallthrough            
+
+        case .deviceLatency: fallthrough
         case .objectCustomPropertyInfoList:
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
 
@@ -71,13 +71,13 @@ class PancakeStream: PancakeObjectType {
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
     }
-    
+
     func setProperty(description: PancakeObjectPropertyDescription, data: UnsafeRawPointer) throws {
         switch description.selector {
             //case .<#pattern#>:
-            
+
         case .streamIsActive: break //TODO:
-            
+
         default:
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }

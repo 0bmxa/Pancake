@@ -32,7 +32,7 @@ class PancakeAudioObjectList {
         ]
         self.lastID = PancakeAudioObjectID.plugin
     }
-    
+
     /// Adds an object to the list and assigns it an ID.
     /// Note: The object is not allowed to have an ID already.
     ///
@@ -48,7 +48,7 @@ class PancakeAudioObjectList {
         object.objectID = self.lastID
         return self.lastID
     }
-    
+
     /// Convenience method for adding multiple objects to the list
     /// (and assigning them IDs) all at once.
     ///
@@ -58,7 +58,7 @@ class PancakeAudioObjectList {
             self.add(object: $0)
         }
     }
-    
+
     /// Finds all object of a given type in the list and returns their IDs.
     ///
     /// - Parameter expectedType: The type to be found.
@@ -68,7 +68,7 @@ class PancakeAudioObjectList {
         let matchingIDs = matchingEntries.map { $0.key }
         return matchingIDs
     }
-    
+
     /// An accessor to easily get objects from the list via subscript
     /// notation, e.g. `audioObjectList[12]`.
     ///

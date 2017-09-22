@@ -53,7 +53,7 @@ var pancakeDriverReference: AudioServerPlugInDriverRef?
         )
         pancakeDriverInterfacePointer = withUnsafeMutablePointer(to: &pancakeDriverInterface!)       { return $0 }
         pancakeDriverReference        = withUnsafeMutablePointer(to: &pancakeDriverInterfacePointer) { return $0 }
-        
+
         // Pancake configuration
         let device = DeviceConfiguration(
             manufacturer: "Pancake Manufacturer",
@@ -66,10 +66,10 @@ var pancakeDriverReference: AudioServerPlugInDriverRef?
             ]
         )
         let config = Configuration(devices: [device])
-        
+
         // Configure the shared Pancake plugin instance
         Pancake.setupSharedInstance(driverReference: pancakeDriverReference, configuration: config)
-        
+
         return UnsafeMutableRawPointer(pancakeDriverReference)
     }
 }

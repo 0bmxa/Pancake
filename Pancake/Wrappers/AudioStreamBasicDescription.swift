@@ -16,7 +16,7 @@ extension AudioStreamBasicDescription {
         case fixedPoint824
         case float32
         case float64
-        
+
         var size: UInt32 {
             switch self {
             case .int16:         return 2
@@ -25,7 +25,7 @@ extension AudioStreamBasicDescription {
             case .float64:       return 8
             }
         }
-        
+
         var flags: [AudioFormatFlags] {
             switch self {
             case .int16:         return [kAudioFormatFlagIsSignedInteger]
@@ -35,12 +35,12 @@ extension AudioStreamBasicDescription {
             }
         }
     }
-    
+
     init(sampleRate: Float64, channelCount: UInt32, format: AudioDataFormat, interleaved: Bool) {
         let formatID         = kAudioFormatLinearPCM
         let framesPerPacket  = UInt32(1)
         let bitsPerChannel   = format.size * 8
-        
+
         var bytesPerFrame = bitsPerChannel * 8
         var flags = [kAudioFormatFlagsNativeEndian, kAudioFormatFlagIsPacked] + format.flags
         if interleaved {
@@ -50,10 +50,10 @@ extension AudioStreamBasicDescription {
         }
 
         let formatFlags = flags.reduce(0) { $0 | $1 }
-        
+
         self.init(mSampleRate: sampleRate, mFormatID: formatID, mFormatFlags: formatFlags, mFramesPerPacket: framesPerPacket, mBytesPerFrame: bytesPerFrame, mChannelsPerFrame: channelCount, mBitsPerChannel: bitsPerChannel)
     }
-    
+
     // The init how it should be
     init(mSampleRate: Float64, mFormatID: AudioFormatID, mFormatFlags: AudioFormatFlags, mFramesPerPacket: UInt32, mBytesPerFrame: UInt32, mChannelsPerFrame: UInt32, mBitsPerChannel: UInt32) {
         self.mSampleRate       = mSampleRate
@@ -63,11 +63,11 @@ extension AudioStreamBasicDescription {
         self.mBytesPerFrame    = mBytesPerFrame
         self.mChannelsPerFrame = mChannelsPerFrame
         self.mBitsPerChannel   = mBitsPerChannel
-        
+
         self.mBytesPerPacket   = mBytesPerFrame * mFramesPerPacket
         self.mReserved         = 0
     }
-    
+
     static func == (lhs: AudioStreamBasicDescription, rhs: AudioStreamBasicDescription) -> Bool {
         return (
             lhs.mSampleRate       == rhs.mSampleRate       ||
@@ -81,7 +81,7 @@ extension AudioStreamBasicDescription {
             lhs.mReserved         == rhs.mReserved
         )
     }
-    
+
     static func != (lhs: AudioStreamBasicDescription, rhs: AudioStreamBasicDescription) -> Bool {
         return !(lhs == rhs)
     }

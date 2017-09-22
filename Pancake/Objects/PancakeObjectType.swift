@@ -10,7 +10,7 @@ import CoreAudio.AudioServerPlugIn
 
 protocol PancakeObjectType: class {
     var objectID: AudioObjectID? { get set }
-    
+
     func hasProperty(description: PancakeObjectPropertyDescription) -> Bool
     func getProperty(description: PancakeObjectPropertyDescription, sizeHint: UInt32?) throws -> PancakeObjectProperty
     func setProperty(description: PancakeObjectPropertyDescription, data: UnsafeRawPointer) throws

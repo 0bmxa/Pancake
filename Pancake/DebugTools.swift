@@ -25,7 +25,7 @@ func printcake(_ items: Any...) {
     #if !DEBUG
         return
     #endif
-    
+
     let message = items.reduce("[PANCAKE]") { $0 + " " + String(describing: $1) }
     print(message)
 }

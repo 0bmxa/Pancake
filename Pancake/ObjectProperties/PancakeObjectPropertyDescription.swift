@@ -13,7 +13,7 @@ struct PancakeObjectPropertyDescription {
     let selector: PancakeAudioObjectPropertySelector
     let scope:    PancakeAudioObjectPropertyScope
     let element:  PancakeAudioObjectPropertyElement
-    
+
     init?(with address: AudioObjectPropertyAddress) {
         guard
             let selector = PancakeAudioObjectPropertySelector(rawValue: address.mSelector),
@@ -23,7 +23,7 @@ struct PancakeObjectPropertyDescription {
                 return nil
         }
         let element  = PancakeAudioObjectPropertyElement(rawValue: address.mElement)
-        
+
         self.selector = selector
         self.scope    = scope
         self.element  = element

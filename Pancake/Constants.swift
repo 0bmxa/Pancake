@@ -25,7 +25,7 @@ struct kUUID {
 
 // MARK: - From AudioServerPlugIn.h
 
-extension kUUID {    
+extension kUUID {
     /// The UUID of the plug-in type (443ABAB8-E7B3-491A-B985-BEB9187030DB).
     static let audioServerPlugInTypeUUID = UUID(from:
         0x44, 0x3A, 0xBA, 0xB8, 0xE7, 0xB3, 0x49, 0x1A,

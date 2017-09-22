@@ -43,7 +43,7 @@ enum PancakeAudioObject {
         static let wildcard               = kAudioObjectPropertySelectorWildcard
 
         // AudioServerPlugin.h
-        static let customPropertyInfoList = kAudioObjectPropertyCustomPropertyInfoList        
+        static let customPropertyInfoList = kAudioObjectPropertyCustomPropertyInfoList
     }
 }
 
@@ -83,7 +83,7 @@ enum PancakeAudioHardware {
 
 enum PancakeAudioPlugin {
     static let classID: AudioClassID = kAudioPlugInClassID
-    
+
     enum Selector {
         // AudioHardware.h
         static let createAggregateDevice  = kAudioPlugInCreateAggregateDevice
@@ -97,7 +97,7 @@ enum PancakeAudioPlugin {
         static let translateUIDToBox         = kAudioPlugInPropertyTranslateUIDToBox
         static let clockDeviceList           = kAudioPlugInPropertyClockDeviceList
         static let translateUIDToClockDevice = kAudioPlugInPropertyTranslateUIDToClockDevice
-        
+
         // AudioServerPlugin.h
         static let resourceBundle            = kAudioPlugInPropertyResourceBundle
     }
@@ -128,16 +128,16 @@ enum PancakeAudioSubDevice {
 
 enum PancakeAudioTransportManager {
     static let classID: AudioClassID = kAudioTransportManagerClassID
-    
+
     enum Selector {
         // AudioHardware.h
         static let createEndPointDevice  = kAudioTransportManagerCreateEndPointDevice
         static let destroyEndPointDevice = kAudioTransportManagerDestroyEndPointDevice
-        
+
         // AudioHardwareBase.h
         static let endPointList           = kAudioTransportManagerPropertyEndPointList
         static let translateUIDToEndPoint = kAudioTransportManagerPropertyTranslateUIDToEndPoint
-        
+
         /*
          The following are disable on purpose, because they use the same
          values as the coresponding PancakeAudioDevice properties
@@ -150,7 +150,7 @@ enum PancakeAudioTransportManager {
 
 enum PancakeAudioBox {
     static let classID: AudioClassID = kAudioBoxClassID
-    
+
     enum Selector {
         // AudioHardwareBase.h
         static let UID               = kAudioBoxPropertyBoxUID
@@ -162,7 +162,7 @@ enum PancakeAudioBox {
         static let acquisitionFailed = kAudioBoxPropertyAcquisitionFailed
         static let deviceList        = kAudioBoxPropertyDeviceList
         static let clockDeviceList   = kAudioBoxPropertyClockDeviceList
-        
+
         /*
          The following are disable on purpose, because they use the same
          values as the coresponding PancakeAudioDevice properties
@@ -176,7 +176,7 @@ enum PancakeAudioBox {
 
 enum PancakeAudioDevice {
     static let classID: AudioClassID = kAudioDeviceClassID
-    
+
     enum Selector {
         // AudioHardware.h
         static let plugin                       = kAudioDevicePropertyPlugIn
@@ -193,7 +193,7 @@ enum PancakeAudioDevice {
         static let IOProcStreamUsage            = kAudioDevicePropertyIOProcStreamUsage
         static let actualSampleRate             = kAudioDevicePropertyActualSampleRate
         static let clockDevice                  = kAudioDevicePropertyClockDevice
-        
+
         static let jackIsConnected                          = kAudioDevicePropertyJackIsConnected
         static let volumeScalar                             = kAudioDevicePropertyVolumeScalar
         static let volumeDecibels                           = kAudioDevicePropertyVolumeDecibels
@@ -241,7 +241,7 @@ enum PancakeAudioDevice {
         static let subVolumeScalarToDecibels                = kAudioDevicePropertySubVolumeScalarToDecibels
         static let subVolumeDecibelsToScalar                = kAudioDevicePropertySubVolumeDecibelsToScalar
         static let subMute                                  = kAudioDevicePropertySubMute
-        
+
         // AudioHardwareBase.h
         static let configurationApplication       = kAudioDevicePropertyConfigurationApplication
         static let UID                            = kAudioDevicePropertyDeviceUID
@@ -263,7 +263,7 @@ enum PancakeAudioDevice {
         static let isHidden                       = kAudioDevicePropertyIsHidden
         static let preferredChannelsForStereo     = kAudioDevicePropertyPreferredChannelsForStereo
         static let preferredChannelLayout         = kAudioDevicePropertyPreferredChannelLayout
-        
+
         // AudioServerPlugin.h
         static let zeroTimeStampPeriod            = kAudioDevicePropertyZeroTimeStampPeriod
         static let clockAlgorithm                 = kAudioDevicePropertyClockAlgorithm
@@ -276,11 +276,11 @@ enum PancakeAudioDevice {
 
 enum PancakeAudioClockDevice {
     static let classID: AudioClassID = kAudioClockDeviceClassID
-    
+
     enum Selector {
         // AudioHardwareBase.h
         static let UID                         = kAudioClockDevicePropertyDeviceUID
-        
+
         /*
          The following are disable on purpose, because they use the same
          values as the coresponding PancakeAudioDevice properties
@@ -301,7 +301,7 @@ enum PancakeAudioClockDevice {
 
 enum PancakeAudioEndPointDevice {
     static let classID: AudioClassID = kAudioEndPointDeviceClassID
-    
+
     enum Selector {
         // AudioHardwareBase.h
         static let composition  = kAudioEndPointDevicePropertyComposition
@@ -320,7 +320,7 @@ enum PancakeAudioEndPoint {
 
 enum PancakeAudioStream {
     static let classID: AudioClassID = kAudioStreamClassID
-    
+
     enum Selector {
         // AudioHardwareBase.h
         static let isActive                 = kAudioStreamPropertyIsActive
@@ -339,7 +339,7 @@ enum PancakeAudioStream {
 
 enum PancakeAudioControl {
     static let classID: AudioClassID = kAudioControlClassID
-    
+
     enum Selector {
         // AudioHardwareBase.h
         static let scope   = kAudioControlPropertyScope
@@ -367,7 +367,7 @@ enum PancakeAudioControlClassID {
     static let highPassFilter  = kAudioHighPassFilterControlClassID
     static let volume          = kAudioVolumeControlClassID
     static let LFEVolume       = kAudioLFEVolumeControlClassID
-    
+
     static let slider    = PancakeAudioSliderControl.classID
     static let level     = PancakeAudioLevelControl.classID
     static let boolean   = PancakeAudioBooleanControl.classID
@@ -378,7 +378,7 @@ enum PancakeAudioControlClassID {
 
 enum PancakeAudioSliderControl {
     static let classID: AudioClassID = kAudioSliderControlClassID
-    
+
     enum Selector {
         // AudioHardwareBase.h
         static let value = kAudioSliderControlPropertyValue
@@ -389,7 +389,7 @@ enum PancakeAudioSliderControl {
 
 enum PancakeAudioLevelControl {
     static let classID: AudioClassID = kAudioLevelControlClassID
-    
+
     enum Selector {
         // AudioHardwareBase.h
         static let scalarValue             = kAudioLevelControlPropertyScalarValue
@@ -403,7 +403,7 @@ enum PancakeAudioLevelControl {
 
 enum PancakeAudioBooleanControl {
     static let classID: AudioClassID = kAudioBooleanControlClassID
-    
+
     enum Selector {
         // AudioHardwareBase.h
         static let value = kAudioBooleanControlPropertyValue
@@ -413,7 +413,7 @@ enum PancakeAudioBooleanControl {
 
 enum PancakeAudioSelectorControl {
     static let classID: AudioClassID = kAudioSelectorControlClassID
-    
+
     enum Selector {
         // AudioHardwareBase.h
         static let currentItem    = kAudioSelectorControlPropertyCurrentItem
@@ -426,7 +426,7 @@ enum PancakeAudioSelectorControl {
 
 enum PancakeAudioStereoPanControl {
     static let classID: AudioClassID = kAudioStereoPanControlClassID
-    
+
     enum Selector {
         // AudioHardwareBase.h
         static let value           = kAudioStereoPanControlPropertyValue
@@ -454,7 +454,7 @@ extension PancakeAudioHardware.Selector {
     static let runLoop           = kAudioHardwarePropertyRunLoop
     static let deviceForUID      = kAudioHardwarePropertyDeviceForUID
     static let pluginForBundleID = kAudioHardwarePropertyPlugInForBundleID
-    
+
     static let bootChimeVolumeScalar                           = kAudioHardwarePropertyBootChimeVolumeScalar
     static let bootChimeVolumeDecibels                         = kAudioHardwarePropertyBootChimeVolumeDecibels
     static let bootChimeVolumeRangeDecibels                    = kAudioHardwarePropertyBootChimeVolumeRangeDecibels

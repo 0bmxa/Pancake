@@ -11,13 +11,13 @@ import CoreFoundation
 struct UUID {
     private let _UUID: CFUUID
     private let allocator: CFAllocator?
-    
+
     /// Creates a new random UUID.
     init(allocator: CFAllocator? = nil) {
         self._UUID = CFUUIDCreate(allocator)
         self.allocator = allocator
     }
-    
+
     /// Creates a new UUID from the given 16 bytes.
     init(from bytes: UInt8 ..., allocator: CFAllocator? = nil) {
         self.init(from: CFUUIDBytes(bytes), allocator:allocator)
@@ -42,7 +42,7 @@ extension UUID: RawRepresentable {
         self._UUID = rawValue
         self.allocator = nil
     }
-    
+
     var rawValue: CFUUID {
         return self._UUID
     }
@@ -52,7 +52,7 @@ extension CFUUIDBytes {
     init(_ bytes: UInt8 ...) {
         self.init(bytes)
     }
-    
+
     init(_ bytes: [UInt8]) {
         guard bytes.count == 16 else { fatalError() }
         self.init(

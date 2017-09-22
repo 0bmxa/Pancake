@@ -16,7 +16,7 @@ internal class Pancake {
 
     /// The list of all audio objects
     internal let audioObjects = PancakeAudioObjectList()
-    
+
     /// A (possible) list of custom properties the HAL doesn't provide
     internal let customProperties = [AudioServerPlugInCustomPropertyInfo]()
 
@@ -27,20 +27,20 @@ internal class Pancake {
         // Initialize the audio objects list
         self.audioObjects.initialize(pancake: self)
     }
-    
+
     internal func setup() {
 //        // Get some params from a storage
 //        self.configuration.box.acquired = host?.copyFromStorage(key: "box aquired").data as? Bool   ?? false
 //        self.configuration.box.name     = host?.copyFromStorage(key: "box name").data as? String ?? "Pancake Box"
 
         // TODO: Load from user config or storage
-        
+
         let setupLoadedFromDisk = false
         if !setupLoadedFromDisk {
             self.createBasicSetup()
         }
     }
-    
+
     /// Creates a basic audio setup, consisting of
     /// - 1 box
     /// - 1 device
@@ -49,20 +49,20 @@ internal class Pancake {
     private func createBasicSetup() {
         // Add some initial audio objects
         self.audioObjects.add(object: PancakeBox(pancake: self))
-        
+
         // Create a device with 2 streams
         let inputStream  = PancakeStream(pancake: self, direction: .input,  channelCount: 2)
         let outputStream = PancakeStream(pancake: self, direction: .output, channelCount: 2)
-        
+
         // FIXME: Only the first device is created atm.
         let deviceConfig = self.configuration.devices[0]
         let device = PancakeDevice(pancake: self, streams: [inputStream, outputStream], configuration: deviceConfig)
-        
+
         self.audioObjects.add(device, inputStream, outputStream)
     }
-    
 
-    
+
+
     // Shared instance
     private static var _shared: Pancake?
     static var shared: Pancake {

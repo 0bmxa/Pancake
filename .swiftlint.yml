@@ -4,7 +4,6 @@ disabled_rules:
     - colon
     - vertical_whitespace
 
-    - trailing_whitespace
     - line_length
     - todo
     - force_unwrapping
