@@ -53,14 +53,12 @@ class PancakeDevice: PancakeObjectType {
 
 
 
-    // TODO: remove this line when the unused stuff below was removed:
-    // swiftlint:disable function_body_length cyclomatic_complexity
     func getProperty(description: PancakeObjectPropertyDescription, sizeHint: UInt32?) throws -> PancakeObjectProperty {
         printcake(type(of: self), #function, description.selector)
 
         switch description.selector {
 
-        // Object foo
+        // Object stuff
         case .objectBaseClass,
             .objectClass,
             .objectManufacturer,
@@ -68,6 +66,7 @@ class PancakeDevice: PancakeObjectType {
             .objectOwnedObjects:
             return try self.getObjectProperty(description: description, sizeHint: sizeHint)
 
+        // Device stuff
         case .deviceUID,
              .deviceModelUID,
              .deviceStreams,
@@ -90,6 +89,7 @@ class PancakeDevice: PancakeObjectType {
              .devicePreferredChannelsForStereo:
             return try self.getDeviceProperty(description: description, sizeHint: sizeHint)
 
+        // Device timing stuff
         case .deviceZeroTimeStampPeriod,
              .deviceClockAlgorithm,
              .deviceClockIsStable:
@@ -103,19 +103,6 @@ class PancakeDevice: PancakeObjectType {
              .objectListenerRemoved: // Not for applications intended
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
 
-            
-//// =============================================================================
-//// Other Available
-//        case .objectCreator: fatalError()
-//
-//        case .objectOwner: fatalError()
-//        case .objectElementName: fatalError()
-//        case .objectElementNumberName: fatalError()
-//        case .objectIdentify: fatalError()
-//        case .objectSerialNumber: fatalError()
-//        case .objectFirmwareVersion: fatalError()
-//        case .objectWildcard: fatalError()
-//// =============================================================================
 
         default:
             printcake("Not implemented:", description.selector)
@@ -156,6 +143,7 @@ class PancakeDevice: PancakeObjectType {
         }
     }
 
+    // swiftlint:disable cyclomatic_complexity function_body_length
     private func getDeviceProperty(description: PancakeObjectPropertyDescription, sizeHint: UInt32?) throws -> PancakeObjectProperty {
         switch description.selector {
         case .deviceUID:
@@ -262,12 +250,6 @@ class PancakeDevice: PancakeObjectType {
             printcake("Not implemented:", description.selector)
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
-    }
-
-    func printSizes<T>(_ value: T) {
-        print("---\n", type(of: value))
-        print("Type size/stride/alignment:", MemoryLayout<T>.size, MemoryLayout<T>.stride, MemoryLayout<T>.alignment, separator: "\t")
-        print("Value size/stride/alignment:", MemoryLayout.size(ofValue: value), MemoryLayout.stride(ofValue: value), MemoryLayout.alignment(ofValue: value), separator: "\t")
     }
 
 

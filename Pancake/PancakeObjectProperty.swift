@@ -18,7 +18,7 @@ enum PancakeObjectProperty {
     case url(CFURL)
     case scope(AudioObjectPropertyScope)
     case element(AudioObjectPropertyElement)
-    
+
     // Structs
     case streamDescription(AudioStreamBasicDescription)
     case channelLayout(AudioChannelLayout)
