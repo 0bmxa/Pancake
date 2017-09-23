@@ -50,11 +50,13 @@ class PancakeBox: PancakeObjectType {
     }
 
     func setProperty(description: PancakeObjectPropertyDescription, data: UnsafeRawPointer) throws {
+        printcake(type(of: self), #function, description.selector)
         switch description.selector {
             //case .<#pattern#>:
 
 
         default:
+            printcake("Not implemented:", description.selector)
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
     }

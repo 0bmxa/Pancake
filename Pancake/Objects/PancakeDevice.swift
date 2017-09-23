@@ -65,14 +65,11 @@ class PancakeDevice: PancakeObjectType {
             .objectClass,
             .objectManufacturer,
             .objectName,
-            .objectModelName,
-            .objectElementCategoryName,
-            .objectCustomPropertyInfoList,
-            .objectListenerAdded,
-            .objectListenerRemoved:
+            .objectOwnedObjects:
             return try self.getObjectProperty(description: description, sizeHint: sizeHint)
 
         case .deviceUID,
+             .deviceModelUID,
              .deviceStreams,
              .deviceControlList,
              .deviceNominalSampleRate,
@@ -84,7 +81,13 @@ class PancakeDevice: PancakeObjectType {
              .deviceCanBeDefaultDevice,
              .deviceCanBeDefaultSystemDevice,
              .deviceConfigurationApplication,
-             .devicePreferredChannelLayout:
+             .devicePreferredChannelLayout,
+             .deviceClockDomain,
+             .deviceRelatedDevices,
+             .deviceIsAlive,
+             .deviceIsRunning,
+             .deviceIcon,
+             .devicePreferredChannelsForStereo:
             return try self.getDeviceProperty(description: description, sizeHint: sizeHint)
 
         case .deviceZeroTimeStampPeriod,
@@ -92,90 +95,27 @@ class PancakeDevice: PancakeObjectType {
              .deviceClockIsStable:
             return try self.getDeviceClockProperty(description: description, sizeHint: sizeHint)
 
+        // Not implemented on purpose
+        case .objectModelName,
+             .objectElementCategoryName,
+             .objectCustomPropertyInfoList,
+             .objectListenerAdded,   // Not for applications intended
+             .objectListenerRemoved: // Not for applications intended
+            throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
 
-// =============================================================================
-//  AudioHub
-        case .objectOwnedObjects: fatalError()
-
-        case .deviceRelatedDevices: fatalError()
-        case .deviceClockDomain: fatalError()
-        case .deviceIsAlive: fatalError()
-        case .deviceIsRunning: fatalError()
-        case .deviceIcon: fatalError()
-        case .devicePreferredChannelsForStereo: fatalError()
-// =============================================================================
-// Other Available
-        case .objectCreator: fatalError()
-        case .objectOwner: fatalError()
-        case .objectElementName: fatalError()
-        case .objectElementNumberName: fatalError()
-        case .objectIdentify: fatalError()
-        case .objectSerialNumber: fatalError()
-        case .objectFirmwareVersion: fatalError()
-        case .objectWildcard: fatalError()
-
-        case .devicePlugin: fatalError()
-        case .deviceHasChanged: fatalError()
-        case .deviceIsRunningSomewhere: fatalError()
-        case .deviceProcessorOverload: fatalError()
-        case .deviceIOStoppedAbnormally: fatalError()
-        case .deviceHogMode: fatalError()
-        case .deviceBufferFrameSize: fatalError()
-        case .deviceBufferFrameSizeRange: fatalError()
-        case .deviceUsesVariableBufferFrameSizes: fatalError()
-        case .deviceIOCycleUsage: fatalError()
-        case .deviceStreamConfiguration: fatalError()
-        case .deviceIOProcStreamUsage: fatalError()
-        case .deviceActualSampleRate: fatalError()
-        case .deviceClockDevice: fatalError()
-        case .deviceJackIsConnected: fatalError()
-        case .deviceVolumeScalar: fatalError()
-        case .deviceVolumeDecibels: fatalError()
-        case .deviceVolumeRangeDecibels: fatalError()
-        case .deviceVolumeScalarToDecibels: fatalError()
-        case .deviceVolumeDecibelsToScalar: fatalError()
-        case .deviceStereoPan: fatalError()
-        case .deviceStereoPanChannels: fatalError()
-        case .deviceMute: fatalError()
-        case .deviceSolo: fatalError()
-        case .devicePhantomPower: fatalError()
-        case .devicePhaseInvert: fatalError()
-        case .deviceClipLight: fatalError()
-        case .deviceTalkback: fatalError()
-        case .deviceListenback: fatalError()
-        case .deviceDataSource: fatalError()
-        case .deviceDataSources: fatalError()
-        case .deviceDataSourceNameForIDCFString: fatalError()
-        case .deviceDataSourceKindForID: fatalError()
-        case .deviceClockSource: fatalError()
-        case .deviceClockSources: fatalError()
-        case .deviceClockSourceNameForIDCFString: fatalError()
-        case .deviceClockSourceKindForID: fatalError()
-        case .devicePlayThru: fatalError()
-        case .devicePlayThruSolo: fatalError()
-        case .devicePlayThruVolumeScalar: fatalError()
-        case .devicePlayThruVolumeDecibels: fatalError()
-        case .devicePlayThruVolumeRangeDecibels: fatalError()
-        case .devicePlayThruVolumeScalarToDecibels: fatalError()
-        case .devicePlayThruVolumeDecibelsToScalar: fatalError()
-        case .devicePlayThruStereoPan: fatalError()
-        case .devicePlayThruStereoPanChannels: fatalError()
-        case .devicePlayThruDestination: fatalError()
-        case .devicePlayThruDestinations: fatalError()
-        case .devicePlayThruDestinationNameForIDCFString: fatalError()
-        case .deviceChannelNominalLineLevel: fatalError()
-        case .deviceChannelNominalLineLevels: fatalError()
-        case .deviceChannelNominalLineLevelNameForIDCFString: fatalError()
-        case .deviceHighPassFilterSetting: fatalError()
-        case .deviceHighPassFilterSettings: fatalError()
-        case .deviceHighPassFilterSettingNameForIDCFString: fatalError()
-        case .deviceSubVolumeScalar: fatalError()
-        case .deviceSubVolumeDecibels: fatalError()
-        case .deviceSubVolumeRangeDecibels: fatalError()
-        case .deviceSubVolumeScalarToDecibels: fatalError()
-        case .deviceSubVolumeDecibelsToScalar: fatalError()
-        case .deviceSubMute: fatalError()
-// =============================================================================
+            
+//// =============================================================================
+//// Other Available
+//        case .objectCreator: fatalError()
+//
+//        case .objectOwner: fatalError()
+//        case .objectElementName: fatalError()
+//        case .objectElementNumberName: fatalError()
+//        case .objectIdentify: fatalError()
+//        case .objectSerialNumber: fatalError()
+//        case .objectFirmwareVersion: fatalError()
+//        case .objectWildcard: fatalError()
+//// =============================================================================
 
         default:
             printcake("Not implemented:", description.selector)
@@ -203,17 +143,15 @@ class PancakeDevice: PancakeObjectType {
             try assure(CFString.self, fitsIn: sizeHint)
             return .string(self.configuration.name as CFString)
 
-        // Not for applications intended
-        case .objectListenerAdded,
-             .objectListenerRemoved:
-            throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
-
-        case .objectModelName,
-             .objectElementCategoryName,
-             .objectCustomPropertyInfoList:
-            throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
+        case .objectOwnedObjects:
+            try assure(AudioObjectID.self, fitsIn: sizeHint)
+            let streamIDs  = self.streams.flatMap { $0.objectID }
+            let controlIDs = self.controls.flatMap { $0.objectID }
+            let ownedObjects = (streamIDs + controlIDs).limitedTo(avaliableMemory: sizeHint)
+            return .pancakeObjectIDList(ownedObjects)
 
         default:
+            printcake("Not implemented:", description.selector)
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
     }
@@ -285,10 +223,43 @@ class PancakeDevice: PancakeObjectType {
             let channelLayout = AudioChannelLayout.linear(channelCount: channelCount)
             return .channelLayout(channelLayout)
 
-        case .deviceConfigurationApplication: // Not yet implemented
-            throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
+        case .deviceRelatedDevices:
+            try assure(AudioObjectID.self, fitsIn: sizeHint)
+            let allDevices = self.pancake.audioObjects.IDsForObjects(of: PancakeDevice.self)
+            let elements = allDevices.limitedTo(avaliableMemory: sizeHint)
+            return .pancakeObjectIDList(elements)
+
+        case .deviceIsAlive:
+            try assure(UInt32.self, fitsIn: sizeHint)
+            return .integer(1) // "I was born ready." -- Terry Benedict
+
+        case .deviceIsRunning:
+            try assure(UInt32.self, fitsIn: sizeHint)
+            let running = self.IOCount.value > 0
+            return .integer(running ? 1 : 0)
+
+        case .deviceIcon:
+            try assure(CFURL.self, fitsIn: sizeHint)
+            guard let iconURL = self.configuration.iconURL as CFURL? else {
+                throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
+            }
+            return .url(iconURL)
+
+        case .devicePreferredChannelsForStereo:
+            try assure(UInt32.self, fitsIn: sizeHint)
+            let channels: [UInt32] = [1, 2]
+            return .integerList(channels)
+
+        case .deviceConfigurationApplication:
+            try assure(CFString.self, fitsIn: sizeHint)
+            guard let bundleID = self.configuration.UIAppBundleID as CFString? else {
+                throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
+            }
+            return .string(bundleID)
+
 
         default:
+            printcake("Not implemented:", description.selector)
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
     }
@@ -319,16 +290,19 @@ class PancakeDevice: PancakeObjectType {
             return .integer(value)
 
         default:
+            printcake("Not implemented:", description.selector)
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
     }
 
     func setProperty(description: PancakeObjectPropertyDescription, data: UnsafeRawPointer) throws {
+        printcake(type(of: self), #function, description.selector)
         switch description.selector {
 //        case .<#pattern#>:
 
 
         default:
+            printcake("Not implemented:", description.selector)
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
     }

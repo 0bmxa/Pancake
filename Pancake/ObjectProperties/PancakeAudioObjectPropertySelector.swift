@@ -759,3 +759,45 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
         }
     }
 }
+
+
+/*
+internal extension PancakeAudioObjectPropertySelector {
+
+    /// This is an attempt to attach the expected types to each property. This
+    /// is not meant to be complete and will be extended or dropped completely
+    /// in the future.
+    ///
+    /// **Caution!** The return type is explicitly unwrapped and doesn't exist
+    /// for a lot of cases! Therefore the programmer has to manually check
+    /// beforehand if a case exists!
+    var datatype: Any.Type! {
+        switch self {
+        // AudioDevice
+        case .deviceConfigurationApplication:    return CFString.self
+        case .deviceUID:                         return CFString.self
+        case .deviceModelUID:                    return CFString.self
+        case .deviceTransportType:               return UInt32.self
+        case .deviceRelatedDevices:              return [AudioDeviceID].self
+        case .deviceClockDomain:                 return UInt32.self
+        case .deviceIsAlive:                     return UInt32.self
+        case .deviceIsRunning:                   return UInt32.self
+        case .deviceCanBeDefaultDevice:          return UInt32.self
+        case .deviceCanBeDefaultSystemDevice:    return UInt32.self
+        case .deviceLatency:                     return UInt32.self
+        case .deviceStreams:                     return [AudioStreamID].self
+        case .deviceControlList:                 return [AudioObjectID].self
+        case .deviceSafetyOffset:                return UInt32.self
+        case .deviceNominalSampleRate:           return Float64.self
+        case .deviceAvailableNominalSampleRates: return [AudioValueRange].self
+        case .deviceIcon:                        return CFURL.self
+        case .deviceIsHidden:                    return UInt32.self
+        case .devicePreferredChannelsForStereo:  return [UInt32].self
+        case .devicePreferredChannelLayout:      return AudioChannelLayout.self
+
+
+        default: return nil
+        }
+    }
+}
+*/

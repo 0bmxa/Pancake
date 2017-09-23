@@ -28,15 +28,14 @@ class PancakePlugin: PancakeObjectType {
             try assure(AudioClassID.self, fitsIn: sizeHint)
             return .audioClassID(PancakeAudioPlugin.classID)
 
-        case .pluginBoxList,
-             .hardwareBoxList: // not sure the hardware box list should include _all_ boxes or just ours...
+        case .pluginBoxList:
             try assure(AudioObjectID.self, fitsIn: sizeHint)
             let boxes = self.pancake.audioObjects.IDsForObjects(of: PancakeBox.self)
             let elements = boxes.limitedTo(avaliableMemory: sizeHint)
             return .pancakeObjectIDList(elements)
 
-        case .pluginDeviceList,
-             .hardwareDevices: // not sure the hardware device list should include _all_ devices or just ours...
+        case .objectOwnedObjects,
+             .pluginDeviceList:
             try assure(AudioObjectID.self, fitsIn: sizeHint)
             let devices = self.pancake.audioObjects.IDsForObjects(of: PancakeDevice.self)
             let elements = devices.limitedTo(avaliableMemory: sizeHint)
@@ -59,11 +58,13 @@ class PancakePlugin: PancakeObjectType {
     }
 
     func setProperty(description: PancakeObjectPropertyDescription, data: UnsafeRawPointer) throws {
+        printcake(type(of: self), #function, description.selector)
         switch description.selector {
             //case .<#pattern#>:
 
 
         default:
+            printcake("Not implemented:", description.selector)
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
     }

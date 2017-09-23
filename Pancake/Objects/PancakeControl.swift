@@ -44,12 +44,17 @@ class PancakeControl: PancakeObjectType {
             try assure(AudioObjectPropertyElement.self, fitsIn: sizeHint)
             return .element(self.element.rawValue)
 
-        case .objectCustomPropertyInfoList:
-            throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
-
         case .levelControlScalarValue:
             try assure(Float32.self, fitsIn: sizeHint)
             return .float32(self.volume)
+
+//        case .levelControlDecibelValue:
+//            try assure(Float32.self, fitsIn: sizeHint)
+//            let decibelVolume = self.volume.toDecibel
+//            return .float32(decibelVolume)
+
+        case .objectCustomPropertyInfoList:
+            throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
 
         default:
             printcake("Not implemented:", description.selector)
@@ -59,6 +64,7 @@ class PancakeControl: PancakeObjectType {
     }
 
     func setProperty(description: PancakeObjectPropertyDescription, data: UnsafeRawPointer) throws {
+        printcake(type(of: self), #function, description.selector)
         switch description.selector {
         //case .<#pattern#>:
 
@@ -67,6 +73,7 @@ class PancakeControl: PancakeObjectType {
             self.volume = myData.pointee
 
         default:
+            printcake("Not implemented:", description.selector)
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
     }

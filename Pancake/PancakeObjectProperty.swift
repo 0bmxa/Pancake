@@ -15,9 +15,10 @@ enum PancakeObjectProperty {
     case integer(UInt32)
     case float32(Float32)
     case float64(Float64)
+    case url(CFURL)
     case scope(AudioObjectPropertyScope)
     case element(AudioObjectPropertyElement)
-
+    
     // Structs
     case streamDescription(AudioStreamBasicDescription)
     case channelLayout(AudioChannelLayout)
@@ -27,6 +28,7 @@ enum PancakeObjectProperty {
     case customPropertyInfoList([AudioServerPlugInCustomPropertyInfo])
     case streamDescriptionList([AudioStreamRangedDescription])
     case valueRangeList([AudioValueRange])
+    case integerList([UInt32])
 
     /// Writes the property and the property's size to memory
     ///
@@ -38,6 +40,7 @@ enum PancakeObjectProperty {
         case .string(let data):                 self.write(element: data, address: address, size: size)
         case .float32(let data):                self.write(element: data, address: address, size: size)
         case .float64(let data):                self.write(element: data, address: address, size: size)
+        case .url(let data):                    self.write(element: data, address: address, size: size)
         case .integer(let data),
              .scope(let data),
              .element(let data),
@@ -50,6 +53,7 @@ enum PancakeObjectProperty {
         case .customPropertyInfoList(let data): self.write(array: data, address: address, size: size)
         case .streamDescriptionList(let data):  self.write(array: data, address: address, size: size)
         case .valueRangeList(let data):         self.write(array: data, address: address, size: size)
+        case .integerList(let data):            self.write(array: data, address: address, size: size)
         }
     }
 
@@ -62,7 +66,7 @@ enum PancakeObjectProperty {
         // Write data
         address?.assumingMemoryBound(to: T.self).pointee = element
 
-        //printcake("Wrote", self, (address == nil ? "(size only)" : ""))
+        printcake("Wrote \(self)", (address == nil ? "(size only)" : ""))
     }
 
     private func write<T: Collection>(array: T, address: UnsafeMutableRawPointer?, size: UnsafeMutablePointer<UInt32>) {
@@ -80,6 +84,6 @@ enum PancakeObjectProperty {
             currentAddress = currentAddress.advanced(by: 1)
         }
 
-        //printcake("Wrote", array.count, "Elements of", self)
+        printcake("Wrote", array.count, "elements of \(self)")
     }
 }

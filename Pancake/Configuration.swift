@@ -7,7 +7,8 @@
 //
 
 import CoreAudio
-import AppKit
+//import AppKit
+import Foundation
 
 
 public struct Configuration {
@@ -51,14 +52,21 @@ public class DeviceConfiguration {
     public let supportedFormats: [AudioStreamBasicDescription]
 
     /// Whether the device should be hidden from the user
-    public let hidden: Bool
+    public var hidden: Bool = false
 
     /// Whether the device can be set as the user's default audio device
-    public let canBeDefaultDevice: Bool
+    public var canBeDefaultDevice: Bool = true
 
     /// Whether the device can handle system audio like alerts
-    public let canHandleSystemAudio: Bool
+    public var canHandleSystemAudio: Bool = false
 
+    /// An URL to an icon that visually represents the device, relative to the
+    /// bundle.
+    public var iconURL: URL?
+
+    /// A bundle ID for an app which the user can use to configure the device.
+    /// Defaults to the "Audio MIDI Setup" app's bundle ID.
+    public var UIAppBundleID: String?
 
 
     // MARK: - Internal
@@ -101,16 +109,13 @@ public class DeviceConfiguration {
     ///   - hidden: Whether the device should be hidden from the user. (Default: no)
     ///   - canBeDefaultDevice: Whether the device can be set as the user's default audio device. (Default: yes)
     ///   - canHandleSystemAudio: Whether the device can handle system audio like alerts. (Default: no)
-    public init(manufacturer: String, name: String, UID: String, supportedFormats: [AudioStreamBasicDescription], hidden: Bool = false, canBeDefaultDevice: Bool = true, canHandleSystemAudio: Bool = false) {
+    public init(manufacturer: String, name: String, UID: String, supportedFormats: [AudioStreamBasicDescription]) {
         // Public
         self.manufacturer         = manufacturer
         self.name                 = name
         self.UID                  = UID
-        self.modelUID             = UID + "_Model" // TODO:
+        self.modelUID             = UID + "_Model" // FIXME:
         self.supportedFormats     = supportedFormats
-        self.hidden               = hidden
-        self.canBeDefaultDevice   = canBeDefaultDevice
-        self.canHandleSystemAudio = canHandleSystemAudio
 
         // Internal
         self.registeredFormat = supportedFormats[0]

@@ -13,17 +13,18 @@ class PancakeStream: PancakeObjectType {
     internal weak var owningDevice: PancakeDevice?
 
     private let pancake: Pancake
-    private let direction: Direction
+//    private let direction: Direction
+    private var active: Bool
     internal let channelCount: Int
 
     /// The absolute starting channel across all streams of the owning device.
     internal var channelOffsetOnOwningDevice: Int? = 0
-//    internal let channels: [AudioObjectID]
 
 
     init(pancake: Pancake, direction: Direction, channelCount: Int) {
         self.pancake = pancake
-        self.direction = direction
+//        self.direction = direction
+        self.active = false
         self.channelCount = channelCount
     }
 
@@ -60,8 +61,8 @@ class PancakeStream: PancakeObjectType {
             assertionFailure()
             return .streamDescription(newFormat)
 
-        case .deviceLatency: fallthrough
-        case .objectCustomPropertyInfoList:
+        case .deviceLatency,
+             .objectCustomPropertyInfoList:
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
 
 
@@ -73,12 +74,16 @@ class PancakeStream: PancakeObjectType {
     }
 
     func setProperty(description: PancakeObjectPropertyDescription, data: UnsafeRawPointer) throws {
+        printcake(type(of: self), #function, description.selector)
         switch description.selector {
             //case .<#pattern#>:
 
-        case .streamIsActive: break //TODO:
+        case .streamIsActive:
+            let isActive = data.load(as: UInt32.self)
+            self.active = (isActive != 0)
 
         default:
+            printcake("Not implemented:", description.selector)
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
     }

@@ -27,5 +27,7 @@ func printcake(_ items: Any...) {
     #endif
 
     let message = items.reduce("[PANCAKE]") { $0 + " " + String(describing: $1) }
-    print(message)
+//    print(message)
+
+    NSLog("%@", message)
 }
