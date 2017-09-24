@@ -47,25 +47,20 @@ internal class Pancake {
     //    - 1 input stream
     //    - 1 output stream
     private func createBasicSetup() {
-        // Add some initial audio objects
-        self.audioObjects.add(object: PancakeBox(pancake: self))
+        // Create our box. As we only always have one (which should never be
+        // user facing), we can configure it statically here.
+        let box = PancakeBox(pancake: self, UID: "PancakeBox", name: "Pancake Box")
+        self.audioObjects.add(object: box)
 
-//        // Create a device with 2 streams
-//        let inputStream  = PancakeStream(pancake: self, direction: .input,  channelCount: 2)
-//        let outputStream = PancakeStream(pancake: self, direction: .output, channelCount: 2)
-//
-//        // FIXME: Only the first device is created atm.
-//        let deviceConfig = self.configuration.devices[0]
-//        let device = PancakeDevice(pancake: self, streams: [inputStream, outputStream], configuration: deviceConfig)
-//
-//        self.audioObjects.add(device, inputStream, outputStream)
+        // Create a device with 2 streams
+        let inputStream  = PancakeStream(pancake: self, direction: .input,  channelCount: 2)
+        let outputStream = PancakeStream(pancake: self, direction: .output, channelCount: 2)
 
-        // Create a device with 1 stream
         // FIXME: Only the first device is created atm.
-        let stream  = PancakeStream(pancake: self, direction: .input,  channelCount: 2)
         let deviceConfig = self.configuration.devices[0]
-        let device = PancakeDevice(pancake: self, streams: [stream], configuration: deviceConfig)
-        self.audioObjects.add(device, stream)
+        let device = PancakeDevice(pancake: self, streams: [inputStream, outputStream], configuration: deviceConfig)
+
+        self.audioObjects.add(device, inputStream, outputStream)
     }
 
 

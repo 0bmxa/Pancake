@@ -41,7 +41,7 @@ extension AudioStreamBasicDescription {
         let framesPerPacket  = UInt32(1)
         let bitsPerChannel   = format.size * 8
 
-        var bytesPerFrame = bitsPerChannel * 8
+        var bytesPerFrame = format.size
         var flags = [kAudioFormatFlagsNativeEndian, kAudioFormatFlagIsPacked] + format.flags
         if interleaved {
             bytesPerFrame *= channelCount

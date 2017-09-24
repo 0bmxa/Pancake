@@ -56,6 +56,16 @@ class PancakeDevice: PancakeObjectType {
     func getProperty(description: PancakeObjectPropertyDescription, sizeHint: UInt32?) throws -> PancakeObjectProperty {
         printcake(type(of: self), #function, description.selector)
 
+        let scopedSelectors: [PancakeAudioObjectPropertySelector] = [
+            .deviceStreams, .deviceCanBeDefaultDevice, .deviceCanBeDefaultSystemDevice, .deviceSafetyOffset, .deviceLatency, .deviceTransportType, .devicePreferredChannelLayout, .deviceNominalSampleRate
+        ]
+        if description.scope != .global && !scopedSelectors.contains(description.selector) {
+            //
+        }
+        if description.element != .master {
+
+        }
+
         switch description.selector {
 
         // Object stuff
@@ -156,7 +166,8 @@ class PancakeDevice: PancakeObjectType {
 
         case .deviceStreams:
             try assure(AudioObjectID.self, fitsIn: sizeHint)
-            let streamIDs = self.streams.flatMap { $0.objectID }
+            let streamsForScope = self.streams.filter { $0.direction == description.scope }
+            let streamIDs = streamsForScope.flatMap { $0.objectID }
             let elements = streamIDs.limitedTo(avaliableMemory: sizeHint)
             return .pancakeObjectIDList(elements)
 
@@ -166,7 +177,7 @@ class PancakeDevice: PancakeObjectType {
             let elements = controlIDs.limitedTo(avaliableMemory: sizeHint)
             return .pancakeObjectIDList(elements)
 
-        case .deviceNominalSampleRate:
+        case .deviceNominalSampleRate: // TODO: consider scope
             try assure(Float64.self, fitsIn: sizeHint)
             let sampleRate = self.configuration.registeredFormat.mSampleRate
             return .float64(sampleRate)
@@ -195,17 +206,17 @@ class PancakeDevice: PancakeObjectType {
             let value = UInt32(self.configuration.hidden)
             return .integer(value)
 
-        case .deviceCanBeDefaultDevice:
+        case .deviceCanBeDefaultDevice: // TODO: consider scope
             try assure(UInt32.self, fitsIn: sizeHint)
             let value = UInt32(self.configuration.canBeDefaultDevice)
             return .integer(value)
 
-        case .deviceCanBeDefaultSystemDevice:
+        case .deviceCanBeDefaultSystemDevice: // TODO: consider scope
             try assure(UInt32.self, fitsIn: sizeHint)
             let value = UInt32(self.configuration.canHandleSystemAudio)
             return .integer(value)
 
-        case .devicePreferredChannelLayout:
+        case .devicePreferredChannelLayout: // TODO: consider scope
             try assure(AudioChannelLayout.self, fitsIn: sizeHint)
             let channelCount = self.configuration.registeredFormat.mChannelsPerFrame
             let channelLayout = AudioChannelLayout.linear(channelCount: channelCount)
@@ -245,6 +256,10 @@ class PancakeDevice: PancakeObjectType {
             }
             return .string(bundleID)
 
+        case .deviceClockDomain:
+            try assure(UInt32.self, fitsIn: sizeHint)
+            return .integer(0) // we don't have/know a clock domain
+
 
         default:
             printcake("Not implemented:", description.selector)
@@ -258,8 +273,8 @@ class PancakeDevice: PancakeObjectType {
         switch description.selector {
         case .deviceZeroTimeStampPeriod:
             try assure(UInt32.self, fitsIn: sizeHint)
-            let ringBufferSize = self.configuration.ringBuffer.size
-            return .integer(ringBufferSize)
+            let ringBufferFrameCount = self.configuration.ringBuffer.frames
+            return .integer(ringBufferFrameCount)
 
         case .deviceClockAlgorithm:
             try assure(AudioDeviceClockAlgorithmSelector.RawValue.self, fitsIn: sizeHint)

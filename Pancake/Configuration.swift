@@ -72,7 +72,11 @@ public class DeviceConfiguration {
     // MARK: - Internal
 
     /// The format registered with the host (i.e. the active format)
-    internal var registeredFormat: AudioStreamBasicDescription
+    internal var registeredFormat: AudioStreamBasicDescription {
+        didSet {
+            self.ringBuffer.update(format: self.registeredFormat)
+        }
+    }
 
     // The next format to register with the host
     internal var formatToActivate: AudioStreamBasicDescription?
@@ -95,7 +99,7 @@ public class DeviceConfiguration {
 
     /// The number of host ticks per ring buffer (i.e. all frames in the buffer)
     internal var ticksPerRingBuffer: Float64 {
-        return self.ticksPerFrame * Float64(self.ringBuffer.size)
+        return self.ticksPerFrame * Float64(self.ringBuffer.frames)
     }
 
 
@@ -119,7 +123,7 @@ public class DeviceConfiguration {
 
         // Internal
         self.registeredFormat = supportedFormats[0]
-        self.ringBuffer       = RingBuffer(size: 1024 * 2 * 8)
+        self.ringBuffer       = RingBuffer(frames: 1024 * 2 * 8, format: self.registeredFormat)
         self.safetyOffsets    = InOutValue(input: 0, output: 128)
         self.deviceLatency    = InOutValue(input: 0, output: 0)
     }

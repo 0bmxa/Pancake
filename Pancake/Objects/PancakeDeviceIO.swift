@@ -49,7 +49,7 @@ extension PancakeDevice {
         }
 
         // Calculate sample & host time at the beginning of the current cycle
-        let sampleTime = Float64(self.cycleCount.value) * Float64(self.configuration.ringBuffer.size)
+        let sampleTime = Float64(self.cycleCount.value) * Float64(self.configuration.ringBuffer.frames)
         let hostTime   = self.referenceHostTime.value + (self.cycleCount.value * ticksPerRingBuffer)
 
         // Our timeline doesn't change, so return a consistent value
@@ -65,6 +65,14 @@ extension PancakeDevice {
              .processOutput,
              .writeMix:
             return (supported: true, isInPlaceOperation: true)
+
+//        case .readInput,
+//             .writeMix:
+//            return (supported: true, isInPlaceOperation: true)
+//            
+//        case .thread,
+//             .processOutput:
+//             return (supported: false, isInPlaceOperation: true)
 
         case .cycle,
              .convertInput,
@@ -86,30 +94,33 @@ extension PancakeDevice {
         let ringBuffer = self.configuration.ringBuffer
 
         switch operation {
+
         // Transfers input data from the device to the provided buffer.
+        // [Device] -> [System]
         case .readInput:
-            let ringBufferSize = Int(ringBuffer.size)
+            let ringBufferFrameCount = Int(ringBuffer.frames)
             let sampleTime = Int(cycle.mInputTime.mSampleTime)
-            let startFrameOffset = sampleTime % ringBufferSize
+            let startFrameOffset = sampleTime % ringBufferFrameCount
 
             // Copy bytes from the ringbuffer to the outputBuffer
-            ringBuffer.write(numberOfFrames: numberOfFrames, fromOffset: startFrameOffset, to: buffer)
+            ringBuffer.copy(to: buffer, fromOffset: startFrameOffset, numberOfFrames: numberOfFrames)
 
 
         // Performs arbitrary signal processing on the output data.
         case .processOutput:
             // TODO:
-            return
+            break
 
 
         // Puts data into the device.
+        // [System] -> [Device]
         case .writeMix:
-            let ringBufferSize = Int(ringBuffer.size)
+            let ringBufferFrameCount = Int(ringBuffer.frames)
             let sampleTime = Int(cycle.mOutputTime.mSampleTime)
-            let startFrameOffset = sampleTime % ringBufferSize
+            let startFrameOffset = sampleTime % ringBufferFrameCount
 
             // Copy bytes from the inputBuffer to the ringbuffer
-            ringBuffer.read(numberOfFrames: numberOfFrames, fromOffset: startFrameOffset, from: buffer)
+            ringBuffer.fill(from: buffer, fromOffset: startFrameOffset, numberOfFrames: numberOfFrames)
 
 
         default:

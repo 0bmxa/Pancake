@@ -13,25 +13,29 @@ class PancakeBox: PancakeObjectType {
     private let pancake: Pancake
 
     private let UID: CFString
+    private let name: CFString
 
-    required init(pancake: Pancake) {
+    init(pancake: Pancake, UID: String, name: String) {
         self.pancake = pancake
-
-        // FIXME: This should be consistent across boots, not regenerated every time
-        self.UID = UUID().string as CFString
+        self.UID = UID as CFString
+        self.name = name as CFString
     }
 
     func getProperty(description: PancakeObjectPropertyDescription, sizeHint: UInt32?) throws -> PancakeObjectProperty {
         printcake(type(of: self), #function, description.selector)
 
         switch description.selector {
-//        case .objectBaseClass:
-//            try assure(AudioClassID.self, fitsIn: sizeHint)
-//            return .audioClassID(PancakeAudioPlugin.classID)
-//
-//        case .objectClass:
-//            try assure(AudioClassID.self, fitsIn: sizeHint)
-//            return .audioClassID(PancakeAudioBox.classID)
+        case .objectBaseClass:
+            try assure(AudioClassID.self, fitsIn: sizeHint)
+            return .audioClassID(PancakeAudioObject.classID)
+
+        case .objectClass:
+            try assure(AudioClassID.self, fitsIn: sizeHint)
+            return .audioClassID(PancakeAudioBox.classID)
+
+        case .objectName:
+            try assure(CFString.self, fitsIn: sizeHint)
+            return .string(self.name)
 
         case .boxUID:
             try assure(CFString.self, fitsIn: sizeHint)

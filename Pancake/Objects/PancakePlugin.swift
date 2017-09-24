@@ -28,14 +28,16 @@ class PancakePlugin: PancakeObjectType {
             try assure(AudioClassID.self, fitsIn: sizeHint)
             return .audioClassID(PancakeAudioPlugin.classID)
 
-        case .pluginBoxList:
+        case .pluginBoxList,
+             .hardwareBoxList:
             try assure(AudioObjectID.self, fitsIn: sizeHint)
             let boxes = self.pancake.audioObjects.IDsForObjects(of: PancakeBox.self)
             let elements = boxes.limitedTo(avaliableMemory: sizeHint)
             return .pancakeObjectIDList(elements)
 
         case .objectOwnedObjects,
-             .pluginDeviceList:
+             .pluginDeviceList,
+             .hardwareDevices:
             try assure(AudioObjectID.self, fitsIn: sizeHint)
             let devices = self.pancake.audioObjects.IDsForObjects(of: PancakeDevice.self)
             let elements = devices.limitedTo(avaliableMemory: sizeHint)
@@ -49,7 +51,6 @@ class PancakePlugin: PancakeObjectType {
         case .objectCustomPropertyInfoList,
              .hardwareClockDeviceList:
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
-
 
         default:
             printcake("Not implemented:", description.selector)

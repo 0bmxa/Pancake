@@ -111,6 +111,13 @@ extension Pancake {
             return PancakeAudioHardwareError.illegalOperation
         }
         guard let mainBuffer = mainBuffer else {
+            if operation == .readInput {
+                return PancakeAudioHardwareError.badObject
+            }
+            if operation == .writeMix {
+                return PancakeAudioHardwareError.badObject
+            }
+            
             return PancakeAudioHardwareError.badObject
         }
 

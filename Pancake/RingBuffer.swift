@@ -9,41 +9,51 @@
 import CoreAudio
 
 class RingBuffer {
-    let size: UInt32
-    private let buffer: UnsafeMutableRawPointer
+    let frames: UInt32
+    private var byteSize: UInt32
+    private var buffer: UnsafeMutableRawPointer
     private let serialQueue: DispatchQueue
-    private var activeFormat: AudioStreamBasicDescription?
+    private var activeFormat: AudioStreamBasicDescription
 
-    init(size: UInt32) {
-        self.size = size
-        self.buffer = calloc(1, Int(size))
+    init(frames: UInt32, format: AudioStreamBasicDescription) {
+        self.frames = frames
+        self.activeFormat = format
+        self.byteSize = frames * format.mBytesPerFrame
+        self.buffer = calloc(1, Int(self.byteSize))
 
         let queueID = UUID().string
         self.serialQueue = DispatchQueue(label: "Pancake.RingBuffer." + queueID)
     }
 
-    func read(numberOfFrames frameCount: Int, fromOffset frameOffset: Int, from srcBuffer: UnsafeMutableRawPointer) {
+    deinit {
+        free(self.buffer)
+    }
 
-        guard let format = self.activeFormat else { assertionFailure(); return }
+    private func reallocBuffer() {
+        free(self.buffer)
+        self.byteSize = self.frames * self.activeFormat.mBytesPerFrame
+        self.buffer = calloc(1, Int(self.byteSize))
+    }
 
+    func fill(from srcBuffer: UnsafeMutableRawPointer, fromOffset frameOffset: Int, numberOfFrames frameCount: Int) {
         // Translate frames to bytes
-        let bytesPerFrame = Int(format.mBytesPerFrame)
+        let bytesPerFrame = Int(self.activeFormat.mBytesPerFrame)
         let startByte = frameOffset * bytesPerFrame
         let bytesToCopy = frameCount * bytesPerFrame
 
-        guard bytesToCopy <= self.size else { assertionFailure(); return }
+        guard bytesToCopy <= self.byteSize else { assertionFailure(); return }
 
         self.serialQueue.sync {
             // Copy directly, if we can
             // (if the segment to copy fits in the rest of the ringbuffer)
-            if (startByte + bytesToCopy) <= self.size  {
+            if (startByte + bytesToCopy) <= self.byteSize  {
                 memcpy(self.buffer + startByte, srcBuffer, bytesToCopy)
                 return
             }
 
             // Otherwise, copy first half from [offset – ringbuffer end],
             // then second half [ringbuffer start – requested lenght]
-            let sizeOfFirstHalf  = Int(self.size) - startByte
+            let sizeOfFirstHalf  = Int(self.byteSize) - startByte
             let sizeOfSecondHalf = bytesToCopy - sizeOfFirstHalf
             memcpy(self.buffer + startByte, srcBuffer,                   sizeOfFirstHalf)
             memcpy(self.buffer,             srcBuffer + sizeOfFirstHalf, sizeOfSecondHalf)
@@ -52,27 +62,25 @@ class RingBuffer {
     }
 
 
-    func write(numberOfFrames frameCount: Int, fromOffset frameOffset: Int, to destBuffer: UnsafeMutableRawPointer) {
-        guard let format = self.activeFormat else { assertionFailure(); return }
-
+    func copy(to destBuffer: UnsafeMutableRawPointer, fromOffset frameOffset: Int, numberOfFrames frameCount: Int) {
         // Translate frames to bytes
-        let bytesPerFrame = Int(format.mBytesPerFrame)
+        let bytesPerFrame = Int(self.activeFormat.mBytesPerFrame)
         let startByte = frameOffset * bytesPerFrame
         let bytesToCopy = frameCount * bytesPerFrame
 
-        guard bytesToCopy <= self.size else { assertionFailure(); return }
+        guard bytesToCopy <= self.byteSize else { assertionFailure(); return }
 
         self.serialQueue.sync {
             // Copy directly, if we can
             // (if the segment to copy can be taken from the rest of the ringbuffer)
-            if (startByte + bytesToCopy) <= self.size  {
+            if (startByte + bytesToCopy) <= self.byteSize  {
                 memcpy(destBuffer, self.buffer + startByte, bytesToCopy)
                 return
             }
 
             // Otherwise, copy first half from [offset – ringbuffer end],
             // then second half [ringbuffer start – requested lenght]
-            let sizeOfFirstHalf  = Int(self.size) - startByte
+            let sizeOfFirstHalf  = Int(self.byteSize) - startByte
             let sizeOfSecondHalf = bytesToCopy - sizeOfFirstHalf
             memcpy(destBuffer,                   self.buffer + startByte, sizeOfFirstHalf)
             memcpy(destBuffer + sizeOfFirstHalf, self.buffer,             sizeOfSecondHalf)
@@ -80,12 +88,16 @@ class RingBuffer {
     }
 
 
-    /// Sets the format used in the ringbuffer. Caution: this clears the buffer.
+    /// Updates the format used in the ringbuffer.
+    /// **Caution:** this resets the buffer.
     ///
     /// - Parameter format: The new audio format to be used.
-    func setFormat(_ format: AudioStreamBasicDescription) {
-        memset(self.buffer, 0, Int(self.size))
+    func update(format: AudioStreamBasicDescription) {
         self.activeFormat = format
+        self.reallocBuffer()
     }
 
+    func update(frameCount: Int) {
+        
+    }
 }
