@@ -8,42 +8,39 @@
 
 import CoreAudio.AudioServerPlugIn
 
-// MARK: - Inheritance
-
 extension Pancake {
 
-    /// Finds the interface to talk to the plug-in.
-    /// A AudioServerPlugIn wrapper method.
+    /// Finds the plugin's interface.
+    /// From the IUnknown interface standard.
     ///
     /// - Parameters:
     ///   - driver: The CFPlugIn type to query.
     ///   - UUID: The UUID of the interface to find.
     /// - Returns: The returned interface or nil if none was found, and an error code indicating success of failure..
     func queryInterface(driver: AudioServerPlugInDriver?, UUID: UUID, writeTo outInterface: PluginInterface?) -> HRESULT {
-        guard let driver = driver else { return PancakeAudioHardwareError.badObject }
+        guard valid(driver) else { return PancakeAudioHardwareError.badObject }
         guard let interface = outInterface else {
             assertionFailure()
             return PancakeAudioHardwareError.illegalOperation
         }
 
-        guard UUID == kUUID.IUnknown || UUID == kUUID.audioServerPlugInDriverInterface else {
-            assertionFailure()
-            return HRESULT.noInterface
-        }
-
-        guard !self.pluginReferenceCounter.maxxedOut else {
+        guard
+            UUID == kUUID.IUnknown || UUID == kUUID.audioServerPlugInDriverInterface,
+            !self.pluginReferenceCounter.maxxedOut
+        else {
             assertionFailure()
             return HRESULT.noInterface
         }
 
         self.pluginReferenceCounter.increment()
-        interface.setInterfacePointer(from: driver)
+        interface.setInterfacePointer(from: Pancake.shared.driver)
 
         return HRESULT.ok
     }
 
 
     /// Increments the reference count and returns it.
+    /// From the IUnknown interface standard.
     ///
     /// - Parameter driver: The driver the call is for.
     /// - Returns: The reference count after the increment.
@@ -55,6 +52,7 @@ extension Pancake {
 
 
     /// Decrements the reference count and returns it.
+    /// From the IUnknown interface standard.
     ///
     /// - Parameter driver: The driver the call is for.
     /// - Returns: The reference count after the decrement.
