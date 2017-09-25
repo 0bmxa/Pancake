@@ -9,7 +9,7 @@
 import CoreAudio
 
 class RingBuffer {
-    let frames: UInt32
+    private(set) var frames: UInt32
     private var byteSize: UInt32
     private var buffer: UnsafeMutableRawPointer
     private let serialQueue: DispatchQueue
@@ -29,10 +29,9 @@ class RingBuffer {
         free(self.buffer)
     }
 
-    private func reallocBuffer() {
-        free(self.buffer)
+    private func reAllocateBuffer() {
         self.byteSize = self.frames * self.activeFormat.mBytesPerFrame
-        self.buffer = calloc(1, Int(self.byteSize))
+        self.buffer = realloc(self.buffer, Int(self.byteSize))
     }
 
     func fill(from srcBuffer: UnsafeMutableRawPointer, fromOffset frameOffset: Int, numberOfFrames frameCount: Int) {
@@ -44,8 +43,8 @@ class RingBuffer {
         guard bytesToCopy <= self.byteSize else { assertionFailure(); return }
 
         self.serialQueue.sync {
-            // Copy directly, if we can
-            // (if the segment to copy fits in the rest of the ringbuffer)
+            // Copy directly, if we can.
+            // (If the segment to copy fits in the rest of the ringbuffer)
             if (startByte + bytesToCopy) <= self.byteSize  {
                 memcpy(self.buffer + startByte, srcBuffer, bytesToCopy)
                 return
@@ -58,7 +57,6 @@ class RingBuffer {
             memcpy(self.buffer + startByte, srcBuffer,                   sizeOfFirstHalf)
             memcpy(self.buffer,             srcBuffer + sizeOfFirstHalf, sizeOfSecondHalf)
         }
-
     }
 
 
@@ -94,10 +92,15 @@ class RingBuffer {
     /// - Parameter format: The new audio format to be used.
     func update(format: AudioStreamBasicDescription) {
         self.activeFormat = format
-        self.reallocBuffer()
+        self.reAllocateBuffer()
     }
 
-    func update(frameCount: Int) {
-        
+    /// Updates the frame count used in the ringbuffer.
+    /// **Caution:** this resets the buffer.
+    ///
+    /// - Parameter frames: The new number of frames to be used.
+    func update(frames: Int) {
+        self.frames = UInt32(frames)
+        self.reAllocateBuffer()
     }
 }

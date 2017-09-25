@@ -108,11 +108,9 @@ public class DeviceConfiguration {
     /// - Parameters:
     ///   - manufacturer: The device vendor.
     ///   - name: The device name.
-    ///   - uid: A unique string to identify the device in a pool of audio objects. This has to be consistent across boots.
+    ///   - uid: A unique string to identify the device in a pool of audio.
+    ///          objects. This has to be consistent across boots.
     ///   - supportedFormats: The audio formats the plugin supports.
-    ///   - hidden: Whether the device should be hidden from the user. (Default: no)
-    ///   - canBeDefaultDevice: Whether the device can be set as the user's default audio device. (Default: yes)
-    ///   - canHandleSystemAudio: Whether the device can handle system audio like alerts. (Default: no)
     public init(manufacturer: String, name: String, UID: String, supportedFormats: [AudioStreamBasicDescription]) {
         // Public
         self.manufacturer         = manufacturer

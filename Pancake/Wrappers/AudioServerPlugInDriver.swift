@@ -20,8 +20,6 @@ class AudioServerPlugInDriver {
 
     init?(from rawPointer: UnsafeMutableRawPointer?) {
         guard let rawPointer = rawPointer else { return nil }
-//        let opaquePointer = OpaquePointer(rawPointer)
-//        let driverPointer = AudioServerPlugInDriverRef(opaquePointer)
         let driverPointer = rawPointer.assumingMemoryBound(to: AudioServerPlugInDriverRefPointeeType.self)
         self.driverRef = driverPointer
     }

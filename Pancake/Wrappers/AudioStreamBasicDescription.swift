@@ -70,20 +70,24 @@ extension AudioStreamBasicDescription {
 
     static func == (lhs: AudioStreamBasicDescription, rhs: AudioStreamBasicDescription) -> Bool {
         return (
-            lhs.mSampleRate       == rhs.mSampleRate       ||
-            lhs.mFormatID         == rhs.mFormatID         ||
-            lhs.mFormatFlags      == rhs.mFormatFlags      ||
-            lhs.mFramesPerPacket  == rhs.mFramesPerPacket  ||
-            lhs.mBytesPerFrame    == rhs.mBytesPerFrame    ||
-            lhs.mChannelsPerFrame == rhs.mChannelsPerFrame ||
-            lhs.mBitsPerChannel   == rhs.mBitsPerChannel   ||
-            lhs.mBytesPerPacket   == rhs.mBytesPerPacket   ||
+            lhs.mSampleRate       == rhs.mSampleRate       &&
+            lhs.mFormatID         == rhs.mFormatID         &&
+            lhs.mFormatFlags      == rhs.mFormatFlags      &&
+            lhs.mFramesPerPacket  == rhs.mFramesPerPacket  &&
+            lhs.mBytesPerFrame    == rhs.mBytesPerFrame    &&
+            lhs.mChannelsPerFrame == rhs.mChannelsPerFrame &&
+            lhs.mBitsPerChannel   == rhs.mBitsPerChannel   &&
+            lhs.mBytesPerPacket   == rhs.mBytesPerPacket   &&
             lhs.mReserved         == rhs.mReserved
         )
     }
 
     static func != (lhs: AudioStreamBasicDescription, rhs: AudioStreamBasicDescription) -> Bool {
         return !(lhs == rhs)
+    }
+
+    func has(flag: AudioFormatFlags) -> Bool {
+        return (self.mFormatFlags & flag == flag)
     }
 }
 
