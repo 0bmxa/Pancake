@@ -235,7 +235,7 @@ class PancakeDevice: PancakeObjectType {
         case .deviceIsRunning:
             try assure(UInt32.self, fitsIn: sizeHint)
             let running = self.IOCount.value > 0
-            return .integer(running ? 1 : 0)
+            return .integer(UInt32(running))
 
         case .deviceIcon:
             try assure(CFURL.self, fitsIn: sizeHint)

@@ -44,18 +44,18 @@ extension kUUID {
 
 extension HRESULT {
     // Success
-    static let ok = HRESULT(bitPattern: 0x00000000)
-    static let `false` = HRESULT(bitPattern: 0x00000001)
-
+    static let ok               = HRESULT(bitPattern: 0x00000000)
+    static let `false`          = HRESULT(bitPattern: 0x00000001)
+    
     // Error
-    static let unexpected = HRESULT(bitPattern: 0x8000FFFF)
-    static let notImplemented = HRESULT(bitPattern: 0x80000001)
-    static let outOfMemory = HRESULT(bitPattern: 0x80000002)
+    static let unexpected       = HRESULT(bitPattern: 0x8000FFFF)
+    static let notImplemented   = HRESULT(bitPattern: 0x80000001)
+    static let outOfMemory      = HRESULT(bitPattern: 0x80000002)
     static let invalidArguments = HRESULT(bitPattern: 0x80000003)
-    static let noInterface = HRESULT(bitPattern: 0x80000004)
-    static let pointer = HRESULT(bitPattern: 0x80000005)
-    static let handle = HRESULT(bitPattern: 0x80000006)
-    static let abort = HRESULT(bitPattern: 0x80000007)
-    static let fail = HRESULT(bitPattern: 0x80000008)
-    static let accessDenied = HRESULT(bitPattern: 0x80000009)
+    static let noInterface      = HRESULT(bitPattern: 0x80000004)
+    static let pointer          = HRESULT(bitPattern: 0x80000005)
+    static let handle           = HRESULT(bitPattern: 0x80000006)
+    static let abort            = HRESULT(bitPattern: 0x80000007)
+    static let fail             = HRESULT(bitPattern: 0x80000008)
+    static let accessDenied     = HRESULT(bitPattern: 0x80000009)
 }

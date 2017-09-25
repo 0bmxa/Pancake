@@ -338,6 +338,7 @@ enum PancakeAudioStream {
 
 
 enum PancakeAudioControl {
+    // The generic control class ID
     static let classID: AudioClassID = kAudioControlClassID
 
     enum Selector {
@@ -345,34 +346,56 @@ enum PancakeAudioControl {
         static let scope   = kAudioControlPropertyScope
         static let element = kAudioControlPropertyElement
     }
-}
 
+    // Control types
+    case mute
+    case solo
+    case jack
+    case LFEMute
+    case phantomPower
+    case phaseInvert
+    case clipLight
+    case talkback
+    case listenback
+    case dataSource
+    case dataDestination
+    case clockSource
+    case lineLevel
+    case highPassFilter
+    case volume
+    case LFEVolume
 
+    case slider
+    case level
+    case boolean
+    case selector
+    case stereoPan
 
-// AudioControlClassID
-enum PancakeAudioControlClassID {
-    static let mute            = kAudioMuteControlClassID
-    static let solo            = kAudioSoloControlClassID
-    static let jack            = kAudioJackControlClassID
-    static let LFEMute         = kAudioLFEMuteControlClassID
-    static let phantomPower    = kAudioPhantomPowerControlClassID
-    static let phaseInvert     = kAudioPhaseInvertControlClassID
-    static let clipLight       = kAudioClipLightControlClassID
-    static let talkback        = kAudioTalkbackControlClassID
-    static let listenback      = kAudioListenbackControlClassID
-    static let dataSource      = kAudioDataSourceControlClassID
-    static let dataDestination = kAudioDataDestinationControlClassID
-    static let clockSource     = kAudioClockSourceControlClassID
-    static let lineLevel       = kAudioLineLevelControlClassID
-    static let highPassFilter  = kAudioHighPassFilterControlClassID
-    static let volume          = kAudioVolumeControlClassID
-    static let LFEVolume       = kAudioLFEVolumeControlClassID
-
-    static let slider    = PancakeAudioSliderControl.classID
-    static let level     = PancakeAudioLevelControl.classID
-    static let boolean   = PancakeAudioBooleanControl.classID
-    static let selector  = PancakeAudioSelectorControl.classID
-    static let stereoPan = PancakeAudioStereoPanControl.classID
+    var classID: AudioClassID {
+        switch self {
+        case .mute:            return kAudioMuteControlClassID
+        case .solo:            return kAudioSoloControlClassID
+        case .jack:            return kAudioJackControlClassID
+        case .LFEMute:         return kAudioLFEMuteControlClassID
+        case .phantomPower:    return kAudioPhantomPowerControlClassID
+        case .phaseInvert:     return kAudioPhaseInvertControlClassID
+        case .clipLight:       return kAudioClipLightControlClassID
+        case .talkback:        return kAudioTalkbackControlClassID
+        case .listenback:      return kAudioListenbackControlClassID
+        case .dataSource:      return kAudioDataSourceControlClassID
+        case .dataDestination: return kAudioDataDestinationControlClassID
+        case .clockSource:     return kAudioClockSourceControlClassID
+        case .lineLevel:       return kAudioLineLevelControlClassID
+        case .highPassFilter:  return kAudioHighPassFilterControlClassID
+        case .volume:          return kAudioVolumeControlClassID
+        case .LFEVolume:       return kAudioLFEVolumeControlClassID
+        case .slider:          return PancakeAudioSliderControl.classID
+        case .level:           return PancakeAudioLevelControl.classID
+        case .boolean:         return PancakeAudioBooleanControl.classID
+        case .selector:        return PancakeAudioSelectorControl.classID
+        case .stereoPan:       return PancakeAudioStereoPanControl.classID
+        }
+    }
 }
 
 

@@ -108,7 +108,6 @@ extension PancakeDevice {
 
         // Performs arbitrary signal processing on the output data.
         case .processOutput:
-            // TODO:
             break
 
 

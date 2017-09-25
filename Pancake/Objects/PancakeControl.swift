@@ -11,14 +11,14 @@ import CoreAudio.AudioServerPlugIn
 class PancakeControl: PancakeObjectType {
     internal var objectID: AudioObjectID?
 
-    private let controlType: ControlType
+    private let controlType: PancakeAudioControl
     private let scope: PancakeAudioObjectPropertyScope
     private let element: PancakeAudioObjectPropertyElement
 
-    private var volume: Float32 = 0 // TODO: this should not be here
+    private var value: Float32 = 0 // TODO: this should probably be saved
 
 
-    init(type: ControlType, scope: PancakeAudioObjectPropertyScope, element: PancakeAudioObjectPropertyElement) {
+    init(type: PancakeAudioControl, scope: PancakeAudioObjectPropertyScope, element: PancakeAudioObjectPropertyElement) {
         self.controlType = type
         self.scope       = scope
         self.element     = element
@@ -46,7 +46,7 @@ class PancakeControl: PancakeObjectType {
 
         case .levelControlScalarValue:
             try assure(Float32.self, fitsIn: sizeHint)
-            return .float32(self.volume)
+            return .float32(self.value)
 
 //        case .levelControlDecibelValue:
 //            try assure(Float32.self, fitsIn: sizeHint)
@@ -70,64 +70,11 @@ class PancakeControl: PancakeObjectType {
 
         case .levelControlScalarValue:
             let myData = data.assumingMemoryBound(to: Float32.self)
-            self.volume = myData.pointee
+            self.value = myData.pointee
 
         default:
             printcake("Not implemented:", description.selector)
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
-        }
-    }
-}
-
-extension PancakeControl {
-    enum ControlType {
-        case slider
-        case level
-        case boolean
-        case selector
-        case stereoPan
-
-        case mute
-        case solo
-        case jack
-        case LFEMute
-        case phantomPower
-        case phaseInvert
-        case clipLight
-        case talkback
-        case listenback
-        case dataSource
-        case dataDestination
-        case clockSource
-        case lineLevel
-        case highPassFilter
-        case volume
-        case LFEVolume
-
-        var classID: AudioClassID {
-            switch self {
-            case .slider:          return PancakeAudioControlClassID.slider
-            case .level:           return PancakeAudioControlClassID.level
-            case .boolean:         return PancakeAudioControlClassID.boolean
-            case .selector:        return PancakeAudioControlClassID.selector
-            case .stereoPan:       return PancakeAudioControlClassID.stereoPan
-            case .mute:            return PancakeAudioControlClassID.mute
-            case .solo:            return PancakeAudioControlClassID.solo
-            case .jack:            return PancakeAudioControlClassID.jack
-            case .LFEMute:         return PancakeAudioControlClassID.LFEMute
-            case .phantomPower:    return PancakeAudioControlClassID.phantomPower
-            case .phaseInvert:     return PancakeAudioControlClassID.phaseInvert
-            case .clipLight:       return PancakeAudioControlClassID.clipLight
-            case .talkback:        return PancakeAudioControlClassID.talkback
-            case .listenback:      return PancakeAudioControlClassID.listenback
-            case .dataSource:      return PancakeAudioControlClassID.dataSource
-            case .dataDestination: return PancakeAudioControlClassID.dataDestination
-            case .clockSource:     return PancakeAudioControlClassID.clockSource
-            case .lineLevel:       return PancakeAudioControlClassID.lineLevel
-            case .highPassFilter:  return PancakeAudioControlClassID.highPassFilter
-            case .volume:          return PancakeAudioControlClassID.volume
-            case .LFEVolume:       return PancakeAudioControlClassID.LFEVolume
-            }
         }
     }
 }
