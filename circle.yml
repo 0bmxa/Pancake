@@ -1,0 +1,15 @@
+machine:
+    xcode:
+        version: 9.0
+
+
+dependencies:
+    pre:
+        - HOMEBREW_NO_AUTO_UPDATE=1 brew install swiftlint
+        - sudo chmod 757 /Library/Audio/Plug-Ins/HAL
+
+
+## Customize test commands
+test:
+    override:
+        - xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
