@@ -26,22 +26,22 @@ import CoreAudio.AudioServerPlugIn
 
 // The IUnknown method for interface discovery.
 func Pancake_queryInterface(inDriver: UnsafeMutableRawPointer?, inUUID: REFIID, outInterface: UnsafeMutablePointer<LPVOID?>?) -> HRESULT {
-    let driver = AudioServerPlugInDriver(from: inDriver)
+    guard validate(inDriver) else { return PancakeAudioHardwareError.badObject }
     let uuid = UUID(from: inUUID)
     let interface = PluginInterface(from: outInterface)
-    return Pancake.shared.queryInterface(driver: driver, UUID: uuid, writeTo: interface)
+    return Pancake.shared.queryInterface(UUID: uuid, writeTo: interface)
 }
 
 // The IUnknown method for retaining a reference to a CFPlugIn type.
 func Pancake_addRef(inDriver: UnsafeMutableRawPointer?) -> ULONG {
-    let driver = AudioServerPlugInDriver(from: inDriver)
-    return Pancake.shared.addRef(driver: driver)
+    guard validate(inDriver) else { return UInt32(PancakeAudioHardwareError.badObject) }
+    return Pancake.shared.addRef()
 }
 
 // The IUnknown method for releasing a reference to a CFPlugIn type.
 func Pancake_release(inDriver: UnsafeMutableRawPointer?) -> ULONG {
-    let driver = AudioServerPlugInDriver(from: inDriver)
-    return Pancake.shared.release(driver: driver)
+    guard validate(inDriver) else { return UInt32(PancakeAudioHardwareError.badObject) }
+    return Pancake.shared.release()
 }
 
 
@@ -50,9 +50,9 @@ func Pancake_release(inDriver: UnsafeMutableRawPointer?) -> ULONG {
 
 // This method is called to initialize the instance of the plug-in.
 func Pancake_initialize(inDriver: AudioServerPlugInDriverRef, inHost: AudioServerPlugInHostRef) -> OSStatus {
-    let driver = AudioServerPlugInDriver(from: inDriver)
+    guard validate(inDriver) else { return PancakeAudioHardwareError.badObject }
     let host = AudioServerPlugInHost(from: inHost)
-    return Pancake.shared.initialize(driver: driver, host: host)
+    return Pancake.shared.initialize(host: host)
 }
 
 // Tells the plug-in to create a new device based on the given description.
@@ -77,14 +77,14 @@ func Pancake_removeDeviceClient(inDriver: AudioServerPlugInDriverRef, inDeviceOb
 
 // This is called by the Host to allow the device to perform a configuration change that had been previously requested via a call to the Host method, RequestDeviceConfigurationChange().
 func Pancake_performDeviceConfigurationChange(inDriver: AudioServerPlugInDriverRef, inDeviceObjectID: AudioObjectID, inChangeAction: UInt64, inChangeInfo: UnsafeMutableRawPointer?) -> OSStatus {
-    let driver = AudioServerPlugInDriver(from: inDriver)
-    return Pancake.shared.performDeviceConfigurationChange(driver: driver, deviceObjectID: inDeviceObjectID, changeAction: inChangeAction)
+    guard validate(inDriver) else { return PancakeAudioHardwareError.badObject }
+    return Pancake.shared.performDeviceConfigurationChange(deviceObjectID: inDeviceObjectID, changeAction: inChangeAction)
 }
 
 // This is called by the Host to tell the plug-in not to perform a configuration change that had been requested via a call to the Host method, RequestDeviceConfigurationChange().
 func Pancake_abortDeviceConfigurationChange(inDriver: AudioServerPlugInDriverRef, inDeviceObjectID: AudioObjectID, inChangeAction: UInt64, inChangeInfo: UnsafeMutableRawPointer?) -> OSStatus {
-    let driver = AudioServerPlugInDriver(from: inDriver)
-    return Pancake.shared.abortDeviceConfigurationChange(driver: driver, inDeviceObjectID: inDeviceObjectID, inChangeAction: inChangeAction)
+    guard validate(inDriver) else { return PancakeAudioHardwareError.badObject }
+    return Pancake.shared.abortDeviceConfigurationChange(inDeviceObjectID: inDeviceObjectID, inChangeAction: inChangeAction)
 }
 
 
@@ -93,9 +93,9 @@ func Pancake_abortDeviceConfigurationChange(inDriver: AudioServerPlugInDriverRef
 
 // Queries an object about whether or not it has the given property.
 func Pancake_hasProperty(inDriver: AudioServerPlugInDriverRef, inObjectID: AudioObjectID, inClientProcessID: pid_t, inAddress: UnsafePointer<AudioObjectPropertyAddress>) -> DarwinBoolean {
-    let driver = AudioServerPlugInDriver(from: inDriver)
+    guard validate(inDriver) else { return false }
     let propertyDescription = PancakeObjectPropertyDescription(with: inAddress.pointee)
-    let hasProperty = Pancake.shared.hasProperty(driver: driver, objectID: inObjectID, description: propertyDescription)
+    let hasProperty = Pancake.shared.hasProperty(objectID: inObjectID, description: propertyDescription)
     return DarwinBoolean(hasProperty)
 }
 
@@ -106,23 +106,23 @@ func Pancake_isPropertySettable(inDriver: AudioServerPlugInDriverRef, inObjectID
 
 // Queries an object to find the size of the data for the given property.
 func Pancake_getPropertyDataSize(inDriver: AudioServerPlugInDriverRef, inObjectID: AudioObjectID, inClientProcessID: pid_t, inAddress: UnsafePointer<AudioObjectPropertyAddress>, inQualifierDataSize: UInt32, inQualifierData: UnsafeRawPointer?, outDataSize: UnsafeMutablePointer<UInt32>) -> OSStatus {
-    let driver = AudioServerPlugInDriver(from: inDriver)
+    guard validate(inDriver) else { return PancakeAudioHardwareError.badObject }
     let propertyDescription = PancakeObjectPropertyDescription(with: inAddress.pointee)
-    return Pancake.shared.getPropertyData(driver: driver, objectID: inObjectID, description: propertyDescription, dataSize: nil, outData: nil, outDataSize: outDataSize)
+    return Pancake.shared.getPropertyData(objectID: inObjectID, description: propertyDescription, dataSize: nil, outData: nil, outDataSize: outDataSize)
 }
 
 // Fetches the data of the given property and places it in the provided buffer.
 func Pancake_getPropertyData(inDriver: AudioServerPlugInDriverRef, inObjectID: AudioObjectID, inClientProcessID: pid_t, inAddress: UnsafePointer<AudioObjectPropertyAddress>, inQualifierDataSize: UInt32, inQualifierData: UnsafeRawPointer?, inDataSize: UInt32, outDataSize: UnsafeMutablePointer<UInt32>, outData: UnsafeMutableRawPointer) -> OSStatus {
-    let driver = AudioServerPlugInDriver(from: inDriver)
+    guard validate(inDriver) else { return PancakeAudioHardwareError.badObject }
     let propertyDescription = PancakeObjectPropertyDescription(with: inAddress.pointee)
-    return Pancake.shared.getPropertyData(driver: driver, objectID: inObjectID, description: propertyDescription, dataSize: inDataSize, outData: outData, outDataSize: outDataSize)
+    return Pancake.shared.getPropertyData(objectID: inObjectID, description: propertyDescription, dataSize: inDataSize, outData: outData, outDataSize: outDataSize)
 }
 
 // Tells an object to change the value of the given property.
 func Pancake_setPropertyData(inDriver: AudioServerPlugInDriverRef, inObjectID: AudioObjectID, inClientProcessID: pid_t, inAddress: UnsafePointer<AudioObjectPropertyAddress>, inQualifierDataSize: UInt32, inQualifierData: UnsafeRawPointer?, inDataSize: UInt32, inData: UnsafeRawPointer) -> OSStatus {
-    let driver = AudioServerPlugInDriver(from: inDriver)
+    guard validate(inDriver) else { return PancakeAudioHardwareError.badObject }
     let propertyDescription = PancakeObjectPropertyDescription(with: inAddress.pointee)
-    return Pancake.shared.setPropertyData(driver: driver, objectID: inObjectID, description: propertyDescription, dataSize: inDataSize, data: inData)
+    return Pancake.shared.setPropertyData(objectID: inObjectID, description: propertyDescription, dataSize: inDataSize, data: inData)
 }
 
 
@@ -131,46 +131,56 @@ func Pancake_setPropertyData(inDriver: AudioServerPlugInDriverRef, inObjectID: A
 
 // Tells the device to start IO.
 func Pancake_startIO(inDriver: AudioServerPlugInDriverRef, inDeviceObjectID: AudioObjectID, inClientID: UInt32) -> OSStatus {
-    let driver = AudioServerPlugInDriver(from: inDriver)
-    return Pancake.shared.startIO(driver: driver, objectID: inDeviceObjectID, clientID: inClientID)
+    guard validate(inDriver) else { return PancakeAudioHardwareError.badObject }
+    return Pancake.shared.startIO(objectID: inDeviceObjectID, clientID: inClientID)
 }
 
 
 // Tells the device to stop IO.
 func Pancake_stopIO(inDriver: AudioServerPlugInDriverRef, inDeviceObjectID: AudioObjectID, inClientID: UInt32) -> OSStatus {
-    let driver = AudioServerPlugInDriver(from: inDriver)
-    return Pancake.shared.stopIO(driver: driver, objectID: inDeviceObjectID, clientID: inClientID)
+    guard validate(inDriver) else { return PancakeAudioHardwareError.badObject }
+    return Pancake.shared.stopIO(objectID: inDeviceObjectID, clientID: inClientID)
 }
 
 // Retrieves the most recent zero time stamp for the device.
 func Pancake_getZeroTimeStamp(inDriver: AudioServerPlugInDriverRef, inDeviceObjectID: AudioObjectID, inClientID: UInt32, outSampleTime: UnsafeMutablePointer<Float64>, outHostTime: UnsafeMutablePointer<UInt64>, outSeed: UnsafeMutablePointer<UInt64>) -> OSStatus {
-    let driver = AudioServerPlugInDriver(from: inDriver)
-    return Pancake.shared.getZeroTimeStamp(driver: driver, objectID: inDeviceObjectID, clientID: inClientID, outSampleTime: outSampleTime, outHostTime: outHostTime, outSeed: outSeed)
+    guard validate(inDriver) else { return PancakeAudioHardwareError.badObject }
+    return Pancake.shared.getZeroTimeStamp(objectID: inDeviceObjectID, clientID: inClientID, outSampleTime: outSampleTime, outHostTime: outHostTime, outSeed: outSeed)
 }
 
 
 // Asks the plug-in whether or not the device will perform the given phase of the IO cycle for a particular device.
 func Pancake_willDoIOOperation(inDriver: AudioServerPlugInDriverRef, inDeviceObjectID: AudioObjectID, inClientID: UInt32, inOperationID: UInt32, outWillDo: UnsafeMutablePointer<DarwinBoolean>, outWillDoInPlace: UnsafeMutablePointer<DarwinBoolean>) -> OSStatus {
-    let driver = AudioServerPlugInDriver(from: inDriver)
+    guard validate(inDriver) else { return PancakeAudioHardwareError.badObject }
     let operation = AudioServerPlugInIOOperation(rawValue: inOperationID)
-    return Pancake.shared.willDoIOOperation(driver: driver, objectID: inDeviceObjectID, clientID: inClientID, operation: operation, outWillDo: outWillDo, outWillDoInPlace: outWillDoInPlace)
+    return Pancake.shared.willDoIOOperation(objectID: inDeviceObjectID, clientID: inClientID, operation: operation, outWillDo: outWillDo, outWillDoInPlace: outWillDoInPlace)
 }
 
 // Tells the plug-in that the Host is about to begin a phase of the IO cycle for a particular device.
 func Pancake_beginIOOperation(inDriver: AudioServerPlugInDriverRef, inDeviceObjectID: AudioObjectID, inClientID: UInt32, inOperationID: UInt32, inIOBufferFrameSize: UInt32, inIOCycleInfo: UnsafePointer<AudioServerPlugInIOCycleInfo>) -> OSStatus {
-    let driver = AudioServerPlugInDriver(from: inDriver)
-    return Pancake.shared.beginIOOperation(driver: driver, objectID: inDeviceObjectID, clientID: inClientID, inOperationID: inOperationID, inIOBufferFrameSize: inIOBufferFrameSize, inIOCycleInfo: inIOCycleInfo)
+    guard validate(inDriver) else { return PancakeAudioHardwareError.badObject }
+    return Pancake.shared.beginIOOperation(objectID: inDeviceObjectID, clientID: inClientID, inOperationID: inOperationID, inIOBufferFrameSize: inIOBufferFrameSize, inIOCycleInfo: inIOCycleInfo)
 }
 
 // Tells the device to perform an IO operation for a particular stream.
 func Pancake_doIOOperation(inDriver: AudioServerPlugInDriverRef, inDeviceObjectID: AudioObjectID, inStreamObjectID: AudioObjectID, inClientID: UInt32, inOperationID: UInt32, inIOBufferFrameSize: UInt32, inIOCycleInfo: UnsafePointer<AudioServerPlugInIOCycleInfo>, ioMainBuffer: UnsafeMutableRawPointer?, ioSecondaryBuffer: UnsafeMutableRawPointer?) -> OSStatus {
-    let driver = AudioServerPlugInDriver(from: inDriver)
+    guard validate(inDriver) else { return PancakeAudioHardwareError.badObject }
     let operation = AudioServerPlugInIOOperation(rawValue: inOperationID)
-    return Pancake.shared.doIOOperation(driver: driver, deviceObjectID: inDeviceObjectID, clientID: inClientID, streamObjectID: inStreamObjectID, operation: operation, IOBufferFrameSize: inIOBufferFrameSize, IOCycleInfo: inIOCycleInfo, mainBuffer: ioMainBuffer, secondaryBuffer: ioSecondaryBuffer)
+    return Pancake.shared.doIOOperation(deviceObjectID: inDeviceObjectID, clientID: inClientID, streamObjectID: inStreamObjectID, operation: operation, IOBufferFrameSize: inIOBufferFrameSize, IOCycleInfo: inIOCycleInfo, mainBuffer: ioMainBuffer, secondaryBuffer: ioSecondaryBuffer)
 }
 
 // Tells the plug-in that the Host is about to end a phase of the IO cycle for a particular device.
 func Pancake_endIOOperation(inDriver: AudioServerPlugInDriverRef, inDeviceObjectID: AudioObjectID, inClientID: UInt32, inOperationID: UInt32, inIOBufferFrameSize: UInt32, inIOCycleInfo: UnsafePointer<AudioServerPlugInIOCycleInfo>) -> OSStatus {
-    let driver = AudioServerPlugInDriver(from: inDriver)
-    return Pancake.shared.endIOOperation(driver: driver, objectID: inDeviceObjectID, clientID: inClientID, inOperationID: inOperationID, inIOBufferFrameSize: inIOBufferFrameSize, inIOCycleInfo: inIOCycleInfo)
+    guard validate(inDriver) else { return PancakeAudioHardwareError.badObject }
+    return Pancake.shared.endIOOperation(objectID: inDeviceObjectID, clientID: inClientID, inOperationID: inOperationID, inIOBufferFrameSize: inIOBufferFrameSize, inIOCycleInfo: inIOCycleInfo)
+}
+
+
+
+
+func validate(_ driverPointer: UnsafeMutableRawPointer?, referenceDriver: AudioServerPlugInDriver = Pancake.shared.driver) -> Bool {
+    let driver = AudioServerPlugInDriver(from: driverPointer)
+    let isValid = (driver != nil && driver == referenceDriver)
+    if !isValid { assertionFailure() }
+    return isValid
 }

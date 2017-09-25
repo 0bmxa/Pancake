@@ -17,8 +17,7 @@ extension Pancake {
     ///   - driver: The CFPlugIn type to query.
     ///   - UUID: The UUID of the interface to find.
     /// - Returns: The returned interface or nil if none was found, and an error code indicating success of failure..
-    func queryInterface(driver: AudioServerPlugInDriver?, UUID: UUID, writeTo outInterface: PluginInterface?) -> HRESULT {
-        guard valid(driver) else { return PancakeAudioHardwareError.badObject }
+    func queryInterface(UUID: UUID, writeTo outInterface: PluginInterface?) -> HRESULT {
         guard let interface = outInterface else {
             assertionFailure()
             return PancakeAudioHardwareError.illegalOperation
@@ -44,8 +43,7 @@ extension Pancake {
     ///
     /// - Parameter driver: The driver the call is for.
     /// - Returns: The reference count after the increment.
-    func addRef(driver: AudioServerPlugInDriver?) -> UInt32 {
-        guard valid(driver) else { return 0 }
+    func addRef() -> UInt32 {
         self.pluginReferenceCounter.increment()
         return self.pluginReferenceCounter.value
     }
@@ -56,8 +54,7 @@ extension Pancake {
     ///
     /// - Parameter driver: The driver the call is for.
     /// - Returns: The reference count after the decrement.
-    func release(driver: AudioServerPlugInDriver?) -> UInt32 {
-        guard valid(driver) else { return 0 }
+    func release() -> UInt32 {
         self.pluginReferenceCounter.decrement()
         return self.pluginReferenceCounter.value
     }

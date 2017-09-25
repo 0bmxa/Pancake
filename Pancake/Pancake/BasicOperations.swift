@@ -17,14 +17,15 @@ extension Pancake {
     ///   - driver: The plug-in to initialize.
     ///   - host: A host interface that the plug-in should use for communication with the Host. The Host guarantees that the storage will remain valid for the lifetime of the plug-in.
     /// - Returns: The status of the operation.
-    func initialize(driver: AudioServerPlugInDriver?, host: AudioServerPlugInHost?) -> OSStatus {
-        guard valid(driver) else { return PancakeAudioHardwareError.badObject }
-
+    func initialize(host: AudioServerPlugInHost?) -> OSStatus {
         // Store the host reference
         self.host = host
 
         // Do basic setup
         self.setup()
+        
+        // TODO: init signal processing unit
+        //self.signalProcessor.initialize()
 
         return PancakeAudioHardwareError.noError
     }
@@ -69,7 +70,8 @@ extension Pancake {
 
 
 
-// MARK: - <#Description#>
+// MARK: - Device configuration changes
+
 extension Pancake {
     /// This is called by the Host to allow the device to perform a configuration change that had been previously requested via a call to the Host method, RequestDeviceConfigurationChange().
     ///
@@ -78,8 +80,7 @@ extension Pancake {
     ///   - deviceObjectID The ID of the device that wants to change its configuration.
     ///   - changeAction A UInt64 indicating the action the device object wants to take. This is the same value that was passed to RequestDeviceConfigurationChange(). Note that this value is purely for the plug-in's usage. The Host does not look at this value.
     /// - Returns: The status of the operation.
-    func performDeviceConfigurationChange(driver: AudioServerPlugInDriver?, deviceObjectID: AudioObjectID, changeAction: UInt64) -> OSStatus {
-        guard valid(driver) else { return PancakeAudioHardwareError.badObject }
+    func performDeviceConfigurationChange(deviceObjectID: AudioObjectID, changeAction: UInt64) -> OSStatus {
 
         //    This method is called to tell the device that it can perform the configuation change that it
         //    had requested via a call to the host method, RequestDeviceConfigurationChange(). The
@@ -120,7 +121,7 @@ extension Pancake {
     ///   - deviceObjectID The ID of the device that wants to change its configuration.
     ///   - changeAction A UInt64 indicating the action the device object wants to take. This is the same value that was passed to RequestDeviceConfigurationChange(). Note that this value is purely for the plug-in's usage. The Host does not look at this value.
     /// - Returns: The status of the operation.
-    func abortDeviceConfigurationChange(driver: AudioServerPlugInDriver?, inDeviceObjectID: AudioObjectID, inChangeAction: UInt64) -> OSStatus {
+    func abortDeviceConfigurationChange(inDeviceObjectID: AudioObjectID, inChangeAction: UInt64) -> OSStatus {
         fatalError(); //return 0
     }
 }

@@ -16,8 +16,7 @@ extension Pancake {
     // FIXME:
     static var seenClients: [(clientID: UInt32, action: String)] = []
 
-    func startIO(driver: AudioServerPlugInDriver?, objectID: AudioObjectID, clientID: UInt32) -> OSStatus {
-        guard valid(driver) else { return PancakeAudioHardwareError.badObject }
+    func startIO(objectID: AudioObjectID, clientID: UInt32) -> OSStatus {
         Pancake.seenClients.append((clientID: clientID, action: "startIO"))
         guard let device = self.audioObjects[objectID] as? PancakeDevice else {
             assertionFailure()
@@ -33,8 +32,8 @@ extension Pancake {
         return PancakeAudioHardwareError.noError
     }
 
-    func stopIO(driver: AudioServerPlugInDriver?, objectID: AudioObjectID, clientID: UInt32) -> OSStatus {
-        guard valid(driver) else { return PancakeAudioHardwareError.badObject }
+
+    func stopIO(objectID: AudioObjectID, clientID: UInt32) -> OSStatus {
         Pancake.seenClients.append((clientID: clientID, action: "stopIO"))
 
         guard let device = self.audioObjects[objectID] as? PancakeDevice else {
@@ -51,8 +50,8 @@ extension Pancake {
         return PancakeAudioHardwareError.noError
     }
 
-    func getZeroTimeStamp(driver: AudioServerPlugInDriver?, objectID: AudioObjectID, clientID: UInt32, outSampleTime: UnsafeMutablePointer<Float64>, outHostTime: UnsafeMutablePointer<UInt64>, outSeed: UnsafeMutablePointer<UInt64>) -> OSStatus {
-        guard valid(driver) else { return PancakeAudioHardwareError.badObject }
+
+    func getZeroTimeStamp(objectID: AudioObjectID, clientID: UInt32, outSampleTime: UnsafeMutablePointer<Float64>, outHostTime: UnsafeMutablePointer<UInt64>, outSeed: UnsafeMutablePointer<UInt64>) -> OSStatus {
         Pancake.seenClients.append((clientID: clientID, action: "getZeroTimeStamp"))
 
         guard let device = self.audioObjects[objectID] as? PancakeDevice else {
@@ -71,16 +70,16 @@ extension Pancake {
         return PancakeAudioHardwareError.noError
     }
 
-    func willDoIOOperation(driver: AudioServerPlugInDriver?, objectID: AudioObjectID, clientID: UInt32, operation: AudioServerPlugInIOOperation?, outWillDo: UnsafeMutablePointer<DarwinBoolean>, outWillDoInPlace: UnsafeMutablePointer<DarwinBoolean>) -> OSStatus {
-        guard valid(driver) else { return PancakeAudioHardwareError.badObject }
+
+    func willDoIOOperation(objectID: AudioObjectID, clientID: UInt32, operation: AudioServerPlugInIOOperation?, outWillDo: UnsafeMutablePointer<DarwinBoolean>, outWillDoInPlace: UnsafeMutablePointer<DarwinBoolean>) -> OSStatus {
         Pancake.seenClients.append((clientID: clientID, action: "willDoIOOperation"))
 
         guard
             let operation = operation,
             let device = self.audioObjects[objectID] as? PancakeDevice
-        else {
-            assertionFailure()
-            return PancakeAudioHardwareError.badObject
+            else {
+                assertionFailure()
+                return PancakeAudioHardwareError.badObject
         }
 
         // Get operation support from device
@@ -93,15 +92,15 @@ extension Pancake {
         return 0
     }
 
-    func beginIOOperation(driver: AudioServerPlugInDriver?, objectID: AudioObjectID, clientID: UInt32, inOperationID: UInt32, inIOBufferFrameSize: UInt32, inIOCycleInfo: UnsafePointer<AudioServerPlugInIOCycleInfo>) -> OSStatus {
-        guard valid(driver) else { return PancakeAudioHardwareError.badObject }
+
+    func beginIOOperation(objectID: AudioObjectID, clientID: UInt32, inOperationID: UInt32, inIOBufferFrameSize: UInt32, inIOCycleInfo: UnsafePointer<AudioServerPlugInIOCycleInfo>) -> OSStatus {
         Pancake.seenClients.append((clientID: clientID, action: "beginIOOperation"))
         // nothing to do here for now
         return PancakeAudioHardwareError.noError
     }
 
-    func doIOOperation(driver: AudioServerPlugInDriver?, deviceObjectID: AudioObjectID, clientID: UInt32, streamObjectID: AudioObjectID, operation: AudioServerPlugInIOOperation?, IOBufferFrameSize: UInt32, IOCycleInfo: UnsafePointer<AudioServerPlugInIOCycleInfo>, mainBuffer: UnsafeMutableRawPointer?, secondaryBuffer: UnsafeMutableRawPointer?) -> OSStatus {
-        guard valid(driver) else { return PancakeAudioHardwareError.badObject }
+
+    func doIOOperation(deviceObjectID: AudioObjectID, clientID: UInt32, streamObjectID: AudioObjectID, operation: AudioServerPlugInIOOperation?, IOBufferFrameSize: UInt32, IOCycleInfo: UnsafePointer<AudioServerPlugInIOCycleInfo>, mainBuffer: UnsafeMutableRawPointer?, secondaryBuffer: UnsafeMutableRawPointer?) -> OSStatus {
         Pancake.seenClients.append((clientID: clientID, action: "doIOOperation"))
 
         guard let device = self.audioObjects[deviceObjectID] as? PancakeDevice else {
@@ -117,7 +116,7 @@ extension Pancake {
             if operation == .writeMix {
                 return PancakeAudioHardwareError.badObject
             }
-            
+
             return PancakeAudioHardwareError.badObject
         }
 
@@ -131,7 +130,8 @@ extension Pancake {
         return PancakeAudioHardwareError.noError
     }
 
-    func endIOOperation(driver: AudioServerPlugInDriver?, objectID: AudioObjectID, clientID: UInt32, inOperationID: UInt32, inIOBufferFrameSize: UInt32, inIOCycleInfo: UnsafePointer<AudioServerPlugInIOCycleInfo>) -> OSStatus {
+
+    func endIOOperation(objectID: AudioObjectID, clientID: UInt32, inOperationID: UInt32, inIOBufferFrameSize: UInt32, inIOCycleInfo: UnsafePointer<AudioServerPlugInIOCycleInfo>) -> OSStatus {
         Pancake.seenClients.append((clientID: clientID, action: "endIOOperation"))
         // nothing to do here for now
         return PancakeAudioHardwareError.noError

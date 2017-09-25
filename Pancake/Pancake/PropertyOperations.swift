@@ -12,8 +12,7 @@ import CoreAudio.AudioServerPlugIn
 
 // MARK: - Property Operations
 extension Pancake {
-    func hasProperty(driver: AudioServerPlugInDriver?, objectID: AudioObjectID, description: PancakeObjectPropertyDescription?) -> Bool {
-        guard valid(driver) else { return false }
+    func hasProperty(objectID: AudioObjectID, description: PancakeObjectPropertyDescription?) -> Bool {
         guard
             let pancakeObject = self.audioObjects[objectID],
             let description = description
@@ -29,9 +28,7 @@ extension Pancake {
         fatalError(); //return 0
     }
 
-    func getPropertyData(driver: AudioServerPlugInDriver?, objectID: AudioObjectID, description: PancakeObjectPropertyDescription?, dataSize: UInt32?, outData: UnsafeMutableRawPointer?, outDataSize: UnsafeMutablePointer<UInt32>?) -> OSStatus {
-        guard valid(driver) else { return PancakeAudioHardwareError.badObject }
-
+    func getPropertyData(objectID: AudioObjectID, description: PancakeObjectPropertyDescription?, dataSize: UInt32?, outData: UnsafeMutableRawPointer?, outDataSize: UnsafeMutablePointer<UInt32>?) -> OSStatus {
         guard
             let description = description,
             let outDataSize = outDataSize,
@@ -57,9 +54,7 @@ extension Pancake {
 
 
 
-    func setPropertyData(driver: AudioServerPlugInDriver?, objectID: AudioObjectID, description: PancakeObjectPropertyDescription?, dataSize: UInt32, data: UnsafeRawPointer) -> OSStatus {
-        guard valid(driver) else { return PancakeAudioHardwareError.badObject }
-
+    func setPropertyData(objectID: AudioObjectID, description: PancakeObjectPropertyDescription?, dataSize: UInt32, data: UnsafeRawPointer) -> OSStatus {
         guard
             let description = description,
             let pancakeObject = self.audioObjects[objectID]
@@ -77,17 +72,4 @@ extension Pancake {
 
         return PancakeAudioHardwareError.noError
     }
-}
-
-
-enum Response<T> {
-    case success(data: T)
-    case failure(status: OSStatus)
-}
-
-
-func valid(_ driver: AudioServerPlugInDriver?) -> Bool {
-    let isValid = (driver != nil && driver == Pancake.shared.driver)
-    if !isValid { assertionFailure() }
-    return isValid
 }
