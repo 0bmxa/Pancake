@@ -46,7 +46,7 @@ extension HRESULT {
     // Success
     static let ok               = HRESULT(bitPattern: 0x00000000)
     static let `false`          = HRESULT(bitPattern: 0x00000001)
-    
+
     // Error
     static let unexpected       = HRESULT(bitPattern: 0x8000FFFF)
     static let notImplemented   = HRESULT(bitPattern: 0x80000001)

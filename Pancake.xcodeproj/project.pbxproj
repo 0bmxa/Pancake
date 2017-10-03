@@ -33,6 +33,7 @@
 		EE8BB2E41F42009500B3B748 /* PluginInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8BB2DA1F42007400B3B748 /* PluginInterface.swift */; };
 		EE98511C1F6AD13B0021FC73 /* PancakePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98511B1F6AD13B0021FC73 /* PancakePlugin.swift */; };
 		EE98511E1F6AD1590021FC73 /* PancakeDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98511D1F6AD1590021FC73 /* PancakeDevice.swift */; };
+		EEBF105A1F81BA8300C8E3D4 /* Float.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF10591F81BA8300C8E3D4 /* Float.swift */; };
 		EED5AEAC1F5494AB002E2FF9 /* AudioServerPlugInHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED5AEAB1F5494AB002E2FF9 /* AudioServerPlugInHost.swift */; };
 		EEDE01FF1F64427B001D4ABE /* MemoryTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDE01FE1F64427B001D4ABE /* MemoryTools.swift */; };
 		EEF140CA1F6B0ACF00228A2F /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF140C91F6B0ACF00228A2F /* Array.swift */; };
@@ -79,6 +80,7 @@
 		EE8BB2DC1F42007400B3B748 /* DriverInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverInterface.swift; sourceTree = "<group>"; };
 		EE98511B1F6AD13B0021FC73 /* PancakePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PancakePlugin.swift; sourceTree = "<group>"; };
 		EE98511D1F6AD1590021FC73 /* PancakeDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PancakeDevice.swift; sourceTree = "<group>"; };
+		EEBF10591F81BA8300C8E3D4 /* Float.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Float.swift; sourceTree = "<group>"; };
 		EED5AEAB1F5494AB002E2FF9 /* AudioServerPlugInHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioServerPlugInHost.swift; sourceTree = "<group>"; };
 		EEDE01FE1F64427B001D4ABE /* MemoryTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryTools.swift; sourceTree = "<group>"; };
 		EEF140C91F6B0ACF00228A2F /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 			children = (
 				EEF140C91F6B0ACF00228A2F /* Array.swift */,
 				EEF2EE6C1F71A7B200AF4ADA /* UInt32.swift */,
+				EEBF10591F81BA8300C8E3D4 /* Float.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 				EE4EDD971F5DBD5000273BFC /* CoreFoundation.swift in Sources */,
 				EE4EDD801F5B5B5300273BFC /* PropertyOperations.swift in Sources */,
 				EEF140D11F6C1B8000228A2F /* PancakeBox.swift in Sources */,
+				EEBF105A1F81BA8300C8E3D4 /* Float.swift in Sources */,
 				EED5AEAC1F5494AB002E2FF9 /* AudioServerPlugInHost.swift in Sources */,
 				EE52FB5A1F44EA5500C118BC /* AtomicCounter.swift in Sources */,
 				EE4EDD7E1F5B51AC00273BFC /* MachTimebaseInfo.swift in Sources */,

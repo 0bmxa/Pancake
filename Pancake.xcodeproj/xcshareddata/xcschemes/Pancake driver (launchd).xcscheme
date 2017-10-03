@@ -76,6 +76,10 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <PathRunnable
+         runnableDebuggingMode = "0"
+         FilePath = "/usr/sbin/coreaudiod">
+      </PathRunnable>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"

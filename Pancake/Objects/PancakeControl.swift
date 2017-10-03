@@ -15,7 +15,7 @@ class PancakeControl: PancakeObjectType {
     private let scope: PancakeAudioObjectPropertyScope
     private let element: PancakeAudioObjectPropertyElement
 
-    private var value: Float32 = 0 // TODO: this should probably be saved
+    private var value: Float32 = 1.0 // TODO: this should probably be saved
 
 
     init(type: PancakeAudioControl, scope: PancakeAudioObjectPropertyScope, element: PancakeAudioObjectPropertyElement) {
@@ -48,10 +48,15 @@ class PancakeControl: PancakeObjectType {
             try assure(Float32.self, fitsIn: sizeHint)
             return .float32(self.value)
 
-//        case .levelControlDecibelValue:
-//            try assure(Float32.self, fitsIn: sizeHint)
-//            let decibelVolume = self.volume.toDecibel
-//            return .float32(decibelVolume)
+        case .levelControlDecibelValue:
+            try assure(Float32.self, fitsIn: sizeHint)
+            let decibelVolume = 20 * log(self.value)
+            return .float32(decibelVolume)
+
+        case .levelControlDecibelRange:
+            try assure(AudioValueRange.self, fitsIn: sizeHint)
+            let decibelRange = AudioValueRange(mMinimum: -140, mMaximum: 0)
+            return .valueRange(decibelRange)
 
         case .objectCustomPropertyInfoList:
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
@@ -69,8 +74,15 @@ class PancakeControl: PancakeObjectType {
         //case .<#pattern#>:
 
         case .levelControlScalarValue:
-            let myData = data.assumingMemoryBound(to: Float32.self)
-            self.value = myData.pointee
+            let dataPointer = data.assumingMemoryBound(to: Float32.self)
+            let scalarValue = dataPointer.pointee
+            self.value = scalarValue.clampedTo(min: 0.0, max: 1.0)
+
+        case .levelControlDecibelValue:
+            let dataPointer = data.assumingMemoryBound(to: Float32.self)
+            let decibelValue = dataPointer.pointee
+            let scalarValue = pow(10, decibelValue/20)
+            self.value = scalarValue.clampedTo(min: 0.0, max: 1.0)
 
         default:
             printcake("Not implemented:", description.selector)

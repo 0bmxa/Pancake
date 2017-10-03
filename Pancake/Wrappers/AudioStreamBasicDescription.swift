@@ -36,7 +36,29 @@ extension AudioStreamBasicDescription {
         }
     }
 
-    init(sampleRate: Float64, channelCount: UInt32, format: AudioDataFormat, interleaved: Bool) {
+    /// Creates a new ASBD from the specified parameters, calculating the rest
+    /// of the ASBD struct internally.
+    ///
+    /// - Parameters:
+    ///   - sampleRate: The sample rate.
+    ///   - channelCount: The number of channels which logically belong together.
+    ///   - format: The byte format of the audio data.
+    init(sampleRate: Float64, channelCount: UInt32, format: AudioDataFormat) {
+        self.init(sampleRate: sampleRate, channelCount: channelCount, format: format, interleaved: true)
+    }
+    
+    
+    /// Creates a new ASBD from the specified parameters, calculating the rest
+    /// of the ASBD struct internally.
+    /// Note: Interleaved format switch is implemented, but non-interleaved
+    ///       audio is not supported by the audio hardware.
+    ///
+    /// - Parameters:
+    ///   - sampleRate: The sample rate.
+    ///   - channelCount: The number of channels which logically belong together.
+    ///   - format: The byte format of the audio data.
+    ///   - interleaved: Whether the format is interleaved or not.
+    private init(sampleRate: Float64, channelCount: UInt32, format: AudioDataFormat, interleaved: Bool) {
         let formatID         = kAudioFormatLinearPCM
         let framesPerPacket  = UInt32(1)
         let bitsPerChannel   = format.size * 8

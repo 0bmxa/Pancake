@@ -75,6 +75,7 @@ public class DeviceConfiguration {
     internal var registeredFormat: AudioStreamBasicDescription {
         didSet {
             self.ringBuffer.update(format: self.registeredFormat)
+            Pancake.shared.setup()
         }
     }
 

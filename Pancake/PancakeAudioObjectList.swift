@@ -59,6 +59,14 @@ class PancakeAudioObjectList {
         }
     }
 
+    /// Removes the object from the list.
+    ///
+    /// - Parameter objectID: The ID of the object to be removed.
+    func remove(object objectID: AudioObjectID) {
+        self.storage.removeValue(forKey: objectID)
+    }
+
+
     /// Finds all object of a given type in the list and returns their IDs.
     ///
     /// - Parameter expectedType: The type to be found.

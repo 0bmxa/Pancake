@@ -23,7 +23,7 @@ extension Pancake {
 
         // Do basic setup
         self.setup()
-        
+
         // TODO: init signal processing unit
         //self.signalProcessor.initialize()
 

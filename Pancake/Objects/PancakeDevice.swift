@@ -14,7 +14,7 @@ class PancakeDevice: PancakeObjectType {
     private let pancake: Pancake
     internal let configuration: DeviceConfiguration
     private var controls: [PancakeControl]
-    internal let streams: [PancakeStream] // internal because device IO extenseion
+    internal var streams: [PancakeStream] // internal because device IO extenseion
 
     // IO / timing stuff
     internal var IOCount = AtomicCounter<UInt64>() // internal because device IO extenseion
@@ -22,18 +22,27 @@ class PancakeDevice: PancakeObjectType {
     internal var referenceHostTime = AtomicCounter<UInt64>() // internal because device IO extenseion
 
 
-    init(pancake: Pancake, streams: [PancakeStream], configuration: DeviceConfiguration) {
+    init(pancake: Pancake, configuration: DeviceConfiguration) {
         self.pancake       = pancake
-        self.streams       = streams
         self.configuration = configuration
         self.controls      = []
+        self.streams       = []
 
         self.createControls()
-        self.updateStreamConfig()
     }
 
-    /// Walks over all streams and updates their channel offset
-    private func updateStreamConfig() {
+    /// Replaces the device's streams. Also updates each stream's channel offset
+    internal func setStreams(_ streams: [PancakeStream]) {
+        // Remove old streams, if any
+        self.streams.forEach {
+            guard let streamID = $0.objectID else { return }
+            self.pancake.audioObjects.remove(object: streamID)
+        }
+
+        // Set new streams
+        self.streams = streams
+
+        // Set stream channel offsets
         var totalChannelCount = 0
         self.streams.forEach { stream in
             stream.channelOffsetOnOwningDevice = totalChannelCount
@@ -57,7 +66,7 @@ class PancakeDevice: PancakeObjectType {
         printcake(type(of: self), #function, description.selector)
 
         let scopedSelectors: [PancakeAudioObjectPropertySelector] = [
-            .deviceStreams, .deviceCanBeDefaultDevice, .deviceCanBeDefaultSystemDevice, .deviceSafetyOffset, .deviceLatency, .deviceTransportType, .devicePreferredChannelLayout, .deviceNominalSampleRate
+            .deviceStreams, .deviceCanBeDefaultDevice, .deviceCanBeDefaultSystemDevice, .deviceSafetyOffset, .deviceLatency, .deviceTransportType, .devicePreferredChannelLayout, .deviceNominalSampleRate, .deviceModelUID, .deviceClockDomain
         ]
         if description.scope != .global && !scopedSelectors.contains(description.selector) {
             //
@@ -160,7 +169,7 @@ class PancakeDevice: PancakeObjectType {
             try assure(CFString.self, fitsIn: sizeHint)
             return .string(self.configuration.UID as CFString)
 
-        case .deviceModelUID:
+        case .deviceModelUID: // TODO: consider scope (?)
             try assure(CFString.self, fitsIn: sizeHint)
             return .string(self.configuration.modelUID as CFString)
 
@@ -256,7 +265,7 @@ class PancakeDevice: PancakeObjectType {
             }
             return .string(bundleID)
 
-        case .deviceClockDomain:
+        case .deviceClockDomain: // TODO: consider scope
             try assure(UInt32.self, fitsIn: sizeHint)
             return .integer(0) // we don't have/know a clock domain
 

@@ -8,6 +8,8 @@
 
 import CoreAudio
 
+//swiftlint:disable cyclomatic_complexity
+
 enum PancakeObjectProperty {
     // Primitives
     case audioClassID(AudioClassID)
@@ -22,6 +24,7 @@ enum PancakeObjectProperty {
     // Structs
     case streamDescription(AudioStreamBasicDescription)
     case channelLayout(AudioChannelLayout)
+    case valueRange(AudioValueRange)
 
     // Arrays
     case pancakeObjectIDList([AudioObjectID])
@@ -48,6 +51,7 @@ enum PancakeObjectProperty {
 
         case .streamDescription(let data):      self.write(element: data, address: address, size: size)
         case .channelLayout(let data):          self.write(element: data, address: address, size: size)
+        case .valueRange(let data):             self.write(element: data, address: address, size: size)
 
         case .pancakeObjectIDList(let data):    self.write(array: data, address: address, size: size)
         case .customPropertyInfoList(let data): self.write(array: data, address: address, size: size)
@@ -58,7 +62,6 @@ enum PancakeObjectProperty {
     }
 
 
-    // TODO: Test it this works for structs
     private func write<T>(element: T, address: UnsafeMutableRawPointer?, size: UnsafeMutablePointer<UInt32>) {
         // Write data size
         size.pointee = UInt32(MemoryLayout.size(ofValue: element))

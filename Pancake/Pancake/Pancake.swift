@@ -28,43 +28,6 @@ internal class Pancake {
         self.audioObjects.initialize(pancake: self)
     }
 
-    internal func setup() {
-//        // Get some params from a storage
-//        self.configuration.box.acquired = host?.copyFromStorage(key: "box aquired").data as? Bool   ?? false
-//        self.configuration.box.name     = host?.copyFromStorage(key: "box name").data as? String ?? "Pancake Box"
-
-        // TODO: Load from user config or storage
-
-        let setupLoadedFromDisk = false
-        if !setupLoadedFromDisk {
-            self.createBasicSetup()
-        }
-    }
-
-    /// Creates a basic audio setup, consisting of
-    /// - 1 box
-    /// - 1 device
-    //    - 1 input stream
-    //    - 1 output stream
-    private func createBasicSetup() {
-        // Create our box. As we only always have one (which should never be
-        // user facing), we can configure it statically here.
-        let box = PancakeBox(pancake: self, UID: "PancakeBox", name: "Pancake Box")
-        self.audioObjects.add(object: box)
-
-        // Create a device with 2 streams
-        let inputStream  = PancakeStream(pancake: self, direction: .input,  channelCount: 2)
-        let outputStream = PancakeStream(pancake: self, direction: .output, channelCount: 2)
-
-        // FIXME: Only the first device is created atm.
-        let deviceConfig = self.configuration.devices[0]
-        let device = PancakeDevice(pancake: self, streams: [inputStream, outputStream], configuration: deviceConfig)
-
-        self.audioObjects.add(device, inputStream, outputStream)
-    }
-
-
-
     // Shared instance
     private static var _shared: Pancake?
     static var shared: Pancake {
@@ -77,4 +40,33 @@ internal class Pancake {
         guard _shared == nil else { fatalError("The shared instance has already been set up.") }
         Pancake._shared = Pancake(driverReference: driverReference, configuration: configuration)
     }
+}
+
+extension Pancake {
+    /// Creates a basic setup, based on the user config, consisting of
+    /// - 1 box
+    /// - 1 device
+    ///   - 1 input stream
+    ///   - 1 output stream
+    internal func setup() {
+        // Create a box. As we only always have one (which should never be
+        // user facing), we can configure it statically here.
+        let box = PancakeBox(pancake: self, UID: "PancakeBox", name: "Pancake Box")
+        self.audioObjects.add(object: box)
+
+        // Only the first device is created atm.
+        let deviceConfig = self.configuration.devices[0]
+
+        // Create a device with 2 streams
+        let device = PancakeDevice(pancake: self, configuration: deviceConfig)
+        self.audioObjects.add(device)
+
+        let channelCount = Int(deviceConfig.registeredFormat.mBitsPerChannel)
+        let inputStream  = PancakeStream(pancake: self, direction: .input,  channelCount: channelCount)
+        let outputStream = PancakeStream(pancake: self, direction: .output, channelCount: channelCount)
+        self.audioObjects.add(inputStream, outputStream)
+
+        device.setStreams([inputStream, outputStream])
+    }
+
 }
