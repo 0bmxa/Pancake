@@ -65,6 +65,11 @@ var pancakeDriverReference: AudioServerPlugInDriverRef?
                 AudioStreamBasicDescription(sampleRate: 96000, channelCount: 2, format: .float32)
             ]
         )
+        /*
+        device.processingCallback = { (buffer: UnsafeMutableRawPointer, frameCount: Int, cycle: AudioServerPlugInIOCycleInfo) in
+            print(frameCount)
+        }
+        */
         let config = Configuration(devices: [device])
 
         // Configure the shared Pancake plugin instance

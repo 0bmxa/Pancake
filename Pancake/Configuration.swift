@@ -51,6 +51,15 @@ public class DeviceConfiguration {
     /// The audio formats the plugin supports.
     public let supportedFormats: [AudioStreamBasicDescription]
 
+    /// The audio processing callback function to be used to process audio data.
+    /// If nil, the device will apply no processing to its stream. (default)
+    ///
+    /// - Parameters:
+    ///   - buffer: A pointer to the buffer with audio data to be processed
+    ///   - frameCount: The size of the buffer
+    ///   - cycle: Details about the current IO cycle.
+    public var processingCallback: ((UnsafeMutableRawPointer, Int, AudioServerPlugInIOCycleInfo) -> Void)?
+
     /// Whether the device should be hidden from the user
     public var hidden: Bool = false
 

@@ -108,7 +108,8 @@ extension PancakeDevice {
 
         // Performs arbitrary signal processing on the output data.
         case .processOutput:
-            break
+            guard let processingCallback = self.configuration.processingCallback else { break }
+            processingCallback(buffer, numberOfFrames, cycle)
 
 
         // Puts data into the device.
