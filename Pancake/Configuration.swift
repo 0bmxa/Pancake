@@ -7,7 +7,6 @@
 //
 
 import CoreAudio
-//import AppKit
 import Foundation
 
 
@@ -15,12 +14,20 @@ public struct Configuration {
     /// A list of devices that should be created by Pancake.
     let devices: [DeviceConfiguration]
 
+    /// A callback function which is called when it's time to set up the signal
+    /// processor, e.g. when the driver is being set up.
+    let signalProcessorSetup: (() -> Void)?
+
     /// Creates an instance of Configuration.
     ///
-    /// - Parameter devices: The list of devices that should be created.
-    ///   NOTE: Currently only the first device is used. The others are ignored.
-    init(devices: [DeviceConfiguration]) {
+    /// - Parameters:
+    ///   - devices: The list of devices that should be created.
+    ///              NOTE: Currently only the first device is used. The others
+    ///                    are ignored.
+    ///   - signalProcessorSetup: The signal processor setup callback.
+    init(devices: [DeviceConfiguration], signalProcessorSetup: (() -> Void)? = nil) {
         self.devices = devices
+        self.signalProcessorSetup = signalProcessorSetup
     }
 }
 
@@ -28,6 +35,12 @@ public struct Configuration {
 internal struct PancakeInternalConfiguration {
     // Stuff from user provided Configuration
     let devices: [DeviceConfiguration]
+    let signalProcessorSetup: (() -> Void)?
+    
+    init(from configuration: Configuration) {
+        self.devices = configuration.devices
+        self.signalProcessorSetup = configuration.signalProcessorSetup
+    }
 }
 
 public class DeviceConfiguration {

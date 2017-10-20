@@ -65,12 +65,23 @@ var pancakeDriverReference: AudioServerPlugInDriverRef?
                 AudioStreamBasicDescription(sampleRate: 96000, channelCount: 2, format: .float32)
             ]
         )
-        /*
-        device.processingCallback = { (buffer: UnsafeMutableRawPointer, frameCount: Int, cycle: AudioServerPlugInIOCycleInfo) in
-            print(frameCount)
-        }
-        */
+        
+        // Option 1: Setup w/o processing (loopback only)
         let config = Configuration(devices: [device])
+
+        
+        // Option 2: Setup with processing
+        /*
+        let signalProcessorSetup: () -> Void = {
+            // Setup your signal processor here
+        }
+        let processingCallback = { (buffer: UnsafeMutableRawPointer, frameCount: Int, cycle: AudioServerPlugInIOCycleInfo) in
+            // Do your audio processing here
+        }
+        device.processingCallback = processingCallback
+        let config = Configuration(devices: [device], signalProcessorSetup: signalProcessorSetup)
+        */
+        
 
         // Configure the shared Pancake plugin instance
         Pancake.setupSharedInstance(driverReference: pancakeDriverReference, configuration: config)

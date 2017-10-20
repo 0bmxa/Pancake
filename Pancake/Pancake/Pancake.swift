@@ -22,7 +22,7 @@ internal class Pancake {
 
     public init(driverReference: AudioServerPlugInDriverRef?, configuration: Configuration) {
         self.driver = AudioServerPlugInDriver(from: driverReference)!
-        self.configuration = PancakeInternalConfiguration(devices: configuration.devices)
+        self.configuration = PancakeInternalConfiguration(from: configuration)
 
         // Initialize the audio objects list
         self.audioObjects.initialize(pancake: self)
