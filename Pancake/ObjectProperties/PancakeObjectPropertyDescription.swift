@@ -28,13 +28,13 @@ struct PancakeObjectPropertyDescription {
         self.scope    = scope
         self.element  = element
     }
-    
+
     init(selector: PancakeAudioObjectPropertySelector, scope: PancakeAudioObjectPropertyScope = .global, element: PancakeAudioObjectPropertyElement = .master) {
         self.selector = selector
         self.scope = scope
         self.element = element
     }
-    
+
     var address: AudioObjectPropertyAddress {
         return AudioObjectPropertyAddress(mSelector: self.selector.rawValue, mScope: self.scope.rawValue, mElement: self.element.rawValue)
     }

@@ -12,7 +12,7 @@ extension FloatingPoint {
     func clampedTo(min minValue: Self, max maxValue: Self) -> Self {
         return min(maxValue, max(minValue, self))
     }
-    
+
     mutating func clampTo(min minValue: Self, max maxValue: Self) {
         self = self.clampedTo(min: minValue, max: maxValue)
     }

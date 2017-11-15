@@ -36,7 +36,7 @@ internal struct PancakeInternalConfiguration {
     // Stuff from user provided Configuration
     let devices: [DeviceConfiguration]
     let signalProcessorSetup: (() -> Void)?
-    
+
     init(from configuration: Configuration) {
         self.devices = configuration.devices
         self.signalProcessorSetup = configuration.signalProcessorSetup

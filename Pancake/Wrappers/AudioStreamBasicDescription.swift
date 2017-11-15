@@ -46,8 +46,8 @@ extension AudioStreamBasicDescription {
     init(sampleRate: Float64, channelCount: UInt32, format: AudioDataFormat) {
         self.init(sampleRate: sampleRate, channelCount: channelCount, format: format, interleaved: true)
     }
-    
-    
+
+
     /// Creates a new ASBD from the specified parameters, calculating the rest
     /// of the ASBD struct internally.
     /// Note: Interleaved format switch is implemented, but non-interleaved

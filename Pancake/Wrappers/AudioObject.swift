@@ -11,7 +11,7 @@ import CoreAudio
 func AudioObjectGetPropertyData<T: Collection>(objectID: AudioObjectID, address: AudioObjectPropertyAddress, dataType: T.Type) throws -> [T.Element] {
     let dataSize = try AudioObjectGetPropertyDataSize(objectID: objectID, address: address)
     guard dataSize > 0 else { return [] }
-    
+
     let numberOfElements = Int(dataSize) / MemoryLayout<T.Element>.stride
     return try _AudioObjectGetPropertyData(objectID: objectID, address: address, dataType: T.Element.self, elementCount: numberOfElements)
 }
@@ -26,23 +26,23 @@ fileprivate func _AudioObjectGetPropertyData<T>(objectID: AudioObjectID, address
     // Address pointer
     var mutableAddress = address
     let addressPointer = withUnsafePointer(to: &mutableAddress) { $0 }
-    
+
     // Allocate some memory to store data
     let propertySize = MemoryLayout<T>.stride * elementCount
     var propertyDataPointer = UnsafeMutablePointer<T>.allocate(capacity: elementCount)
-    
+
     // Property size
     var mutablePropertySize = UInt32(propertySize)
     let propertySizePointer = withUnsafeMutablePointer(to: &mutablePropertySize) { $0 }
-    
+
     // Qualifier (unused)
     let qualifierData: UnsafeRawPointer? = nil
     let qualifierDataSize: UInt32 = 0
-    
+
     // The actual query
     let error = AudioObjectGetPropertyData(objectID, addressPointer, qualifierDataSize, qualifierData, propertySizePointer, propertyDataPointer)
     guard error == noErr else { throw AudioObjectGetPropertyDataError(error: error) }
-    
+
     // Get property from memory
     let indices = (0 ..< elementCount)
     let properties = indices.map { _ -> T in
@@ -58,17 +58,17 @@ func AudioObjectGetPropertyDataSize(objectID: AudioObjectID, address: AudioObjec
     // Address pointer
     var mutableAddress = address
     let addressPointer = withUnsafePointer(to: &mutableAddress) { $0 }
-    
+
     // Qualifier (unused)
     let qualifierData: UnsafeRawPointer? = nil
     let qualifierDataSize: UInt32 = 0
 
     var propertyDataSize: UInt32 = 0
     let propertyDataSizePointer = withUnsafeMutablePointer(to: &propertyDataSize) { $0 }
-    
+
     let error = AudioObjectGetPropertyDataSize(objectID, addressPointer, qualifierDataSize, qualifierData, propertyDataSizePointer)
     guard error == noErr else { throw AudioObjectGetPropertyDataError(error: error) }
-    
+
     return propertyDataSize
 }
 
