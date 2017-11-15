@@ -67,24 +67,26 @@ func Pancake_destroyDevice(inDriver: AudioServerPlugInDriverRef, inDeviceObjectI
 
 // Called to tell the plug-in about a new client of the Host for a particular device.
 func Pancake_addDeviceClient(inDriver: AudioServerPlugInDriverRef, inDeviceObjectID: AudioObjectID, inClientInfo: UnsafePointer<AudioServerPlugInClientInfo>) -> OSStatus {
-    return Pancake.shared.addDeviceClient()
+    guard validate(inDriver) else { return PancakeAudioHardwareError.badObject }
+    return Pancake.shared.addDeviceClient(deviceID: inDeviceObjectID, client: inClientInfo.pointee)
 }
 
 // Called to tell the plug-in about a client that is no longer using the device.
 func Pancake_removeDeviceClient(inDriver: AudioServerPlugInDriverRef, inDeviceObjectID: AudioObjectID, inClientInfo: UnsafePointer<AudioServerPlugInClientInfo>) -> OSStatus {
-    return Pancake.shared.removeDeviceClient()
+    guard validate(inDriver) else { return PancakeAudioHardwareError.badObject }
+    return Pancake.shared.removeDeviceClient(deviceID: inDeviceObjectID, client: inClientInfo.pointee)
 }
 
 // This is called by the Host to allow the device to perform a configuration change that had been previously requested via a call to the Host method, RequestDeviceConfigurationChange().
 func Pancake_performDeviceConfigurationChange(inDriver: AudioServerPlugInDriverRef, inDeviceObjectID: AudioObjectID, inChangeAction: UInt64, inChangeInfo: UnsafeMutableRawPointer?) -> OSStatus {
     guard validate(inDriver) else { return PancakeAudioHardwareError.badObject }
-    return Pancake.shared.performDeviceConfigurationChange(deviceObjectID: inDeviceObjectID, changeAction: inChangeAction)
+    return Pancake.shared.performDeviceConfigurationChange(deviceID: inDeviceObjectID, action: inChangeAction)
 }
 
 // This is called by the Host to tell the plug-in not to perform a configuration change that had been requested via a call to the Host method, RequestDeviceConfigurationChange().
 func Pancake_abortDeviceConfigurationChange(inDriver: AudioServerPlugInDriverRef, inDeviceObjectID: AudioObjectID, inChangeAction: UInt64, inChangeInfo: UnsafeMutableRawPointer?) -> OSStatus {
     guard validate(inDriver) else { return PancakeAudioHardwareError.badObject }
-    return Pancake.shared.abortDeviceConfigurationChange(inDeviceObjectID: inDeviceObjectID, inChangeAction: inChangeAction)
+    return Pancake.shared.abortDeviceConfigurationChange(deviceID: inDeviceObjectID, action: inChangeAction)
 }
 
 
