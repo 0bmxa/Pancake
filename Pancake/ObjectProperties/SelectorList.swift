@@ -13,6 +13,7 @@ import CoreAudio
 enum PancakeAudioObjectID {
     static let unknown = kAudioObjectUnknown
     static let plugin  = kAudioObjectPlugInObject
+    static let system  = kAudioObjectSystemObject
 }
 
 
@@ -47,6 +48,9 @@ enum PancakeAudioObject {
     }
 }
 
+enum PancakeAudioSystem {
+    static let classID = kAudioSystemObjectClassID
+}
 
 
 enum PancakeAudioHardware {
