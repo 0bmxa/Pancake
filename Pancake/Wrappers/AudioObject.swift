@@ -8,6 +8,8 @@
 
 import CoreAudio
 
+//swiftlint:disable identifier_name
+
 func AudioObjectGetPropertyData<T: Collection>(objectID: AudioObjectID, address: AudioObjectPropertyAddress, dataType: T.Type) throws -> [T.Element] {
     let dataSize = try AudioObjectGetPropertyDataSize(objectID: objectID, address: address)
     guard dataSize > 0 else { return [] }

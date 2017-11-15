@@ -6,8 +6,8 @@
 //  Copyright © 2017 mxa. All rights reserved.
 //
 
-import Foundation
 import CoreAudio.AudioServerPlugIn
+import Foundation
 
 
 /// The global driver interface
@@ -17,8 +17,12 @@ var pancakeDriverReference: AudioServerPlugInDriverRef?
 
 
 /// Wrapper around the create() func, to allow exposing to (Obj)C.
-@objc class PancakeFactory: NSObject {
-    @objc static func create(allocator: CFAllocator!, requestedTypeUUID: CFUUID!) -> UnsafeMutableRawPointer? {
+@objc
+class PancakeFactory: NSObject {
+    //swiftlint:disable implicitly_unwrapped_optional
+    @objc
+    static func create(allocator: CFAllocator!, requestedTypeUUID: CFUUID!) -> UnsafeMutableRawPointer? {
+    //swiftlint:enable implicitly_unwrapped_optional
 
         guard UUID(rawValue: requestedTypeUUID) == kUUID.audioServerPlugInTypeUUID else {
             assertionFailure()

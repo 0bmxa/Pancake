@@ -35,7 +35,7 @@ struct AtomicCounter<T: FixedWidthInteger> {
     var value: T {
         get {
             return self.serialQueue.sync {
-                return self._value
+                self._value
             }
         }
         set {

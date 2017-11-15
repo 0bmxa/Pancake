@@ -108,7 +108,7 @@ extension AudioChannelLayout {
     /// - Returns: A new channel layout.
     static func linear(channelCount: UInt32) -> AudioChannelLayout {
         let descriptions = (1...channelCount).map { channelNumber in
-            return AudioChannelDescription(mChannelLabel: channelNumber, mChannelFlags: AudioChannelFlags(rawValue: 0), mCoordinates: (0, 0, 0))
+            AudioChannelDescription(mChannelLabel: channelNumber, mChannelFlags: AudioChannelFlags(rawValue: 0), mCoordinates: (0, 0, 0))
         }
         return AudioChannelLayout(channelDescriptions: descriptions)
     }
