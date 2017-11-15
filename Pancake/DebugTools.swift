@@ -13,7 +13,7 @@ extension String {
     init(fourCharCode: FourCharCode) {
         var mutable4CC = fourCharCode.bigEndian
         let cString = withUnsafePointer(to: &mutable4CC) {
-            return $0.withMemoryRebound(to: UInt8.self, capacity: 4) {
+            return $0.withMemoryRebound(to: CChar.self, capacity: 4) {
                 return $0
             }
         }
