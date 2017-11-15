@@ -317,7 +317,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = swiftlint;
+			shellScript = "swiftlint autocorrect --config .swiftlint_autocorrect.yml\nswiftlint";
 		};
 /* End PBXShellScriptBuildPhase section */
 

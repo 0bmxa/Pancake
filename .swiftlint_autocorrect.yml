@@ -1,0 +1,2 @@
+whitelist_rules:
+    - trailing_whitespace
