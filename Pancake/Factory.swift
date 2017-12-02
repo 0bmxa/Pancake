@@ -64,27 +64,27 @@ class PancakeFactory: NSObject {
             name: "Pancake Framework",
             UID: "PancakeDevice",
             supportedFormats: [
-                AudioStreamBasicDescription(sampleRate: 44100, channelCount: 2, format: .float32),
-                AudioStreamBasicDescription(sampleRate: 48000, channelCount: 2, format: .float32),
-                AudioStreamBasicDescription(sampleRate: 96000, channelCount: 2, format: .float32)
+                AudioStreamBasicDescription(sampleRate: 44100, channelCount: 1, format: .float32)
+//                AudioStreamBasicDescription(sampleRate: 44100, channelCount: 2, format: .float32),
+//                AudioStreamBasicDescription(sampleRate: 48000, channelCount: 2, format: .float32),
+//                AudioStreamBasicDescription(sampleRate: 96000, channelCount: 2, format: .float32)
             ]
         )
 
-        // Option 1: Setup w/o processing (loopback only)
-        let config = Configuration(devices: [device])
-
-
-        // Option 2: Setup with processing
-        /*
-        let signalProcessorSetup: () -> Void = {
-            // Setup your signal processor here
-        }
         let processingCallback = { (buffer: UnsafeMutableBufferPointer<Float32>, cycle: AudioServerPlugInIOCycleInfo) in
-            // Do your audio processing here
+            let sampleRate: Float32 = 44100
+            let amplitude: Float32 = 1.0
+            let frequency: Float32 = 5.0
+
+            buffer.enumerated().forEach { (index, _) in
+                let offset = Float32(cycle.mCurrentTime.mSampleTime) + Float32(index)
+                let sampleValue = sin(offset*2*Float32.pi/(sampleRate/frequency)) * amplitude
+                let val = buffer[index]
+                buffer[index] = sampleValue * val
+            }
         }
         device.processingCallback = processingCallback
-        let config = Configuration(devices: [device], signalProcessorSetup: signalProcessorSetup)
-        */
+        let config = Configuration(devices: [device])
 
 
         // Configure the shared Pancake plugin instance
