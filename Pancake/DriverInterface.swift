@@ -168,13 +168,16 @@ func Pancake_beginIOOperation(inDriver: AudioServerPlugInDriverRef, inDeviceObje
 func Pancake_doIOOperation(inDriver: AudioServerPlugInDriverRef, inDeviceObjectID: AudioObjectID, inStreamObjectID: AudioObjectID, inClientID: UInt32, inOperationID: UInt32, inIOBufferFrameSize: UInt32, inIOCycleInfo: UnsafePointer<AudioServerPlugInIOCycleInfo>, ioMainBuffer: UnsafeMutableRawPointer?, ioSecondaryBuffer: UnsafeMutableRawPointer?) -> OSStatus {
     guard validate(inDriver) else { return PancakeAudioHardwareError.badObject }
     let operation = AudioServerPlugInIOOperation(rawValue: inOperationID)
-    return Pancake.shared.doIOOperation(deviceID: inDeviceObjectID, clientID: inClientID, streamID: inStreamObjectID, operation: operation, IOBufferFrameSize: inIOBufferFrameSize, IOCycleInfo: inIOCycleInfo, mainBuffer: ioMainBuffer, secondaryBuffer: ioSecondaryBuffer)
+    let cycleInfo = inIOCycleInfo.pointee
+    return Pancake.shared.doIOOperation(deviceID: inDeviceObjectID, clientID: inClientID, streamID: inStreamObjectID, operation: operation, IOBufferFrameSize: inIOBufferFrameSize, IOCycleInfo: cycleInfo, mainBuffer: ioMainBuffer, secondaryBuffer: ioSecondaryBuffer)
 }
 
 // Tells the plug-in that the Host is about to end a phase of the IO cycle for a particular device.
 func Pancake_endIOOperation(inDriver: AudioServerPlugInDriverRef, inDeviceObjectID: AudioObjectID, inClientID: UInt32, inOperationID: UInt32, inIOBufferFrameSize: UInt32, inIOCycleInfo: UnsafePointer<AudioServerPlugInIOCycleInfo>) -> OSStatus {
     guard validate(inDriver) else { return PancakeAudioHardwareError.badObject }
-    return Pancake.shared.endIOOperation(objectID: inDeviceObjectID, clientID: inClientID, inOperationID: inOperationID, inIOBufferFrameSize: inIOBufferFrameSize, inIOCycleInfo: inIOCycleInfo)
+    let operation = AudioServerPlugInIOOperation(rawValue: inOperationID)
+    let cycleInfo = inIOCycleInfo.pointee
+    return Pancake.shared.endIOOperation(deviceID: inDeviceObjectID, clientID: inClientID, operation: operation, IOBufferFrameSize: inIOBufferFrameSize, IOCycleInfo: cycleInfo)
 }
 
 

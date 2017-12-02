@@ -112,7 +112,7 @@ extension Pancake {
     ///       operation will not be handled in place, the results of the
     ///       operation must end up in this buffer.
     /// - Returns: An OSStatus indicating success or failure.
-    func doIOOperation(deviceID: AudioDeviceID, clientID: UInt32, streamID: AudioStreamID, operation: AudioServerPlugInIOOperation?, IOBufferFrameSize: UInt32, IOCycleInfo: UnsafePointer<AudioServerPlugInIOCycleInfo>, mainBuffer: UnsafeMutableRawPointer?, secondaryBuffer: UnsafeMutableRawPointer?) -> OSStatus {
+    func doIOOperation(deviceID: AudioDeviceID, clientID: UInt32, streamID: AudioStreamID, operation: AudioServerPlugInIOOperation?, IOBufferFrameSize: UInt32, IOCycleInfo: AudioServerPlugInIOCycleInfo, mainBuffer: UnsafeMutableRawPointer?, secondaryBuffer: UnsafeMutableRawPointer?) -> OSStatus {
         guard let device = self.audioObjects[deviceID] as? PancakeDevice else {
             return PancakeAudioHardwareError.badObject
         }
@@ -120,19 +120,12 @@ extension Pancake {
             return PancakeAudioHardwareError.illegalOperation
         }
         guard let mainBuffer = mainBuffer else {
-            if operation == .readInput {
-                return PancakeAudioHardwareError.badObject
-            }
-            if operation == .writeMix {
-                return PancakeAudioHardwareError.badObject
-            }
-
             return PancakeAudioHardwareError.badObject
         }
 
         // Execute IO operation on device
         do {
-            try device.execute(operation: operation, streamObjectID: streamID, numberOfFrames: Int(IOBufferFrameSize), cycle: IOCycleInfo.pointee, buffer: mainBuffer)
+            try device.execute(operation: operation, streamObjectID: streamID, numberOfFrames: Int(IOBufferFrameSize), cycle: IOCycleInfo, buffer: mainBuffer)
         } catch {
             return (error as! PancakeObjectPropertyQueryError).status
         }
@@ -157,7 +150,7 @@ extension Pancake {
     ///       will be different than the nominal buffer frame size.
     ///   - IOCycleInfo: The basic information about the current IO cycle.
     /// - Returns: An OSStatus indicating success or failure.
-    func endIOOperation(objectID: AudioObjectID, clientID: UInt32, inOperationID: UInt32, inIOBufferFrameSize: UInt32, inIOCycleInfo: UnsafePointer<AudioServerPlugInIOCycleInfo>) -> OSStatus {
+    func endIOOperation(deviceID: AudioDeviceID, clientID: UInt32, operation: AudioServerPlugInIOOperation?, IOBufferFrameSize: UInt32, IOCycleInfo: AudioServerPlugInIOCycleInfo) -> OSStatus {
         // nothing to do here for now
         return PancakeAudioHardwareError.noError
     }

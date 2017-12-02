@@ -79,7 +79,7 @@ class PancakeFactory: NSObject {
         let signalProcessorSetup: () -> Void = {
             // Setup your signal processor here
         }
-        let processingCallback = { (buffer: UnsafeMutableRawPointer, frameCount: Int, cycle: AudioServerPlugInIOCycleInfo) in
+        let processingCallback = { (buffer: UnsafeMutableBufferPointer<Float32>, cycle: AudioServerPlugInIOCycleInfo) in
             // Do your audio processing here
         }
         device.processingCallback = processingCallback

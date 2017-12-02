@@ -31,6 +31,12 @@ extension PancakeDevice {
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.illegalOperation)
         }
         self.IOCount.decrement()
+
+//        if self.IOCount.value == 0 {
+//            // workaround to clear the buffer
+//            let frames = Int(self.configuration.ringBuffer.frames)
+//            self.configuration.ringBuffer.update(frames: frames)
+//        }
     }
 
 
@@ -109,7 +115,9 @@ extension PancakeDevice {
         // Performs arbitrary signal processing on the output data.
         case .processOutput:
             guard let processingCallback = self.configuration.processingCallback else { break }
-            processingCallback(buffer, numberOfFrames, cycle)
+            let bufferStart = buffer.assumingMemoryBound(to: Float32.self)
+            let bufferPointer = UnsafeMutableBufferPointer<Float32>(start: bufferStart, count: numberOfFrames) // FIXME: dynamic type?
+            processingCallback(bufferPointer, cycle)
 
 
         // Puts data into the device.
