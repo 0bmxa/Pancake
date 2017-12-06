@@ -18,4 +18,11 @@ jobs:
                         clean \
                         test -scheme 'Pancake driver (launchd)' \
                             CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO \
-                    | xcpretty
+                    | xcpretty \
+                        --color \
+                        --report junit \
+                        --output ./build/reports/junit.xml
+            - store_test_results:
+                path: ./build/reports/
+            - store_artifacts:
+                path: ./build/reports/
