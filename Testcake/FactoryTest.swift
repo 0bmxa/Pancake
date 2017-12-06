@@ -12,13 +12,9 @@ import XCTest
 let kAudioServerPlugInTypeUUID = CFUUIDCreateFromString(nil, "443ABAB8-E7B3-491A-B985-BEB9187030DB" as CFString)!
 
 class FactoryTest: XCTestCase {
-
-    func testPluginFoo() {
+    func testPluginIsCreated() {
         let pluginPointer = PancakeFactory.create(allocator: nil, requestedTypeUUID: kAudioServerPlugInTypeUUID)
         XCTAssertNotNil(pluginPointer)
-
-//        let driverRef = AudioServerPlugInDriverRef(pluginPointer!)
-//        XCTAssertNotNil(driverRef)
     }
 
     func testOnlyAudioServerPluginsAreCreated() {
@@ -26,5 +22,4 @@ class FactoryTest: XCTestCase {
         let pluginPointer = PancakeFactory.create(allocator: nil, requestedTypeUUID: invalidUUID)
         XCTAssertNil(pluginPointer)
     }
-
 }
