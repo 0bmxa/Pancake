@@ -77,6 +77,7 @@
 		EE98511C1F6AD13B0021FC73 /* PancakePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98511B1F6AD13B0021FC73 /* PancakePlugin.swift */; };
 		EE98511E1F6AD1590021FC73 /* PancakeDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98511D1F6AD1590021FC73 /* PancakeDevice.swift */; };
 		EEBF105A1F81BA8300C8E3D4 /* Float.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF10591F81BA8300C8E3D4 /* Float.swift */; };
+		EEC156121FD858E000519526 /* ConfigurationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC156111FD858E000519526 /* ConfigurationTest.swift */; };
 		EED5AEAC1F5494AB002E2FF9 /* AudioServerPlugInHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED5AEAB1F5494AB002E2FF9 /* AudioServerPlugInHost.swift */; };
 		EEDE01FF1F64427B001D4ABE /* MemoryTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDE01FE1F64427B001D4ABE /* MemoryTools.swift */; };
 		EEF140CA1F6B0ACF00228A2F /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF140C91F6B0ACF00228A2F /* Array.swift */; };
@@ -129,6 +130,7 @@
 		EE98511B1F6AD13B0021FC73 /* PancakePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PancakePlugin.swift; sourceTree = "<group>"; };
 		EE98511D1F6AD1590021FC73 /* PancakeDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PancakeDevice.swift; sourceTree = "<group>"; };
 		EEBF10591F81BA8300C8E3D4 /* Float.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Float.swift; sourceTree = "<group>"; };
+		EEC156111FD858E000519526 /* ConfigurationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationTest.swift; sourceTree = "<group>"; };
 		EED5AEAB1F5494AB002E2FF9 /* AudioServerPlugInHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioServerPlugInHost.swift; sourceTree = "<group>"; };
 		EEDE01FE1F64427B001D4ABE /* MemoryTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryTools.swift; sourceTree = "<group>"; };
 		EEF140C91F6B0ACF00228A2F /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 			children = (
 				EE4D9DE81FD3113F002071B5 /* FactoryTest.swift */,
 				EE8F3B0F1FD82DA4009E852C /* PlugInTest.swift */,
+				EEC156111FD858E000519526 /* ConfigurationTest.swift */,
 				EE4D9DE41FD310B1002071B5 /* Info.plist */,
 			);
 			path = Testcake;
@@ -432,6 +435,7 @@
 				EE4D9DF21FD56A25002071B5 /* IOOperations.swift in Sources */,
 				EE4D9DF11FD56A25002071B5 /* PropertyOperations.swift in Sources */,
 				EE4D9E0F1FD56A25002071B5 /* MachTimebaseInfo.swift in Sources */,
+				EEC156121FD858E000519526 /* ConfigurationTest.swift in Sources */,
 				EE8F3B101FD82DA4009E852C /* PlugInTest.swift in Sources */,
 				EE4D9E091FD56A25002071B5 /* Float.swift in Sources */,
 				EE4D9E0A1FD56A25002071B5 /* AudioServerPlugInDriver.swift in Sources */,
@@ -714,6 +718,110 @@
 			};
 			name = Release;
 		};
+		EEC156131FD85D1E00519526 /* Testing */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-DDEBUG";
+				SDKROOT = macosx;
+			};
+			name = Testing;
+		};
+		EEC156141FD85D1E00519526 /* Testing */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				DEPLOYMENT_LOCATION = YES;
+				DEVELOPMENT_TEAM = JGMFM42JM6;
+				DSTROOT = "";
+				INFOPLIST_EXPAND_BUILD_SETTINGS = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Pancake/Supporting Files/Info.plist";
+				INSTALL_GROUP = wheel;
+				INSTALL_OWNER = root;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Audio/Plug-Ins/HAL";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks $(INSTALL_PATH)/$(CONTENTS_FOLDER_PATH)/Frameworks";
+				OTHER_CODE_SIGN_FLAGS = "--timestamp=none";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.0bmxa.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = NO;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Pancake/Supporting Files/Pancake-BridgingHeader.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				WRAPPER_EXTENSION = driver;
+			};
+			name = Testing;
+		};
+		EEC156151FD85D1E00519526 /* Testing */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = JGMFM42JM6;
+				INFOPLIST_FILE = Testcake/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.0bmxa.Testcake;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Pancake-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Testing;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -721,6 +829,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EE4D9DE61FD310B1002071B5 /* Debug */,
+				EEC156151FD85D1E00519526 /* Testing */,
 				EE4D9DE71FD310B1002071B5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -730,6 +839,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EE69C3A71F30B69F00381315 /* Debug */,
+				EEC156131FD85D1E00519526 /* Testing */,
 				EE69C3A81F30B69F00381315 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -739,6 +849,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EE69C3AA1F30B69F00381315 /* Debug */,
+				EEC156141FD85D1E00519526 /* Testing */,
 				EE69C3AB1F30B69F00381315 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

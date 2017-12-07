@@ -24,10 +24,7 @@ class PancakeFactory: NSObject {
     static func create(allocator: CFAllocator!, requestedTypeUUID: CFUUID!) -> UnsafeMutableRawPointer? {
     //swiftlint:enable implicitly_unwrapped_optional
 
-        guard UUID(rawValue: requestedTypeUUID) == kUUID.audioServerPlugInTypeUUID else {
-            assertionFailure()
-            return nil
-        }
+        guard UUID(rawValue: requestedTypeUUID) == kUUID.audioServerPlugInTypeUUID else { return nil }
 
         // The driver interface, exposing all driver functions to the plugin host.
         pancakeDriverInterface = AudioServerPlugInDriverInterface(
