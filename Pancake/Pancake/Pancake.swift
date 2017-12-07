@@ -8,7 +8,7 @@
 
 import CoreAudio.AudioServerPlugIn
 
-internal class Pancake {
+public class Pancake {
     internal let driver: AudioServerPlugInDriver
     internal var host: AudioServerPlugInHost?
     internal var pluginReferenceCounter = AtomicCounter<UInt32>()
@@ -20,7 +20,7 @@ internal class Pancake {
     /// A (possible) list of custom properties the HAL doesn't provide
     internal let customProperties = [AudioServerPlugInCustomPropertyInfo]()
 
-    public init(driverReference: AudioServerPlugInDriverRef?, configuration: Configuration) {
+    init(driverReference: AudioServerPlugInDriverRef?, configuration: Configuration) {
         self.driver = AudioServerPlugInDriver(from: driverReference)!
         self.configuration = PancakeInternalConfiguration(from: configuration)
 
@@ -30,13 +30,13 @@ internal class Pancake {
 
     // Shared instance
     private static var _shared: Pancake?
-    static var shared: Pancake {
+    public static var shared: Pancake {
         guard let shared = Pancake._shared else {
             fatalError("The shared instance was never set up. Please call `Pancake.setupSharedInstance()` first before accessing it.")
         }
         return shared
     }
-    static func setupSharedInstance(driverReference: AudioServerPlugInDriverRef?, configuration: Configuration) {
+    public static func setupSharedInstance(driverReference: AudioServerPlugInDriverRef?, configuration: Configuration) {
         guard _shared == nil else { fatalError("The shared instance has already been set up.") }
         Pancake._shared = Pancake(driverReference: driverReference, configuration: configuration)
     }

@@ -25,7 +25,7 @@ public struct Configuration {
     ///              NOTE: Currently only the first device is used. The others
     ///                    are ignored.
     ///   - signalProcessorSetup: The signal processor setup callback.
-    init(devices: [DeviceConfiguration], signalProcessorSetup: (() -> Void)? = nil) {
+    public init(devices: [DeviceConfiguration], signalProcessorSetup: (() -> Void)? = nil) {
         self.devices = devices
         self.signalProcessorSetup = signalProcessorSetup
     }

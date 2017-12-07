@@ -12,14 +12,13 @@ import Foundation
 
 // MARK: - From CFPluginCOM.h
 
-struct kUUID {
+public struct kUUID {
     /// The IUnknown interface
     static let IUnknown = UUID(
         from: 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
               0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46,
         allocator: kCFAllocatorSystemDefault
     )
-
 }
 
 
@@ -27,13 +26,13 @@ struct kUUID {
 
 extension kUUID {
     /// The UUID of the plug-in type (443ABAB8-E7B3-491A-B985-BEB9187030DB).
-    static let audioServerPlugInTypeUUID = UUID(from:
+    public static let audioServerPlugInTypeUUID = UUID(from:
         0x44, 0x3A, 0xBA, 0xB8, 0xE7, 0xB3, 0x49, 0x1A,
         0xB9, 0x85, 0xBE, 0xB9, 0x18, 0x70, 0x30, 0xDB
     )
 
     /// The UUID of the driver interface (EEA5773D-CC43-49F1-8E00-8F96E7D23B17).
-    static let audioServerPlugInDriverInterface = UUID(from:
+    public static let audioServerPlugInDriverInterface = UUID(from:
         0xEE, 0xA5, 0x77, 0x3D, 0xCC, 0x43, 0x49, 0xF1,
         0x8E, 0x00, 0x8F, 0x96, 0xE7, 0xD2, 0x3B, 0x17
     )

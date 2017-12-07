@@ -7,7 +7,7 @@
 //
 
 #import "FactoryBridge.h"
-#import "Pancake-Swift.h"
+#import "SampleDriver-Swift.h"
 
 // Forwards the call to the Swift implementation only.
 void *Pancake_Create(CFAllocatorRef allocator, CFUUIDRef requestedTypeUUID) {

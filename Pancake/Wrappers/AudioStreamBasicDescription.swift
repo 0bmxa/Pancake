@@ -11,7 +11,7 @@ import CoreAudio
 // MARK: - ASBD
 
 extension AudioStreamBasicDescription {
-    enum AudioDataFormat {
+    public enum AudioDataFormat {
         case int16
         case fixedPoint824
         case float32
@@ -52,7 +52,7 @@ extension AudioStreamBasicDescription {
         "(Lossless)16BitSourceData":  kAppleLosslessFormatFlag_20BitSourceData,
         "(Lossless)20BitSourceData":  kAppleLosslessFormatFlag_20BitSourceData,
         "(Lossless)24BitSourceData":  kAppleLosslessFormatFlag_24BitSourceData,
-        "(Lossless)32BitSourceData":  kAppleLosslessFormatFlag_32BitSourceData,
+        "(Lossless)32BitSourceData":  kAppleLosslessFormatFlag_32BitSourceData
         ]
 
 
@@ -63,7 +63,7 @@ extension AudioStreamBasicDescription {
     ///   - sampleRate: The sample rate.
     ///   - channelCount: The number of channels which logically belong together.
     ///   - format: The byte format of the audio data.
-    init(sampleRate: Float64, channelCount: UInt32, format: AudioDataFormat) {
+    public init(sampleRate: Float64, channelCount: UInt32, format: AudioDataFormat) {
         self.init(sampleRate: sampleRate, channelCount: channelCount, format: format, interleaved: true)
     }
 

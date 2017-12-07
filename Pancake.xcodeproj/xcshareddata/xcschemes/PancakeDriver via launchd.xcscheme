@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EE69C3A21F30B69F00381315"
-               BuildableName = "Pancake.driver"
-               BlueprintName = "Pancake"
+               BuildableName = "SampleDriver.driver"
+               BlueprintName = "SampleDriver"
                ReferencedContainer = "container:Pancake.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -35,8 +35,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EE4D9DDF1FD310B1002071B5"
-               BuildableName = "Testcake.xctest"
-               BlueprintName = "Testcake"
+               BuildableName = "SampleDriverTests.xctest"
+               BlueprintName = "SampleDriverTests"
                ReferencedContainer = "container:Pancake.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -45,8 +45,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EE69C3A21F30B69F00381315"
-            BuildableName = "Pancake.driver"
-            BlueprintName = "Pancake"
+            BuildableName = "SampleDriver.driver"
+            BlueprintName = "SampleDriver"
             ReferencedContainer = "container:Pancake.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,8 +82,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EE69C3A21F30B69F00381315"
-            BuildableName = "Pancake.driver"
-            BlueprintName = "Pancake"
+            BuildableName = "SampleDriver.driver"
+            BlueprintName = "SampleDriver"
             ReferencedContainer = "container:Pancake.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -104,8 +104,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EE69C3A21F30B69F00381315"
-            BuildableName = "Pancake.driver"
-            BlueprintName = "Pancake"
+            BuildableName = "SampleDriver.driver"
+            BlueprintName = "SampleDriver"
             ReferencedContainer = "container:Pancake.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

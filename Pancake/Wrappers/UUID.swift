@@ -8,7 +8,7 @@
 
 import CoreFoundation
 
-struct UUID {
+public struct UUID {
     private let _UUID: CFUUID
     private let allocator: CFAllocator?
 
@@ -36,14 +36,14 @@ struct UUID {
 }
 
 extension UUID: RawRepresentable {
-    typealias RawValue = CFUUID
+    public typealias RawValue = CFUUID
 
-    init?(rawValue: CFUUID) {
+    public init?(rawValue: CFUUID) {
         self._UUID = rawValue
         self.allocator = nil
     }
 
-    var rawValue: CFUUID {
+    public var rawValue: CFUUID {
         return self._UUID
     }
 }
@@ -76,6 +76,6 @@ extension CFUUIDBytes {
     }
 }
 
-func == (lhs: UUID?, rhs: UUID?) -> Bool {
+public func == (lhs: UUID?, rhs: UUID?) -> Bool {
     return lhs != nil && CFEqual(lhs?.rawValue, rhs?.rawValue)
 }
