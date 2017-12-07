@@ -21,12 +21,10 @@ extension String {
     }
 }
 
-func printcake(_ items: Any...) {
-    #if !DEBUG
-        return
+func print(_ items: Any..., separator: String = " ", terminator: String = "\n") {
+    #if DEBUG
+        let message = items.reduce("[PANCAKE]") { $0 + " " + String(describing: $1) }
+        Swift.print(message, separator: separator, terminator: terminator)
+        //NSLog("%@", message)
     #endif
-
-    let message = items.reduce("[PANCAKE]") { $0 + " " + String(describing: $1) }
-    print(message)
-//    NSLog("%@", message)
 }

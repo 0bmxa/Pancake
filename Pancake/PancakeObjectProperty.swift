@@ -69,7 +69,7 @@ enum PancakeObjectProperty {
         // Write data
         address?.assumingMemoryBound(to: T.self).pointee = element
 
-        printcake("Wrote \(self)", (address == nil ? "(size only)" : ""))
+        print("Wrote \(self)", (address == nil ? "(size only)" : ""))
     }
 
     private func write<T: Collection>(array: T, address: UnsafeMutableRawPointer?, size: UnsafeMutablePointer<UInt32>) {
@@ -78,7 +78,7 @@ enum PancakeObjectProperty {
 
         // Write data
         guard let address = address else {
-            //printcake("Wrote", array.count, "Elements of", self, "(size only)")
+            //print("Wrote", array.count, "Elements of", self, "(size only)")
             return
         }
         var currentAddress = address.assumingMemoryBound(to: T.Element.self)
@@ -87,6 +87,6 @@ enum PancakeObjectProperty {
             currentAddress = currentAddress.advanced(by: 1)
         }
 
-        printcake("Wrote", array.count, "elements of \(self)")
+        print("Wrote", array.count, "elements of \(self)")
     }
 }

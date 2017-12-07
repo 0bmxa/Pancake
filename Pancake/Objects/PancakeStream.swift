@@ -29,7 +29,7 @@ class PancakeStream: PancakeObjectType {
     }
 
     func getProperty(description: PancakeObjectPropertyDescription, sizeHint: UInt32?) throws -> PancakeObjectProperty {
-        printcake(type(of: self), #function, description.selector)
+        print(type(of: self), #function, description.selector)
 
         switch description.selector {
         case .streamStartingChannel:
@@ -74,14 +74,14 @@ class PancakeStream: PancakeObjectType {
 
 
         default:
-            printcake("Not implemented:", description.selector)
+            print("Not implemented:", description.selector)
 //            assertionFailure()
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
     }
 
     func setProperty(description: PancakeObjectPropertyDescription, data: UnsafeRawPointer) throws {
-        printcake(type(of: self), #function, description.selector)
+        print(type(of: self), #function, description.selector)
         switch description.selector {
             //case .<#pattern#>:
 
@@ -90,7 +90,7 @@ class PancakeStream: PancakeObjectType {
             self.active = (isActive != 0)
 
         default:
-            printcake("Not implemented:", description.selector)
+            print("Not implemented:", description.selector)
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
     }

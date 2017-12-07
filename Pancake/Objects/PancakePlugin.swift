@@ -17,7 +17,7 @@ class PancakePlugin: PancakeObjectType {
     }
 
     func getProperty(description: PancakeObjectPropertyDescription, sizeHint: UInt32?) throws -> PancakeObjectProperty {
-        printcake(type(of: self), #function, description.selector)
+        print(type(of: self), #function, description.selector)
 
         switch description.selector {
         case .objectBaseClass:
@@ -53,19 +53,19 @@ class PancakePlugin: PancakeObjectType {
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
 
         default:
-            printcake("Not implemented:", description.selector)
+            print("Not implemented:", description.selector)
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
     }
 
     func setProperty(description: PancakeObjectPropertyDescription, data: UnsafeRawPointer) throws {
-        printcake(type(of: self), #function, description.selector)
+        print(type(of: self), #function, description.selector)
         switch description.selector {
             //case .<#pattern#>:
 
 
         default:
-            printcake("Not implemented:", description.selector)
+            print("Not implemented:", description.selector)
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
     }
