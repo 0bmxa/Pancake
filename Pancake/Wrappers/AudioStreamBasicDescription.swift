@@ -36,6 +36,26 @@ extension AudioStreamBasicDescription {
         }
     }
 
+    private static let availableFlags = [
+        "IsFloat":                    kAudioFormatFlagIsFloat,
+        "IsBigEndian":                kAudioFormatFlagIsBigEndian,
+        "IsSignedInteger":            kAudioFormatFlagIsSignedInteger,
+        "IsPacked":                   kAudioFormatFlagIsPacked,
+        "IsAlignedHigh":              kAudioFormatFlagIsAlignedHigh,
+        "IsNonInterleaved":           kAudioFormatFlagIsNonInterleaved,
+        "IsNonMixable":               kAudioFormatFlagIsNonMixable,
+        "AreAllClear":                kAudioFormatFlagsAreAllClear,
+        //"Canonical":                  kAudioFormatFlagsCanonical,
+        //"AudioUnitCanonical":         kAudioFormatFlagsAudioUnitCanonical,
+        "(LPCM)SampleFractionShift":  kLinearPCMFormatFlagsSampleFractionShift,
+        "(LPCM)SampleFractionMask":   kLinearPCMFormatFlagsSampleFractionMask,
+        "(Lossless)16BitSourceData":  kAppleLosslessFormatFlag_20BitSourceData,
+        "(Lossless)20BitSourceData":  kAppleLosslessFormatFlag_20BitSourceData,
+        "(Lossless)24BitSourceData":  kAppleLosslessFormatFlag_24BitSourceData,
+        "(Lossless)32BitSourceData":  kAppleLosslessFormatFlag_32BitSourceData,
+        ]
+
+
     /// Creates a new ASBD from the specified parameters, calculating the rest
     /// of the ASBD struct internally.
     ///
@@ -93,14 +113,14 @@ extension AudioStreamBasicDescription {
     static func == (lhs: AudioStreamBasicDescription, rhs: AudioStreamBasicDescription) -> Bool {
         return (
             lhs.mSampleRate       == rhs.mSampleRate       &&
-            lhs.mFormatID         == rhs.mFormatID         &&
-            lhs.mFormatFlags      == rhs.mFormatFlags      &&
-            lhs.mFramesPerPacket  == rhs.mFramesPerPacket  &&
-            lhs.mBytesPerFrame    == rhs.mBytesPerFrame    &&
-            lhs.mChannelsPerFrame == rhs.mChannelsPerFrame &&
-            lhs.mBitsPerChannel   == rhs.mBitsPerChannel   &&
-            lhs.mBytesPerPacket   == rhs.mBytesPerPacket   &&
-            lhs.mReserved         == rhs.mReserved
+                lhs.mFormatID         == rhs.mFormatID         &&
+                lhs.mFormatFlags      == rhs.mFormatFlags      &&
+                lhs.mFramesPerPacket  == rhs.mFramesPerPacket  &&
+                lhs.mBytesPerFrame    == rhs.mBytesPerFrame    &&
+                lhs.mChannelsPerFrame == rhs.mChannelsPerFrame &&
+                lhs.mBitsPerChannel   == rhs.mBitsPerChannel   &&
+                lhs.mBytesPerPacket   == rhs.mBytesPerPacket   &&
+                lhs.mReserved         == rhs.mReserved
         )
     }
 
@@ -111,8 +131,48 @@ extension AudioStreamBasicDescription {
     func has(flag: AudioFormatFlags) -> Bool {
         return (self.mFormatFlags & flag == flag)
     }
+
+    private var formatFlags: String {
+        return AudioStreamBasicDescription.availableFlags
+            .filter { self.has(flag: $0.value) }
+            .keys
+            .map { $0.hasPrefix("Is") ? $0.suffix(from: 2)! : $0 }
+            .joined(separator: ", ")
+    }
+
+    private var formatID: String {
+        var formatID = self.mFormatID
+        let formatIDPointer = withUnsafeMutablePointer(to: &formatID) { $0 }
+        let cCharFormatID = formatIDPointer.withMemoryRebound(to: CChar.self, capacity: 4) { $0 }
+        let formatString = String(cString: cCharFormatID)
+        return String(formatString.reversed())
+    }
 }
 
+
+// MARK: - String Convertible
+extension AudioStreamBasicDescription: CustomStringConvertible, CustomDebugStringConvertible {
+    public var description: String {
+        return
+            "ASBD: \(self.formatID) (\(self.formatFlags)) " +
+                "@ \(self.mSampleRate) Hz, \(self.mChannelsPerFrame) Ch, " +
+        "[\(self.mFramesPerPacket)|\(self.mBytesPerPacket)|\(self.mBytesPerFrame)|\(self.mBitsPerChannel)]"
+    }
+
+    public var debugDescription: String {
+        return
+            "ASBD:\n" +
+                "  FormatID:         \(self.formatID)\n" +
+                "  SampleRate:       \(self.mSampleRate)\n" +
+                "  FormatFlags:      \(self.formatFlags)\n" +
+                "  ChannelsPerFrame: \(self.mChannelsPerFrame)\n" +
+                "  FramesPerPacket:  \(self.mFramesPerPacket)\n" +
+                "  BytesPerPacket:   \(self.mBytesPerPacket)\n" +
+                "  BytesPerFrame:    \(self.mBytesPerFrame)\n" +
+                "  BitsPerChannel:   \(self.mBitsPerChannel)\n" +
+        ""
+    }
+}
 
 
 // MARK: - ASRD
