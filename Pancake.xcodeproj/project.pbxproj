@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE0F80F61FDB19BB00073D22 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA769451FD9747C00FAFD4E /* Factory.swift */; };
+		EE3E6DD11FE002A700A5BE6B /* Pancake.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EEC1561E1FD969F100519526 /* Pancake.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		EEA769461FD9747C00FAFD4E /* FactoryBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA769411FD9747C00FAFD4E /* FactoryBridge.m */; };
-		EEA769471FD9747C00FAFD4E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEA769441FD9747C00FAFD4E /* Info.plist */; };
-		EEA769481FD9747C00FAFD4E /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA769451FD9747C00FAFD4E /* Factory.swift */; };
 		EEA7694B1FD9749500FAFD4E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEA7694A1FD9749400FAFD4E /* Info.plist */; };
 		EEC156271FD969F100519526 /* Pancake.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEC1561E1FD969F100519526 /* Pancake.framework */; };
 		EEC1562C1FD969F100519526 /* PancakeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC1562B1FD969F100519526 /* PancakeTests.swift */; };
@@ -25,7 +25,6 @@
 		EEC156431FD96A6E00519526 /* MemoryTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDE01FE1F64427B001D4ABE /* MemoryTools.swift */; };
 		EEC156441FD96A6E00519526 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8BB2D01F42007400B3B748 /* Constants.swift */; };
 		EEC156451FD96A6E00519526 /* DebugTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4EDD941F5DB61200273BFC /* DebugTools.swift */; };
-		EEC156541FD96D7A00519526 /* Pancake.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEC1561E1FD969F100519526 /* Pancake.framework */; };
 		EEC156551FD96DFE00519526 /* UUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF2EE681F717B8C00AF4ADA /* UUID.swift */; };
 		EEC156561FD96E0F00519526 /* Pancake.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8BB2D41F42007400B3B748 /* Pancake.swift */; };
 		EEC156571FD96E0F00519526 /* COMInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8BB2CF1F42007400B3B748 /* COMInterface.swift */; };
@@ -69,6 +68,19 @@
 			remoteInfo = Pancake;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EEA769501FDAEE9400FAFD4E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EE3E6DD11FE002A700A5BE6B /* Pancake.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		EE0A5D531F6D62B5008E4441 /* PancakeStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PancakeStream.swift; sourceTree = "<group>"; };
@@ -142,7 +154,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EEC156541FD96D7A00519526 /* Pancake.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,8 +379,8 @@
 			buildPhases = (
 				EE950DCD1F74AF6600D2F740 /* swiftlint */,
 				EE69C39F1F30B69F00381315 /* Sources */,
+				EEA769501FDAEE9400FAFD4E /* CopyFiles */,
 				EE69C3A01F30B69F00381315 /* Frameworks */,
-				EE69C3A11F30B69F00381315 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -438,7 +449,7 @@
 					};
 					EEC1561D1FD969F100519526 = {
 						CreatedOnToolsVersion = 9.1;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					EEC156251FD969F100519526 = {
 						CreatedOnToolsVersion = 9.1;
@@ -472,14 +483,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EEA7694B1FD9749500FAFD4E /* Info.plist in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EE69C3A11F30B69F00381315 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				EEA769471FD9747C00FAFD4E /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,7 +531,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EEA769481FD9747C00FAFD4E /* Factory.swift in Sources */,
+				EE0F80F61FDB19BB00073D22 /* Factory.swift in Sources */,
 				EEA769461FD9747C00FAFD4E /* FactoryBridge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -905,8 +908,8 @@
 		EEC156301FD969F100519526 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -919,8 +922,10 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.0bmxa.Pancake;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -933,8 +938,8 @@
 		EEC156311FD969F100519526 /* Testing */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -949,6 +954,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.0bmxa.Pancake;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -959,8 +965,8 @@
 		EEC156321FD969F100519526 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -975,6 +981,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.0bmxa.Pancake;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";

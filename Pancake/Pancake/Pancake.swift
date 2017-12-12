@@ -20,8 +20,8 @@ public class Pancake {
     /// A (possible) list of custom properties the HAL doesn't provide
     internal let customProperties = [AudioServerPlugInCustomPropertyInfo]()
 
-    init(driverReference: AudioServerPlugInDriverRef?, configuration: Configuration) {
-        self.driver = AudioServerPlugInDriver(from: driverReference)!
+    init(configuration: Configuration) {
+        self.driver = AudioServerPlugInDriver(from: Pancake.driverReference)
         self.configuration = PancakeInternalConfiguration(from: configuration)
 
         // Initialize the audio objects list
@@ -36,9 +36,9 @@ public class Pancake {
         }
         return shared
     }
-    public static func setupSharedInstance(driverReference: AudioServerPlugInDriverRef?, configuration: Configuration) {
+    public static func setupSharedInstance(configuration: Configuration) {
         guard _shared == nil else { fatalError("The shared instance has already been set up.") }
-        Pancake._shared = Pancake(driverReference: driverReference, configuration: configuration)
+        Pancake._shared = Pancake(configuration: configuration)
     }
 }
 

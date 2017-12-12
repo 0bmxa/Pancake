@@ -13,21 +13,17 @@ class AudioServerPlugInDriver {
     fileprivate var driverRef: AudioServerPlugInDriverRef
 
     // MARK: - Init
-    init?(from driverRef: AudioServerPlugInDriverRef?) {
-        guard let driverRef = driverRef else { return nil }
+    init(from driverRef: AudioServerPlugInDriverRef) {
         self.driverRef = driverRef
     }
 
-    init?(from rawPointer: UnsafeMutableRawPointer?) {
-        guard let rawPointer = rawPointer else { return nil }
+    init(from rawPointer: UnsafeMutableRawPointer) {
         let driverPointer = rawPointer.assumingMemoryBound(to: AudioServerPlugInDriverRefPointeeType.self)
         self.driverRef = driverPointer
     }
-}
 
 
-// MARK: - Accessors
-extension AudioServerPlugInDriver {
+    // MARK: - Accessors
     var reference: AudioServerPlugInDriverRef {
         return self.driverRef
     }
