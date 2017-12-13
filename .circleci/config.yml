@@ -21,7 +21,7 @@ jobs:
                     | xcpretty \
                         --color \
                         --report junit \
-                        --output ./build/reports/junit.xml
+                        --output ./build/reports/junit_pancake.xml
             - run:
                 name: 'Build & test SampleDriver'
                 command: |
@@ -32,7 +32,7 @@ jobs:
                     | xcpretty \
                         --color \
                         --report junit \
-                        --output ./build/reports/junit.xml
+                        --output ./build/reports/junit_sampledriver.xml
             - store_test_results:
                 path: ./build/reports/
             - store_artifacts:
