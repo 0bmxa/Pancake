@@ -6,8 +6,8 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import XCTest
 @testable import SampleDriver
+import XCTest
 
 class FactoryTest: XCTestCase {
     func testPluginIsCreated() {
