@@ -6,10 +6,8 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import CoreAudio.AudioServerPlugIn
 import XCTest
-
-let kAudioServerPlugInTypeUUID = CFUUIDCreateFromString(nil, "443ABAB8-E7B3-491A-B985-BEB9187030DB" as CFString)!
+@testable import SampleDriver
 
 class FactoryTest: XCTestCase {
     func testPluginIsCreated() {

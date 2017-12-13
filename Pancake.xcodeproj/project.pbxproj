@@ -7,15 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE0483681FE17BA400BAAFE6 /* PlugInTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8F3B0F1FD82DA4009E852C /* PlugInTest.swift */; };
 		EE0F80F61FDB19BB00073D22 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA769451FD9747C00FAFD4E /* Factory.swift */; };
 		EE3E6DD11FE002A700A5BE6B /* Pancake.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EEC1561E1FD969F100519526 /* Pancake.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		EEA769461FD9747C00FAFD4E /* FactoryBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA769411FD9747C00FAFD4E /* FactoryBridge.m */; };
 		EEA7694B1FD9749500FAFD4E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEA7694A1FD9749400FAFD4E /* Info.plist */; };
 		EEC156271FD969F100519526 /* Pancake.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEC1561E1FD969F100519526 /* Pancake.framework */; };
 		EEC1562C1FD969F100519526 /* PancakeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC1562B1FD969F100519526 /* PancakeTests.swift */; };
-		EEC156371FD96A2000519526 /* FactoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4D9DE81FD3113F002071B5 /* FactoryTest.swift */; };
 		EEC156381FD96A2000519526 /* ConfigurationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC156111FD858E000519526 /* ConfigurationTest.swift */; };
-		EEC156391FD96A2000519526 /* PlugInTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8F3B0F1FD82DA4009E852C /* PlugInTest.swift */; };
 		EEC1563D1FD96A3B00519526 /* Pancake.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC1563B1FD96A3A00519526 /* Pancake.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEC1563E1FD96A6E00519526 /* PancakeAudioObjectList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF140CC1F6B127F00228A2F /* PancakeAudioObjectList.swift */; };
 		EEC1563F1FD96A6E00519526 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4254781F7010C400DBF70E /* Configuration.swift */; };
@@ -292,6 +291,8 @@
 		EEA769491FD9749400FAFD4E /* SampleDriverTests */ = {
 			isa = PBXGroup;
 			children = (
+				EE4D9DE81FD3113F002071B5 /* FactoryTest.swift */,
+				EE8F3B0F1FD82DA4009E852C /* PlugInTest.swift */,
 				EEA7694A1FD9749400FAFD4E /* Info.plist */,
 			);
 			path = SampleDriverTests;
@@ -323,8 +324,6 @@
 			isa = PBXGroup;
 			children = (
 				EEC1562B1FD969F100519526 /* PancakeTests.swift */,
-				EE4D9DE81FD3113F002071B5 /* FactoryTest.swift */,
-				EE8F3B0F1FD82DA4009E852C /* PlugInTest.swift */,
 				EEC156111FD858E000519526 /* ConfigurationTest.swift */,
 				EEC1562D1FD969F100519526 /* Info.plist */,
 			);
@@ -524,6 +523,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE0483681FE17BA400BAAFE6 /* PlugInTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,8 +588,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EEC156381FD96A2000519526 /* ConfigurationTest.swift in Sources */,
-				EEC156371FD96A2000519526 /* FactoryTest.swift in Sources */,
-				EEC156391FD96A2000519526 /* PlugInTest.swift in Sources */,
 				EEC1562C1FD969F100519526 /* PancakeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -751,6 +749,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DEVELOPMENT_TEAM = JGMFM42JM6;
 				DSTROOT = "";
@@ -780,6 +779,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DEVELOPMENT_TEAM = JGMFM42JM6;
 				DSTROOT = "";
@@ -864,6 +864,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DEVELOPMENT_TEAM = JGMFM42JM6;
 				DSTROOT = "";

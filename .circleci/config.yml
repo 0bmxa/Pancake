@@ -12,11 +12,22 @@ jobs:
                 name: 'Make /Library/Audio/Plug-Ins/HAL writable'
                 command: sudo chmod 757 /Library/Audio/Plug-Ins/HAL
             - run:
-                name: 'Build & test'
+                name: 'Build & test Pancake'
                 command: |
                     xcodebuild \
                         clean \
-                        test -scheme 'Pancake driver (launchd)' \
+                        test -scheme 'Pancake' \
+                            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO \
+                    | xcpretty \
+                        --color \
+                        --report junit \
+                        --output ./build/reports/junit.xml
+            - run:
+                name: 'Build & test SampleDriver'
+                command: |
+                    xcodebuild \
+                        clean \
+                        test -scheme 'SampleDriver via launchd' \
                             CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO \
                     | xcpretty \
                         --color \

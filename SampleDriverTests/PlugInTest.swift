@@ -8,7 +8,8 @@
 
 import XCTest
 
-let pluginURL = URL(string: "/Library/Audio/Plug-Ins/HAL/Pancake.driver")!
+let pluginURL = URL(string: "/Library/Audio/Plug-Ins/HAL/SampleDriver.driver")!
+let kAudioServerPlugInTypeUUID = CFUUIDCreateFromString(nil, "443ABAB8-E7B3-491A-B985-BEB9187030DB" as CFString)!
 
 class PlugInTest: XCTestCase {
     func testPluginExists() {

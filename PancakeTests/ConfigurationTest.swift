@@ -8,6 +8,7 @@
 
 import CoreAudio.CoreAudioTypes
 import XCTest
+@testable import Pancake
 
 class ConfigurationTest: XCTestCase {
 
@@ -25,8 +26,7 @@ class ConfigurationTest: XCTestCase {
                 ]
             )
             let config = Configuration(devices: [device])
-            let mockDriverReference = AudioServerPlugInDriverRef.allocate(capacity: 1)
-            let pancake = Pancake(driverReference: mockDriverReference, configuration: config)
+            let pancake = Pancake(configuration: config)
             pancake.setup()
             return pancake
         }()
