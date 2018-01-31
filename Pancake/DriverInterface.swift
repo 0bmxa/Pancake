@@ -30,8 +30,8 @@ private var _driverInterfacePointer: UnsafeMutablePointer<AudioServerPlugInDrive
 private var _driverReference: AudioServerPlugInDriverRef?
 
 
-extension Pancake {
-    public static var driverReference: AudioServerPlugInDriverRef {
+public extension Pancake {
+    static var driverReference: AudioServerPlugInDriverRef {
         if let driverReference = _driverReference {
             return driverReference
         }

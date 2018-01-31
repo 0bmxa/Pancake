@@ -7,6 +7,7 @@
 //
 
 import CoreAudio
+import Foundation
 
 // MARK: - ASBD
 

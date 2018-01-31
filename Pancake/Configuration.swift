@@ -135,9 +135,9 @@ public class DeviceConfiguration {
     ///   - uid: A unique string to identify the device in a pool of audio.
     ///          objects. This has to be consistent across boots.
     ///   - supportedFormats: The audio formats the plugin supports.
-    public init(manufacturer: String, name: String, UID: String, supportedFormats: [AudioStreamBasicDescription]) {
+    public init(manufacturer: String? = nil, name: String, UID: String, supportedFormats: [AudioStreamBasicDescription]) {
         // Public
-        self.manufacturer         = manufacturer
+        self.manufacturer         = manufacturer ?? "Pancake Framework"
         self.name                 = name
         self.UID                  = UID
         self.modelUID             = UID + "_Model" // FIXME:
