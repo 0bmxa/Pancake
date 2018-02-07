@@ -17,14 +17,14 @@ struct PancakeDeviceConfiguration {
     CFStringRef __nonnull name;
     CFStringRef __nonnull UID;
     uint numberOfSupportedFormats;
-    AudioStreamBasicDescription *__nonnull supportedFormats;
+    AudioStreamBasicDescription *__nullable supportedFormats;
 };
 typedef struct PancakeDeviceConfiguration PancakeDeviceConfiguration;
 
 struct PancakeConfiguration {
-    // TODO: add setup function
+    void (*__nullable signalProcessorSetup)(void);
     uint numberOfDevices;
-    PancakeDeviceConfiguration *__nonnull devices;
+    PancakeDeviceConfiguration *__nullable devices;
 };
 typedef struct PancakeConfiguration PancakeConfiguration;
 
@@ -36,15 +36,27 @@ typedef struct PancakeConfiguration PancakeConfiguration;
  Pancake driver and returns a pointer to it.
  References to this struct should be released via ReleasePancakeConfig().
 
- @param numberOfDevices The number of devices the driver should be set up with.
- @param devices A sequence of (pre-configured) PancakeDeviceConfiguration
- pointers, which describe the devices the driver should be set up with.
- The number of device configurations has to be greater or equal than the value
- in `numberOfDevices`. Additional device configs are ignored by the function.
+ @param signalProcessorSetup A pointer to a callback function which is called
+ when it's time to set up the signal processor, e.g. when the driver is being
+ set up.
  @return A pointer to the newly created PancakeConfiguration struct, or NULL if
  an error occured.
  */
-PancakeConfiguration *__nullable CreatePancakeConfig(uint numberOfDevices, ...);
+PancakeConfiguration *__nullable
+    CreatePancakeConfig(void (*__nullable signalProcessorSetup)(void));
+
+/**
+ Adds a PancakeDeviceConfiguration to the list of devices and increments the
+ numberOfDevices of a PancakeConfiguration structure.
+
+ @param config The PancakeConfiguration struct to which the device config should
+ be added.
+ @param device The device config to be added, represented by a pointer to a
+ PancakeDeviceConfiguration strcut.
+ @return Whether the operation was successful or not.
+ */
+bool PancakeConfigAddDevice(PancakeConfiguration *__nonnull config,
+                            PancakeDeviceConfiguration *__nonnull device);
 
 /**
  Releases a PancakeConfiguration structure, which previously has been created
@@ -55,31 +67,39 @@ PancakeConfiguration *__nullable CreatePancakeConfig(uint numberOfDevices, ...);
  */
 void ReleasePancakeConfig(PancakeConfiguration *__nonnull *__nullable config);
 
-// Device config
+
+
+
 /**
  Creates a PancakeDeviceConfiguration structure for configuration of a single
  virtual device created by the Pancake driver and returns a pointer to it.
  References to this struct should be released via ReleasePancakeDeviceConfig().
 
- @param manufacturer The manufacturer of the device.
+ @param manufacturer The manufacturer of the device, or NULL.
  @param name The name of the device.
  @param UID A unique ID for the device to be identified by the system. This has
  to be consistent across boots.
- @param numberOfFormats The number of formats the device should support.
- @param supportedFormats A sequence of (pre-configured)
- AudioStreamBasicDescription structs, which describe the formats the device
- should support.
- The number of formats has to be greater or equal than the value in
- `numberOfFormats`. Additional formats are ignored by the function.
  @return A pointer to the newly created PancakeDeviceConfiguration struct, or
  NULL if an error occured.
  */
 PancakeDeviceConfiguration *__nullable
-CreatePancakeDeviceConfig(CFStringRef __nullable manufacturer,
-                          CFStringRef __nonnull name,
-                          CFStringRef __nonnull UID,
-                          uint numberOfFormats,
-                          ...);
+    CreatePancakeDeviceConfig(CFStringRef __nullable manufacturer,
+                              CFStringRef __nonnull name,
+                              CFStringRef __nonnull UID);
+
+/**
+ Adds a format to the list of supported formats and increments the
+ numberOfFormats of a PancakeDeviceConfiguration structure.
+
+ @param deviceConfig The device configuration to which the format should be
+ added.
+ @param format The format to be added, represented in the form of an
+ AudioStreamBasicDescription struct.
+ @return Whether the operation was successful or not.
+ */
+bool
+PancakeDeviceConfigAddFormat(PancakeDeviceConfiguration *__nonnull deviceConfig,
+                                 AudioStreamBasicDescription format);
 
 /**
  Releases a PancakeDeviceConfiguration structure, which previously has been

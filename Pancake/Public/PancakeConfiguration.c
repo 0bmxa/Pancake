@@ -10,27 +10,41 @@
 
 #pragma mark - Driver configuration
 
-// =============================================================================
-PancakeConfiguration *CreatePancakeConfig(uint numberOfDevices, ...)
+PancakeConfiguration *__nullable
+    CreatePancakeConfig(void (*__nullable signalProcessorSetup)(void))
 {
-    size_t configSize = sizeof(uint) + numberOfDevices * sizeof(PancakeDeviceConfiguration *);
+    size_t configSize = sizeof(PancakeConfiguration);
     PancakeConfiguration *config = malloc(configSize);
-    config->numberOfDevices = numberOfDevices;
-    
-    va_list deviceList;
-    va_start(deviceList, numberOfDevices);
-    
-    PancakeDeviceConfiguration **currentDevice = &(config->devices);
-    for (int i=0; i<numberOfDevices; i++)
-    {
-        PancakeDeviceConfiguration *device = va_arg(deviceList, PancakeDeviceConfiguration*);
-        *currentDevice = device;
-        currentDevice++;
-    }
-    
-    va_end(deviceList);
+    if (config == NULL) { return NULL; }
+    config->signalProcessorSetup = signalProcessorSetup;
+    config->numberOfDevices = 0;
+    config->devices = NULL;
     
     return config;
+}
+
+bool PancakeConfigAddDevice(PancakeConfiguration *config, PancakeDeviceConfiguration *device)
+{
+    if (config == NULL) { return false; }
+
+    uint numberOfDevices = config->numberOfDevices + 1;
+    size_t devicePointerSize = sizeof(PancakeDeviceConfiguration *);
+
+    // Alloc or grow storage for the new device pointer
+    if (config->devices == NULL) {
+        config->devices = malloc(devicePointerSize);
+    } else {
+        size_t sizeOfAllDevicePointers = numberOfDevices * devicePointerSize;
+        config->devices = realloc(config->devices, sizeOfAllDevicePointers);
+    }
+    if (config->devices == NULL) { return false; }
+
+    // Copy device pointer into new place
+    PancakeDeviceConfiguration *writePos = config->devices + (numberOfDevices-1);
+    memcpy(writePos, &device, devicePointerSize);
+
+    config->numberOfDevices = numberOfDevices;
+    return true;
 }
 
 void ReleasePancakeConfig(PancakeConfiguration **config)
@@ -45,29 +59,43 @@ void ReleasePancakeConfig(PancakeConfiguration **config)
 
 #pragma mark - Device configuration
 
-PancakeDeviceConfiguration *CreatePancakeDeviceConfig(CFStringRef __nullable manufacturer, CFStringRef name, CFStringRef UID, uint numberOfFormats, ...)
+PancakeDeviceConfiguration *__nullable CreatePancakeDeviceConfig(CFStringRef __nullable manufacturer, CFStringRef __nonnull name, CFStringRef __nonnull UID)
 {
-    size_t deviceConfigSize = sizeof(PancakeDeviceConfiguration) + (numberOfFormats-1) * sizeof(AudioStreamBasicDescription *);
+    size_t deviceConfigSize = sizeof(PancakeDeviceConfiguration);
     PancakeDeviceConfiguration *deviceConfig = malloc(deviceConfigSize);
     if (deviceConfig == NULL) { return NULL; }
     deviceConfig->manufacturer = manufacturer;
     deviceConfig->name = name;
     deviceConfig->UID = UID;
-    deviceConfig->numberOfSupportedFormats = numberOfFormats;
-    
-    size_t sizeOfAllFormats = numberOfFormats * sizeof(AudioStreamBasicDescription);
-    deviceConfig->supportedFormats = malloc(sizeOfAllFormats);
-    if (deviceConfig->supportedFormats == NULL) { return NULL; }
-    
-    va_list formatList;
-    va_start(formatList, numberOfFormats);
-    for (int i=0; i<numberOfFormats; i++)
-    {
-        AudioStreamBasicDescription format = va_arg(formatList, AudioStreamBasicDescription);
-        deviceConfig->supportedFormats[i] = format;
-    }
+    deviceConfig->numberOfSupportedFormats = 0;
+    deviceConfig->supportedFormats = NULL;
     
     return deviceConfig;
+}
+
+bool PancakeDeviceConfigAddFormat(PancakeDeviceConfiguration *__nonnull deviceConfig, AudioStreamBasicDescription format)
+{
+    if(deviceConfig == NULL) { return false; }
+    
+    uint numberOfFormats = deviceConfig->numberOfSupportedFormats + 1;
+    size_t ASBDsize = sizeof(AudioStreamBasicDescription);
+    
+    // Alloc or grow storage for the new ASBD
+    if(deviceConfig->supportedFormats == NULL) {
+        deviceConfig->supportedFormats = malloc(ASBDsize);
+    } else {
+        size_t sizeOfAllFormats = numberOfFormats * ASBDsize;
+        deviceConfig->supportedFormats = realloc(deviceConfig->supportedFormats, sizeOfAllFormats);
+    }
+    if (deviceConfig->supportedFormats == NULL) { return false; }
+    
+    
+    // Copy ASBD into new place
+    AudioStreamBasicDescription *writePos = deviceConfig->supportedFormats + (numberOfFormats-1);
+    memcpy(writePos, &format, ASBDsize);
+    
+    deviceConfig->numberOfSupportedFormats = numberOfFormats;
+    return true;
 }
 
 void ReleasePancakeDeviceConfig(PancakeDeviceConfiguration **deviceConfig)

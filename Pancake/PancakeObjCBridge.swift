@@ -19,15 +19,6 @@ class PancakeObjCBridge: NSObject {
             config.pointee.devices != nil
         else { return }
 
-//        Swift.print("Swift config: ", config)
-//        Swift.print("Swift devices:", config.pointee.devices)
-//
-//        let foo = config.pointee
-//        print(foo)
-//        print(foo.devices == nil)
-//        print(foo.devices)
-//        print(foo.devices.pointee)
-
         // Translate memory to a buffer pointer
         let cDevices = UnsafeMutableBufferPointer(start: config.pointee.devices, count: Int(config.pointee.numberOfDevices))
 
@@ -65,11 +56,6 @@ extension DeviceConfiguration {
         let name         = String(config.name.takeUnretainedValue())
         let UID          = String(config.UID.takeUnretainedValue())
         let formats      = Array(UnsafeMutableBufferPointer(start: config.supportedFormats, count: Int(config.numberOfSupportedFormats)))
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            print("manu:   ", manufacturer ?? "-")
-            print("formats:", formats[0].mSampleRate)
-        }
 
         self.init(manufacturer: manufacturer, name: name, UID: UID, supportedFormats: formats)
     }

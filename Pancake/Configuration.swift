@@ -71,8 +71,7 @@ public class DeviceConfiguration {
     ///   - buffer: A pointer to the buffer with audio data to be processed
     ///   - frameCount: The size of the buffer
     ///   - cycle: Details about the current IO cycle.
-    public var processingCallback: ((UnsafeMutableBufferPointer<SampleFormat>, AudioServerPlugInIOCycleInfo) -> Void)?
-    public typealias SampleFormat = Float32 // FIXME: make dynamic
+    public var processingCallback: ((UnsafeMutableBufferPointer<Float32>, AudioServerPlugInIOCycleInfo) -> Void)?
 
     /// Whether the device should be hidden from the user
     public var hidden: Bool = false
