@@ -414,6 +414,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE69C3A91F30B69F00381315 /* Build configuration list for PBXNativeTarget "SampleDriver" */;
 			buildPhases = (
+				EE3560C0202B7DB8005CB24B /* cpplint */,
 				EE950DCD1F74AF6600D2F740 /* swiftlint */,
 				EE69C39F1F30B69F00381315 /* Sources */,
 				EEA769501FDAEE9400FAFD4E /* CopyFiles */,
@@ -433,6 +434,7 @@
 			buildConfigurationList = EEC1562F1FD969F100519526 /* Build configuration list for PBXNativeTarget "Pancake" */;
 			buildPhases = (
 				EE53A0342021DE1B001A004F /* cpplint */,
+				EE3560BF202B7D96005CB24B /* swiftlint */,
 				EEC156191FD969F100519526 /* Sources */,
 				EEC1561A1FD969F100519526 /* Frameworks */,
 				EEC1561B1FD969F100519526 /* Headers */,
@@ -541,6 +543,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		EE3560BF202B7D96005CB24B /* swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = swiftlint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "swiftlint autocorrect --config .swiftlint_autocorrect.yml\nswiftlint";
+		};
+		EE3560C0202B7DB8005CB24B /* cpplint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = cpplint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/bin/env cpplint.py ./${TARGET_NAME}/*";
+		};
 		EE53A0342021DE1B001A004F /* cpplint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
