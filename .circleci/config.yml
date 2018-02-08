@@ -2,12 +2,18 @@ version: 2
 jobs:
     build:
         macos:
-            xcode: "9.1.0"
+            xcode: "9.2.0"
         steps:
             - checkout
             - run:
                 name: 'Install swiftlint'
                 command: HOMEBREW_NO_AUTO_UPDATE=1 brew install swiftlint
+            - run:
+                name: 'Install cpplint'
+                command: |
+                    curl 'https://raw.githubusercontent.com/google/styleguide/gh-pages/cpplint/cpplint.py' \
+                        -o '/usr/local/bin/cpplint.py' && \
+                    chmod +x '/usr/local/bin/cpplint.py'
             - run:
                 name: 'Make /Library/Audio/Plug-Ins/HAL writable'
                 command: sudo chmod 757 /Library/Audio/Plug-Ins/HAL
