@@ -88,7 +88,6 @@
 		EE04836B1FE1A00800BAAFE6 /* SampleDriver-BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SampleDriver-BridgingHeader.h"; sourceTree = "<group>"; };
 		EE04836C1FE2891700BAAFE6 /* PancakeFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PancakeFactory.h; sourceTree = "<group>"; };
 		EE04836D1FE2891700BAAFE6 /* PancakeFactory.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PancakeFactory.c; sourceTree = "<group>"; };
-		EE04836F1FE3DC4D00BAAFE6 /* Temp_Pancake.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Temp_Pancake.h; sourceTree = "<group>"; };
 		EE0A5D531F6D62B5008E4441 /* PancakeStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PancakeStream.swift; sourceTree = "<group>"; };
 		EE11C0111F6ADB5E0035900D /* PancakeObjectPropertyDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PancakeObjectPropertyDescription.swift; sourceTree = "<group>"; };
 		EE11C0131F6ADD1E0035900D /* PancakeAudioError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PancakeAudioError.swift; sourceTree = "<group>"; };
@@ -291,7 +290,6 @@
 				EEA769451FD9747C00FAFD4E /* Factory.swift */,
 				EE04836C1FE2891700BAAFE6 /* PancakeFactory.h */,
 				EE04836D1FE2891700BAAFE6 /* PancakeFactory.c */,
-				EE04836F1FE3DC4D00BAAFE6 /* Temp_Pancake.h */,
 			);
 			path = SampleDriver;
 			sourceTree = "<group>";

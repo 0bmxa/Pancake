@@ -8,4 +8,10 @@
 
 #include <CoreAudio/CoreAudioTypes.h>
 
-AudioStreamBasicDescription CreateFloat32HardwareASBD(Float64 sampleRate, UInt32 channelCount);
+#ifndef SAMPLEDRIVER_PANCAKEFACTORY_H_
+#define SAMPLEDRIVER_PANCAKEFACTORY_H_
+
+AudioStreamBasicDescription CreateFloat32HardwareASBD(Float64 sampleRate,
+                                                      UInt32 channelCount);
+
+#endif  // SAMPLEDRIVER_PANCAKEFACTORY_H_
