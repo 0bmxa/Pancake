@@ -1,24 +1,32 @@
 version: 2
 jobs:
-    build:
+    # Runs all test for Pancake and SampleDriver
+    test:
         macos:
             xcode: "9.2.0"
+
         steps:
             - checkout
+
             - run:
                 name: 'Install swiftlint'
-                command: HOMEBREW_NO_AUTO_UPDATE=1 brew install swiftlint
+                command: |
+                    export HOMEBREW_NO_AUTO_UPDATE=1 && \
+                    brew install swiftlint
+
             - run:
                 name: 'Install cpplint'
                 command: |
                     curl 'https://raw.githubusercontent.com/google/styleguide/gh-pages/cpplint/cpplint.py' \
                         -o '/usr/local/bin/cpplint.py' && \
                     chmod +x '/usr/local/bin/cpplint.py'
+
             - run:
                 name: 'Make /Library/Audio/Plug-Ins/HAL writable'
                 command: sudo chmod 757 /Library/Audio/Plug-Ins/HAL
+
             - run:
-                name: 'Build & test Pancake'
+                name: 'Test Pancake'
                 command: |
                     xcodebuild \
                         clean \
@@ -28,8 +36,9 @@ jobs:
                         --color \
                         --report junit \
                         --output ./build/reports/junit_pancake.xml
+
             - run:
-                name: 'Build & test SampleDriver'
+                name: 'Test SampleDriver'
                 command: |
                     xcodebuild \
                         clean \
@@ -39,7 +48,104 @@ jobs:
                         --color \
                         --report junit \
                         --output ./build/reports/junit_sampledriver.xml
+
             - store_test_results:
                 path: ./build/reports/
             - store_artifacts:
                 path: ./build/reports/
+
+
+    # Creates a release build, but doesn't deploy it
+    release_build:
+        macos:
+            xcode: "9.2.0"
+
+        steps:
+            - checkout
+
+            - run:
+                name: 'Install swiftlint'
+                command: |
+                    export HOMEBREW_NO_AUTO_UPDATE=1 && \
+                    brew install swiftlint
+            - run:
+                name: 'Install cpplint'
+                command: |
+                    curl 'https://raw.githubusercontent.com/google/styleguide/gh-pages/cpplint/cpplint.py' \
+                        -o '/usr/local/bin/cpplint.py' && \
+                    chmod +x '/usr/local/bin/cpplint.py'
+            - run:
+                name: 'Make /Library/Audio/Plug-Ins/HAL writable'
+                command: sudo chmod 757 /Library/Audio/Plug-Ins/HAL
+
+            - run:
+                name: 'Build Pancake for Release'
+                command: |
+                    xcodebuild \
+                        build -scheme 'Pancake' \
+                            -configuration 'Release' \
+                            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO \
+                            CONFIGURATION_BUILD_DIR="./build/products/" \
+                    | xcpretty \
+                        --color
+
+            - run:
+                name: 'Create tar archive'
+                command: |
+                    cd './build/products/' && \
+                    tar -cvjf './Pancake.tar.bz2' './Pancake.framework'
+
+            - persist_to_workspace:
+                root: ./build/products/
+                paths:
+                    - Pancake.tar.bz2
+
+
+    # Deploys the release build to Github
+    release_deploy:
+        macos:
+            xcode: "9.2.0"
+
+        steps:
+            - run:
+                name: 'Install ghr'
+                command: |
+                    export HOMEBREW_NO_AUTO_UPDATE=1 && \
+                    brew tap tcnksm/ghr && \
+                    brew install ghr
+
+            - attach_workspace:
+                at: /tmp/workspace
+
+            - store_artifacts:
+                path: /tmp/workspace/Pancake.tar.bz2
+
+            - run:
+                name: 'Make GitHub release'
+                command: |
+                    ghr \
+                        -t "$CIRCLECI_GITHUB_TOKEN_MIMIBOT" \
+                        -u 'MimiHearingTechnologies' \
+                        -r 'Pancake' \
+                        'v0.1.0-testing-releases' \
+                        '/tmp/workspace/Pancake.tar.bz2'
+
+
+# Overall workflow
+workflows:
+    version: 2
+    main_workflow:
+        jobs:
+            - test
+            - release_build:
+                filters:
+                    branches:
+                        only: master
+            - release_deploy:
+                context: org-global
+                requires:
+                    - test
+                    - release_build
+                filters:
+                    branches:
+                        only: master
