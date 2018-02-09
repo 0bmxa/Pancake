@@ -26,12 +26,6 @@ void *Pancake_Create(CFAllocatorRef allocator, CFUUIDRef requestedTypeUUID) {
     if(!CFEqual(requestedTypeUUID, kAudioServerPlugInTypeUUID)) {
         return NULL;
     }
-
-    
-    // Create our formats
-    AudioStreamBasicDescription format44 = CreateFloat32HardwareASBD(44100, 2);
-    AudioStreamBasicDescription format48 = CreateFloat32HardwareASBD(48000, 2);
-    AudioStreamBasicDescription format96 = CreateFloat32HardwareASBD(96000, 2);
     
     // Create a device config
     CFStringRef manufacturer = CFSTR("Pancake Manufaturer");
@@ -39,6 +33,11 @@ void *Pancake_Create(CFAllocatorRef allocator, CFUUIDRef requestedTypeUUID) {
     CFStringRef UID = CFSTR("PANCAKE_01");
     PancakeDeviceConfiguration *deviceConfig = CreatePancakeDeviceConfig(manufacturer, name, UID);
     assureNonNULL(deviceConfig);
+    
+    // Create & add our formats
+    AudioStreamBasicDescription format44 = CreateFloat32HardwareASBD(44100, 2);
+    AudioStreamBasicDescription format48 = CreateFloat32HardwareASBD(48000, 2);
+    AudioStreamBasicDescription format96 = CreateFloat32HardwareASBD(96000, 2);
     assureTrue(PancakeDeviceConfigAddFormat(deviceConfig, format44));
     assureTrue(PancakeDeviceConfigAddFormat(deviceConfig, format48));
     assureTrue(PancakeDeviceConfigAddFormat(deviceConfig, format96));
