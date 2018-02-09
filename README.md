@@ -3,7 +3,7 @@
     Pancake
 </h1>
 
-![CircleCI](https://circleci.com/gh/0bmxa/Pancake/tree/master.svg?style=shield&circle-token=f543de04157d4183d9d436163cfbb30fe88373da)
+![CircleCI](https://circleci.com/gh/MimiHearingTechnologies/Pancake/tree/master.svg?style=shield&circle-token=f543de04157d4183d9d436163cfbb30fe88373da)
 
 Pancake is a framework for writing macOS AudioServer (`coreaudiod`) plug-ins
 for realtime audio processing in the system audio output path.
@@ -147,14 +147,14 @@ are forwarded to the plugin and/or helper.
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available,
-see the [tags on this repository](https://github.com/0bmxa/Pancake/tags).
+see the [tags on this repository](https://github.com/MimiHearingTechnologies/Pancake/tags).
 
 ## Authors
 
 * **Max Heim** – _wrote his master thesis about the audio HAL and created the
 first version of this framework._
 
-See also the list of [contributors](https://github.com/0bmxa/Pancake/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/MimiHearingTechnologies/Pancake/contributors) who participated in this project.
 
 ## License
 
