@@ -34,6 +34,29 @@ PancakeConfigAddDevice(config, device);
 PancakeSetupSharedInstance(config);
 ```
 
+## How it works
+
+Pancake consists of three components:
+1. An audio server plugin
+2. An audio routing helper (background) app
+3. A settings app
+
+The audio server plugin creates a virtual audio device, which provides an audio
+output to the system, just like any regular audio output (like Headphones,
+AirPlay, BT, etc.). Any audio that is sent to this output is processed by a
+(custom providable) processing callback and routed back to the system on a
+virtual audio input.
+
+To make the processing transparent to the user, those inputs & outputs can be
+hidden from the UI. In this case the audio routing helper overwrites the system
+output in the background to the (hidden) virtual one, and also routes the
+virtual input to the actual, user-selected audio output.
+
+As both, the plugin and the helper, are not visible to the user, the settings
+app provides an interface to the user, where they can change parameters, which
+are forwarded to the plugin and/or helper.
+
+## Development
 
 ### Prerequisites
 
@@ -84,7 +107,7 @@ build product manually to `/Library/Audio/Plug-Ins/HAL/`--this, however, makes
 debugging a lot harder.
 
 
-### Running && Debugging
+### Running
 
 For the plugin to be loaded by the audio server, the audio server (`coreaudiod`)
 has to be restarted. This can be triggered by just killing coreaudiod, or by
@@ -101,6 +124,28 @@ terminated, you might want to restart some system components as well, like
 killall SystemUIServer # The menu bar
 killall ControlStrip   # The MBP TouchBar, if you have one
 ```
+
+### Debugging
+
+For debugging, you need to attach your debugger to `coreaudiod`, which loads and
+executes the plugin. You can simply run your own instance from
+`/usr/sbin/coreaudiod` and get the basic stuff running.
+
+However, the daemon's activity is quite limited when being run as a seperate
+instance. So for proper debugging you need to attach to the OS's process,
+which sadly (actually luckily, but not here) is protected from being attached to
+by macOS' [System Integrity Protection](https://developer.apple.com/library/content/documentation/Security/Conceptual/System_Integrity_Protection_Guide/Introduction/Introduction.html).
+
+**⚠️ Disabling System Integrity Protection can cause serious security issues.
+Do this at your own risk and only if you understand the consequences! ⚠️**
+
+Luckily System Integrity Protection is modular and the corresponding `csrutil`
+has some nice undocumented options, so you don't have to disable whole SIP. See
+here for more info about those options: [Apple Developer Forums: Thread
+17452](https://forums.developer.apple.com/thread/17452).
+
+
+
 
 <!--
 ## Running the tests
@@ -122,27 +167,6 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of
 conduct, and the process for submitting pull requests to us.
 -->
 
-## How it works
-
-Pancake consists of three components:
-1. An audio server plugin
-2. An audio routing helper (background) app
-3. A settings app
-
-The audio server plugin creates a virtual audio device, which provides an audio
-output to the system, just like any regular audio output (like Headphones,
-AirPlay, BT, etc.). Any audio that is sent to this output is processed by a
-(custom providable) processing callback and routed back to the system on a
-virtual audio input.
-
-To make the processing transparent to the user, those inputs & outputs can be
-hidden from the UI. In this case the audio routing helper overwrites the system
-output in the background to the (hidden) virtual one, and also routes the
-virtual input to the actual, user-selected audio output.
-
-As both, the plugin and the helper, are not visible to the user, the settings
-app provides an interface to the user, where they can change parameters, which
-are forwarded to the plugin and/or helper.
 
 ## Versioning
 
