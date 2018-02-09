@@ -1,15 +1,15 @@
-<span style="font-size:120px;float:right">🥞</span>
+<h1 align="center">
+    <img src=".readme/pancakes@2x.png" height="128" /><br />
+    Pancake
+</h1>
+
 ![CircleCI](https://circleci.com/gh/0bmxa/Pancake/tree/master.svg?style=shield&circle-token=f543de04157d4183d9d436163cfbb30fe88373da)
-
-
-# Pancake
 
 Pancake is a framework for writing macOS AudioServer (`coreaudiod`) plug-ins
 for realtime audio processing in the system audio output path.
 
 It is written in Swift and provides highly simplified* Swift and C APIs for
-setting up your own systemwide audio processing solution.
-
+setting up your own systemwide audio processing solution.  
 <small>&#42;in comparison to Apple's audio server plugin API</small>
 
 
