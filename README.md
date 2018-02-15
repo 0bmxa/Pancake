@@ -3,7 +3,7 @@
     Pancake
 </h1>
 
-![CircleCI](https://circleci.com/gh/MimiHearingTechnologies/Pancake/tree/master.svg?style=shield&circle-token=f543de04157d4183d9d436163cfbb30fe88373da)
+[![CircleCI](https://circleci.com/gh/MimiHearingTechnologies/Pancake/tree/master.svg?style=shield&circle-token=f543de04157d4183d9d436163cfbb30fe88373da)](https://circleci.com/gh/MimiHearingTechnologies/Pancake/)
 
 Pancake is a framework for writing macOS AudioServer (`coreaudiod`) plug-ins
 for realtime audio processing in the system audio output path.
