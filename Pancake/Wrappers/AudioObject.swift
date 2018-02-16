@@ -24,7 +24,7 @@ func AudioObjectGetPropertyData<T>(objectID: AudioObjectID, address: AudioObject
     return properties[0]
 }
 
-fileprivate func _AudioObjectGetPropertyData<T>(objectID: AudioObjectID, address: AudioObjectPropertyAddress, dataType: T.Type, elementCount: Int) throws -> [T] {
+private func _AudioObjectGetPropertyData<T>(objectID: AudioObjectID, address: AudioObjectPropertyAddress, dataType: T.Type, elementCount: Int) throws -> [T] {
     // Address pointer
     var mutableAddress = address
     let addressPointer = withUnsafePointer(to: &mutableAddress) { $0 }

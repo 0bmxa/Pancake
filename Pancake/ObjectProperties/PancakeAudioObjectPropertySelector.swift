@@ -502,10 +502,9 @@ extension PancakeAudioObjectPropertySelector: RawRepresentable {
         case PancakeAudioStereoPanControl.Selector.panningChannels:                self = .stereoPanControlPanningChannels
 
         // Unclear
-        case 1667658618: fallthrough // 'cfsz'
-        case 1685287012: fallthrough // 'dspd'
-        case 1952542835:             // 'taps'
-            return nil
+        case 1667658618: return nil // 'cfsz'
+        case 1685287012: return nil // 'dspd'
+        case 1952542835: return nil // 'taps'
 
         // Unknown property
         default:

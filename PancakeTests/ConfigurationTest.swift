@@ -7,8 +7,8 @@
 //
 
 import CoreAudio.CoreAudioTypes
-import XCTest
 @testable import Pancake
+import XCTest
 
 class ConfigurationTest: XCTestCase {
 
