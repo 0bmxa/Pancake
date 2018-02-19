@@ -17,7 +17,9 @@ struct PancakeDeviceConfiguration {
     CFStringRef __nullable manufacturer;
     CFStringRef __nonnull name;
     CFStringRef __nonnull UID;
-    void (*__nullable processingCallback)(Float32 *__nonnull, AudioServerPlugInIOCycleInfo);
+    void (*__nullable processingCallback)(Float32 *__nonnull, UInt32, AudioServerPlugInIOCycleInfo);
+    void (*__nullable startIO)(double sampleRate, UInt32 frameCount);
+    void (*__nullable stopIO)(double sampleRate, UInt32 frameCount);
     uint numberOfSupportedFormats;
     AudioStreamBasicDescription *__nullable supportedFormats;
 };

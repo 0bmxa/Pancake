@@ -83,8 +83,21 @@ extension Pancake {
     }
 
 
-    func beginIOOperation(objectID: AudioObjectID, clientID: UInt32, inOperationID: UInt32, inIOBufferFrameSize: UInt32, inIOCycleInfo: UnsafePointer<AudioServerPlugInIOCycleInfo>) -> OSStatus {
-        // nothing to do here for now
+    func beginIOOperation(deviceID: AudioObjectID, clientID: UInt32, operation: AudioServerPlugInIOOperation?, IOBufferFrameSize: UInt32, IOCycleInfo: AudioServerPlugInIOCycleInfo) -> OSStatus {
+        guard let device = self.audioObjects[deviceID] as? PancakeDevice else {
+            return PancakeAudioHardwareError.badObject
+        }
+        guard let operation = operation else {
+            return PancakeAudioHardwareError.illegalOperation
+        }
+
+        // Execute IO operation on device
+        do {
+            try device.beginIO(operation: operation, numberOfFrames: Int(IOBufferFrameSize), cycle: IOCycleInfo)
+        } catch {
+            return (error as! PancakeObjectPropertyQueryError).status
+        }
+
         return PancakeAudioHardwareError.noError
     }
 
@@ -151,7 +164,20 @@ extension Pancake {
     ///   - IOCycleInfo: The basic information about the current IO cycle.
     /// - Returns: An OSStatus indicating success or failure.
     func endIOOperation(deviceID: AudioDeviceID, clientID: UInt32, operation: AudioServerPlugInIOOperation?, IOBufferFrameSize: UInt32, IOCycleInfo: AudioServerPlugInIOCycleInfo) -> OSStatus {
-        // nothing to do here for now
+        guard let device = self.audioObjects[deviceID] as? PancakeDevice else {
+            return PancakeAudioHardwareError.badObject
+        }
+        guard let operation = operation else {
+            return PancakeAudioHardwareError.illegalOperation
+        }
+
+        // Execute IO operation on device
+        do {
+            try device.endIO(operation: operation, numberOfFrames: Int(IOBufferFrameSize), cycle: IOCycleInfo)
+        } catch {
+            return (error as! PancakeObjectPropertyQueryError).status
+        }
+
         return PancakeAudioHardwareError.noError
     }
 }

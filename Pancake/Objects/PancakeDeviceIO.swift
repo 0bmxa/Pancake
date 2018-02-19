@@ -90,6 +90,24 @@ extension PancakeDevice {
         }
     }
 
+    func beginIO(operation: AudioServerPlugInIOOperation, numberOfFrames: Int, cycle: AudioServerPlugInIOCycleInfo) throws {
+        guard let startIOCallback = self.configuration.startIOCallback else {
+            assertionFailure()
+            return
+        }
+        let sampleRate = self.configuration.registeredFormat.mSampleRate
+        startIOCallback(sampleRate, UInt32(numberOfFrames))
+    }
+
+    func endIO(operation: AudioServerPlugInIOOperation, numberOfFrames: Int, cycle: AudioServerPlugInIOCycleInfo) throws {
+        guard let stopIOCallback = self.configuration.stopIOCallback else {
+            assertionFailure()
+            return
+        }
+        let sampleRate = self.configuration.registeredFormat.mSampleRate
+        stopIOCallback(sampleRate, UInt32(numberOfFrames))
+    }
+
     func execute(operation: AudioServerPlugInIOOperation, streamObjectID: AudioObjectID, numberOfFrames: Int, cycle: AudioServerPlugInIOCycleInfo, buffer: UnsafeMutableRawPointer) throws {
         let stream = self.streams.first { $0.objectID == streamObjectID }
         guard stream != nil else {
@@ -116,8 +134,8 @@ extension PancakeDevice {
         case .processOutput:
             guard let processingCallback = self.configuration.processingCallback else { break }
             let bufferStart = buffer.assumingMemoryBound(to: Float32.self)
-            let bufferPointer = UnsafeMutableBufferPointer<Float32>(start: bufferStart, count: numberOfFrames) // FIXME: dynamic type?
-            processingCallback(bufferPointer, cycle)
+            let bufferPointer = UnsafeMutableBufferPointer<Float32>(start: bufferStart, count: numberOfFrames)
+            processingCallback(bufferPointer, UInt32(numberOfFrames), cycle)
 
 
         // Puts data into the device.

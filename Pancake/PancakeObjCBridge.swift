@@ -57,12 +57,16 @@ extension DeviceConfiguration {
 
         self.init(manufacturer: manufacturer, name: name, UID: UID, supportedFormats: formats)
 
-        if let callbackWithPointer: PointerProcessingCallback = config.processingCallback {
-            let callbackWithBuffer: BufferProcessingCallback = {
-                guard let pointer = $0.baseAddress else { return }
-                callbackWithPointer(pointer, $1)
+        if let pointerProcessingCallback = config.processingCallback {
+            let bufferProcessingCallback = { (buffer: UnsafeMutableBufferPointer<Float32>, frameCount: UInt32, cycleInfo: AudioServerPlugInIOCycleInfo) in
+                guard let pointer = buffer.baseAddress else { return }
+                pointerProcessingCallback(pointer, frameCount, cycleInfo)
             }
-            self.processingCallback = callbackWithBuffer
+            self.processingCallback = bufferProcessingCallback
         }
+
+        self.startIOCallback = config.startIO
+        self.stopIOCallback  = config.stopIO
+
     }
 }

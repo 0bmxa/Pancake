@@ -209,7 +209,9 @@ func Pancake_willDoIOOperation(inDriver: AudioServerPlugInDriverRef, inDeviceObj
 // Tells the plug-in that the Host is about to begin a phase of the IO cycle for a particular device.
 func Pancake_beginIOOperation(inDriver: AudioServerPlugInDriverRef, inDeviceObjectID: AudioObjectID, inClientID: UInt32, inOperationID: UInt32, inIOBufferFrameSize: UInt32, inIOCycleInfo: UnsafePointer<AudioServerPlugInIOCycleInfo>) -> OSStatus {
     guard validate(inDriver) else { return PancakeAudioHardwareError.badObject }
-    return _pancakeInstance.beginIOOperation(objectID: inDeviceObjectID, clientID: inClientID, inOperationID: inOperationID, inIOBufferFrameSize: inIOBufferFrameSize, inIOCycleInfo: inIOCycleInfo)
+    let operation = AudioServerPlugInIOOperation(rawValue: inOperationID)
+    let cycleInfo = inIOCycleInfo.pointee
+    return _pancakeInstance.beginIOOperation(deviceID: inDeviceObjectID, clientID: inClientID, operation: operation, IOBufferFrameSize: inIOBufferFrameSize, IOCycleInfo: cycleInfo)
 }
 
 // Tells the device to perform an IO operation for a particular stream.

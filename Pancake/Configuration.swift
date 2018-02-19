@@ -67,11 +67,15 @@ public class DeviceConfiguration {
     /// The audio processing callback function to be used to process audio data.
     /// If nil, the device will apply no processing to its stream. (default)
     ///
-    /// - Parameters:
+    /// **Parameters:**
     ///   - buffer: A pointer to the buffer with audio data to be processed
     ///   - frameCount: The size of the buffer
     ///   - cycle: Details about the current IO cycle.
-    public var processingCallback: ((UnsafeMutableBufferPointer<Float32>, AudioServerPlugInIOCycleInfo) -> Void)?
+    public var processingCallback: ((UnsafeMutableBufferPointer<Float32>, UInt32, AudioServerPlugInIOCycleInfo) -> Void)?
+
+    // sampleRate, frameCount
+    public var startIOCallback: ((Float64, UInt32) -> Void)?
+    public var stopIOCallback: ((Float64, UInt32) -> Void)?
 
     /// Whether the device should be hidden from the user
     public var hidden: Bool = false
