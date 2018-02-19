@@ -22,7 +22,7 @@ class PancakeFactory: NSObject {
         guard UUID(rawValue: requestedTypeUUID) == kUUID.audioServerPlugInTypeUUID else { return nil }
 
         // Pancake configuration
-        let device = Pancake.DeviceConfiguration(
+        let device = DeviceConfiguration(
             manufacturer: "Pancake Manufacturer",
             name: "Pancake Framework",
             UID: "PancakeDevice",
@@ -34,7 +34,7 @@ class PancakeFactory: NSObject {
         )
 
         // Option 1: Setup w/o processing (loopback only)
-        let config = Pancake.Configuration(devices: [device])
+        let config = Configuration(devices: [device])
 
 
         // Option 2: Setup with processing

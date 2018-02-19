@@ -14,40 +14,43 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EE69C3A21F30B69F00381315"
-               BuildableName = "SampleDriver.driver"
-               BlueprintName = "SampleDriver"
-               ReferencedContainer = "container:Pancake.xcodeproj">
+               BlueprintIdentifier = "EE333CD1203B2C130052EB88"
+               BuildableName = "SampleDriver C.driver"
+               BlueprintName = "SampleDriver C"
+               ReferencedContainer = "container:SampleDriver.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EE333CB7203AE5BA0052EB88"
+               BuildableName = "SampleDriverTests.xctest"
+               BlueprintName = "SampleDriverTests"
+               ReferencedContainer = "container:SampleDriver.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Testing"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       language = ""
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EE4D9DDF1FD310B1002071B5"
-               BuildableName = "SampleDriverTests.xctest"
-               BlueprintName = "SampleDriverTests"
-               ReferencedContainer = "container:Pancake.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EE69C3A21F30B69F00381315"
-            BuildableName = "SampleDriver.driver"
-            BlueprintName = "SampleDriver"
-            ReferencedContainer = "container:Pancake.xcodeproj">
+            BlueprintIdentifier = "EE333CD1203B2C130052EB88"
+            BuildableName = "SampleDriver C.driver"
+            BlueprintName = "SampleDriver C"
+            ReferencedContainer = "container:SampleDriver.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -57,23 +60,13 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      debugAsWhichUser = "root"
       language = ""
-      launchStyle = "1"
+      launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <PreActions>
-         <ExecutionAction
-            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
-            <ActionContent
-               title = "Run Script"
-               scriptText = "osascript -e &apos;do shell script &quot;/usr/local/mxabin/restart-coreaudiod&quot; with administrator privileges&apos; &amp;">
-            </ActionContent>
-         </ExecutionAction>
-      </PreActions>
       <PathRunnable
          runnableDebuggingMode = "0"
          FilePath = "/usr/sbin/coreaudiod">
@@ -81,10 +74,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EE69C3A21F30B69F00381315"
-            BuildableName = "SampleDriver.driver"
-            BlueprintName = "SampleDriver"
-            ReferencedContainer = "container:Pancake.xcodeproj">
+            BlueprintIdentifier = "EE333CD1203B2C130052EB88"
+            BuildableName = "SampleDriver C.driver"
+            BlueprintName = "SampleDriver C"
+            ReferencedContainer = "container:SampleDriver.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -96,17 +89,13 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <PathRunnable
-         runnableDebuggingMode = "0"
-         FilePath = "/usr/sbin/coreaudiod">
-      </PathRunnable>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EE69C3A21F30B69F00381315"
-            BuildableName = "SampleDriver.driver"
-            BlueprintName = "SampleDriver"
-            ReferencedContainer = "container:Pancake.xcodeproj">
+            BlueprintIdentifier = "EE333CD1203B2C130052EB88"
+            BuildableName = "SampleDriver C.driver"
+            BlueprintName = "SampleDriver C"
+            ReferencedContainer = "container:SampleDriver.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

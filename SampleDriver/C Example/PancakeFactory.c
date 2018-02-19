@@ -9,8 +9,7 @@
 #include "PancakeFactory.h"
 #include <CoreFoundation/CoreFoundation.h>
 #include <CoreAudio/AudioServerPlugIn.h>
-
-#include "Pancake.h"
+#include <Pancake/Pancake.h>
 
 void setupCallback() {
     printf("setup 🎉\n");
