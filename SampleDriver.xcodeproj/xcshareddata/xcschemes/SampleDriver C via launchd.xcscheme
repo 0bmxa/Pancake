@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "0910"
-   version = "1.3">
+   version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -74,7 +74,16 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "osascript -e &apos;do shell script &quot;/usr/local/mxabin/restart-coreaudiod&quot; with administrator privileges&apos; &amp;">
+               scriptText = "osascript -e &apos;do shell script &quot;${SRCROOT}/Scripts/restart-coreaudiod.sh&quot; with administrator privileges&apos; &amp;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "EE333CD1203B2C130052EB88"
+                     BuildableName = "SampleDriver.driver"
+                     BlueprintName = "SampleDriver C"
+                     ReferencedContainer = "container:SampleDriver.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
             </ActionContent>
          </ExecutionAction>
       </PreActions>
