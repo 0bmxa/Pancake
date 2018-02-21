@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EE333CD1203B2C130052EB88"
-               BuildableName = "SampleDriver C.driver"
+               BuildableName = "SampleDriver.driver"
                BlueprintName = "SampleDriver C"
                ReferencedContainer = "container:SampleDriver.xcodeproj">
             </BuildableReference>
@@ -48,7 +48,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EE333CD1203B2C130052EB88"
-            BuildableName = "SampleDriver C.driver"
+            BuildableName = "SampleDriver.driver"
             BlueprintName = "SampleDriver C"
             ReferencedContainer = "container:SampleDriver.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EE333CD1203B2C130052EB88"
-            BuildableName = "SampleDriver C.driver"
+            BuildableName = "SampleDriver.driver"
             BlueprintName = "SampleDriver C"
             ReferencedContainer = "container:SampleDriver.xcodeproj">
          </BuildableReference>
@@ -93,7 +93,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EE333CD1203B2C130052EB88"
-            BuildableName = "SampleDriver C.driver"
+            BuildableName = "SampleDriver.driver"
             BlueprintName = "SampleDriver C"
             ReferencedContainer = "container:SampleDriver.xcodeproj">
          </BuildableReference>

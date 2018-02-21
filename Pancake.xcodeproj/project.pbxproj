@@ -10,7 +10,7 @@
 		EE3691071FED39840080611F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC156161FD9669C00519526 /* String.swift */; };
 		EE5128E62006507600A6F57B /* PancakeInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC305E71FE9537400439E48 /* PancakeInterface.m */; };
 		EE53A0372021F6AE001A004F /* PancakeConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = EE53A0352021F6AE001A004F /* PancakeConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EE53A0382021F6AE001A004F /* PancakeConfiguration.c in Sources */ = {isa = PBXBuildFile; fileRef = EE53A0362021F6AE001A004F /* PancakeConfiguration.c */; };
+		EE53A0382021F6AE001A004F /* PancakeConfiguration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE53A0362021F6AE001A004F /* PancakeConfiguration.cpp */; };
 		EEC156271FD969F100519526 /* Pancake.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEC1561E1FD969F100519526 /* Pancake.framework */; };
 		EEC156381FD96A2000519526 /* ConfigurationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC156111FD858E000519526 /* ConfigurationTest.swift */; };
 		EEC1563D1FD96A3B00519526 /* Pancake.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC1563B1FD96A3A00519526 /* Pancake.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -84,7 +84,7 @@
 		EE52FB591F44EA5500C118BC /* AtomicCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomicCounter.swift; sourceTree = "<group>"; };
 		EE52FB5D1F44F23600C118BC /* BasicOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicOperations.swift; sourceTree = "<group>"; };
 		EE53A0352021F6AE001A004F /* PancakeConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PancakeConfiguration.h; sourceTree = "<group>"; };
-		EE53A0362021F6AE001A004F /* PancakeConfiguration.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = PancakeConfiguration.c; sourceTree = "<group>"; };
+		EE53A0362021F6AE001A004F /* PancakeConfiguration.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; path = PancakeConfiguration.cpp; sourceTree = "<group>"; };
 		EE5B41951F5F13FD009A08E8 /* IOOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOOperations.swift; sourceTree = "<group>"; };
 		EE6103AE1FBCA2F80018A7AB /* AudioObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioObject.swift; sourceTree = "<group>"; };
 		EE70EB361F72B408006ABC60 /* AudioChannelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioChannelLayout.swift; sourceTree = "<group>"; };
@@ -174,7 +174,7 @@
 				EEC305E61FE9537400439E48 /* PancakeInterface.h */,
 				EEC305E71FE9537400439E48 /* PancakeInterface.m */,
 				EE53A0352021F6AE001A004F /* PancakeConfiguration.h */,
-				EE53A0362021F6AE001A004F /* PancakeConfiguration.c */,
+				EE53A0362021F6AE001A004F /* PancakeConfiguration.cpp */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -469,7 +469,7 @@
 				EEC156571FD96E0F00519526 /* COMInterface.swift in Sources */,
 				EEC1565E1FD96E0F00519526 /* PancakeDevice.swift in Sources */,
 				EEC156701FD96E0F00519526 /* AtomicCounter.swift in Sources */,
-				EE53A0382021F6AE001A004F /* PancakeConfiguration.c in Sources */,
+				EE53A0382021F6AE001A004F /* PancakeConfiguration.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -662,6 +662,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -671,6 +672,9 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
+				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
 				INFOPLIST_FILE = Pancake/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
@@ -692,6 +696,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -701,6 +706,9 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
+				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
 				INFOPLIST_FILE = Pancake/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
@@ -720,6 +728,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -729,6 +738,9 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
+				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
 				INFOPLIST_FILE = Pancake/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";

@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EE333C93203ADF840052EB88"
-               BuildableName = "SampleDriver Swift.driver"
+               BuildableName = "SampleDriver.driver"
                BlueprintName = "SampleDriver Swift"
                ReferencedContainer = "container:SampleDriver.xcodeproj">
             </BuildableReference>
@@ -57,6 +57,15 @@
          runnableDebuggingMode = "0"
          FilePath = "/usr/sbin/coreaudiod">
       </PathRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "EE333C93203ADF840052EB88"
+            BuildableName = "SampleDriver.driver"
+            BlueprintName = "SampleDriver Swift"
+            ReferencedContainer = "container:SampleDriver.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

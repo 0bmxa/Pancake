@@ -22,16 +22,9 @@ class PancakeObjCBridge: NSObject {
         // Translate memory to a buffer pointer
         let cDevices = UnsafeMutableBufferPointer(start: config.pointee.devices, count: Int(config.pointee.numberOfDevices))
 
-        Array(cDevices).forEach { device in
-            print(device)
-        }
-
         // Convert to device configs
-        let devices = cDevices.map { device -> DeviceConfiguration in
-            print(device)
-            let foo = DeviceConfiguration(from: device)
-            print(foo)
-            return foo
+        let devices = cDevices.flatMap { device in
+            DeviceConfiguration(from: device)
         }
 
         // Create pancake config struct & setup pancake
@@ -48,7 +41,9 @@ class PancakeObjCBridge: NSObject {
 
 
 extension DeviceConfiguration {
-    convenience init(from config: PancakeDeviceConfiguration) {
+    convenience init?(from config: UnsafeMutablePointer<PancakeDeviceConfiguration>?) {
+        guard let config = config?.pointee else { return nil }
+
         var manufacturer: String? = nil
         if let man = config.manufacturer?.takeUnretainedValue() {
             manufacturer = String(man)

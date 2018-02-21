@@ -10,11 +10,10 @@
 
 #pragma mark - Driver configuration
 
-PancakeConfiguration *__nullable
-    CreatePancakeConfig(void (*__nullable signalProcessorSetup)(void))
+PancakeConfiguration *__nullable CreatePancakeConfig(void (*__nullable signalProcessorSetup)(void))
 {
     size_t configSize = sizeof(PancakeConfiguration);
-    PancakeConfiguration *config = malloc(configSize);
+    PancakeConfiguration *config = (PancakeConfiguration *)malloc(configSize);
     if (config == NULL) { return NULL; }
     config->signalProcessorSetup = signalProcessorSetup;
     config->numberOfDevices = 0;
@@ -23,7 +22,8 @@ PancakeConfiguration *__nullable
     return config;
 }
 
-bool PancakeConfigAddDevice(PancakeConfiguration *config, PancakeDeviceConfiguration *device)
+bool PancakeConfigAddDevice(PancakeConfiguration *config,
+                            PancakeDeviceConfiguration *device)
 {
     if (config == NULL) { return false; }
 
@@ -32,16 +32,15 @@ bool PancakeConfigAddDevice(PancakeConfiguration *config, PancakeDeviceConfigura
 
     // Alloc or grow storage for the new device pointer
     if (config->devices == NULL) {
-        config->devices = malloc(devicePointerSize);
+        config->devices = (PancakeDeviceConfiguration **)malloc(devicePointerSize);
     } else {
         size_t sizeOfAllDevicePointers = numberOfDevices * devicePointerSize;
-        config->devices = realloc(config->devices, sizeOfAllDevicePointers);
+        config->devices = (PancakeDeviceConfiguration **)realloc(config->devices, sizeOfAllDevicePointers);
     }
     if (config->devices == NULL) { return false; }
 
     // Copy device pointer into new place
-    PancakeDeviceConfiguration *writePos = config->devices + (numberOfDevices-1);
-    memcpy(writePos, &device, devicePointerSize);
+    config->devices[numberOfDevices-1] = device;
 
     config->numberOfDevices = numberOfDevices;
     return true;
@@ -59,10 +58,12 @@ void ReleasePancakeConfig(PancakeConfiguration **config)
 
 #pragma mark - Device configuration
 
-PancakeDeviceConfiguration *__nullable CreatePancakeDeviceConfig(CFStringRef __nullable manufacturer, CFStringRef __nonnull name, CFStringRef __nonnull UID)
+PancakeDeviceConfiguration *__nullable CreatePancakeDeviceConfig(CFStringRef __nullable manufacturer,
+                                                                 CFStringRef __nonnull name,
+                                                                 CFStringRef __nonnull UID)
 {
     size_t deviceConfigSize = sizeof(PancakeDeviceConfiguration);
-    PancakeDeviceConfiguration *deviceConfig = malloc(deviceConfigSize);
+    PancakeDeviceConfiguration *deviceConfig = (PancakeDeviceConfiguration *)malloc(deviceConfigSize);
     if (deviceConfig == NULL) { return NULL; }
     deviceConfig->manufacturer = manufacturer;
     deviceConfig->name = name;
@@ -73,7 +74,8 @@ PancakeDeviceConfiguration *__nullable CreatePancakeDeviceConfig(CFStringRef __n
     return deviceConfig;
 }
 
-bool PancakeDeviceConfigAddFormat(PancakeDeviceConfiguration *__nonnull deviceConfig, AudioStreamBasicDescription format)
+bool PancakeDeviceConfigAddFormat(PancakeDeviceConfiguration *__nonnull deviceConfig,
+                                  AudioStreamBasicDescription format)
 {
     if(deviceConfig == NULL) { return false; }
     
@@ -82,17 +84,16 @@ bool PancakeDeviceConfigAddFormat(PancakeDeviceConfiguration *__nonnull deviceCo
     
     // Alloc or grow storage for the new ASBD
     if(deviceConfig->supportedFormats == NULL) {
-        deviceConfig->supportedFormats = malloc(ASBDsize);
+        deviceConfig->supportedFormats = (AudioStreamBasicDescription *)malloc(ASBDsize);
     } else {
         size_t sizeOfAllFormats = numberOfFormats * ASBDsize;
-        deviceConfig->supportedFormats = realloc(deviceConfig->supportedFormats, sizeOfAllFormats);
+        deviceConfig->supportedFormats = (AudioStreamBasicDescription *)realloc(deviceConfig->supportedFormats, sizeOfAllFormats);
     }
     if (deviceConfig->supportedFormats == NULL) { return false; }
     
     
     // Copy ASBD into new place
-    AudioStreamBasicDescription *writePos = deviceConfig->supportedFormats + (numberOfFormats-1);
-    memcpy(writePos, &format, ASBDsize);
+    deviceConfig->supportedFormats[numberOfFormats-1] = format;
     
     deviceConfig->numberOfSupportedFormats = numberOfFormats;
     return true;

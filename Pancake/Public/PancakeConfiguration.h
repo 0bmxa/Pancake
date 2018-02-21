@@ -24,12 +24,13 @@ typedef struct PancakeDeviceConfiguration PancakeDeviceConfiguration;
 struct PancakeConfiguration {
     void (*__nullable signalProcessorSetup)(void);
     uint numberOfDevices;
-    PancakeDeviceConfiguration *__nullable devices;
+    PancakeDeviceConfiguration *__nullable *__nullable devices;
 };
 typedef struct PancakeConfiguration PancakeConfiguration;
 
-
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  Creates a PancakeConfiguration structure for initial configuration of the
@@ -42,8 +43,7 @@ typedef struct PancakeConfiguration PancakeConfiguration;
  @return A pointer to the newly created PancakeConfiguration struct, or NULL if
  an error occured.
  */
-PancakeConfiguration *__nullable
-    CreatePancakeConfig(void (*__nullable signalProcessorSetup)(void));
+PancakeConfiguration *__nullable CreatePancakeConfig(void (*__nullable signalProcessorSetup)(void));
 
 /**
  Adds a PancakeDeviceConfiguration to the list of devices and increments the
@@ -82,10 +82,9 @@ void ReleasePancakeConfig(PancakeConfiguration *__nonnull *__nullable config);
  @return A pointer to the newly created PancakeDeviceConfiguration struct, or
  NULL if an error occured.
  */
-PancakeDeviceConfiguration *__nullable
-    CreatePancakeDeviceConfig(CFStringRef __nullable manufacturer,
-                              CFStringRef __nonnull name,
-                              CFStringRef __nonnull UID);
+PancakeDeviceConfiguration *__nullable CreatePancakeDeviceConfig(CFStringRef __nullable manufacturer,
+                                                                 CFStringRef __nonnull name,
+                                                                 CFStringRef __nonnull UID);
 
 /**
  Adds a format to the list of supported formats and increments the
@@ -97,9 +96,8 @@ PancakeDeviceConfiguration *__nullable
  AudioStreamBasicDescription struct.
  @return Whether the operation was successful or not.
  */
-bool
-PancakeDeviceConfigAddFormat(PancakeDeviceConfiguration *__nonnull deviceConfig,
-                                 AudioStreamBasicDescription format);
+bool PancakeDeviceConfigAddFormat(PancakeDeviceConfiguration *__nonnull deviceConfig,
+                                  AudioStreamBasicDescription format);
 
 /**
  Releases a PancakeDeviceConfiguration structure, which previously has been
@@ -108,8 +106,7 @@ PancakeDeviceConfigAddFormat(PancakeDeviceConfiguration *__nonnull deviceConfig,
  @param deviceConfig A pointer to the PancakeDeviceConfiguration struct pointer,
  which should be released.
  */
-void ReleasePancakeDeviceConfig(PancakeDeviceConfiguration
-                                *__nonnull *__nullable deviceConfig);
+void ReleasePancakeDeviceConfig(PancakeDeviceConfiguration *__nonnull *__nullable deviceConfig);
 
 
 
@@ -139,5 +136,8 @@ AudioStreamBasicDescription CreateHardwareASBD(Float64 sampleRate,
 AudioStreamBasicDescription CreateFloat32HardwareASBD(Float64 sampleRate,
                                                       UInt32 channelCount);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // PANCAKE_PANCAKECONFIGURATION_H_
