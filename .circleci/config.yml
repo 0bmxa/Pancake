@@ -82,10 +82,12 @@ jobs:
                 name: 'Build Pancake for Release'
                 command: |
                     xcodebuild \
-                        build -scheme 'Pancake' \
-                            -configuration 'Release' \
-                            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO \
-                            CONFIGURATION_BUILD_DIR="./build/products/" \
+                        build \
+                        -workspace 'Pancake.xcworkspace' \
+                        -scheme 'Pancake' \
+                        -configuration 'Release' \
+                        CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO \
+                        CONFIGURATION_BUILD_DIR="./build/products/" \
                     | xcpretty \
                         --color
 
@@ -137,15 +139,15 @@ workflows:
     main_workflow:
         jobs:
             - test
-            - release_build:
-                filters:
-                    branches:
-                        only: master
-            - release_deploy:
-                context: org-global
-                requires:
-                    - test
-                    - release_build
-                filters:
-                    branches:
-                        only: master
+            # - release_build:
+            #     filters:
+            #         branches:
+            #             only: master
+            # - release_deploy:
+            #     context: org-global
+            #     requires:
+            #         - test
+            #         - release_build
+            #     filters:
+            #         branches:
+            #             only: master
