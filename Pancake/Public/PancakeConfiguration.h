@@ -127,7 +127,8 @@ AudioStreamBasicDescription CreateHardwareASBD(Float64 sampleRate,
                                                size_t formatSize);
 
 /**
- Creates a new AudioStreamBasicDescription with LPCM, 32bit floating point format, suitable for hardware use.
+ Creates a new AudioStreamBasicDescription with LPCM, 32bit floating point
+ format, suitable for hardware use.
  
  @param sampleRate The sample rate to specifiy.
  @param channelCount The channel count to use.

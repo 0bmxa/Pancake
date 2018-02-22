@@ -146,3 +146,4 @@ AudioStreamBasicDescription CreateFloat32HardwareASBD(Float64 sampleRate,
     size_t formatSize = sizeof(Float32);
     return CreateHardwareASBD(sampleRate, channelCount, flags, formatSize);
 }
+
