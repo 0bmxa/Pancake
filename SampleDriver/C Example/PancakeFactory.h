@@ -6,12 +6,19 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-#include <CoreAudio/CoreAudioTypes.h>
-
 #ifndef SAMPLEDRIVER_PANCAKEFACTORY_H_
 #define SAMPLEDRIVER_PANCAKEFACTORY_H_
 
-AudioStreamBasicDescription CreateFloat32HardwareASBD(Float64 sampleRate,
-                                                      UInt32 channelCount);
+#include <CoreFoundation/CoreFoundation.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void *Pancake_Create(CFAllocatorRef allocator, CFUUIDRef requestedTypeUUID);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // SAMPLEDRIVER_PANCAKEFACTORY_H_

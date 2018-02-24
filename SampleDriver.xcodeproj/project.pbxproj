@@ -12,7 +12,7 @@
 		EE333CC5203B1BCA0052EB88 /* FactoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE333CA0203AE3880052EB88 /* FactoryTest.swift */; };
 		EE333CC6203B1BCA0052EB88 /* PlugInTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE333CA1203AE3880052EB88 /* PlugInTest.swift */; };
 		EE333CD0203B24410052EB88 /* FactoryBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = EE333CCD203B23CA0052EB88 /* FactoryBridge.m */; };
-		EE333CD5203B2C130052EB88 /* PancakeFactory.c in Sources */ = {isa = PBXBuildFile; fileRef = EE333CAB203AE3880052EB88 /* PancakeFactory.c */; };
+		EE333CD5203B2C130052EB88 /* PancakeFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE333CAB203AE3880052EB88 /* PancakeFactory.cpp */; };
 		EE333CD8203B2C130052EB88 /* Pancake.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE333CC4203AF9A00052EB88 /* Pancake.framework */; };
 		EE333CE3203B33FF0052EB88 /* Pancake.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EE333CC4203AF9A00052EB88 /* Pancake.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EE333CE5203B340F0052EB88 /* Pancake.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EE333CC4203AF9A00052EB88 /* Pancake.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -48,7 +48,7 @@
 		EE333CA2203AE3880052EB88 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE333CA4203AE3880052EB88 /* PancakeFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PancakeFactory.h; sourceTree = "<group>"; };
 		EE333CAA203AE3880052EB88 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EE333CAB203AE3880052EB88 /* PancakeFactory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PancakeFactory.c; sourceTree = "<group>"; };
+		EE333CAB203AE3880052EB88 /* PancakeFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PancakeFactory.cpp; sourceTree = "<group>"; };
 		EE333CAC203AE3880052EB88 /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		EE333CB8203AE5BA0052EB88 /* SampleDriverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleDriverTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE333CC4203AF9A00052EB88 /* Pancake.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pancake.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,7 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				EE333CA4203AE3880052EB88 /* PancakeFactory.h */,
-				EE333CAB203AE3880052EB88 /* PancakeFactory.c */,
+				EE333CAB203AE3880052EB88 /* PancakeFactory.cpp */,
 			);
 			path = "C Example";
 			sourceTree = "<group>";
@@ -347,7 +347,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE333CD5203B2C130052EB88 /* PancakeFactory.c in Sources */,
+				EE333CD5203B2C130052EB88 /* PancakeFactory.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
