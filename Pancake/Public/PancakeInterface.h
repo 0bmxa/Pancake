@@ -12,6 +12,6 @@
 #include "PancakeConfiguration.h"
 
 void PancakeSetupSharedInstance(PancakeConfiguration *config);
-void *PancakeDriverReference;
+extern void *PancakeDriverReference;
 
 #endif  // PANCAKE_PANCAKEINTERFACE_H_

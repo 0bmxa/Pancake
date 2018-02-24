@@ -11,6 +11,7 @@
 #import <Foundation/Foundation.h>
 #import <Pancake/Pancake-Swift.h>
 
+void *PancakeDriverReference;
 void PancakeSetupSharedInstance(PancakeConfiguration *config)
 {
     [Pancake setupSharedInstance:config];

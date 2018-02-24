@@ -27,8 +27,11 @@ class PancakeObjCBridge: NSObject {
             DeviceConfiguration(from: device)
         }
 
+        // Get setup callback pointer
+        let setupCallback = config.pointee.signalProcessorSetup
+
         // Create pancake config struct & setup pancake
-        let config = Configuration(devices: devices)
+        let config = Configuration(devices: devices, signalProcessorSetup: setupCallback)
         Pancake.setupSharedInstance(configuration: config)
     }
 
