@@ -56,5 +56,13 @@ extension DeviceConfiguration {
         let formats      = Array(UnsafeMutableBufferPointer(start: config.supportedFormats, count: Int(config.numberOfSupportedFormats)))
 
         self.init(manufacturer: manufacturer, name: name, UID: UID, supportedFormats: formats)
+
+        if let callbackWithPointer: PointerProcessingCallback = config.processingCallback {
+            let callbackWithBuffer: BufferProcessingCallback = {
+                guard let pointer = $0.baseAddress else { return }
+                callbackWithPointer(pointer, $1)
+            }
+            self.processingCallback = callbackWithBuffer
+        }
     }
 }

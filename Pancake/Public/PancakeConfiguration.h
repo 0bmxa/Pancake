@@ -10,12 +10,14 @@
 #define PANCAKE_PANCAKECONFIGURATION_H_
 
 #include <CoreAudio/CoreAudioTypes.h>
+#include <CoreAudio/AudioServerPlugIn.h>
 #include <CoreFoundation/CoreFoundation.h>
 
 struct PancakeDeviceConfiguration {
     CFStringRef __nullable manufacturer;
     CFStringRef __nonnull name;
     CFStringRef __nonnull UID;
+    void (*__nullable processingCallback)(Float32 *__nonnull, AudioServerPlugInIOCycleInfo);
     uint numberOfSupportedFormats;
     AudioStreamBasicDescription *__nullable supportedFormats;
 };
@@ -142,3 +144,4 @@ AudioStreamBasicDescription CreateFloat32HardwareASBD(Float64 sampleRate,
 #endif
 
 #endif  // PANCAKE_PANCAKECONFIGURATION_H_
+

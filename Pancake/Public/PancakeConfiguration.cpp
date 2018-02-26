@@ -68,6 +68,7 @@ PancakeDeviceConfiguration *__nullable CreatePancakeDeviceConfig(CFStringRef __n
     deviceConfig->manufacturer = manufacturer;
     deviceConfig->name = name;
     deviceConfig->UID = UID;
+    deviceConfig->processingCallback = NULL;
     deviceConfig->numberOfSupportedFormats = 0;
     deviceConfig->supportedFormats = NULL;
     
