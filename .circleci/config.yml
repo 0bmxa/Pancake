@@ -29,9 +29,10 @@ jobs:
                 name: 'Test Pancake'
                 command: |
                     xcodebuild \
-                        clean \
-                        test -scheme 'Pancake' \
-                            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO \
+                        clean test \
+                        -workspace 'Pancake.xcworkspace' \
+                        -scheme 'Pancake' \
+                        CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO \
                     | xcpretty \
                         --color \
                         --report junit \
@@ -41,9 +42,10 @@ jobs:
                 name: 'Test SampleDriver'
                 command: |
                     xcodebuild \
-                        clean \
-                        test -scheme 'SampleDriver via launchd' \
-                            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO \
+                        clean test \
+                        -workspace 'Pancake.xcworkspace' \
+                        -scheme 'SampleDriver via launchd' \
+                        CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO \
                     | xcpretty \
                         --color \
                         --report junit \
