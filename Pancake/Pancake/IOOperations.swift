@@ -93,7 +93,7 @@ extension Pancake {
 
         // Execute IO operation on device
         do {
-            try device.beginIO(operation: operation, numberOfFrames: Int(IOBufferFrameSize), cycle: IOCycleInfo)
+            try device.beginCycle(operation: operation, numberOfFrames: Int(IOBufferFrameSize), cycleInfo: IOCycleInfo)
         } catch {
             return (error as! PancakeObjectPropertyQueryError).status
         }
@@ -138,7 +138,7 @@ extension Pancake {
 
         // Execute IO operation on device
         do {
-            try device.execute(operation: operation, streamObjectID: streamID, numberOfFrames: Int(IOBufferFrameSize), cycle: IOCycleInfo, buffer: mainBuffer)
+            try device.execute(operation: operation, streamID: streamID, numberOfFrames: Int(IOBufferFrameSize), cycle: IOCycleInfo, buffer: mainBuffer)
         } catch {
             return (error as! PancakeObjectPropertyQueryError).status
         }
@@ -173,7 +173,7 @@ extension Pancake {
 
         // Execute IO operation on device
         do {
-            try device.endIO(operation: operation, numberOfFrames: Int(IOBufferFrameSize), cycle: IOCycleInfo)
+            try device.endCycle(operation: operation, numberOfFrames: Int(IOBufferFrameSize), cycleInfo: IOCycleInfo)
         } catch {
             return (error as! PancakeObjectPropertyQueryError).status
         }

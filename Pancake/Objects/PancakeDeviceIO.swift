@@ -9,7 +9,10 @@
 import CoreAudio
 
 extension PancakeDevice {
-    /// Starts IO on the device.
+    /// Starts IO for a specific client.
+    /// This can take as long as necessary to start IO or indicate failure.
+    ///
+    /// - Throws: An error indicating whether the action is curretthat no further IO is possible.
     internal func startIO() throws {
         guard !self.IOCount.maxxedOut else {
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.illegalOperation)
@@ -17,30 +20,29 @@ extension PancakeDevice {
 
         // Start timing
         if self.IOCount.value == 0 {
-            self.cycleCount.value    = 0
+            self.cycleCount.value = 0
             self.referenceHostTime.value = mach_absolute_time()
         }
-
         self.IOCount.increment()
     }
 
 
-    /// Stops IO on the device.
+    /// Starts IO for a specific client.
+    ///
+    /// - Throws: An error indicating that no further IO is possible.
     internal func stopIO() throws {
         guard self.IOCount.value > 0 else {
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.illegalOperation)
         }
-        self.IOCount.decrement()
 
-//        if self.IOCount.value == 0 {
-//            // workaround to clear the buffer
-//            let frames = Int(self.configuration.ringBuffer.frames)
-//            self.configuration.ringBuffer.update(frames: frames)
-//        }
+        // Decrements the IO count
+        self.IOCount.decrement()
     }
 
 
     /// Calculates sample & host time of the current cycle.
+    ///
+    /// - Returns: A triple containing the current sample time, host time, and timeline seed.
     internal func zeroTimeStamp() -> (sampleTime: Float64, hostTime: UInt64, timelineSeed: UInt64) {
         let ticksPerRingBuffer = UInt64(self.configuration.ticksPerRingBuffer)
 
@@ -64,6 +66,13 @@ extension PancakeDevice {
         return (sampleTime: sampleTime, hostTime: hostTime, timelineSeed: timelineSeed)
     }
 
+
+    /// Determines wheter the requested operation is supported, and whether it
+    /// is an in-place operation or not.
+    ///
+    /// - Parameter operation: The operation in question.
+    /// - Returns: A tuple of two booleans indicating wheter the operation is
+    ///    supported and is an in-place operation or not, respectively.
     func supports(operation: AudioServerPlugInIOOperation) -> (supported: Bool, isInPlaceOperation: Bool) {
         switch operation {
         case .thread,
@@ -71,14 +80,6 @@ extension PancakeDevice {
              .processOutput,
              .writeMix:
             return (supported: true, isInPlaceOperation: true)
-
-//        case .readInput,
-//             .writeMix:
-//            return (supported: true, isInPlaceOperation: true)
-//            
-//        case .thread,
-//             .processOutput:
-//             return (supported: false, isInPlaceOperation: true)
 
         case .cycle,
              .convertInput,
@@ -90,7 +91,14 @@ extension PancakeDevice {
         }
     }
 
-    func beginIO(operation: AudioServerPlugInIOOperation, numberOfFrames: Int, cycle: AudioServerPlugInIOCycleInfo) throws {
+
+    /// Informs that the host is about to begin a phase of the IO cycle.
+    ///
+    /// - Parameters:
+    ///   - operation: The operation being performed shortly.
+    ///   - numberOfFrames: The number of frames that will be processed.
+    ///   - cycle: Details about the current IO cycle.
+    func beginCycle(operation: AudioServerPlugInIOOperation, numberOfFrames: Int, cycleInfo: AudioServerPlugInIOCycleInfo) {
         guard let startIOCallback = self.configuration.startIOCallback else {
             assertionFailure()
             return
@@ -99,7 +107,14 @@ extension PancakeDevice {
         startIOCallback(sampleRate, UInt32(numberOfFrames))
     }
 
-    func endIO(operation: AudioServerPlugInIOOperation, numberOfFrames: Int, cycle: AudioServerPlugInIOCycleInfo) throws {
+
+    /// Informs that the host is about to end a phase of the IO cycle.
+    ///
+    /// - Parameters:
+    ///   - operation: The operation which has been performed.
+    ///   - numberOfFrames: The number of frames that have been processed.
+    ///   - cycle: Details about the current IO cycle.
+    func endCycle(operation: AudioServerPlugInIOOperation, numberOfFrames: Int, cycleInfo: AudioServerPlugInIOCycleInfo) {
         guard let stopIOCallback = self.configuration.stopIOCallback else {
             assertionFailure()
             return
@@ -108,11 +123,21 @@ extension PancakeDevice {
         stopIOCallback(sampleRate, UInt32(numberOfFrames))
     }
 
-    func execute(operation: AudioServerPlugInIOOperation, streamObjectID: AudioObjectID, numberOfFrames: Int, cycle: AudioServerPlugInIOCycleInfo, buffer: UnsafeMutableRawPointer) throws {
-        let stream = self.streams.first { $0.objectID == streamObjectID }
+
+    /// Performs an IO operation for a particular stream.
+    ///
+    /// - Parameters:
+    ///   - operation: The operation to be performed.
+    ///   - streamObjectID: The ID of the stream whose data is being processed.
+    ///   - numberOfFrames: The number of frames that have been processed.
+    ///   - cycle: Details about the current IO cycle.
+    ///   - buffer: The sample buffer for the operation.
+    /// - Throws: An error indicating why the operation failed.
+    func execute(operation: AudioServerPlugInIOOperation, streamID: AudioObjectID, numberOfFrames: Int, cycle: AudioServerPlugInIOCycleInfo, buffer: UnsafeMutableRawPointer) throws {
+        let stream = self.streams.first { $0.objectID == streamID }
         guard stream != nil else {
             assertionFailure()
-            throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.illegalOperation)
+            throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.badStream)
         }
 
         let ringBuffer = self.configuration.ringBuffer
