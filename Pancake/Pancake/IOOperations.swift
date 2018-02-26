@@ -91,12 +91,8 @@ extension Pancake {
             return PancakeAudioHardwareError.illegalOperation
         }
 
-        // Execute IO operation on device
-        do {
-            try device.beginCycle(operation: operation, numberOfFrames: Int(IOBufferFrameSize), cycleInfo: IOCycleInfo)
-        } catch {
-            return (error as! PancakeObjectPropertyQueryError).status
-        }
+        // Inform device
+        device.beginCycle(operation: operation, numberOfFrames: Int(IOBufferFrameSize), cycleInfo: IOCycleInfo)
 
         return PancakeAudioHardwareError.noError
     }
@@ -171,12 +167,8 @@ extension Pancake {
             return PancakeAudioHardwareError.illegalOperation
         }
 
-        // Execute IO operation on device
-        do {
-            try device.endCycle(operation: operation, numberOfFrames: Int(IOBufferFrameSize), cycleInfo: IOCycleInfo)
-        } catch {
-            return (error as! PancakeObjectPropertyQueryError).status
-        }
+        // Inform device
+        device.endCycle(operation: operation, numberOfFrames: Int(IOBufferFrameSize), cycleInfo: IOCycleInfo)
 
         return PancakeAudioHardwareError.noError
     }
