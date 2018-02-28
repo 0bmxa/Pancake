@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0910"
+   LastUpgradeVersion = "0920"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -20,38 +20,23 @@
                ReferencedContainer = "container:SampleDriver.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EE333CB7203AE5BA0052EB88"
-               BuildableName = "SampleDriverTests.xctest"
-               BlueprintName = "SampleDriverTests"
-               ReferencedContainer = "container:SampleDriver.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Testing"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       language = ""
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EE69C3A21F30B69F00381315"
+            BlueprintIdentifier = "EE333C93203ADF840052EB88"
             BuildableName = "SampleDriver.driver"
-            BlueprintName = "SampleDriver"
-            ReferencedContainer = "container:Pancake.xcodeproj">
+            BlueprintName = "SampleDriver Swift"
+            ReferencedContainer = "container:SampleDriver.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -113,6 +98,15 @@
          runnableDebuggingMode = "0"
          FilePath = "/usr/sbin/coreaudiod">
       </PathRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "EE333C93203ADF840052EB88"
+            BuildableName = "SampleDriver.driver"
+            BlueprintName = "SampleDriver Swift"
+            ReferencedContainer = "container:SampleDriver.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

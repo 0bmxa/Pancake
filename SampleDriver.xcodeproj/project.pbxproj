@@ -9,13 +9,12 @@
 /* Begin PBXBuildFile section */
 		EE333CB3203AE3880052EB88 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE333CAC203AE3880052EB88 /* Factory.swift */; };
 		EE333CC3203AF9A00052EB88 /* Pancake.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE333CC4203AF9A00052EB88 /* Pancake.framework */; };
-		EE333CC5203B1BCA0052EB88 /* FactoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE333CA0203AE3880052EB88 /* FactoryTest.swift */; };
-		EE333CC6203B1BCA0052EB88 /* PlugInTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE333CA1203AE3880052EB88 /* PlugInTest.swift */; };
 		EE333CD0203B24410052EB88 /* FactoryBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = EE333CCD203B23CA0052EB88 /* FactoryBridge.m */; };
 		EE333CD5203B2C130052EB88 /* PancakeFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE333CAB203AE3880052EB88 /* PancakeFactory.cpp */; };
 		EE333CD8203B2C130052EB88 /* Pancake.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE333CC4203AF9A00052EB88 /* Pancake.framework */; };
 		EE333CE3203B33FF0052EB88 /* Pancake.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EE333CC4203AF9A00052EB88 /* Pancake.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EE333CE5203B340F0052EB88 /* Pancake.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EE333CC4203AF9A00052EB88 /* Pancake.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EE3F514C2046E172005A3ECA /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3F514520456AA1005A3ECA /* CoreFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,19 +42,16 @@
 
 /* Begin PBXFileReference section */
 		EE333C94203ADF840052EB88 /* SampleDriver.driver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleDriver.driver; sourceTree = BUILT_PRODUCTS_DIR; };
-		EE333CA0203AE3880052EB88 /* FactoryTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryTest.swift; sourceTree = "<group>"; };
-		EE333CA1203AE3880052EB88 /* PlugInTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlugInTest.swift; sourceTree = "<group>"; };
-		EE333CA2203AE3880052EB88 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE333CA4203AE3880052EB88 /* PancakeFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PancakeFactory.h; sourceTree = "<group>"; };
 		EE333CAA203AE3880052EB88 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE333CAB203AE3880052EB88 /* PancakeFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PancakeFactory.cpp; sourceTree = "<group>"; };
 		EE333CAC203AE3880052EB88 /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
-		EE333CB8203AE5BA0052EB88 /* SampleDriverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleDriverTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE333CC4203AF9A00052EB88 /* Pancake.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pancake.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE333CCC203B23CA0052EB88 /* FactoryBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FactoryBridge.h; sourceTree = "<group>"; };
 		EE333CCD203B23CA0052EB88 /* FactoryBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FactoryBridge.m; sourceTree = "<group>"; };
 		EE333CDE203B2C130052EB88 /* SampleDriver.driver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleDriver.driver; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE333CE1203B2D9F0052EB88 /* DummyBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DummyBridgingHeader.h; sourceTree = "<group>"; };
+		EE3F514520456AA1005A3ECA /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,17 +63,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EE333CB5203AE5BA0052EB88 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		EE333CD7203B2C130052EB88 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE3F514C2046E172005A3ECA /* CoreFoundation.framework in Frameworks */,
 				EE333CD8203B2C130052EB88 /* Pancake.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -89,7 +79,6 @@
 			isa = PBXGroup;
 			children = (
 				EE333CA3203AE3880052EB88 /* SampleDriver */,
-				EE333C9F203AE3880052EB88 /* SampleDriverTests */,
 				EE333CC2203AF9A00052EB88 /* Frameworks */,
 				EE333C95203ADF840052EB88 /* Products */,
 			);
@@ -99,20 +88,9 @@
 			isa = PBXGroup;
 			children = (
 				EE333C94203ADF840052EB88 /* SampleDriver.driver */,
-				EE333CB8203AE5BA0052EB88 /* SampleDriverTests.xctest */,
 				EE333CDE203B2C130052EB88 /* SampleDriver.driver */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		EE333C9F203AE3880052EB88 /* SampleDriverTests */ = {
-			isa = PBXGroup;
-			children = (
-				EE333CA0203AE3880052EB88 /* FactoryTest.swift */,
-				EE333CA1203AE3880052EB88 /* PlugInTest.swift */,
-				EE333CA2203AE3880052EB88 /* Info.plist */,
-			);
-			path = SampleDriverTests;
 			sourceTree = "<group>";
 		};
 		EE333CA3203AE3880052EB88 /* SampleDriver */ = {
@@ -137,6 +115,7 @@
 		EE333CC2203AF9A00052EB88 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EE3F514520456AA1005A3ECA /* CoreFoundation.framework */,
 				EE333CC4203AF9A00052EB88 /* Pancake.framework */,
 			);
 			name = Frameworks;
@@ -191,23 +170,6 @@
 			productReference = EE333C94203ADF840052EB88 /* SampleDriver.driver */;
 			productType = "com.apple.product-type.bundle";
 		};
-		EE333CB7203AE5BA0052EB88 /* SampleDriverTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = EE333CBD203AE5BA0052EB88 /* Build configuration list for PBXNativeTarget "SampleDriverTests" */;
-			buildPhases = (
-				EE333CB4203AE5BA0052EB88 /* Sources */,
-				EE333CB5203AE5BA0052EB88 /* Frameworks */,
-				EE333CB6203AE5BA0052EB88 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = SampleDriverTests;
-			productName = SampleDriverTests;
-			productReference = EE333CB8203AE5BA0052EB88 /* SampleDriverTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		EE333CD1203B2C130052EB88 /* SampleDriver C */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE333CDA203B2C130052EB88 /* Build configuration list for PBXNativeTarget "SampleDriver C" */;
@@ -241,10 +203,6 @@
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Manual;
 					};
-					EE333CB7203AE5BA0052EB88 = {
-						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Automatic;
-					};
 					EE333CD1203B2C130052EB88 = {
 						ProvisioningStyle = Manual;
 					};
@@ -264,20 +222,12 @@
 			targets = (
 				EE333C93203ADF840052EB88 /* SampleDriver Swift */,
 				EE333CD1203B2C130052EB88 /* SampleDriver C */,
-				EE333CB7203AE5BA0052EB88 /* SampleDriverTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		EE333C92203ADF840052EB88 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EE333CB6203AE5BA0052EB88 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -331,15 +281,6 @@
 			files = (
 				EE333CD0203B24410052EB88 /* FactoryBridge.m in Sources */,
 				EE333CB3203AE3880052EB88 /* Factory.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EE333CB4203AE5BA0052EB88 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				EE333CC6203B1BCA0052EB88 /* PlugInTest.swift in Sources */,
-				EE333CC5203B1BCA0052EB88 /* FactoryTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,7 +404,6 @@
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEFINES_MODULE = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DEVELOPMENT_TEAM = JGMFM42JM6;
 				DSTROOT = "";
@@ -473,6 +413,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Audio/Plug-Ins/HAL";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks $(INSTALL_PATH)/$(CONTENTS_FOLDER_PATH)/Frameworks";
 				OTHER_CODE_SIGN_FLAGS = "--timestamp=none";
+				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.0bmxa.Pancake.SampleDriver;
 				PRODUCT_NAME = SampleDriver;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -480,6 +421,7 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "SampleDriver/Supporting Files/DummyBridgingHeader.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "SampleDriver-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = driver;
 			};
@@ -493,7 +435,6 @@
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEFINES_MODULE = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DEVELOPMENT_TEAM = JGMFM42JM6;
 				DSTROOT = "";
@@ -510,143 +451,9 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "SampleDriver/Supporting Files/DummyBridgingHeader.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "SampleDriver-Swift.h";
-				SWIFT_VERSION = 4.0;
-				WRAPPER_EXTENSION = driver;
-			};
-			name = Release;
-		};
-		EE333C9D203AE2860052EB88 /* Testing */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
-			};
-			name = Testing;
-		};
-		EE333C9E203AE2860052EB88 /* Testing */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
-				CODE_SIGN_STYLE = Manual;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEFINES_MODULE = YES;
-				DEPLOYMENT_LOCATION = YES;
-				DEVELOPMENT_TEAM = JGMFM42JM6;
-				DSTROOT = "";
-				INFOPLIST_FILE = "SampleDriver/Supporting Files/Info.plist";
-				INSTALL_GROUP = wheel;
-				INSTALL_OWNER = root;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Audio/Plug-Ins/HAL";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks $(INSTALL_PATH)/$(CONTENTS_FOLDER_PATH)/Frameworks";
-				OTHER_CODE_SIGN_FLAGS = "--timestamp=none";
-				PRODUCT_BUNDLE_IDENTIFIER = com.0bmxa.Pancake.SampleDriver;
-				PRODUCT_NAME = SampleDriver;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = NO;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "SampleDriver/Supporting Files/DummyBridgingHeader.h";
-				SWIFT_OBJC_INTERFACE_HEADER_NAME = "SampleDriver-Swift.h";
-				SWIFT_VERSION = 4.0;
-				WRAPPER_EXTENSION = driver;
-			};
-			name = Testing;
-		};
-		EE333CBE203AE5BA0052EB88 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JGMFM42JM6;
-				INFOPLIST_FILE = SampleDriverTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.0bmxa.Pancake.SampleDriverTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
-			};
-			name = Debug;
-		};
-		EE333CBF203AE5BA0052EB88 /* Testing */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JGMFM42JM6;
-				INFOPLIST_FILE = SampleDriverTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.0bmxa.Pancake.SampleDriverTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.0;
-			};
-			name = Testing;
-		};
-		EE333CC0203AE5BA0052EB88 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JGMFM42JM6;
-				INFOPLIST_FILE = SampleDriverTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.0bmxa.Pancake.SampleDriverTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
+				WRAPPER_EXTENSION = driver;
 			};
 			name = Release;
 		};
@@ -658,7 +465,6 @@
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEFINES_MODULE = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DEVELOPMENT_TEAM = JGMFM42JM6;
 				DSTROOT = "";
@@ -673,40 +479,9 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "SampleDriver/Supporting Files/DummyBridgingHeader.h";
-				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = driver;
 			};
 			name = Debug;
-		};
-		EE333CDC203B2C130052EB88 /* Testing */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
-				CODE_SIGN_STYLE = Manual;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEFINES_MODULE = YES;
-				DEPLOYMENT_LOCATION = YES;
-				DEVELOPMENT_TEAM = JGMFM42JM6;
-				DSTROOT = "";
-				INFOPLIST_FILE = "SampleDriver/Supporting Files/Info.plist";
-				INSTALL_GROUP = wheel;
-				INSTALL_OWNER = root;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Audio/Plug-Ins/HAL";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks $(INSTALL_PATH)/$(CONTENTS_FOLDER_PATH)/Frameworks";
-				OTHER_CODE_SIGN_FLAGS = "--timestamp=none";
-				PRODUCT_BUNDLE_IDENTIFIER = com.0bmxa.Pancake.SampleDriver;
-				PRODUCT_NAME = SampleDriver;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = NO;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "SampleDriver/Supporting Files/DummyBridgingHeader.h";
-				SWIFT_VERSION = 4.0;
-				WRAPPER_EXTENSION = driver;
-			};
-			name = Testing;
 		};
 		EE333CDD203B2C130052EB88 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -716,7 +491,6 @@
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEFINES_MODULE = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DEVELOPMENT_TEAM = JGMFM42JM6;
 				DSTROOT = "";
@@ -731,8 +505,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "SampleDriver/Supporting Files/DummyBridgingHeader.h";
-				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = driver;
 			};
 			name = Release;
@@ -744,7 +516,6 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EE333C98203ADF840052EB88 /* Debug */,
-				EE333C9D203AE2860052EB88 /* Testing */,
 				EE333C99203ADF840052EB88 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -754,18 +525,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EE333C9B203ADF840052EB88 /* Debug */,
-				EE333C9E203AE2860052EB88 /* Testing */,
 				EE333C9C203ADF840052EB88 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		EE333CBD203AE5BA0052EB88 /* Build configuration list for PBXNativeTarget "SampleDriverTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				EE333CBE203AE5BA0052EB88 /* Debug */,
-				EE333CBF203AE5BA0052EB88 /* Testing */,
-				EE333CC0203AE5BA0052EB88 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -774,7 +534,6 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EE333CDB203B2C130052EB88 /* Debug */,
-				EE333CDC203B2C130052EB88 /* Testing */,
 				EE333CDD203B2C130052EB88 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
