@@ -61,7 +61,7 @@ extension Pancake {
         let device = PancakeDevice(pancake: self, configuration: deviceConfig)
         self.audioObjects.add(device)
 
-        let channelCount = Int(deviceConfig.registeredFormat.mBitsPerChannel)
+        let channelCount = deviceConfig.registeredFormat.mBitsPerChannel
         let inputStream  = PancakeStream(pancake: self, direction: .input,  channelCount: channelCount)
         let outputStream = PancakeStream(pancake: self, direction: .output, channelCount: channelCount)
         self.audioObjects.add(inputStream, outputStream)

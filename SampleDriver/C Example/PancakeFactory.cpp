@@ -11,15 +11,29 @@
 #include <Pancake/Pancake.h>
 
 void setupCallback() {
-    printf("setup 🎉\n");
+    // The plugin is being instantiated. Do your general setup here.
 }
+
+void startIOCycle(double sampleRate, UInt32 frameCount) {
+    // A render cycle is about to begin. Prepare yourself for being ready to render.
+}
+
+void renderCallback(Float32 *__nonnull samples, UInt32 frameCount, UInt32 channelCount, AudioServerPlugInIOCycleInfo cycleInfo) {
+    // A render cycle is happening right now. Do your audio processing here.
+}
+
+void stopIOCycle(double sampleRate, UInt32 frameCount) {
+    // The render cycle just completed.
+}
+
+
+
 
 #define assureNonNULL(c) if (c == NULL)  {return NULL;}
 #define assureTrue(c)    if (c == false) {return NULL;}
 
 // Forwards the call to the Swift implementation only.
 void *Pancake_Create(CFAllocatorRef allocator, CFUUIDRef requestedTypeUUID) {
-    
     // We can only create AudioServer plugins
     if (!CFEqual(requestedTypeUUID, kAudioServerPlugInTypeUUID)) {
         return NULL;
@@ -39,6 +53,12 @@ void *Pancake_Create(CFAllocatorRef allocator, CFUUIDRef requestedTypeUUID) {
     assureTrue(PancakeDeviceConfigAddFormat(deviceConfig, format44));
     assureTrue(PancakeDeviceConfigAddFormat(deviceConfig, format48));
     assureTrue(PancakeDeviceConfigAddFormat(deviceConfig, format96));
+
+    // Add render callback
+    deviceConfig->processingCallback = renderCallback;
+    deviceConfig->startIO = startIOCycle;
+    deviceConfig->stopIO = stopIOCycle;
+
 
     // Create a pancake config
     PancakeConfiguration *config = CreatePancakeConfig(setupCallback);

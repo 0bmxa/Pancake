@@ -21,7 +21,7 @@ class PancakeFactory: NSObject {
 
         guard UUID(rawValue: requestedTypeUUID) == kUUID.audioServerPlugInTypeUUID else { return nil }
 
-        // Pancake configuration
+        // Create one device
         let device = DeviceConfiguration(
             manufacturer: "Pancake Manufacturer",
             name: "Pancake Framework",
@@ -33,26 +33,33 @@ class PancakeFactory: NSObject {
             ]
         )
 
-        // Option 1: Setup w/o processing (loopback only)
-        let config = Configuration(devices: [device])
+        device.processingCallback = renderCallback
+        device.startIOCallback = startIOCycle
+        device.stopIOCallback = stopIOCycle
 
 
-        // Option 2: Setup with processing
-        /*
-        let signalProcessorSetup: () -> Void = {
-            // Setup your signal processor here
-        }
-        let processingCallback = { (buffer: UnsafeMutableBufferPointer<Float32>, cycle: AudioServerPlugInIOCycleInfo) in
-            // Do your audio processing here
-        }
-        device.processingCallback = processingCallback
-        let config = Configuration(devices: [device], signalProcessorSetup: signalProcessorSetup)
-        */
-
+        // Create a configuration object
+        let config = Configuration(devices: [device], pluginSetupCallback: setupCallback)
 
         // Configure the shared Pancake plugin instance
         Pancake.setupSharedInstance(configuration: config)
 
         return UnsafeMutableRawPointer(Pancake.driverReference)
     }
+}
+
+func setupCallback() {
+    // The plugin is being instantiated. Do your general setup here.
+}
+
+func startIOCycle(sampleRate: Double, frameCount: UInt32) {
+    // A render cycle is about to begin. Prepare yourself for being ready to render.
+}
+
+func renderCallback(samples: UnsafeMutablePointer<Float32>, frameCount: UInt32, channelCount: UInt32, cycleInfo: AudioServerPlugInIOCycleInfo) {
+    // A render cycle is happening right now.
+}
+
+func stopIOCycle(sampleRate: Double, frameCount: UInt32) {
+    // The render cycle just completed.
 }

@@ -27,12 +27,12 @@ class PancakeObjCBridge: NSObject {
             DeviceConfiguration(from: device)
         }
 
-        // Get setup callback pointer
-        let setupCallback = config.pointee.signalProcessorSetup
+        // Create pancake config struct
+        let setupCallback = config.pointee.setupCallback
+        let configuration = Configuration(devices: devices, pluginSetupCallback: setupCallback)
 
-        // Create pancake config struct & setup pancake
-        let config = Configuration(devices: devices, signalProcessorSetup: setupCallback)
-        Pancake.setupSharedInstance(configuration: config)
+        // Setup pancake
+        Pancake.setupSharedInstance(configuration: configuration)
     }
 
     @objc public static
@@ -44,29 +44,23 @@ class PancakeObjCBridge: NSObject {
 
 
 extension DeviceConfiguration {
+    /// Initializes a DeviceConfiguration object from a C PancakeDeviceConfiguration struct.
+    /// This copies all values and therefore does not influence ownership of the original struct.
     convenience init?(from config: UnsafeMutablePointer<PancakeDeviceConfiguration>?) {
         guard let config = config?.pointee else { return nil }
 
         var manufacturer: String? = nil
-        if let man = config.manufacturer?.takeUnretainedValue() {
-            manufacturer = String(man)
+        if let _manufacturer = config.manufacturer?.takeUnretainedValue() {
+            manufacturer = String(_manufacturer)
         }
-        let name         = String(config.name.takeUnretainedValue())
-        let UID          = String(config.UID.takeUnretainedValue())
-        let formats      = Array(UnsafeMutableBufferPointer(start: config.supportedFormats, count: Int(config.numberOfSupportedFormats)))
+        let name    = String(config.name.takeUnretainedValue())
+        let UID     = String(config.UID.takeUnretainedValue())
+        let formats = Array(UnsafeMutableBufferPointer(start: config.supportedFormats, count: Int(config.numberOfSupportedFormats)))
 
         self.init(manufacturer: manufacturer, name: name, UID: UID, supportedFormats: formats)
 
-        if let pointerProcessingCallback = config.processingCallback {
-            let bufferProcessingCallback = { (buffer: UnsafeMutableBufferPointer<Float32>, frameCount: UInt32, cycleInfo: AudioServerPlugInIOCycleInfo) in
-                guard let pointer = buffer.baseAddress else { return }
-                pointerProcessingCallback(pointer, frameCount, cycleInfo)
-            }
-            self.processingCallback = bufferProcessingCallback
-        }
-
-        self.startIOCallback = config.startIO
-        self.stopIOCallback  = config.stopIO
-
+        self.processingCallback = config.processingCallback
+        self.startIOCallback    = config.startIO
+        self.stopIOCallback     = config.stopIO
     }
 }

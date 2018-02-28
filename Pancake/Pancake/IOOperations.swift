@@ -121,7 +121,7 @@ extension Pancake {
     ///       operation will not be handled in place, the results of the
     ///       operation must end up in this buffer.
     /// - Returns: An OSStatus indicating success or failure.
-    func doIOOperation(deviceID: AudioDeviceID, clientID: UInt32, streamID: AudioStreamID, operation: AudioServerPlugInIOOperation?, IOBufferFrameSize: UInt32, IOCycleInfo: AudioServerPlugInIOCycleInfo, mainBuffer: UnsafeMutableRawPointer?, secondaryBuffer: UnsafeMutableRawPointer?) -> OSStatus {
+    func doIOOperation(deviceID: AudioDeviceID, clientID: UInt32, streamID: AudioStreamID, operation: AudioServerPlugInIOOperation?, bufferFrameSize: UInt32, cycleInfo: AudioServerPlugInIOCycleInfo, mainBuffer: UnsafeMutableRawPointer?, secondaryBuffer: UnsafeMutableRawPointer?) -> OSStatus {
         guard let device = self.audioObjects[deviceID] as? PancakeDevice else {
             return PancakeAudioHardwareError.badObject
         }
@@ -134,7 +134,7 @@ extension Pancake {
 
         // Execute IO operation on device
         do {
-            try device.execute(operation: operation, streamID: streamID, numberOfFrames: Int(IOBufferFrameSize), cycle: IOCycleInfo, buffer: mainBuffer)
+            try device.execute(operation: operation, streamID: streamID, numberOfFrames: bufferFrameSize, cycle: cycleInfo, buffer: mainBuffer)
         } catch {
             return (error as! PancakeObjectPropertyQueryError).status
         }

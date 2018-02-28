@@ -6,8 +6,8 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-#ifndef PANCAKE_PANCAKE_H_
-#define PANCAKE_PANCAKE_H_
+#ifndef PANCAKE_PUBLIC_PANCAKE_H_
+#define PANCAKE_PUBLIC_PANCAKE_H_
 
 // #include <Foundation/Foundation.h>
 //
@@ -20,4 +20,4 @@
 
 #include "PancakeInterface.h"
 
-#endif  // PANCAKE_PANCAKE_H_
+#endif  // PANCAKE_PUBLIC_PANCAKE_H_

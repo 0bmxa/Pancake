@@ -14,20 +14,22 @@ public struct Configuration {
     /// A list of devices that should be created by Pancake.
     let devices: [DeviceConfiguration]
 
-    /// A callback function which is called when it's time to set up the signal
-    /// processor, e.g. when the driver is being set up.
-    let signalProcessorSetup: (() -> Void)?
+    /// A callback function which is called when the plugin is being set up,
+    //// i.e. when it's time to set up the audio processor.
+    let pluginSetupCallback: (() -> Void)?
 
     /// Creates an instance of Configuration.
     ///
+    /// **Note:** Currently only the first device is created. Any additional
+    /// device configurations are ignored.
+    ///
     /// - Parameters:
     ///   - devices: The list of devices that should be created.
-    ///              NOTE: Currently only the first device is used. The others
-    ///                    are ignored.
-    ///   - signalProcessorSetup: The signal processor setup callback.
-    public init(devices: [DeviceConfiguration], signalProcessorSetup: (() -> Void)? = nil) {
+    ///   - pluginSetupCallback: A callback informing that the plugin is being
+    ///     set up. It is okay if it takes some time to return.
+    public init(devices: [DeviceConfiguration], pluginSetupCallback: (() -> Void)? = nil) {
         self.devices = devices
-        self.signalProcessorSetup = signalProcessorSetup
+        self.pluginSetupCallback = pluginSetupCallback
     }
 }
 
@@ -35,11 +37,11 @@ public struct Configuration {
 internal struct PancakeInternalConfiguration {
     // Stuff from user provided Configuration
     let devices: [DeviceConfiguration]
-    let signalProcessorSetup: (() -> Void)?
+    let pluginSetupCallback: (() -> Void)?
 
     init(from configuration: Configuration) {
         self.devices = configuration.devices
-        self.signalProcessorSetup = configuration.signalProcessorSetup
+        self.pluginSetupCallback = configuration.pluginSetupCallback
     }
 }
 
@@ -69,9 +71,10 @@ public class DeviceConfiguration {
     ///
     /// **Parameters:**
     ///   - buffer: A pointer to the buffer with audio data to be processed
-    ///   - frameCount: The size of the buffer
+    ///   - frameCount: The number of frames in the buffer.
+    ///   - channelCount: The number of channels the buffer.
     ///   - cycle: Details about the current IO cycle.
-    public var processingCallback: ((UnsafeMutableBufferPointer<Float32>, UInt32, AudioServerPlugInIOCycleInfo) -> Void)?
+    public var processingCallback: ((UnsafeMutablePointer<Float32>, UInt32, UInt32, AudioServerPlugInIOCycleInfo) -> Void)?
 
     // sampleRate, frameCount
     public var startIOCallback: ((Float64, UInt32) -> Void)?

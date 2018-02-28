@@ -34,11 +34,11 @@ class RingBuffer {
         self.buffer = realloc(self.buffer, Int(self.byteSize))
     }
 
-    func fill(from srcBuffer: UnsafeMutableRawPointer, fromOffset frameOffset: Int, numberOfFrames frameCount: Int) {
+    func fill(from srcBuffer: UnsafeMutableRawPointer, fromOffset frameOffset: UInt32, numberOfFrames frameCount: UInt32) {
         // Translate frames to bytes
-        let bytesPerFrame = Int(self.activeFormat.mBytesPerFrame)
-        let startByte = frameOffset * bytesPerFrame
-        let bytesToCopy = frameCount * bytesPerFrame
+        let bytesPerFrame = self.activeFormat.mBytesPerFrame
+        let startByte = Int(frameOffset * bytesPerFrame)
+        let bytesToCopy = Int(frameCount * bytesPerFrame)
 
         guard bytesToCopy <= self.byteSize else { assertionFailure(); return }
 
@@ -60,11 +60,11 @@ class RingBuffer {
     }
 
 
-    func copy(to destBuffer: UnsafeMutableRawPointer, fromOffset frameOffset: Int, numberOfFrames frameCount: Int) {
+    func copy(to destBuffer: UnsafeMutableRawPointer, fromOffset frameOffset: UInt32, numberOfFrames frameCount: UInt32) {
         // Translate frames to bytes
         let bytesPerFrame = Int(self.activeFormat.mBytesPerFrame)
-        let startByte = frameOffset * bytesPerFrame
-        let bytesToCopy = frameCount * bytesPerFrame
+        let startByte = Int(frameOffset) * bytesPerFrame
+        let bytesToCopy = Int(frameCount) * bytesPerFrame
 
         guard bytesToCopy <= self.byteSize else { assertionFailure(); return }
 
