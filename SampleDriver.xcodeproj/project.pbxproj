@@ -256,7 +256,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/bin/env cpplint.py ./${TARGET_NAME}/*";
+			shellScript = "if ! hash cpplint.py 2>/dev/null; then\n    echo 'WARNING: cpplint not found.'\n    exit 0\nfi\n\n./Scripts/target_files.rb \"${PROJECT_FILE_PATH}\" \"${TARGET_NAME}\" 'cpp' | xargs -I _ /usr/bin/env cpplint.py _";
 		};
 		EE333CD2203B2C130052EB88 /* cpplint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -270,7 +270,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/bin/env cpplint.py ./${TARGET_NAME}/*";
+			shellScript = "if ! hash cpplint.py 2>/dev/null; then\n    echo 'WARNING: cpplint not found.'\n    exit 0\nfi\n\n./Scripts/target_files.rb \"${PROJECT_FILE_PATH}\" \"${TARGET_NAME}\" 'cpp' | xargs -I _ /usr/bin/env cpplint.py _";
 		};
 /* End PBXShellScriptBuildPhase section */
 

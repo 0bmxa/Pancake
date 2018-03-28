@@ -6,12 +6,12 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-#ifndef PANCAKE_PANCAKEINTERFACE_H_
-#define PANCAKE_PANCAKEINTERFACE_H_
+#ifndef PANCAKE_PUBLIC_PANCAKEINTERFACE_H_
+#define PANCAKE_PUBLIC_PANCAKEINTERFACE_H_
 
 #include "PancakeConfiguration.h"
 
 void PancakeSetupSharedInstance(PancakeConfiguration *config);
 extern void *PancakeDriverReference;
 
-#endif  // PANCAKE_PANCAKEINTERFACE_H_
+#endif  // PANCAKE_PUBLIC_PANCAKEINTERFACE_H_

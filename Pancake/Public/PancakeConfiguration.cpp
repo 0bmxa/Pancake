@@ -10,21 +10,19 @@
 
 #pragma mark - Driver configuration
 
-PancakeConfiguration *__nullable CreatePancakeConfig(void (*__nullable signalProcessorSetup)(void))
-{
+PancakeConfiguration *__nullable CreatePancakeConfig(void (*__nullable setupCallback)(void)) {
     size_t configSize = sizeof(PancakeConfiguration);
-    PancakeConfiguration *config = (PancakeConfiguration *)malloc(configSize);
+    void *storage = malloc(configSize);
+    PancakeConfiguration *config = reinterpret_cast<PancakeConfiguration *>(storage);
     if (config == NULL) { return NULL; }
-    config->signalProcessorSetup = signalProcessorSetup;
+    config->setupCallback = setupCallback;
     config->numberOfDevices = 0;
     config->devices = NULL;
-    
+
     return config;
 }
 
-bool PancakeConfigAddDevice(PancakeConfiguration *config,
-                            PancakeDeviceConfiguration *device)
-{
+bool PancakeConfigAddDevice(PancakeConfiguration *config, PancakeDeviceConfiguration *device) {
     if (config == NULL) { return false; }
 
     uint numberOfDevices = config->numberOfDevices + 1;
@@ -32,10 +30,12 @@ bool PancakeConfigAddDevice(PancakeConfiguration *config,
 
     // Alloc or grow storage for the new device pointer
     if (config->devices == NULL) {
-        config->devices = (PancakeDeviceConfiguration **)malloc(devicePointerSize);
+        void *storage = malloc(devicePointerSize);
+        config->devices = reinterpret_cast<PancakeDeviceConfiguration **>(storage);
     } else {
         size_t sizeOfAllDevicePointers = numberOfDevices * devicePointerSize;
-        config->devices = (PancakeDeviceConfiguration **)realloc(config->devices, sizeOfAllDevicePointers);
+        void *storage = realloc(config->devices, sizeOfAllDevicePointers);
+        config->devices = reinterpret_cast<PancakeDeviceConfiguration **>(storage);
     }
     if (config->devices == NULL) { return false; }
 
@@ -46,11 +46,15 @@ bool PancakeConfigAddDevice(PancakeConfiguration *config,
     return true;
 }
 
-void ReleasePancakeConfig(PancakeConfiguration **config)
-{
-    if(*config == NULL) { return; }
+void ReleasePancakeConfig(PancakeConfiguration **config) {
+    if (*config == NULL) { return; }
 
-    free(*config);
+    if ((*config)->devices != nullptr) {
+        delete (*config)->devices;
+        (*config)->devices = NULL;
+    }
+
+    delete *config;
     *config = NULL;
 }
 
@@ -58,59 +62,50 @@ void ReleasePancakeConfig(PancakeConfiguration **config)
 
 #pragma mark - Device configuration
 
-PancakeDeviceConfiguration *__nullable CreatePancakeDeviceConfig(CFStringRef __nullable manufacturer,
-                                                                 CFStringRef __nonnull name,
-                                                                 CFStringRef __nonnull UID)
-{
-    size_t deviceConfigSize = sizeof(PancakeDeviceConfiguration);
-    PancakeDeviceConfiguration *deviceConfig = (PancakeDeviceConfiguration *)malloc(deviceConfigSize);
+PancakeDeviceConfiguration *__nullable CreatePancakeDeviceConfig(CFStringRef __nullable manufacturer, CFStringRef __nonnull name, CFStringRef __nonnull UID) {
+    auto deviceConfig = new PancakeDeviceConfiguration;
     if (deviceConfig == NULL) { return NULL; }
+
     deviceConfig->manufacturer = manufacturer;
     deviceConfig->name = name;
     deviceConfig->UID = UID;
     deviceConfig->processingCallback = NULL;
+    deviceConfig->startIO = NULL;
+    deviceConfig->stopIO = NULL;
     deviceConfig->numberOfSupportedFormats = 0;
     deviceConfig->supportedFormats = NULL;
-    
+
     return deviceConfig;
 }
 
-bool PancakeDeviceConfigAddFormat(PancakeDeviceConfiguration *__nonnull deviceConfig,
-                                  AudioStreamBasicDescription format)
-{
-    if(deviceConfig == NULL) { return false; }
-    
+bool PancakeDeviceConfigAddFormat(PancakeDeviceConfiguration *__nonnull deviceConfig, AudioStreamBasicDescription format) {
+    if (deviceConfig == NULL) { return false; }
+
     uint numberOfFormats = deviceConfig->numberOfSupportedFormats + 1;
     size_t ASBDsize = sizeof(AudioStreamBasicDescription);
-    
+
     // Alloc or grow storage for the new ASBD
-    if(deviceConfig->supportedFormats == NULL) {
-        deviceConfig->supportedFormats = (AudioStreamBasicDescription *)malloc(ASBDsize);
+    if (deviceConfig->supportedFormats == NULL) {
+        void *storage = malloc(ASBDsize);
+        deviceConfig->supportedFormats = reinterpret_cast<AudioStreamBasicDescription *>(storage);
     } else {
         size_t sizeOfAllFormats = numberOfFormats * ASBDsize;
-        deviceConfig->supportedFormats = (AudioStreamBasicDescription *)realloc(deviceConfig->supportedFormats, sizeOfAllFormats);
+        void *storage = realloc(deviceConfig->supportedFormats, sizeOfAllFormats);
+        deviceConfig->supportedFormats = reinterpret_cast<AudioStreamBasicDescription *>(storage);
     }
     if (deviceConfig->supportedFormats == NULL) { return false; }
-    
-    
+
+
     // Copy ASBD into new place
     deviceConfig->supportedFormats[numberOfFormats-1] = format;
-    
+
     deviceConfig->numberOfSupportedFormats = numberOfFormats;
     return true;
 }
 
-void ReleasePancakeDeviceConfig(PancakeDeviceConfiguration **deviceConfig)
-{
-    if(*deviceConfig == NULL) { return; }
-    
-    /*
-    if((*deviceConfig)->supportedFormats != NULL) {
-        free((*deviceConfig)->supportedFormats);
-        (*deviceConfig)->supportedFormats = NULL;
-    }
-    */
-    
+void ReleasePancakeDeviceConfig(PancakeDeviceConfiguration **deviceConfig) {
+    if (*deviceConfig == NULL) { return; }
+
     free(*deviceConfig);
     *deviceConfig = NULL;
 }
@@ -120,11 +115,7 @@ void ReleasePancakeDeviceConfig(PancakeDeviceConfiguration **deviceConfig)
 
 #pragma mark - ASBD Helpers
 
-AudioStreamBasicDescription CreateHardwareASBD(Float64 sampleRate,
-                                               UInt32 channelCount,
-                                               AudioFormatFlags formatFlags,
-                                               size_t formatSize)
-{
+AudioStreamBasicDescription CreateHardwareASBD(Float64 sampleRate, UInt32 channelCount, AudioFormatFlags formatFlags, size_t formatSize) {
     AudioStreamBasicDescription asbd = {0};
     asbd.mSampleRate       = sampleRate;
     asbd.mFormatID         = kAudioFormatLinearPCM;
@@ -138,9 +129,7 @@ AudioStreamBasicDescription CreateHardwareASBD(Float64 sampleRate,
     return asbd;
 }
 
-AudioStreamBasicDescription CreateFloat32HardwareASBD(Float64 sampleRate,
-                                                      UInt32 channelCount)
-{
+AudioStreamBasicDescription CreateFloat32HardwareASBD(Float64 sampleRate, UInt32 channelCount) {
     AudioFormatFlags flags = kAudioFormatFlagsNativeEndian |
                              kAudioFormatFlagIsPacked |
                              kAudioFormatFlagIsFloat;

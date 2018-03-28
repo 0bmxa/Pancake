@@ -6,8 +6,8 @@
 //  Copyright © 2018 0bmxa. All rights reserved.
 //
 
-#ifndef PANCAKE_PANCAKECONFIGURATION_H_
-#define PANCAKE_PANCAKECONFIGURATION_H_
+#ifndef PANCAKE_PUBLIC_PANCAKECONFIGURATION_H_
+#define PANCAKE_PUBLIC_PANCAKECONFIGURATION_H_
 
 #include <CoreAudio/CoreAudioTypes.h>
 #include <CoreAudio/AudioServerPlugIn.h>
@@ -17,7 +17,7 @@ struct PancakeDeviceConfiguration {
     CFStringRef __nullable manufacturer;
     CFStringRef __nonnull name;
     CFStringRef __nonnull UID;
-    void (*__nullable processingCallback)(Float32 *__nonnull, UInt32, AudioServerPlugInIOCycleInfo);
+    void (*__nullable processingCallback)(Float32 *__nonnull, UInt32, UInt32, AudioServerPlugInIOCycleInfo);
     void (*__nullable startIO)(double sampleRate, UInt32 frameCount);
     void (*__nullable stopIO)(double sampleRate, UInt32 frameCount);
     uint numberOfSupportedFormats;
@@ -26,7 +26,7 @@ struct PancakeDeviceConfiguration {
 typedef struct PancakeDeviceConfiguration PancakeDeviceConfiguration;
 
 struct PancakeConfiguration {
-    void (*__nullable signalProcessorSetup)(void);
+    void (*__nullable setupCallback)(void);
     uint numberOfDevices;
     PancakeDeviceConfiguration *__nullable *__nullable devices;
 };
@@ -145,5 +145,5 @@ AudioStreamBasicDescription CreateFloat32HardwareASBD(Float64 sampleRate,
 }
 #endif
 
-#endif  // PANCAKE_PANCAKECONFIGURATION_H_
+#endif  // PANCAKE_PUBLIC_PANCAKECONFIGURATION_H_
 

@@ -219,7 +219,7 @@ func Pancake_doIOOperation(inDriver: AudioServerPlugInDriverRef, inDeviceObjectI
     guard validate(inDriver) else { return PancakeAudioHardwareError.badObject }
     let operation = AudioServerPlugInIOOperation(rawValue: inOperationID)
     let cycleInfo = inIOCycleInfo.pointee
-    return _pancakeInstance.doIOOperation(deviceID: inDeviceObjectID, clientID: inClientID, streamID: inStreamObjectID, operation: operation, IOBufferFrameSize: inIOBufferFrameSize, IOCycleInfo: cycleInfo, mainBuffer: ioMainBuffer, secondaryBuffer: ioSecondaryBuffer)
+    return _pancakeInstance.doIOOperation(deviceID: inDeviceObjectID, clientID: inClientID, streamID: inStreamObjectID, operation: operation, bufferFrameSize: inIOBufferFrameSize, cycleInfo: cycleInfo, mainBuffer: ioMainBuffer, secondaryBuffer: ioSecondaryBuffer)
 }
 
 // Tells the plug-in that the Host is about to end a phase of the IO cycle for a particular device.

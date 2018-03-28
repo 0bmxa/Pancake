@@ -11,6 +11,7 @@
 		EE5128E62006507600A6F57B /* PancakeInterface.mm in Sources */ = {isa = PBXBuildFile; fileRef = EEC305E71FE9537400439E48 /* PancakeInterface.mm */; };
 		EE53A0372021F6AE001A004F /* PancakeConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = EE53A0352021F6AE001A004F /* PancakeConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE53A0382021F6AE001A004F /* PancakeConfiguration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE53A0362021F6AE001A004F /* PancakeConfiguration.cpp */; };
+		EE6998A7205443AA0031EA9D /* CppConfigurationTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE6998A6205443AA0031EA9D /* CppConfigurationTest.mm */; };
 		EEC156271FD969F100519526 /* Pancake.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEC1561E1FD969F100519526 /* Pancake.framework */; };
 		EEC156381FD96A2000519526 /* ConfigurationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC156111FD858E000519526 /* ConfigurationTest.swift */; };
 		EEC1563D1FD96A3B00519526 /* Pancake.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC1563B1FD96A3A00519526 /* Pancake.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -32,7 +33,7 @@
 		EEC1565C1FD96E0F00519526 /* PancakePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98511B1F6AD13B0021FC73 /* PancakePlugin.swift */; };
 		EEC1565D1FD96E0F00519526 /* PancakeBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF140D01F6C1B7F00228A2F /* PancakeBox.swift */; };
 		EEC1565E1FD96E0F00519526 /* PancakeDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98511D1F6AD1590021FC73 /* PancakeDevice.swift */; };
-		EEC1565F1FD96E0F00519526 /* PancakeDeviceIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1453B31F74A90900C3B3B2 /* PancakeDeviceIO.swift */; };
+		EEC1565F1FD96E0F00519526 /* PancakeDevice+IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1453B31F74A90900C3B3B2 /* PancakeDevice+IO.swift */; };
 		EEC156601FD96E0F00519526 /* PancakeStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0A5D531F6D62B5008E4441 /* PancakeStream.swift */; };
 		EEC156611FD96E0F00519526 /* PancakeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF2EE6A1F71907000AF4ADA /* PancakeControl.swift */; };
 		EEC156621FD96E0F00519526 /* PancakeObjectPropertyDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE11C0111F6ADB5E0035900D /* PancakeObjectPropertyDescription.swift */; };
@@ -74,7 +75,7 @@
 		EE11C0131F6ADD1E0035900D /* PancakeAudioError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PancakeAudioError.swift; sourceTree = "<group>"; };
 		EE11C0151F6ADDDA0035900D /* PancakeAudioObjectPropertyElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PancakeAudioObjectPropertyElement.swift; sourceTree = "<group>"; };
 		EE11C0171F6ADDFB0035900D /* PancakeAudioObjectPropertyScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PancakeAudioObjectPropertyScope.swift; sourceTree = "<group>"; };
-		EE1453B31F74A90900C3B3B2 /* PancakeDeviceIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PancakeDeviceIO.swift; sourceTree = "<group>"; };
+		EE1453B31F74A90900C3B3B2 /* PancakeDevice+IO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PancakeDevice+IO.swift"; sourceTree = "<group>"; };
 		EE4254761F6F1C7700DBF70E /* AudioStreamBasicDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioStreamBasicDescription.swift; sourceTree = "<group>"; };
 		EE4254781F7010C400DBF70E /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		EE4EDD7D1F5B51AC00273BFC /* MachTimebaseInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachTimebaseInfo.swift; sourceTree = "<group>"; };
@@ -87,6 +88,8 @@
 		EE53A0362021F6AE001A004F /* PancakeConfiguration.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; path = PancakeConfiguration.cpp; sourceTree = "<group>"; };
 		EE5B41951F5F13FD009A08E8 /* IOOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOOperations.swift; sourceTree = "<group>"; };
 		EE6103AE1FBCA2F80018A7AB /* AudioObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioObject.swift; sourceTree = "<group>"; };
+		EE6998A5205443AA0031EA9D /* CppConfigurationTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CppConfigurationTest.h; sourceTree = "<group>"; };
+		EE6998A6205443AA0031EA9D /* CppConfigurationTest.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CppConfigurationTest.mm; sourceTree = "<group>"; };
 		EE70EB361F72B408006ABC60 /* AudioChannelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioChannelLayout.swift; sourceTree = "<group>"; };
 		EE8BB2CF1F42007400B3B748 /* COMInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = COMInterface.swift; sourceTree = "<group>"; };
 		EE8BB2D01F42007400B3B748 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -179,6 +182,15 @@
 			path = Public;
 			sourceTree = "<group>";
 		};
+		EE6998A4205434CF0031EA9D /* C++ Interface */ = {
+			isa = PBXGroup;
+			children = (
+				EE6998A5205443AA0031EA9D /* CppConfigurationTest.h */,
+				EE6998A6205443AA0031EA9D /* CppConfigurationTest.mm */,
+			);
+			path = "C++ Interface";
+			sourceTree = "<group>";
+		};
 		EE69C39A1F30B69F00381315 = {
 			isa = PBXGroup;
 			children = (
@@ -221,7 +233,7 @@
 				EE98511B1F6AD13B0021FC73 /* PancakePlugin.swift */,
 				EEF140D01F6C1B7F00228A2F /* PancakeBox.swift */,
 				EE98511D1F6AD1590021FC73 /* PancakeDevice.swift */,
-				EE1453B31F74A90900C3B3B2 /* PancakeDeviceIO.swift */,
+				EE1453B31F74A90900C3B3B2 /* PancakeDevice+IO.swift */,
 				EE0A5D531F6D62B5008E4441 /* PancakeStream.swift */,
 				EEF2EE6A1F71907000AF4ADA /* PancakeControl.swift */,
 			);
@@ -256,6 +268,7 @@
 			isa = PBXGroup;
 			children = (
 				EEC156111FD858E000519526 /* ConfigurationTest.swift */,
+				EE6998A4205434CF0031EA9D /* C++ Interface */,
 				EEC1562D1FD969F100519526 /* Info.plist */,
 			);
 			path = PancakeTests;
@@ -321,6 +334,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EEC156331FD969F100519526 /* Build configuration list for PBXNativeTarget "PancakeTests" */;
 			buildPhases = (
+				EEAD5589206A6640009C5582 /* cpplint */,
 				EEC156221FD969F100519526 /* Sources */,
 				EEC156231FD969F100519526 /* Frameworks */,
 				EEC156241FD969F100519526 /* Resources */,
@@ -352,6 +366,7 @@
 					};
 					EEC156251FD969F100519526 = {
 						CreatedOnToolsVersion = 9.1;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -418,7 +433,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/bin/env cpplint.py ./${TARGET_NAME}/*";
+			shellScript = "if ! hash cpplint.py 2>/dev/null; then\n    echo 'WARNING: cpplint not found.'\n    exit 1\nfi\n\n./Scripts/target_files.rb \"${PROJECT_FILE_PATH}\" \"${TARGET_NAME}\" 'cpp' | xargs -I _ /usr/bin/env cpplint.py --root=\"${SRCROOT}\" _";
+		};
+		EEAD5589206A6640009C5582 /* cpplint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = cpplint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if ! hash cpplint.py 2>/dev/null; then\n    echo 'WARNING: cpplint not found.'\n    exit 1\nfi\n\n./Scripts/target_files.rb \"${PROJECT_FILE_PATH}\" \"${TARGET_NAME}\" 'cpp' | xargs -I _ /usr/bin/env cpplint.py --root=\"${SRCROOT}\" _";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -442,7 +471,7 @@
 				EEC1566E1FD96E0F00519526 /* AudioServerPlugInHost.swift in Sources */,
 				EEC1563F1FD96A6E00519526 /* Configuration.swift in Sources */,
 				EEC156681FD96E0F00519526 /* Array.swift in Sources */,
-				EEC1565F1FD96E0F00519526 /* PancakeDeviceIO.swift in Sources */,
+				EEC1565F1FD96E0F00519526 /* PancakeDevice+IO.swift in Sources */,
 				EEC305EB1FE9561300439E48 /* PancakeObjCBridge.swift in Sources */,
 				EEC1566F1FD96E0F00519526 /* PluginInterface.swift in Sources */,
 				EE3691071FED39840080611F /* String.swift in Sources */,
@@ -477,6 +506,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE6998A7205443AA0031EA9D /* CppConfigurationTest.mm in Sources */,
 				EEC156381FD96A2000519526 /* ConfigurationTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -758,6 +788,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JGMFM42JM6;
@@ -775,6 +806,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JGMFM42JM6;
@@ -782,6 +814,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.0bmxa.PancakeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Testing;
@@ -790,6 +823,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JGMFM42JM6;

@@ -11,9 +11,9 @@ import CoreAudio.AudioServerPlugIn
 
 extension Pancake {
     /// This method is called to initialize the instance of thvarlug-in.
-    /// As part of initialization, the plug-in svarld publish all the objects it knows about at the time.
+    /// As part of initialization, the plug-in should publish all the objects it knows about at the time.
     ///
-    /// - Pvarmeters:
+    /// - Parameters:
     ///   - driver: The plug-in to initialize.
     ///   - host: A host interface that the plug-in should use for communication with the Host. The Host guarantees that the storage will remain valid for the lifetime of the plug-in.
     /// - Returns: The status of the operation.
@@ -25,7 +25,7 @@ extension Pancake {
         self.setup()
 
         // Setup signal processor
-        self.configuration.signalProcessorSetup?()
+        self.configuration.pluginSetupCallback?()
 
         return PancakeAudioHardwareError.noError
     }
@@ -36,6 +36,7 @@ extension Pancake {
 // MARK: - Transport Manager methods (NOT IMPLEMENTED)
 extension Pancake {
     /// (Not supported.)
+    ///
     /// Tells the plug-in to create a new AudioEnpointDevice based on the given description.
     ///
     /// - Returns: The status of the operation.
@@ -44,6 +45,7 @@ extension Pancake {
     }
 
     /// (Not supported.)
+    ///
     /// Called to tell the plug-in about to destroy the given AudioEnpointDevice.
     ///
     /// - Returns: The status of the operation.
@@ -54,9 +56,10 @@ extension Pancake {
 
 
 
-// MARK: -
+// MARK: - Client methods (NOT IMPLEMENTED)
 extension Pancake {
     /// (Not supported.)
+    ///
     /// Called to tell the plug-in about a new client of the Host for a particular device.
     ///
     /// - Returns: The status of the operation.
@@ -65,6 +68,7 @@ extension Pancake {
     }
 
     /// (Not supported.)
+    ///
     /// Called to tell the plug-in about a client that is no longer using the device.
     ///
     /// - Returns: The status of the operation.

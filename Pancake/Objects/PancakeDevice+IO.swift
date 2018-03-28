@@ -75,17 +75,17 @@ extension PancakeDevice {
     ///    supported and is an in-place operation or not, respectively.
     func supports(operation: AudioServerPlugInIOOperation) -> (supported: Bool, isInPlaceOperation: Bool) {
         switch operation {
-        case .thread,
-             .readInput,
-             .processOutput,
+        case .readInput,
              .writeMix:
             return (supported: true, isInPlaceOperation: true)
 
-        case .cycle,
+        case .thread,
+             .cycle,
              .convertInput,
              .processInput,
              .mixOutput,
              .processMix,
+             .processOutput,
              .convertMix:
             return (supported: false, isInPlaceOperation: true)
         }
@@ -99,10 +99,7 @@ extension PancakeDevice {
     ///   - numberOfFrames: The number of frames that will be processed.
     ///   - cycle: Details about the current IO cycle.
     func beginCycle(operation: AudioServerPlugInIOOperation, numberOfFrames: Int, cycleInfo: AudioServerPlugInIOCycleInfo) {
-        guard let startIOCallback = self.configuration.startIOCallback else {
-            assertionFailure()
-            return
-        }
+        guard let startIOCallback = self.configuration.startIOCallback else { return }
         let sampleRate = self.configuration.registeredFormat.mSampleRate
         startIOCallback(sampleRate, UInt32(numberOfFrames))
     }
@@ -115,10 +112,7 @@ extension PancakeDevice {
     ///   - numberOfFrames: The number of frames that have been processed.
     ///   - cycle: Details about the current IO cycle.
     func endCycle(operation: AudioServerPlugInIOOperation, numberOfFrames: Int, cycleInfo: AudioServerPlugInIOCycleInfo) {
-        guard let stopIOCallback = self.configuration.stopIOCallback else {
-            assertionFailure()
-            return
-        }
+        guard let stopIOCallback = self.configuration.stopIOCallback else { return }
         let sampleRate = self.configuration.registeredFormat.mSampleRate
         stopIOCallback(sampleRate, UInt32(numberOfFrames))
     }
@@ -133,7 +127,7 @@ extension PancakeDevice {
     ///   - cycle: Details about the current IO cycle.
     ///   - buffer: The sample buffer for the operation.
     /// - Throws: An error indicating why the operation failed.
-    func execute(operation: AudioServerPlugInIOOperation, streamID: AudioObjectID, numberOfFrames: Int, cycle: AudioServerPlugInIOCycleInfo, buffer: UnsafeMutableRawPointer) throws {
+    func execute(operation: AudioServerPlugInIOOperation, streamID: AudioObjectID, numberOfFrames: UInt32, cycle: AudioServerPlugInIOCycleInfo, buffer: UnsafeMutableRawPointer) throws {
         let stream = self.streams.first { $0.objectID == streamID }
         guard stream != nil else {
             assertionFailure()
@@ -142,32 +136,40 @@ extension PancakeDevice {
 
         let ringBuffer = self.configuration.ringBuffer
 
+
+        // A note on operations:
+        // - processOutput: is called for (and with) every audio client's data,
+        //     so if 3 apps are 'playing', this is called 3 times per cycle.
+        // - writeMix: is called for ("global") mixed system output data,
+        //     so once every cycle.
+        // - readInput: is called for ("global") audio input reading,
+        //     so once every cycle.
+        // - processInput: is called for every audio client, which reads input
+        //     data, so again 3 times, if 3 apps are 'recording'. [UNTESTED]
+
         switch operation {
 
         // Transfers input data from the device to the provided buffer.
         // [Device] -> [System]
         case .readInput:
-            let ringBufferFrameCount = Int(ringBuffer.frames)
-            let sampleTime = Int(cycle.mInputTime.mSampleTime)
+            let ringBufferFrameCount = ringBuffer.frames
+            let sampleTime = UInt32(cycle.mInputTime.mSampleTime)
             let startFrameOffset = sampleTime % ringBufferFrameCount
 
             // Copy bytes from the ringbuffer to the outputBuffer
             ringBuffer.copy(to: buffer, fromOffset: startFrameOffset, numberOfFrames: numberOfFrames)
 
-
-        // Performs arbitrary signal processing on the output data.
-        case .processOutput:
-            guard let processingCallback = self.configuration.processingCallback else { break }
-            let bufferStart = buffer.assumingMemoryBound(to: Float32.self)
-            let bufferPointer = UnsafeMutableBufferPointer<Float32>(start: bufferStart, count: numberOfFrames)
-            processingCallback(bufferPointer, UInt32(numberOfFrames), cycle)
+            if let processingCallback = self.configuration.processingCallback {
+                var bufferPointer = buffer.assumingMemoryBound(to: Float32.self)
+                processingCallback(bufferPointer, numberOfFrames, self.channelCount, cycle)
+            }
 
 
         // Puts data into the device.
         // [System] -> [Device]
         case .writeMix:
-            let ringBufferFrameCount = Int(ringBuffer.frames)
-            let sampleTime = Int(cycle.mOutputTime.mSampleTime)
+            let ringBufferFrameCount = ringBuffer.frames
+            let sampleTime = UInt32(cycle.mOutputTime.mSampleTime)
             let startFrameOffset = sampleTime % ringBufferFrameCount
 
             // Copy bytes from the inputBuffer to the ringbuffer

@@ -14,13 +14,15 @@ class PancakeDevice: PancakeObjectType {
     private let pancake: Pancake
     internal let configuration: DeviceConfiguration
     private var controls: [PancakeControl]
-    internal var streams: [PancakeStream] // internal because device IO extenseion
+    internal var streams: [PancakeStream]
 
     // IO / timing stuff
-    internal var IOCount = AtomicCounter<UInt64>() // internal because device IO extenseion
-    internal var cycleCount = AtomicCounter<UInt64>() // internal because device IO extenseion
-    internal var referenceHostTime = AtomicCounter<UInt64>() // internal because device IO extenseion
+    internal var IOCount = AtomicCounter<UInt64>()
+    internal var cycleCount = AtomicCounter<UInt64>()
+    internal var referenceHostTime = AtomicCounter<UInt64>()
 
+    private var _totalStreamChannelCount: UInt32 = 0
+    internal var channelCount: UInt32 { return _totalStreamChannelCount }
 
     init(pancake: Pancake, configuration: DeviceConfiguration) {
         self.pancake       = pancake
@@ -43,11 +45,11 @@ class PancakeDevice: PancakeObjectType {
         self.streams = streams
 
         // Set stream channel offsets
-        var totalChannelCount = 0
+        self._totalStreamChannelCount = 0
         self.streams.forEach { stream in
-            stream.channelOffsetOnOwningDevice = totalChannelCount
+            stream.channelOffsetOnOwningDevice = self._totalStreamChannelCount
             stream.owningDevice = self
-            totalChannelCount += stream.channelCount
+            self._totalStreamChannelCount += stream.channelCount
         }
     }
 
@@ -64,16 +66,6 @@ class PancakeDevice: PancakeObjectType {
 
     func getProperty(description: PancakeObjectPropertyDescription, sizeHint: UInt32?) throws -> PancakeObjectProperty {
         print(type(of: self), #function, description.selector)
-
-        let scopedSelectors: [PancakeAudioObjectPropertySelector] = [
-            .deviceStreams, .deviceCanBeDefaultDevice, .deviceCanBeDefaultSystemDevice, .deviceSafetyOffset, .deviceLatency, .deviceTransportType, .devicePreferredChannelLayout, .deviceNominalSampleRate, .deviceModelUID, .deviceClockDomain
-        ]
-        if description.scope != .global && !scopedSelectors.contains(description.selector) {
-            //
-        }
-        if description.element != .master {
-
-        }
 
         switch description.selector {
 
