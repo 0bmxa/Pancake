@@ -43,7 +43,7 @@ extension PancakeDevice {
     /// Calculates sample & host time of the current cycle.
     ///
     /// - Returns: A triple containing the current sample time, host time, and timeline seed.
-    internal func zeroTimeStamp() -> (sampleTime: Float64, hostTime: UInt64, timelineSeed: UInt64) {
+    internal func zeroTimeStamp() -> ZeroTimeStamp {
         let ticksPerRingBuffer = UInt64(self.configuration.ticksPerRingBuffer)
 
         // Calculate the end of the active cycle
@@ -63,7 +63,14 @@ extension PancakeDevice {
         // Our timeline doesn't change, so return a consistent value
         let timelineSeed = UInt64(1)
 
-        return (sampleTime: sampleTime, hostTime: hostTime, timelineSeed: timelineSeed)
+        return ZeroTimeStamp(sampleTime: sampleTime, hostTime: hostTime, timelineSeed: timelineSeed)
+    }
+
+    /// A structure describing a zero-timestamp for a cycle.
+    internal struct ZeroTimeStamp {
+        let sampleTime: Float64
+        let hostTime: UInt64
+        let timelineSeed: UInt64
     }
 
 
