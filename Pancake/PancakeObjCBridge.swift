@@ -23,9 +23,7 @@ class PancakeObjCBridge: NSObject {
         let cDevices = UnsafeMutableBufferPointer(start: config.pointee.devices, count: Int(config.pointee.numberOfDevices))
 
         // Convert to device configs
-        let devices = cDevices.flatMap { device in
-            DeviceConfiguration(from: device)
-        }
+        let devices = ContiguousArray(cDevices.flatMap({ DeviceConfiguration(from: $0) }))
 
         // Create pancake config struct
         let setupCallback = config.pointee.setupCallback
@@ -55,7 +53,7 @@ extension DeviceConfiguration {
         }
         let name    = String(config.name.takeUnretainedValue())
         let UID     = String(config.UID.takeUnretainedValue())
-        let formats = Array(UnsafeMutableBufferPointer(start: config.supportedFormats, count: Int(config.numberOfSupportedFormats)))
+        let formats = ContiguousArray(UnsafeMutableBufferPointer(start: config.supportedFormats, count: Int(config.numberOfSupportedFormats)))
 
         self.init(manufacturer: manufacturer, name: name, UID: UID, supportedFormats: formats)
 

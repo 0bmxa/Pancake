@@ -26,7 +26,7 @@ extension AudioStreamBasicDescription {
             }
         }
 
-        var flags: [AudioFormatFlags] {
+        var flags: ContiguousArray<AudioFormatFlags> {
             switch self {
             case .int16:         return [kAudioFormatFlagIsSignedInteger]
             case .fixedPoint824: return [kAudioFormatFlagIsSignedInteger, 24 << kLinearPCMFormatFlagsSampleFractionShift]

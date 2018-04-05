@@ -42,7 +42,7 @@ final class PancakeStream: PancakeObjectType {
             guard let config = self.owningDevice?.configuration else {
                 throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.badObject)
             }
-            let streamDescriptions = config.supportedFormats.map { AudioStreamRangedDescription(asbd: $0) }
+            let streamDescriptions = ContiguousArray(config.supportedFormats.map { AudioStreamRangedDescription(asbd: $0) })
             let elements = streamDescriptions.limitedTo(avaliableMemory: sizeHint)
             return .streamDescriptionList(elements)
 

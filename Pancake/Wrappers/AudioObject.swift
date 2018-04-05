@@ -10,7 +10,7 @@ import CoreAudio
 
 //swiftlint:disable identifier_name
 
-func AudioObjectGetPropertyData<T: Collection>(objectID: AudioObjectID, address: AudioObjectPropertyAddress, dataType: T.Type) throws -> [T.Element] {
+func AudioObjectGetPropertyData<T: Collection>(objectID: AudioObjectID, address: AudioObjectPropertyAddress, dataType: T.Type) throws -> ContiguousArray<T.Element> {
     let dataSize = try AudioObjectGetPropertyDataSize(objectID: objectID, address: address)
     guard dataSize > 0 else { return [] }
 
@@ -24,7 +24,7 @@ func AudioObjectGetPropertyData<T>(objectID: AudioObjectID, address: AudioObject
     return properties[0]
 }
 
-private func _AudioObjectGetPropertyData<T>(objectID: AudioObjectID, address: AudioObjectPropertyAddress, dataType: T.Type, elementCount: Int) throws -> [T] {
+private func _AudioObjectGetPropertyData<T>(objectID: AudioObjectID, address: AudioObjectPropertyAddress, dataType: T.Type, elementCount: Int) throws -> ContiguousArray<T> {
     // Mutable copy of the address
     var address = address
 
@@ -41,7 +41,7 @@ private func _AudioObjectGetPropertyData<T>(objectID: AudioObjectID, address: Au
     guard error == noErr else { throw AudioObjectGetPropertyDataError(error: error) }
 
     // Get property memory as array
-    let properties = Array(UnsafeBufferPointer(start: propertyDataPointer, count: elementCount))
+    let properties = ContiguousArray(UnsafeBufferPointer(start: propertyDataPointer, count: elementCount))
 
     // Free memory
     propertyDataPointer.deallocate(capacity: elementCount)

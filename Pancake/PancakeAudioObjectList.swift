@@ -71,9 +71,9 @@ final class PancakeAudioObjectList {
     ///
     /// - Parameter expectedType: The type to be found.
     /// - Returns: The list of IDs.
-    func IDsForObjects<T: PancakeObjectType>(of expectedType: T.Type) -> [AudioObjectID] {
+    func IDsForObjects<T: PancakeObjectType>(of expectedType: T.Type) -> ContiguousArray<AudioObjectID> {
         let matchingEntries = self.storage.filter { type(of: $0.value) == expectedType }
-        let matchingIDs = matchingEntries.map { $0.key }
+        let matchingIDs = ContiguousArray(matchingEntries.map { $0.key })
         return matchingIDs
     }
 

@@ -11,7 +11,7 @@ import CoreAudio.CoreAudioTypes
 
 public struct Configuration {
     /// A list of devices that should be created by Pancake.
-    let devices: [DeviceConfiguration]
+    let devices: ContiguousArray<DeviceConfiguration>
 
     /// A callback function which is called when the plugin is being set up,
     //// i.e. when it's time to set up the audio processor.
@@ -26,7 +26,7 @@ public struct Configuration {
     ///   - devices: The list of devices that should be created.
     ///   - pluginSetupCallback: A callback informing that the plugin is being
     ///     set up. It is okay if it takes some time to return.
-    public init(devices: [DeviceConfiguration], pluginSetupCallback: (() -> Void)? = nil) {
+    public init(devices: ContiguousArray<DeviceConfiguration>, pluginSetupCallback: (() -> Void)? = nil) {
         self.devices = devices
         self.pluginSetupCallback = pluginSetupCallback
     }
@@ -35,7 +35,7 @@ public struct Configuration {
 
 internal struct PancakeInternalConfiguration {
     // Stuff from user provided Configuration
-    let devices: [DeviceConfiguration]
+    let devices: ContiguousArray<DeviceConfiguration>
     let pluginSetupCallback: (() -> Void)?
 
     init(from configuration: Configuration) {
@@ -63,7 +63,7 @@ public final class DeviceConfiguration {
     public let modelUID: String
 
     /// The audio formats the plugin supports.
-    public let supportedFormats: [AudioStreamBasicDescription]
+    public let supportedFormats: ContiguousArray<AudioStreamBasicDescription>
 
     /// The audio processing callback function to be used to process audio data.
     /// If nil, the device will apply no processing to its stream. (default)
@@ -140,7 +140,7 @@ public final class DeviceConfiguration {
     ///   - uid: A unique string to identify the device in a pool of audio.
     ///          objects. This has to be consistent across boots.
     ///   - supportedFormats: The audio formats the plugin supports.
-    public init(manufacturer: String? = nil, name: String, UID: String, supportedFormats: [AudioStreamBasicDescription]) {
+    public init(manufacturer: String? = nil, name: String, UID: String, supportedFormats: ContiguousArray<AudioStreamBasicDescription>) {
         // Public
         self.manufacturer         = manufacturer ?? "Pancake Framework"
         self.name                 = name

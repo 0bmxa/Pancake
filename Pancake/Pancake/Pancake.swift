@@ -18,7 +18,7 @@ public final class Pancake {
     internal let audioObjects = PancakeAudioObjectList()
 
     /// A (possible) list of custom properties the HAL doesn't provide
-    internal let customProperties = [AudioServerPlugInCustomPropertyInfo]()
+    internal let customProperties = ContiguousArray<AudioServerPlugInCustomPropertyInfo>()
 
     init(configuration: Configuration) {
         self.driver = AudioServerPlugInDriver(from: Pancake.driverReference)

@@ -19,7 +19,7 @@ extension AudioChannelLayout {
     ///
     /// - Parameters:
     ///   - channelDescriptions: A list of channel descriptions.
-    init(channelDescriptions: [AudioChannelDescription]) {
+    init(channelDescriptions: ContiguousArray<AudioChannelDescription>) {
         self.mChannelLayoutTag          = kAudioChannelLayoutTag_UseChannelDescriptions
         self.mChannelBitmap             = AudioChannelBitmap(rawValue: 0)
         self.mNumberChannelDescriptions = UInt32(channelDescriptions.count)
@@ -32,23 +32,13 @@ extension AudioChannelLayout {
     // This is a workaround to make mChannelDescriptions usable in Swift, as
     // it actually is a variable length array, but got bridged as a single
     // element only.
-
-    var mChannelDescriptionsArray: [AudioChannelDescription] {
+    var mChannelDescriptionsArray: ContiguousArray<AudioChannelDescription> {
         mutating get {
             // Note: this is not really mutating, but needs to be declared as
-            // such cause we're accessing a pointer here
+            // such cause we're accessing mChannelDescriptions' address here
 
-            // Get pointer to mChannelDescriptions
-            var pointer = withUnsafePointer(to: &self.mChannelDescriptions) { $0 }
-
-            // Iterate over mNumberChannelDescriptions number elements in memory
-            // and treat them as AudioChannelDescription
-            let indices = (0 ..< self.mNumberChannelDescriptions)
-            return indices.map { _ -> AudioChannelDescription in
-                let element = pointer.pointee
-                pointer = pointer.advanced(by: 1)
-                return element
-            }
+            let buffer = UnsafeBufferPointer(start: &self.mChannelDescriptions, count: Int(self.mNumberChannelDescriptions))
+            return ContiguousArray<AudioChannelDescription>(buffer)
         }
 
         set(array) {
@@ -56,15 +46,11 @@ extension AudioChannelLayout {
                 fatalError("Not enough memory available.")
             }
 
-            // Get a pointer to mChannelDescriptions
-            var channelDescriptionsPointer = withUnsafeMutablePointer(to: &self.mChannelDescriptions) { $0 }
+            // Mutable (pointable) copy of the array
+            var array = array
 
-            // Walk over array and write all elements one by one to the memory
-            // (Hopefully someone allocated that memory correctly...)
-            for element in array {
-                channelDescriptionsPointer.pointee = element
-                channelDescriptionsPointer = channelDescriptionsPointer.advanced(by: 1)
-            }
+            let size = MemoryLayout<AudioChannelDescription>.stride * array.count
+            memcpy(&self.mChannelDescriptions, &array, size)
         }
     }
 }
@@ -110,6 +96,6 @@ extension AudioChannelLayout {
         let descriptions = (1...channelCount).map { channelNumber in
             AudioChannelDescription(mChannelLabel: channelNumber, mChannelFlags: AudioChannelFlags(rawValue: 0), mCoordinates: (0, 0, 0))
         }
-        return AudioChannelLayout(channelDescriptions: descriptions)
+        return AudioChannelLayout(channelDescriptions: ContiguousArray(descriptions))
     }
 }
