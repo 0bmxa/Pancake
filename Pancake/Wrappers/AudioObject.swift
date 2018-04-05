@@ -25,50 +25,41 @@ func AudioObjectGetPropertyData<T>(objectID: AudioObjectID, address: AudioObject
 }
 
 private func _AudioObjectGetPropertyData<T>(objectID: AudioObjectID, address: AudioObjectPropertyAddress, dataType: T.Type, elementCount: Int) throws -> [T] {
-    // Address pointer
-    var mutableAddress = address
-    let addressPointer = withUnsafePointer(to: &mutableAddress) { $0 }
+    // Mutable copy of the address
+    var address = address
 
     // Allocate some memory to store data
-    let propertySize = MemoryLayout<T>.stride * elementCount
-    var propertyDataPointer = UnsafeMutablePointer<T>.allocate(capacity: elementCount)
-
-    // Property size
-    var mutablePropertySize = UInt32(propertySize)
-    let propertySizePointer = withUnsafeMutablePointer(to: &mutablePropertySize) { $0 }
+    var propertySize = UInt32(MemoryLayout<T>.stride * elementCount)
+    let propertyDataPointer = UnsafeMutablePointer<T>.allocate(capacity: elementCount)
 
     // Qualifier (unused)
     let qualifierData: UnsafeRawPointer? = nil
     let qualifierDataSize: UInt32 = 0
 
     // The actual query
-    let error = AudioObjectGetPropertyData(objectID, addressPointer, qualifierDataSize, qualifierData, propertySizePointer, propertyDataPointer)
+    let error = AudioObjectGetPropertyData(objectID, &address, qualifierDataSize, qualifierData, &propertySize, propertyDataPointer)
     guard error == noErr else { throw AudioObjectGetPropertyDataError(error: error) }
 
-    // Get property from memory
-    let indices = (0 ..< elementCount)
-    let properties = indices.map { _ -> T in
-        let element = propertyDataPointer.pointee
-        propertyDataPointer = propertyDataPointer.advanced(by: 1)
-        return element
-    }
+    // Get property memory as array
+    let properties = Array(UnsafeBufferPointer(start: propertyDataPointer, count: elementCount))
+
+    // Free memory
+    propertyDataPointer.deallocate(capacity: elementCount)
 
     return properties
 }
 
 func AudioObjectGetPropertyDataSize(objectID: AudioObjectID, address: AudioObjectPropertyAddress) throws -> UInt32 {
-    // Address pointer
-    var mutableAddress = address
-    let addressPointer = withUnsafePointer(to: &mutableAddress) { $0 }
+    // Mutable copy of the address
+    var address = address
 
     // Qualifier (unused)
     let qualifierData: UnsafeRawPointer? = nil
     let qualifierDataSize: UInt32 = 0
 
     var propertyDataSize: UInt32 = 0
-    let propertyDataSizePointer = withUnsafeMutablePointer(to: &propertyDataSize) { $0 }
 
-    let error = AudioObjectGetPropertyDataSize(objectID, addressPointer, qualifierDataSize, qualifierData, propertyDataSizePointer)
+    let error = AudioObjectGetPropertyDataSize(objectID, &address, qualifierDataSize, qualifierData, &propertyDataSize)
     guard error == noErr else { throw AudioObjectGetPropertyDataError(error: error) }
 
     return propertyDataSize
