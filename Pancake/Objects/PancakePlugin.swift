@@ -8,7 +8,7 @@
 
 import CoreAudio.AudioServerPlugIn
 
-class PancakePlugin: PancakeObjectType {
+final class PancakePlugin: PancakeObjectType {
     internal var objectID: AudioObjectID?
     private let pancake: Pancake
 

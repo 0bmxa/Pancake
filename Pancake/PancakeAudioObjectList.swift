@@ -11,7 +11,7 @@ import CoreAudio.AudioHardwareBase
 /// A wrapper around a dictionary that stores all instances of AudioObjects
 /// created by Pancake. It's also responsible for instantiating new objects, as
 /// it's the only one that knows which IDs are available.
-class PancakeAudioObjectList {
+final class PancakeAudioObjectList {
     private var lastID: AudioObjectID = 0
     private var storage: [AudioObjectID: PancakeObjectType] = [:]
 

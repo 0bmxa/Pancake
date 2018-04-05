@@ -8,7 +8,7 @@
 
 import CoreAudio.AudioServerPlugIn
 
-class PancakeStream: PancakeObjectType {
+final class PancakeStream: PancakeObjectType {
     internal var objectID: AudioObjectID?
     internal weak var owningDevice: PancakeDevice?
 

@@ -8,7 +8,7 @@
 
 import CoreAudio.CoreAudioTypes
 
-class RingBuffer {
+final class RingBuffer {
     private(set) var frames: UInt32
     private var byteSize: UInt32
     private var buffer: UnsafeMutableRawPointer

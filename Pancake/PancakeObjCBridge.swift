@@ -8,7 +8,7 @@
 
 import Foundation.NSObject
 
-@objc(Pancake) public
+@objc(Pancake) public final
 class PancakeObjCBridge: NSObject {
     override init() {}
 

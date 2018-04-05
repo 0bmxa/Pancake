@@ -44,7 +44,7 @@ internal struct PancakeInternalConfiguration {
     }
 }
 
-public class DeviceConfiguration {
+public final class DeviceConfiguration {
 
     // MARK: - Public
 
