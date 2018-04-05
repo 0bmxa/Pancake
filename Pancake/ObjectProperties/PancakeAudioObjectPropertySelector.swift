@@ -6,8 +6,6 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import CoreAudio
-
 // swiftlint:disable identifier_name file_length
 
 enum PancakeAudioObjectPropertySelector {

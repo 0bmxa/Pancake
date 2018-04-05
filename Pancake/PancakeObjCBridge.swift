@@ -6,7 +6,7 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import Foundation
+import Foundation.NSObject
 
 @objc(Pancake) public
 class PancakeObjCBridge: NSObject {

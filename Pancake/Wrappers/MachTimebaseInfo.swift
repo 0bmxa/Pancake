@@ -6,7 +6,7 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import Foundation
+import IOKit
 
 /// A wrapper around mach_timebase_info.
 struct MachTimebaseInfo {

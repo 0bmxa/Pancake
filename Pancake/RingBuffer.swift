@@ -6,7 +6,7 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import CoreAudio
+import CoreAudio.CoreAudioTypes
 
 class RingBuffer {
     private(set) var frames: UInt32

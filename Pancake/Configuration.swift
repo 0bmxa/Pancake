@@ -6,8 +6,7 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import CoreAudio
-import Foundation
+import CoreAudio.CoreAudioTypes
 
 
 public struct Configuration {
@@ -91,7 +90,7 @@ public class DeviceConfiguration {
 
     /// An URL to an icon that visually represents the device, relative to the
     /// bundle.
-    public var iconURL: URL?
+    public var iconURL: CFURL?
 
     /// A bundle ID for an app which the user can use to configure the device.
     /// Defaults to the "Audio MIDI Setup" app's bundle ID.

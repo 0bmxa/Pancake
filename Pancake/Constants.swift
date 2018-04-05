@@ -6,8 +6,6 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import Foundation
-
 // swiftlint:disable type_name identifier_name
 
 // MARK: - From CFPluginCOM.h

@@ -6,8 +6,6 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import Foundation
-
 // String from 4 char error code
 extension String {
     init(fourCharCode: FourCharCode) {

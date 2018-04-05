@@ -6,8 +6,6 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import Foundation
-
 struct AtomicCounter<T: FixedWidthInteger> {
     private var _value: T
     private let serialQueue: DispatchQueue

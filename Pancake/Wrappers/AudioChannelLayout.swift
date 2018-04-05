@@ -6,7 +6,7 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import CoreAudio
+import CoreAudio.CoreAudioTypes
 
 // TODO: Create an enum wrapper around the layout tags with two special cases
 // (bitmap & descriptions) instead of seperate initializers.

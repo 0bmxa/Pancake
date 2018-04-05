@@ -6,8 +6,6 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import Foundation
-
 extension Array {
     /// Creates a new array with only the number of elements from the original
     /// theat fit in the given amout of memory.

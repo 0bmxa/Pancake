@@ -6,7 +6,7 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import CoreAudio
+import CoreAudio.AudioHardwareBase
 
 /// A wrapper around AudioObjectPropertyScope
 enum PancakeAudioObjectPropertyScope {

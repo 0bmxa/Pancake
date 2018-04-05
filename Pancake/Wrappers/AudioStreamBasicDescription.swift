@@ -6,8 +6,7 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import CoreAudio
-import Foundation
+import CoreAudio.CoreAudioTypes
 
 // MARK: - ASBD
 

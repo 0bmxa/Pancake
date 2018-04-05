@@ -6,7 +6,7 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import CoreFoundation
+import CoreFoundation.CFUUID
 
 public struct UUID {
     private let _UUID: CFUUID

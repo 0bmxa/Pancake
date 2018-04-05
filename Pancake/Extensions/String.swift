@@ -6,8 +6,6 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import Foundation
-
 extension String {
     func prefix(to indexVal: Int) -> String? {
         guard indexVal >= 0, indexVal < self.count else { return nil }

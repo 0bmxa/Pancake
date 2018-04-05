@@ -6,7 +6,7 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import CoreAudio
+import CoreAudio.AudioHardwareBase
 
 /// A wrapper around a dictionary that stores all instances of AudioObjects
 /// created by Pancake. It's also responsible for instantiating new objects, as

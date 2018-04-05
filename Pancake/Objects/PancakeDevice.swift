@@ -240,7 +240,7 @@ class PancakeDevice: PancakeObjectType {
 
         case .deviceIcon:
             try assure(CFURL.self, fitsIn: sizeHint)
-            guard let iconURL = self.configuration.iconURL as CFURL? else {
+            guard let iconURL = self.configuration.iconURL else {
                 throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
             }
             return .url(iconURL)
