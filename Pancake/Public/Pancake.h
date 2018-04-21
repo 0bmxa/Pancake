@@ -9,15 +9,13 @@
 #ifndef PANCAKE_PUBLIC_PANCAKE_H_
 #define PANCAKE_PUBLIC_PANCAKE_H_
 
-// #include <Foundation/Foundation.h>
-//
 // //! Project version number for Pancake.
-// FOUNDATION_EXPORT double PancakeVersionNumber;
+// extern double PancakeVersionNumber;
 //
 // //! Project version string for Pancake.
-// FOUNDATION_EXPORT const unsigned char PancakeVersionString[];
+// extern const unsigned char PancakeVersionString[];
 
-
+// The actual interface
 #include "PancakeInterface.h"
 
 #endif  // PANCAKE_PUBLIC_PANCAKE_H_
