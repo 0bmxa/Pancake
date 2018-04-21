@@ -8,7 +8,7 @@
 
 import CoreAudio.AudioServerPlugIn
 
-class PluginInterface {
+final class PluginInterface {
     private var pointer: UnsafeMutablePointer<UnsafeMutableRawPointer?>
 
     init?(from pointer: UnsafeMutablePointer<UnsafeMutableRawPointer?>?) {

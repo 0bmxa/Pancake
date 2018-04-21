@@ -355,7 +355,7 @@
 		EE69C39B1F30B69F00381315 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0910;
+				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = 0bmxa;
 				TargetAttributes = {
@@ -433,7 +433,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if ! hash cpplint.py 2>/dev/null; then\n    echo 'WARNING: cpplint not found.'\n    exit 1\nfi\n\n./Scripts/target_files.rb \"${PROJECT_FILE_PATH}\" \"${TARGET_NAME}\" 'cpp' | xargs -I _ /usr/bin/env cpplint.py --root=\"${SRCROOT}\" _";
+			shellScript = "if ! hash cpplint.py 2>/dev/null; then\n    echo 'WARNING: cpplint not found.'\n    exit 1\nfi\n\n${SRCROOT}/Scripts/target_files.rb \"${PROJECT_FILE_PATH}\" \"${TARGET_NAME}\" 'cpp' | xargs -I _ /usr/bin/env cpplint.py --root=\"${SRCROOT}\" _";
 		};
 		EEAD5589206A6640009C5582 /* cpplint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -690,10 +690,9 @@
 		EEC156301FD969F100519526 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -724,10 +723,9 @@
 		EEC156311FD969F100519526 /* Testing */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -756,10 +754,9 @@
 		EEC156321FD969F100519526 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;

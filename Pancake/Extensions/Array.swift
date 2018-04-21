@@ -6,9 +6,7 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import Foundation
-
-extension Array {
+extension ContiguousArray {
     /// Creates a new array with only the number of elements from the original
     /// theat fit in the given amout of memory.
     /// Note that for convenience reasons the memory size is optional, but as no
@@ -20,7 +18,7 @@ extension Array {
     /// - Returns: A copy of the original array, limited to the given memory
     ///            size starting at index 0, or the full array, if no memory
     ///            size was given.
-    func limitedTo(avaliableMemory: UInt32?) -> [Element] {
+    func limitedTo(avaliableMemory: UInt32?) -> ContiguousArray<Element> {
         // Return all elements, if memory size is not set
         guard let expectedNumberOfElements = number(of: Element.self, thatFitIn: avaliableMemory) else {
             return self
@@ -29,6 +27,6 @@ extension Array {
         // Get elements
         let numberOfElements = Swift.min(expectedNumberOfElements, self.count)
         let elements = self[ 0..<numberOfElements ]
-        return Array(elements)
+        return ContiguousArray(elements)
     }
 }

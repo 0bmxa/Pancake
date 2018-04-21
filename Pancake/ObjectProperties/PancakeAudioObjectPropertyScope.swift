@@ -6,7 +6,7 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import CoreAudio
+import CoreAudio.AudioHardwareBase
 
 /// A wrapper around AudioObjectPropertyScope
 enum PancakeAudioObjectPropertyScope {
@@ -32,6 +32,7 @@ extension PancakeAudioObjectPropertyScope: RawRepresentable {
         default: return nil
         }
     }
+
     public var rawValue: AudioObjectPropertyScope {
         switch self {
         case .global:      return kAudioObjectPropertyScopeGlobal

@@ -8,8 +8,9 @@
 
 import CoreAudio.AudioServerPlugIn
 
-class AudioServerPlugInHost {
+final class AudioServerPlugInHost {
     private let hostRef: AudioServerPlugInHostRef
+
     init?(from hostRef: AudioServerPlugInHostRef?) {
         guard let hostRef = hostRef else { return nil }
         self.hostRef = hostRef

@@ -6,12 +6,12 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import CoreAudio
+import CoreAudio.AudioHardwareBase
 
 /// A wrapper around a dictionary that stores all instances of AudioObjects
 /// created by Pancake. It's also responsible for instantiating new objects, as
 /// it's the only one that knows which IDs are available.
-class PancakeAudioObjectList {
+final class PancakeAudioObjectList {
     private var lastID: AudioObjectID = 0
     private var storage: [AudioObjectID: PancakeObjectType] = [:]
 
@@ -71,9 +71,9 @@ class PancakeAudioObjectList {
     ///
     /// - Parameter expectedType: The type to be found.
     /// - Returns: The list of IDs.
-    func IDsForObjects<T: PancakeObjectType>(of expectedType: T.Type) -> [AudioObjectID] {
+    func IDsForObjects<T: PancakeObjectType>(of expectedType: T.Type) -> ContiguousArray<AudioObjectID> {
         let matchingEntries = self.storage.filter { type(of: $0.value) == expectedType }
-        let matchingIDs = matchingEntries.map { $0.key }
+        let matchingIDs = ContiguousArray(matchingEntries.map { $0.key })
         return matchingIDs
     }
 

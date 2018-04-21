@@ -7,8 +7,6 @@
 //
 
 #import "PancakeInterface.h"
-
-#import <Foundation/Foundation.h>
 #import <Pancake/Pancake-Swift.h>
 
 void *PancakeDriverReference;

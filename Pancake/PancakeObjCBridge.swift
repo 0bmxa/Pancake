@@ -6,9 +6,9 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import Foundation
+import Foundation.NSObject
 
-@objc(Pancake) public
+@objc(Pancake) public final
 class PancakeObjCBridge: NSObject {
     override init() {}
 
@@ -23,9 +23,7 @@ class PancakeObjCBridge: NSObject {
         let cDevices = UnsafeMutableBufferPointer(start: config.pointee.devices, count: Int(config.pointee.numberOfDevices))
 
         // Convert to device configs
-        let devices = cDevices.flatMap { device in
-            DeviceConfiguration(from: device)
-        }
+        let devices = ContiguousArray(cDevices.flatMap({ DeviceConfiguration(from: $0) }))
 
         // Create pancake config struct
         let setupCallback = config.pointee.setupCallback
@@ -50,12 +48,12 @@ extension DeviceConfiguration {
         guard let config = config?.pointee else { return nil }
 
         var manufacturer: String? = nil
-        if let _manufacturer = config.manufacturer?.takeUnretainedValue() {
-            manufacturer = String(_manufacturer)
+        if let cfManufacturer = config.manufacturer?.takeUnretainedValue() {
+            manufacturer = String(cfManufacturer)
         }
         let name    = String(config.name.takeUnretainedValue())
         let UID     = String(config.UID.takeUnretainedValue())
-        let formats = Array(UnsafeMutableBufferPointer(start: config.supportedFormats, count: Int(config.numberOfSupportedFormats)))
+        let formats = ContiguousArray(UnsafeMutableBufferPointer(start: config.supportedFormats, count: Int(config.numberOfSupportedFormats)))
 
         self.init(manufacturer: manufacturer, name: name, UID: UID, supportedFormats: formats)
 

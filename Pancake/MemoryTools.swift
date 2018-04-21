@@ -6,8 +6,6 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import CoreAudio
-
 /// Gets the amout of memory that is occupied by this type when stored in
 /// memory. Implementation for non-collection types.
 ///

@@ -8,13 +8,13 @@
 
 import CoreAudio.AudioServerPlugIn
 
-class PancakeDevice: PancakeObjectType {
+final class PancakeDevice: PancakeObjectType {
     internal var objectID: AudioObjectID?
 
     private let pancake: Pancake
     internal let configuration: DeviceConfiguration
-    private var controls: [PancakeControl]
-    internal var streams: [PancakeStream]
+    private var controls: ContiguousArray<PancakeControl>
+    internal var streams: ContiguousArray<PancakeStream>
 
     // IO / timing stuff
     internal var IOCount = AtomicCounter<UInt64>()
@@ -34,7 +34,7 @@ class PancakeDevice: PancakeObjectType {
     }
 
     /// Replaces the device's streams. Also updates each stream's channel offset
-    internal func setStreams(_ streams: [PancakeStream]) {
+    internal func setStreams(_ streams: ContiguousArray<PancakeStream>) {
         // Remove old streams, if any
         self.streams.forEach {
             guard let streamID = $0.objectID else { return }
@@ -145,7 +145,7 @@ class PancakeDevice: PancakeObjectType {
             try assure(AudioObjectID.self, fitsIn: sizeHint)
             let streamIDs  = self.streams.flatMap { $0.objectID }
             let controlIDs = self.controls.flatMap { $0.objectID }
-            let ownedObjects = (streamIDs + controlIDs).limitedTo(avaliableMemory: sizeHint)
+            let ownedObjects = ContiguousArray(streamIDs + controlIDs).limitedTo(avaliableMemory: sizeHint)
             return .pancakeObjectIDList(ownedObjects)
 
         default:
@@ -168,13 +168,13 @@ class PancakeDevice: PancakeObjectType {
         case .deviceStreams:
             try assure(AudioObjectID.self, fitsIn: sizeHint)
             let streamsForScope = self.streams.filter { $0.direction == description.scope }
-            let streamIDs = streamsForScope.flatMap { $0.objectID }
+            let streamIDs = ContiguousArray(streamsForScope.flatMap { $0.objectID })
             let elements = streamIDs.limitedTo(avaliableMemory: sizeHint)
             return .pancakeObjectIDList(elements)
 
         case .deviceControlList:
             try assure(AudioObjectID.self, fitsIn: sizeHint)
-            let controlIDs = self.controls.flatMap { $0.objectID }
+            let controlIDs = ContiguousArray(self.controls.flatMap { $0.objectID })
             let elements = controlIDs.limitedTo(avaliableMemory: sizeHint)
             return .pancakeObjectIDList(elements)
 
@@ -185,7 +185,7 @@ class PancakeDevice: PancakeObjectType {
 
         case .deviceAvailableNominalSampleRates:
             try assure(AudioValueRange.self, fitsIn: sizeHint)
-            let sampleRateRanges = self.configuration.supportedFormats.map { AudioStreamRangedDescription(asbd: $0).mSampleRateRange }
+            let sampleRateRanges = ContiguousArray(self.configuration.supportedFormats.map { AudioStreamRangedDescription(asbd: $0).mSampleRateRange })
             return .valueRangeList(sampleRateRanges)
 
         case .deviceSafetyOffset:
@@ -240,14 +240,14 @@ class PancakeDevice: PancakeObjectType {
 
         case .deviceIcon:
             try assure(CFURL.self, fitsIn: sizeHint)
-            guard let iconURL = self.configuration.iconURL as CFURL? else {
+            guard let iconURL = self.configuration.iconURL else {
                 throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
             }
             return .url(iconURL)
 
         case .devicePreferredChannelsForStereo:
             try assure(UInt32.self, fitsIn: sizeHint)
-            let channels: [UInt32] = [1, 2]
+            let channels: ContiguousArray<UInt32> = [1, 2]
             return .integerList(channels)
 
         case .deviceConfigurationApplication:

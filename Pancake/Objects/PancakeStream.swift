@@ -8,7 +8,7 @@
 
 import CoreAudio.AudioServerPlugIn
 
-class PancakeStream: PancakeObjectType {
+final class PancakeStream: PancakeObjectType {
     internal var objectID: AudioObjectID?
     internal weak var owningDevice: PancakeDevice?
 
@@ -42,7 +42,7 @@ class PancakeStream: PancakeObjectType {
             guard let config = self.owningDevice?.configuration else {
                 throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.badObject)
             }
-            let streamDescriptions = config.supportedFormats.map { AudioStreamRangedDescription(asbd: $0) }
+            let streamDescriptions = ContiguousArray(config.supportedFormats.map { AudioStreamRangedDescription(asbd: $0) })
             let elements = streamDescriptions.limitedTo(avaliableMemory: sizeHint)
             return .streamDescriptionList(elements)
 

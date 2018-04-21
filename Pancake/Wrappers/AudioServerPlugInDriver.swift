@@ -8,7 +8,7 @@
 
 import CoreAudio.AudioServerPlugIn
 
-class AudioServerPlugInDriver {
+final class AudioServerPlugInDriver {
     private typealias AudioServerPlugInDriverRefPointeeType = UnsafeMutablePointer<AudioServerPlugInDriverInterface>?
     fileprivate var driverRef: AudioServerPlugInDriverRef
 

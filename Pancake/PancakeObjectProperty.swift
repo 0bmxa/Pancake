@@ -27,11 +27,11 @@ enum PancakeObjectProperty {
     case valueRange(AudioValueRange)
 
     // Arrays
-    case pancakeObjectIDList([AudioObjectID])
-    case customPropertyInfoList([AudioServerPlugInCustomPropertyInfo])
-    case streamDescriptionList([AudioStreamRangedDescription])
-    case valueRangeList([AudioValueRange])
-    case integerList([UInt32])
+    case pancakeObjectIDList(ContiguousArray<AudioObjectID>)
+    case customPropertyInfoList(ContiguousArray<AudioServerPlugInCustomPropertyInfo>)
+    case streamDescriptionList(ContiguousArray<AudioStreamRangedDescription>)
+    case valueRangeList(ContiguousArray<AudioValueRange>)
+    case integerList(ContiguousArray<UInt32>)
 
     /// Writes the property and the property's size to memory
     ///

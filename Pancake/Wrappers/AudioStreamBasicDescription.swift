@@ -6,8 +6,7 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import CoreAudio
-import Foundation
+import CoreAudio.CoreAudioTypes
 
 // MARK: - ASBD
 
@@ -27,7 +26,7 @@ extension AudioStreamBasicDescription {
             }
         }
 
-        var flags: [AudioFormatFlags] {
+        var flags: ContiguousArray<AudioFormatFlags> {
             switch self {
             case .int16:         return [kAudioFormatFlagIsSignedInteger]
             case .fixedPoint824: return [kAudioFormatFlagIsSignedInteger, 24 << kLinearPCMFormatFlagsSampleFractionShift]
@@ -54,7 +53,7 @@ extension AudioStreamBasicDescription {
         "(Lossless)20BitSourceData":  kAppleLosslessFormatFlag_20BitSourceData,
         "(Lossless)24BitSourceData":  kAppleLosslessFormatFlag_24BitSourceData,
         "(Lossless)32BitSourceData":  kAppleLosslessFormatFlag_32BitSourceData
-        ]
+    ]
 
 
     /// Creates a new ASBD from the specified parameters, calculating the rest

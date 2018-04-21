@@ -6,7 +6,7 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import CoreFoundation
+import CoreFoundation.CFByteOrder
 
 /// Wrapper around CFByteOrder
 enum ByteOrder {

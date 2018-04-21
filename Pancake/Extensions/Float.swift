@@ -6,8 +6,6 @@
 //  Copyright © 2017 0bmxa. All rights reserved.
 //
 
-import Foundation
-
 extension FloatingPoint {
     func clampedTo(min minValue: Self, max maxValue: Self) -> Self {
         return min(maxValue, max(minValue, self))
