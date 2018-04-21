@@ -36,6 +36,7 @@ public final class Pancake {
         }
         return shared
     }
+
     public static func setupSharedInstance(configuration: Configuration) {
         guard _shared == nil else { fatalError("The shared instance has already been set up.") }
         Pancake._shared = Pancake(configuration: configuration)

@@ -48,8 +48,8 @@ extension DeviceConfiguration {
         guard let config = config?.pointee else { return nil }
 
         var manufacturer: String? = nil
-        if let _manufacturer = config.manufacturer?.takeUnretainedValue() {
-            manufacturer = String(_manufacturer)
+        if let cfManufacturer = config.manufacturer?.takeUnretainedValue() {
+            manufacturer = String(cfManufacturer)
         }
         let name    = String(config.name.takeUnretainedValue())
         let UID     = String(config.UID.takeUnretainedValue())

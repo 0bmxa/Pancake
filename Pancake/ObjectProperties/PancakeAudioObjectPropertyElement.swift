@@ -23,6 +23,7 @@ extension PancakeAudioObjectPropertyElement: RawRepresentable {
         default:                                  self = .other(rawValue)
         }
     }
+
     public var rawValue: AudioObjectPropertyElement {
         switch self {
         case .master:           return kAudioObjectPropertyElementMaster

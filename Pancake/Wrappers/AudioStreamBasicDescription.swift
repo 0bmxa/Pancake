@@ -53,7 +53,7 @@ extension AudioStreamBasicDescription {
         "(Lossless)20BitSourceData":  kAppleLosslessFormatFlag_20BitSourceData,
         "(Lossless)24BitSourceData":  kAppleLosslessFormatFlag_24BitSourceData,
         "(Lossless)32BitSourceData":  kAppleLosslessFormatFlag_32BitSourceData
-        ]
+    ]
 
 
     /// Creates a new ASBD from the specified parameters, calculating the rest
