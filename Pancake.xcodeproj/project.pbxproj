@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE0C7BBC208B9A7200231D36 /* libSyrup.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE0C7BBB208B9A7200231D36 /* libSyrup.a */; };
 		EE3691071FED39840080611F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC156161FD9669C00519526 /* String.swift */; };
 		EE5128E62006507600A6F57B /* PancakeInterface.mm in Sources */ = {isa = PBXBuildFile; fileRef = EEC305E71FE9537400439E48 /* PancakeInterface.mm */; };
 		EE53A0372021F6AE001A004F /* PancakeConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = EE53A0352021F6AE001A004F /* PancakeConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE53A0382021F6AE001A004F /* PancakeConfiguration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE53A0362021F6AE001A004F /* PancakeConfiguration.cpp */; };
 		EE6998A7205443AA0031EA9D /* CppConfigurationTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE6998A6205443AA0031EA9D /* CppConfigurationTest.mm */; };
+		EEA3E42C207640B400737DD4 /* Communication.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA3E42B207640B400737DD4 /* Communication.swift */; };
 		EEC156271FD969F100519526 /* Pancake.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEC1561E1FD969F100519526 /* Pancake.framework */; };
 		EEC156381FD96A2000519526 /* ConfigurationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC156111FD858E000519526 /* ConfigurationTest.swift */; };
 		EEC1563D1FD96A3B00519526 /* Pancake.h in Headers */ = {isa = PBXBuildFile; fileRef = EEC1563B1FD96A3A00519526 /* Pancake.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -71,6 +73,7 @@
 
 /* Begin PBXFileReference section */
 		EE0A5D531F6D62B5008E4441 /* PancakeStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PancakeStream.swift; sourceTree = "<group>"; };
+		EE0C7BBB208B9A7200231D36 /* libSyrup.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSyrup.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE11C0111F6ADB5E0035900D /* PancakeObjectPropertyDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PancakeObjectPropertyDescription.swift; sourceTree = "<group>"; };
 		EE11C0131F6ADD1E0035900D /* PancakeAudioError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PancakeAudioError.swift; sourceTree = "<group>"; };
 		EE11C0151F6ADDDA0035900D /* PancakeAudioObjectPropertyElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PancakeAudioObjectPropertyElement.swift; sourceTree = "<group>"; };
@@ -99,6 +102,7 @@
 		EE8BB2DC1F42007400B3B748 /* DriverInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverInterface.swift; sourceTree = "<group>"; };
 		EE98511B1F6AD13B0021FC73 /* PancakePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PancakePlugin.swift; sourceTree = "<group>"; };
 		EE98511D1F6AD1590021FC73 /* PancakeDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PancakeDevice.swift; sourceTree = "<group>"; };
+		EEA3E42B207640B400737DD4 /* Communication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Communication.swift; sourceTree = "<group>"; };
 		EEBF10591F81BA8300C8E3D4 /* Float.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Float.swift; sourceTree = "<group>"; };
 		EEC156111FD858E000519526 /* ConfigurationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationTest.swift; sourceTree = "<group>"; };
 		EEC156161FD9669C00519526 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -131,6 +135,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE0C7BBC208B9A7200231D36 /* libSyrup.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,6 +150,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EE0C7BBA208B9A7200231D36 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EE0C7BBB208B9A7200231D36 /* libSyrup.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		EE11C0101F6ADB3D0035900D /* ObjectProperties */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +210,7 @@
 				EEC1561F1FD969F100519526 /* Pancake */,
 				EEC1562A1FD969F100519526 /* PancakeTests */,
 				EE69C3A41F30B69F00381315 /* Products */,
+				EE0C7BBA208B9A7200231D36 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -240,6 +254,14 @@
 			path = Objects;
 			sourceTree = "<group>";
 		};
+		EEA3E42A2076409100737DD4 /* Communication */ = {
+			isa = PBXGroup;
+			children = (
+				EEA3E42B207640B400737DD4 /* Communication.swift */,
+			);
+			path = Communication;
+			sourceTree = "<group>";
+		};
 		EEC1561F1FD969F100519526 /* Pancake */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +275,7 @@
 				EEF140CE1F6B183300228A2F /* PancakeObjectProperty.swift */,
 				EE9851181F6AD1090021FC73 /* Objects */,
 				EE11C0101F6ADB3D0035900D /* ObjectProperties */,
+				EEA3E42A2076409100737DD4 /* Communication */,
 				EEDE01FE1F64427B001D4ABE /* MemoryTools.swift */,
 				EE4EDD941F5DB61200273BFC /* DebugTools.swift */,
 				EE8BB2D01F42007400B3B748 /* Constants.swift */,
@@ -464,6 +487,7 @@
 				EEC156731FD96E0F00519526 /* AudioChannelLayout.swift in Sources */,
 				EEC156741FD96E0F00519526 /* AudioObject.swift in Sources */,
 				EEC156691FD96E0F00519526 /* UInt32.swift in Sources */,
+				EEA3E42C207640B400737DD4 /* Communication.swift in Sources */,
 				EEC156641FD96E0F00519526 /* SelectorList.swift in Sources */,
 				EEC1565A1FD96E0F00519526 /* IOOperations.swift in Sources */,
 				EEC156551FD96DFE00519526 /* UUID.swift in Sources */,

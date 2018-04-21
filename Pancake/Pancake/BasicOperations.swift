@@ -8,6 +8,7 @@
 
 import CoreAudio.AudioServerPlugIn
 
+let com = Communication()
 
 extension Pancake {
     /// This method is called to initialize the instance of thvarlug-in.
@@ -26,6 +27,9 @@ extension Pancake {
 
         // Setup signal processor
         self.configuration.pluginSetupCallback?()
+
+        // TODO: TESTING
+        com.go()
 
         return PancakeAudioHardwareError.noError
     }
