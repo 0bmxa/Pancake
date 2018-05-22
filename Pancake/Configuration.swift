@@ -62,6 +62,10 @@ public final class DeviceConfiguration {
     /// This has to be consistent across boots.
     public let modelUID: String
 
+    /// The mach service identifier of the audio routing companion daemon,
+    /// associated with the device.
+    public var daemonMachServiceName: String
+
     /// The audio formats the plugin supports.
     public let supportedFormats: ContiguousArray<AudioStreamBasicDescription>
 
@@ -140,13 +144,14 @@ public final class DeviceConfiguration {
     ///   - uid: A unique string to identify the device in a pool of audio.
     ///          objects. This has to be consistent across boots.
     ///   - supportedFormats: The audio formats the plugin supports.
-    public init(manufacturer: String? = nil, name: String, UID: String, supportedFormats: ContiguousArray<AudioStreamBasicDescription>) {
+    public init(manufacturer: String? = nil, name: String, UID: String, daemonMachServiceName: String, supportedFormats: ContiguousArray<AudioStreamBasicDescription>) {
         // Public
-        self.manufacturer         = manufacturer ?? "Pancake Framework"
-        self.name                 = name
-        self.UID                  = UID
-        self.modelUID             = UID + "_Model" // FIXME:
-        self.supportedFormats     = supportedFormats
+        self.manufacturer          = manufacturer ?? "Pancake Framework"
+        self.name                  = name
+        self.UID                   = UID
+        self.modelUID              = UID + "_Model" // FIXME:
+        self.supportedFormats      = supportedFormats
+        self.daemonMachServiceName = daemonMachServiceName
 
         // Internal
         self.registeredFormat = supportedFormats[0]

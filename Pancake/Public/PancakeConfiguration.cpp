@@ -62,18 +62,27 @@ void ReleasePancakeConfig(PancakeConfiguration **config) {
 
 #pragma mark - Device configuration
 
-PancakeDeviceConfiguration *__nullable CreatePancakeDeviceConfig(CFStringRef __nullable manufacturer, CFStringRef __nonnull name, CFStringRef __nonnull UID) {
+PancakeDeviceConfiguration *__nullable CreatePancakeDeviceConfig(CFStringRef __nullable manufacturer, CFStringRef __nonnull name, CFStringRef __nonnull UID, CFStringRef __nonnull daemonMachServiceName) {
     auto deviceConfig = new PancakeDeviceConfiguration;
     if (deviceConfig == NULL) { return NULL; }
 
+    // Important params
     deviceConfig->manufacturer = manufacturer;
     deviceConfig->name = name;
     deviceConfig->UID = UID;
+    deviceConfig->daemonMachServiceName = daemonMachServiceName;
     deviceConfig->processingCallback = NULL;
     deviceConfig->startIO = NULL;
     deviceConfig->stopIO = NULL;
     deviceConfig->numberOfSupportedFormats = 0;
     deviceConfig->supportedFormats = NULL;
+
+    // Additional params
+    deviceConfig->hidden = false;
+    deviceConfig->canBeDefaultDevice = true;
+    deviceConfig->canHandleSystemAudio = false;
+    deviceConfig->iconURL = NULL;
+    deviceConfig->UIAppBundleID = NULL;
 
     return deviceConfig;
 }

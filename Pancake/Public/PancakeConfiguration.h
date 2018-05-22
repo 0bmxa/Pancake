@@ -20,6 +20,14 @@ struct PancakeDeviceConfiguration {
     void (*__nullable processingCallback)(Float32 *__nonnull, UInt32, UInt32, AudioServerPlugInIOCycleInfo);
     void (*__nullable startIO)(double sampleRate, UInt32 frameCount);
     void (*__nullable stopIO)(double sampleRate, UInt32 frameCount);
+
+    bool hidden;
+    bool canBeDefaultDevice;
+    bool canHandleSystemAudio;
+    CFURLRef __nullable iconURL;
+    CFStringRef __nullable UIAppBundleID;
+    CFStringRef __nonnull daemonMachServiceName;
+
     uint numberOfSupportedFormats;
     AudioStreamBasicDescription *__nullable supportedFormats;
 };
@@ -88,7 +96,8 @@ void ReleasePancakeConfig(PancakeConfiguration *__nonnull *__nullable config);
  */
 PancakeDeviceConfiguration *__nullable CreatePancakeDeviceConfig(CFStringRef __nullable manufacturer,
                                                                  CFStringRef __nonnull name,
-                                                                 CFStringRef __nonnull UID);
+                                                                 CFStringRef __nonnull UID,
+                                                                 CFStringRef __nonnull daemonMachServiceName)
 
 /**
  Adds a format to the list of supported formats and increments the

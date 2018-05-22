@@ -18,10 +18,13 @@ extension PancakeDevice {
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.illegalOperation)
         }
 
-        // Start timing
+        // Start timing & audio playback
         if self.IOCount.value == 0 {
             self.cycleCount.value = 0
             self.referenceHostTime.value = mach_absolute_time()
+
+            let success = self.daemon.startAudio(deviceUID: self.configuration.UID)
+            assert(success)
         }
         self.IOCount.increment()
     }
@@ -37,6 +40,14 @@ extension PancakeDevice {
 
         // Decrements the IO count
         self.IOCount.decrement()
+
+        // If only one client is left, and this client is the daemon, stop audio
+        if self.clients.count == 1, self.clients[0].processID == self.daemon.processID {
+            let success = self.daemon.stopAudio()
+            assert(success)
+        } else if self.clients.count == 1 {
+            assertionFailure()
+        }
     }
 
 

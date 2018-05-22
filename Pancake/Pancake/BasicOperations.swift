@@ -8,8 +8,6 @@
 
 import CoreAudio.AudioServerPlugIn
 
-let com = Communication()
-
 extension Pancake {
     /// This method is called to initialize the instance of thvarlug-in.
     /// As part of initialization, the plug-in should publish all the objects it knows about at the time.
@@ -27,9 +25,6 @@ extension Pancake {
 
         // Setup signal processor
         self.configuration.pluginSetupCallback?()
-
-        // TODO: TESTING
-        com.go()
 
         return PancakeAudioHardwareError.noError
     }
@@ -68,6 +63,14 @@ extension Pancake {
     ///
     /// - Returns: The status of the operation.
     func addDeviceClient(deviceID: AudioObjectID, client: AudioServerPlugInClientInfo) -> OSStatus {
+        guard let device = self.audioObjects[deviceID] as? PancakeDevice else {
+            assertionFailure()
+            return PancakeAudioHardwareError.badObject
+        }
+
+        let client = HALClient(from: client)
+        device.add(client: client)
+
         return PancakeAudioHardwareError.noError
     }
 
@@ -77,6 +80,14 @@ extension Pancake {
     ///
     /// - Returns: The status of the operation.
     func removeDeviceClient(deviceID: AudioObjectID, client: AudioServerPlugInClientInfo) -> OSStatus {
+        guard let device = self.audioObjects[deviceID] as? PancakeDevice else {
+            assertionFailure()
+            return PancakeAudioHardwareError.badObject
+        }
+
+        let client = HALClient(from: client)
+        device.remove(client: client)
+
         return PancakeAudioHardwareError.noError
     }
 }
@@ -94,6 +105,8 @@ extension Pancake {
     ///   - changeAction A UInt64 indicating the action the device object wants to take. This is the same value that was passed to RequestDeviceConfigurationChange(). Note that this value is purely for the plug-in's usage. The Host does not look at this value.
     /// - Returns: The status of the operation.
     func performDeviceConfigurationChange(deviceID: AudioObjectID, action: UInt64) -> OSStatus {
+        assertionFailure()
+        return PancakeAudioHardwareError.unsupportedOperation
 
         //    This method is called to tell the device that it can perform the configuation change that it
         //    had requested via a call to the host method, RequestDeviceConfigurationChange(). The
@@ -135,6 +148,9 @@ extension Pancake {
     ///   - changeAction A UInt64 indicating the action the device object wants to take. This is the same value that was passed to RequestDeviceConfigurationChange(). Note that this value is purely for the plug-in's usage. The Host does not look at this value.
     /// - Returns: The status of the operation.
     func abortDeviceConfigurationChange(deviceID: AudioObjectID, action: UInt64) -> OSStatus {
-        fatalError(); //return 0
+        assertionFailure()
+        return PancakeAudioHardwareError.unsupportedOperation
+
+        //return PancakeAudioHardwareError.noError
     }
 }

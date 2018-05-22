@@ -13,8 +13,9 @@ final class PancakeDevice: PancakeObjectType {
 
     private let pancake: Pancake
     internal let configuration: DeviceConfiguration
-    private var controls: ContiguousArray<PancakeControl>
-    internal var streams: ContiguousArray<PancakeStream>
+    private var controls: ContiguousArray<PancakeControl> = []
+    internal var streams: ContiguousArray<PancakeStream>  = []
+    internal var clients: ContiguousArray<HALClient>      = []
 
     // IO / timing stuff
     internal var IOCount = AtomicCounter<UInt64>()
@@ -27,9 +28,6 @@ final class PancakeDevice: PancakeObjectType {
     init(pancake: Pancake, configuration: DeviceConfiguration) {
         self.pancake       = pancake
         self.configuration = configuration
-        self.controls      = []
-        self.streams       = []
-
         self.createControls()
     }
 
@@ -62,6 +60,10 @@ final class PancakeDevice: PancakeObjectType {
         self.controls = [inputMasterVolumeControl, outputMasterVolumeControl]
     }
 
+    lazy var daemon: DaemonReference = {
+        let machServiceName = self.configuration.daemonMachServiceName
+        return DaemonReference(daemonServiceName: machServiceName)
+    }()
 
 
     func getProperty(description: PancakeObjectPropertyDescription, sizeHint: UInt32?) throws -> PancakeObjectProperty {
@@ -303,5 +305,27 @@ final class PancakeDevice: PancakeObjectType {
             print("Not implemented:", description.selector)
             throw PancakeObjectPropertyQueryError(status: PancakeAudioHardwareError.unknownProperty)
         }
+    }
+}
+
+
+// MARK: - Client handling
+extension PancakeDevice {
+    func add(client: HALClient) {
+        guard (!self.clients.contains { $0 == client }) else {
+            assertionFailure()
+            return
+        }
+
+        self.clients.append(client)
+    }
+
+    func remove(client: HALClient) {
+        guard let clientIndex = self.clients.index(of: client) else {
+            assertionFailure()
+            return
+        }
+
+        self.clients.remove(at: clientIndex)
     }
 }
