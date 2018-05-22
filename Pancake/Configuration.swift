@@ -54,14 +54,6 @@ public final class DeviceConfiguration {
     /// The device name.
     public let name: String
 
-    /// A unique string to identify the device in a pool of audio objects.
-    /// This has to be consistent across boots.
-    public let UID: String
-
-    /// A unique string to identify the device in a pool of audio objects.
-    /// This has to be consistent across boots.
-    public let modelUID: String
-
     /// The mach service identifier of the audio routing companion daemon,
     /// associated with the device.
     public var daemonMachServiceName: String
@@ -103,16 +95,42 @@ public final class DeviceConfiguration {
 
     // MARK: - Internal
 
-    /// The format registered with the host (i.e. the active format)
-    internal var registeredFormat: AudioStreamBasicDescription {
-        didSet {
-            self.ringBuffer.update(format: self.registeredFormat)
-            Pancake.shared.setup()
-        }
+    /// A String that contains a persistent identifier for the AudioDevice.
+    ///
+    /// An AudioDevice's UID is persistent across boots. The content of the UID
+    /// string is a black box and may contain information that is unique to a
+    /// particular instance of an AudioDevice's hardware or unique to the CPU.
+    /// Therefore they are not suitable for passing between CPUs or for
+    /// identifying similar models of hardware.
+    internal var UID: String {
+        let snakeManufacturer = self.manufacturer.replacingOccurrences(of: " ", with: "_")
+        let snakeName = self.name.replacingOccurrences(of: " ", with: "_")
+        return "Pancake:\(snakeManufacturer):\(snakeName):0"
     }
 
-    // The next format to register with the host
-    internal var formatToActivate: AudioStreamBasicDescription?
+    /// A String that contains a persistent identifier for the model of an
+    /// AudioDevice.
+    ///
+    /// The identifier is unique such that the identifier from two AudioDevices
+    /// are equal if and only if the two AudioDevices are the exact same model
+    /// from the same manufacturer. Further, the identifier has to be the same
+    /// no matter on what machine the AudioDevice appears.
+    internal var modelUID: String {
+        let snakeManufacturer = self.manufacturer.replacingOccurrences(of: " ", with: "_")
+        let snakeName = self.name.replacingOccurrences(of: " ", with: "_")
+        return "Pancake:\(snakeManufacturer):\(snakeName)"
+    }
+
+    /// The format registered with the host (i.e. the active format)
+    internal var registeredFormat: AudioStreamBasicDescription
+//    {
+//        didSet {
+//            self.ringBuffer.update(format: self.registeredFormat)
+//        }
+//    }
+//
+//    // The next format to register with the host
+//    internal var formatToActivate: AudioStreamBasicDescription?
 
     /// The IO ring buffer
     internal let ringBuffer: RingBuffer
@@ -144,12 +162,10 @@ public final class DeviceConfiguration {
     ///   - uid: A unique string to identify the device in a pool of audio.
     ///          objects. This has to be consistent across boots.
     ///   - supportedFormats: The audio formats the plugin supports.
-    public init(manufacturer: String? = nil, name: String, UID: String, daemonMachServiceName: String, supportedFormats: ContiguousArray<AudioStreamBasicDescription>) {
+    public init(manufacturer: String? = nil, name: String, daemonMachServiceName: String, supportedFormats: ContiguousArray<AudioStreamBasicDescription>) {
         // Public
         self.manufacturer          = manufacturer ?? "Pancake Framework"
         self.name                  = name
-        self.UID                   = UID
-        self.modelUID              = UID + "_Model" // FIXME:
         self.supportedFormats      = supportedFormats
         self.daemonMachServiceName = daemonMachServiceName
 

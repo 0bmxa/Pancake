@@ -32,7 +32,7 @@ extension Pancake {
         }
 
         self.pluginReferenceCounter.increment()
-        interface.setInterfacePointer(from: Pancake.shared.driver)
+        interface.setInterfacePointer(from: self.driver)
 
         return HRESULT.ok
     }

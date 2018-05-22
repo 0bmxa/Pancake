@@ -30,7 +30,7 @@ public final class Pancake {
 
     // Shared instance
     private static var _shared: Pancake?
-    public static var shared: Pancake {
+    internal static var shared: Pancake {
         guard let shared = Pancake._shared else {
             fatalError("The shared instance was never set up. Please call `Pancake.setupSharedInstance()` first before accessing it.")
         }
@@ -46,28 +46,32 @@ public final class Pancake {
 extension Pancake {
     /// Creates a basic setup, based on the user config, consisting of
     /// - 1 box
-    /// - 1 device
+    /// - N devices
     ///   - 1 input stream
     ///   - 1 output stream
+    /// - Warning: This only adds the audio objects to the list, without any
+    ///   checks whether those already exist.
     internal func setup() {
         // Create a box. As we only always have one (which should never be
         // user facing), we can configure it statically here.
         let box = PancakeBox(pancake: self, UID: "PancakeBox", name: "Pancake Box")
         self.audioObjects.add(object: box)
 
-        // Only the first device is created atm.
-        let deviceConfig = self.configuration.devices[0]
+        // Create all devices
+        self.configuration.devices.forEach { deviceConfig in
+            // Create the device
+            let device = PancakeDevice(pancake: self, configuration: deviceConfig)
+            self.audioObjects.add(device)
 
-        // Create a device with 2 streams
-        let device = PancakeDevice(pancake: self, configuration: deviceConfig)
-        self.audioObjects.add(device)
+            // Create 2 streams
+            let channelCount = deviceConfig.registeredFormat.mBitsPerChannel
+            let inputStream  = PancakeStream(pancake: self, direction: .input,  channelCount: channelCount)
+            let outputStream = PancakeStream(pancake: self, direction: .output, channelCount: channelCount)
+            self.audioObjects.add(inputStream, outputStream)
 
-        let channelCount = deviceConfig.registeredFormat.mBitsPerChannel
-        let inputStream  = PancakeStream(pancake: self, direction: .input,  channelCount: channelCount)
-        let outputStream = PancakeStream(pancake: self, direction: .output, channelCount: channelCount)
-        self.audioObjects.add(inputStream, outputStream)
-
-        device.setStreams([inputStream, outputStream])
+            // Add the streams to the device
+            device.setStreams([inputStream, outputStream])
+        }
     }
 
 }

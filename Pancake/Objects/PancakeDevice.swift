@@ -145,8 +145,8 @@ final class PancakeDevice: PancakeObjectType {
 
         case .objectOwnedObjects:
             try assure(AudioObjectID.self, fitsIn: sizeHint)
-            let streamIDs  = self.streams.flatMap { $0.objectID }
-            let controlIDs = self.controls.flatMap { $0.objectID }
+            let streamIDs  = self.streams.compactMap { $0.objectID }
+            let controlIDs = self.controls.compactMap { $0.objectID }
             let ownedObjects = ContiguousArray(streamIDs + controlIDs).limitedTo(avaliableMemory: sizeHint)
             return .pancakeObjectIDList(ownedObjects)
 
@@ -170,13 +170,13 @@ final class PancakeDevice: PancakeObjectType {
         case .deviceStreams:
             try assure(AudioObjectID.self, fitsIn: sizeHint)
             let streamsForScope = self.streams.filter { $0.direction == description.scope }
-            let streamIDs = ContiguousArray(streamsForScope.flatMap { $0.objectID })
+            let streamIDs = ContiguousArray(streamsForScope.compactMap { $0.objectID })
             let elements = streamIDs.limitedTo(avaliableMemory: sizeHint)
             return .pancakeObjectIDList(elements)
 
         case .deviceControlList:
             try assure(AudioObjectID.self, fitsIn: sizeHint)
-            let controlIDs = ContiguousArray(self.controls.flatMap { $0.objectID })
+            let controlIDs = ContiguousArray(self.controls.compactMap { $0.objectID })
             let elements = controlIDs.limitedTo(avaliableMemory: sizeHint)
             return .pancakeObjectIDList(elements)
 

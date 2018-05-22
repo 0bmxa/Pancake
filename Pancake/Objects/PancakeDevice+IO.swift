@@ -178,7 +178,7 @@ extension PancakeDevice {
             ringBuffer.copy(to: buffer, fromOffset: startFrameOffset, numberOfFrames: numberOfFrames)
 
             if let processingCallback = self.configuration.processingCallback {
-                var bufferPointer = buffer.assumingMemoryBound(to: Float32.self)
+                let bufferPointer = buffer.assumingMemoryBound(to: Float32.self)
                 processingCallback(bufferPointer, numberOfFrames, self.channelCount, cycle)
             }
 
